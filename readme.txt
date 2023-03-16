@@ -1,13 +1,13 @@
-=== Product XML Feeds for WooCommerce ===
+=== Product XML Feed Manager for WooCommerce - Google Shopping, Social Sites, Skroutz & More ===
 Contributors: omardabbas
 Tags: woocommerce, product xml feeds, xml, export
 Requires at least: 4.4
-Tested up to: 5.3
-Stable tag: 1.7.3
+Tested up to: 6.1
+Stable tag: 2.7.2
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Product XML feeds for WooCommerce.
+Create your own XML files using tens of preconfigured shortcodes for you on your WooCommerce store
 
 == Description ==
 
@@ -46,6 +46,13 @@ It also includes **additional products filtering options**:
 
 You can also change the **update (i.e. regeneration) period** (weekly by default): Every minute; Hourly; Twice daily; Daily; Weekly.
 
+= Demo Store =
+
+If you want to try the plugin features, play around with its settings before installing it on your live website, feel free to do so on this demo store:
+URL: https://wpwhale.com/demo/wp-admin/
+User: demo
+Password: G6_32e!r@
+
 = Feedback =
 
 * We are open to your suggestions and feedback. Thank you for using or trying out one of our plugins!
@@ -58,6 +65,174 @@ You can also change the **update (i.e. regeneration) period** (weekly by default
 3. Start by visiting plugin settings at "WooCommerce > Settings > Product XML Feeds".
 
 == Changelog ==
+
+= 2.7.2 - 04/03/2023 =
+* Added external & bundle products to "Filter by product type" section
+* Added a shortcode to include category description
+* Verified compatibility with WooCommerce 7.4
+
+= 2.7.1 - 06/02/2023 =
+* Fixed a bug in filtering type affecting variations
+* Verified compatibility with WooCommerce 7.3
+
+= 2.7 - 22/12/2022 =
+* Added custom meta query without value parameter (_thumbnail_id, EXISTS)
+* Allowed entering products in Include/Exclude by SKU number
+* Verified compatibility with WooCommerce 7.2
+
+= 2.6.4 - 29/11/2022 =
+* Fixed issues in filtering variations & variable products
+* New attributes added
+
+= 2.6.3 - 13/11/2022 =
+* New option to filter products by type (simple, variable, grouped)
+* Verified compatibility with WooCommerce 7.1
+
+= 2.6.2 - 04/11/2022 =
+* Added new section for Custom meta filters
+* New shortcode added alg_product_available_variations
+* Verified compatibility with WordPress 6.1
+
+= 2.6.1 - 15/10/2022 =
+* Fixed Fatal Error messages appearing on multi-language feeds
+* Verified compatibility with WooCommerce 7.0
+
+= 2.6 - 20/09/2022 =
+* Included new options to exclude categories by ID in Taxonomy shortcode
+* Added a new option in interface to exclude tags if empty
+* A new option to specify requirements for variations (Skroutz compatible)
+* Compatibility with WooComemrce 6.9
+
+= 2.5.4 - 06/09/2022 =
+* Included new attributes (is_child, is_parent) for categories taxonomy to show each in separate row
+* Included a new attribute (pick_order=N) for tag taxonomy to show multiple tags
+
+= 2.5.3 - 10/08/2022 =
+* Fixed a bug related to product tags
+* Enhanced description shortcode to handle new lines properly
+* Compatibility with WooComemrce 6.8
+
+= 2.5.2 - 28/06/2022 =
+* Added shortcode to include category IDs
+* Added a shortcode to list attributes hierarchy
+* Added a shortcode to list tags separately
+* Verified compatibility with WooComemrce 6.6
+
+= 2.5.1 - 12/06/2022 =
+* Verified compatibily with  WooCommerce 6.5 & WordPress 6.0
+
+= 2.5 - 19/03/2022 =
+* Verified compatibily with  WooCommerce 6.3
+* Added new attribute select="min_price" to select the lowest price from variations
+
+= 2.4.1 - 18/02/2022 =
+* Added an attribute on_zero for shortcode [alg_product_sale_price] to handle sale price as fallback if price is zero
+
+= 2.4 - 12/02/2022 =
+* Fixed a bug that showed draft products in feed in particular cases
+* Enhanced how feed should show products without stock
+* Verified compatibily with  WooCommerce 6.2
+
+= 2.3 - 28/01/2022 =
+* Verified compatibily with WordPress 5.9 & WooCommerce 6.1
+
+= 2.2.6 - 11/10/2021 =
+* Fixed a bug related to duplicating variations with pre-set filters
+* Verified compatibility with WooCommerce 5.7
+
+= 2.2.5 - 20/09/2021 =
+* More WPML compatibilty with attribute exchange_rate for manual currency conversion when needed
+* Added 2 attributes to [alg_product_stock_availability] to show specific values (Y,N) based on stock status
+
+= 2.2.4 - 14/09/2021 =
+* Verified compatibility with WooCommerce 5.6
+* Added parameters to work with Advanced Custom Fields plugin
+* Fixed a notice message (Undefined index: sum_with)
+
+= 2.2.3 - 16/08/2021 =
+* Added parameter "strip tags" to [alg_product_description] shortcode
+* Added a new shortcode [alg_product_publish_date] to include product publish date (date & time follow PHP date standards)
+
+= 2.2.2 - 06/08/2021 =
+* Allowed turning off schedule (useful when using cron jobs handling introduced in 2.2.1)
+* Minor typo fix on showing stock
+
+= 2.2.1 - 24/07/2021 =
+* Added an option for manual cron job handling
+* Fixed a bug that was duplicating products in feed
+* Verified compatibility with WooCommerce 5.5 & WP 5.8
+
+= 2.2 - 09/07/2021 =
+* Added new shortcode to list variations based on stock status
+* Added an attribute to show stock status without quantity
+* Verified compatibility with WooCommerce 5.4
+
+= 2.1.3 - 20/04/2021 =
+* Tested compatibilty with WC 5.2 & WP 5.7
+
+= 2.1.2 - 28/02/2021 =
+* Tested compatibilty with WC 5.0
+
+= 2.1.1 - 07/02/2021 =
+* Added options to multiply/add flat prices to regular price shortcode
+
+= 2.1 - 27/01/2021 =
+* Added shortcodes for compatibiltity with multi language stores
+* Enhanced on shortcodes for proper results
+* Tested compatibility with WC 4.9
+
+= 2.0 - 11/12/2020 =
+* Fixed a warning message for query_post_type
+* Tested compatibility with WC 4.8 & WP 5.6
+
+= 1.9.6 - 15/11/2020 =
+* Bug fix for fatal error that appears in some stores
+* Tested compatibility with WC 4.7
+
+= 1.9.5 - 22/09/2020 =
+* Created a new option to export a .txt version for the output file
+* Variations product will now read the parent long and short description by default
+
+= 1.9.4 - 18/09/2020 =
+* Added an option to remove plugin branding (XML footer) in Pro version
+
+= 1.9.3 - 13/09/2020 =
+* Added optional attributes to read from arrays
+* [alg_product_sale_price] & [alg_product_regular_price] now show price ranges for variations of variable product
+* Added a link to plugin homepage in XML footer
+* Tested compatibility with WC 4.5
+
+= 1.9.2 - 26/08/2020 =
+* Bug fix: Plugin was showing <Attributes/> instead of </Attributes> in shortcodes.
+* Verified compatibility with WC 4.4 & WP 5.5
+
+= 1.9.1 - 28/04/2020 =
+* Fixed a bug that showed all attributes slugs in cases where it should show empty (no attributes value)
+
+= 1.9 - 24/04/2020 =
+* Feature: new shortcode added: [alg_product_categories_ids] to retrieve product category ids
+
+= 1.8.2 - 15/04/2020 =
+* Feature: Two new shortcodes added to show attribute slug & att. values slugs
+* Tested compatibility with WC 4 & WP 5.4
+
+= 1.8.1 - 01/03/2020 =
+* Dev: Fixed a bug that showed variations twice in specific scenarios
+
+= 1.8 - 08/02/2020 =
+* Dev: Fixed filtering options bug for variation & variable products
+* Overall code enhancement
+
+= 1.7.6 - 29/01/2020 =
+* Dev: Changed site_url to home_url in XML file path
+
+= 1.7.4 - 02/01/2020 =
+* Text updates over the plugin pages.
+* Copyrights Update
+* Added a section to review the plugin
+
+= 1.7.3 - 20/11/2019 =
+* Plugin author changed.
 
 = 1.7.3 - 20/11/2019 =
 * Plugin author changed.

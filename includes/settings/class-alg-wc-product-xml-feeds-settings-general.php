@@ -108,6 +108,7 @@ class Alg_WC_Product_XML_Feeds_Settings_General extends Alg_WC_Product_XML_Feeds
 				'default'  => 'yes',
 				'type'     => 'checkbox',
 			),
+			
 			array(
 				'type'     => 'sectionend',
 				'id'       => 'alg_wc_product_xml_feeds_advanced_options',

@@ -97,6 +97,7 @@ class Alg_Shortcodes {
 			'convert_currency_from'      => '',
 			'convert_currency_to'        => '',
 			'convert_currency_precision' => 2,
+			'exchange_rate' 			 => 0,
 			'custom_function'            => '',
 			'strip_tags'                 => 'yes',
 			'strip_shortcodes'           => 'no',
@@ -124,7 +125,9 @@ class Alg_Shortcodes {
 				);
 			}
 			// Currency conversion
-			if (
+			if (! empty( $atts['convert_currency_from'] ) && ! empty( $atts['convert_currency_to'] ) && is_numeric( $result ) && ! empty( $atts['exchange_rate'] )) {
+				$result = round( $result * $atts['exchange_rate'], $atts['convert_currency_precision'] );
+			} else if (
 				! empty( $atts['convert_currency_from'] ) && ! empty( $atts['convert_currency_to'] ) && is_numeric( $result ) &&
 				false != ( $exchange_rate = $this->get_currency_exchange_rate_ecb( strtoupper( $atts['convert_currency_from'] ), strtoupper( $atts['convert_currency_to'] ) ) )
 			) {
@@ -132,20 +135,41 @@ class Alg_Shortcodes {
 			}
 			// Find/Replace
 			if ( '' != $atts['find'] ) {
+				$atts['find'] = html_entity_decode($atts['find']);
+				$atts['replace'] = html_entity_decode($atts['replace']);
 				$result = ( '' != $atts['find_replace_sep'] ?
 					str_replace( explode( $atts['find_replace_sep'], $atts['find'] ), explode( $atts['find_replace_sep'], $atts['replace'] ), $result ) :
 					str_replace( $atts['find'], $atts['replace'], $result )
 				);
 			}
 			// Custom function
+			
 			if ( '' != $atts['custom_function'] && function_exists( $atts['custom_function'] ) ) {
 				$custom_function = $atts['custom_function'];
 				$result          = $custom_function( $result );
 			}
+			
+			// on_zero_apply_shortcodes
+			if(isset($atts['on_zero_apply_shortcodes']) && 'yes' == strtolower($atts['on_zero_apply_shortcodes']) ){
+				if(isset($atts['on_zero']) && '' != $atts['on_zero'] ){
+					if($result == 0){
+						$result = do_shortcode( str_replace( array( '{', '}' ), array( '[', ']' ), $atts['on_zero'] ) );
+					}
+				}
+			}
+			
 			// CDATA
 			if ( 'yes' === $atts['cdata'] ) {
 				$result = '<![CDATA[' . $result . ']]>';
 			}
+			
+			if(!empty($atts['before'])){
+				$atts['before'] = str_replace( array('#algequal;','#algquotstart;','#algquotend;'), array('=','"','"'), $atts['before'] );
+			}
+			if(!empty($atts['after'])){
+				$atts['after'] = str_replace( array('#algequal;','#algquotstart;','#algquotend;'), array('=','"','"'), $atts['after'] );
+			}
+			
 			// Before/After
 			return $atts['before'] . $result . $atts['after'];
 		} else {
