@@ -442,6 +442,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	 * @since   1.0.0
 	 */
 	function alg_product_available_variations( $atts ) {
+		global $global_file_name;
 		if ( $this->the_product->is_type( 'variable' ) ) {
 			
 			$sep2 = ( isset( $atts['sep2'] ) ? $atts['sep2'] : ': ' );
@@ -468,8 +469,8 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 				}
 			}
 			
-			if ( isset( $_GET['alg_create_products_xml'] ) ) {
-				$file_num = $_GET['alg_create_products_xml'];
+			if ( isset( $global_file_name ) && !empty( $global_file_name ) ) {
+				$file_num = $global_file_name;
 				$products_variable          = get_option( 'alg_products_xml_variable_' . $file_num, 'variable_only' );
 				if($products_variable == 'both'){
 					return 'scvariations#'.$this->the_product->get_id();

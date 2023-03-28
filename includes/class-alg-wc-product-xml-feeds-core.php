@@ -261,6 +261,8 @@ class Alg_WC_Product_XML_Feeds_Core {
 	 * @todo    [feature] condition: stock <>= X
 	 */
 	function create_products_xml( $file_num ) {
+		global $global_file_name;
+		$global_file_name = $file_num;
 		// Memory limit
 		if ( 0 != ( $php_memory_limit = get_option( 'alg_products_xml_php_memory_limit', 0 ) ) ) {
 			ini_set( 'memory_limit', $php_memory_limit . 'M' );
