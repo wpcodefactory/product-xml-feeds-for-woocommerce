@@ -1,0 +1,29 @@
+langs/desktop.ini
+*.ini
+includes/shortcodes/desktop.ini
+includes/settings/desktop.ini
+includes/pro/desktop.ini
+includes/desktop.ini
+
+# PhpStorm
+.idea
+.idea/*
+
+# VSCode
+.vscode
+.vscode/*
+
+# Composer
+composer.lock
+
+# Node
+node_modules/
+package.json
+package-lock.json
+
+# Coding standards
+/vendor/dealerdirect
+/vendor/phpcompatibility
+/vendor/squizlabs
+/vendor/wp-coding-standards
+.phpcs.cache

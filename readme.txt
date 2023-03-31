@@ -66,6 +66,9 @@ Password: G6_32e!r@
 
 == Changelog ==
 
+= 2.7.4 - 31/03/2023 =
+* Move to WPFactory.
+
 = 2.7.3 - 23/03/2023 =
 * Fixed a bug in variations handling
 * Verified compatibility with WooCommerce 7.5
