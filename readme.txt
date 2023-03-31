@@ -3,7 +3,7 @@ Contributors: omardabbas
 Tags: woocommerce, product xml feeds, xml, export
 Requires at least: 4.4
 Tested up to: 6.1
-Stable tag: 2.7.3
+Stable tag: 2.7.4
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
