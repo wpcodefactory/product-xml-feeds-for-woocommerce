@@ -1,632 +1,618 @@
-# Copyright (C) 2023 WPFactory
-# This file is distributed under the GNU General Public License v3.0.
-msgid ""
-msgstr ""
-"Project-Id-Version: product-xml-feeds-for-woocommerce 2.7.4\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/product-xml-feeds-for-woocommerce\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-03-31T21:10:01+02:00\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.4.0\n"
-"X-Domain: product-xml-feeds-for-woocommerce\n"
-
-#. Plugin Name of the plugin
-msgid "Product XML Feeds for WooCommerce Pro"
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\pro\class-alg-wc-product-xml-feeds-pro.php:74
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\pro\class-alg-wc-product-xml-feeds-pro.php:75
+msgid "Save changes"
 msgstr ""
 
-#. Plugin URI of the plugin
-msgid "https://wpfactory.com/item/product-xml-feeds-woocommerce/"
-msgstr ""
-
-#. Description of the plugin
-msgid "Create your own XML files using tens of preconfigured shortcodes for you on your WooCommerce store"
-msgstr ""
-
-#. Author of the plugin
-msgid "WPFactory"
-msgstr ""
-
-#. Author URI of the plugin
-msgid "https://wpfactory.com"
-msgstr ""
-
-#: includes/class-alg-wc-product-xml-feeds-core.php:92
-msgid "Once Weekly"
-msgstr ""
-
-#: includes/class-alg-wc-product-xml-feeds-core.php:96
-msgid "Once a Minute"
-msgstr ""
-
-#: includes/class-alg-wc-product-xml-feeds-core.php:108
-msgid "Products XML file created successfully."
-msgstr ""
-
-#: includes/class-alg-wc-product-xml-feeds-core.php:118
-msgid "An error has occurred while creating products XML file."
-msgstr ""
-
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:24
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:209
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:24
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:209
+#, php-format
 msgid "XML Feed #%d"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:109
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:109
 msgid "Default (current)"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:126
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:126
 msgid "Don't forget to save settings if you've made any changes."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:127
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:127
 msgid "Create now"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:131
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:131
+#, php-format
 msgid "%s till next update."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:133
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:133
+#, php-format
 msgid "%s seconds till next update."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:140
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:140
+#, php-format
 msgid "Recent file was created on %s"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:193
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:201
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:193
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:201
 msgid "XML Feed"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:199
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:199
 msgid "Enable/Disable"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:200
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:271
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:315
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:354
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:106
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:200
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:271
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:315
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:354
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-general.php:106
 msgid "Enable"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:207
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:207
 msgid "Admin title"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:218
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:218
 msgid "Template Options"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:223
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:223
 msgid "XML header"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:224
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:233
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:251
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:279
-msgid "Please visit <a href=\"%s\" target=\"_blank\">Product XML Feeds for WooCommerce page</a> to check all available shortcodes."
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:224
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:233
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:251
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:279
+#, php-format
+msgid ""
+"Please visit <a href=\"%s\" target=\"_blank\">Product XML Feeds for "
+"WooCommerce page</a> to check all available shortcodes."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:232
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:232
 msgid "XML item"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:241
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:241
 msgid "Variation XML item"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:242
-msgid "Please visit <a href=\"%s\" target=\"_blank\">Product XML Feeds for WooCommerce page</a> to check all available shortcodes. It will works when \"Variable products\" option selected to be \"Both variable and variations products\""
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:242
+#, php-format
+msgid ""
+"Please visit <a href=\"%s\" target=\"_blank\">Product XML Feeds for "
+"WooCommerce page</a> to check all available shortcodes. It will works when "
+"\"Variable products\" option selected to be \"Both variable and variations "
+"products\""
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:250
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:250
 msgid "XML footer"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:260
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:260
 msgid "Hide XML tags if empty"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:261
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:261
 msgid "Eg: product, stock etc with comma separated."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:270
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:270
 msgid "Create text feed"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:278
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:278
 msgid "Text item"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:291
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:365
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:291
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:365
 msgid "General Options"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:296
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:296
 msgid "XML file path and name"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:297
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:306
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:297
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:306
 msgid "Path on server:"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:298
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:307
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:298
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:307
 msgid "URL:"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:305
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:305
 msgid "Text file path and name"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:314
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:314
 msgid "Use Site Address (HOME_URL)"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:321
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:321
 msgid "Update period"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:330
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:330
 msgid "Update every minute"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:331
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:331
 msgid "Update hourly"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:332
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:332
 msgid "Update twice daily"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:333
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:333
 msgid "Update daily"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:334
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:334
 msgid "Update weekly"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:336
-msgid "Possible update periods are: every minute, hourly, twice daily, daily and weekly."
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:336
+msgid ""
+"Possible update periods are: every minute, hourly, twice daily, daily and "
+"weekly."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:346
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:346
 msgid "Manual Cron Job Command"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:352
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:352
 msgid "Turn off WP schedule"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:353
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:353
 msgid "Turn off WP schedule of this plugin only."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:373
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:373
 msgid "WPML language"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:384
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:384
 msgid "Sorting: Order by"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:390
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:390
 msgid "Product ID"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:391
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:391
 msgid "Title"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:392
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:392
 msgid "Slug"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:393
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:393
 msgid "Date"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:394
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:394
 msgid "Last modified date"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:395
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:395
 msgid "Number of comments"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:396
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:396
 msgid "Author"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:397
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:397
 msgid "Random"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:398
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:398
 msgid "None"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:402
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:402
 msgid "Sorting: Order"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:408
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:408
 msgid "Ascending"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:409
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:409
 msgid "Descending"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:413
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:413
 msgid "Remove XML Plugin Branding"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:427
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:427
 msgid "Products Filtering Options"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:432
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:432
 msgid "Products to include"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:433
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:433
 msgid "To include selected products only, enter products here."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:434
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:444
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:454
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:464
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:474
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:484
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:559
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:606
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:623
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:641
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:434
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:444
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:454
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:464
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:474
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:484
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:559
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:606
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:623
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:641
 msgid "Leave blank to include all products."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:442
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:442
 msgid "Products to exclude"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:443
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:443
 msgid "To exclude selected products, enter products here."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:452
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:452
 msgid "Categories to include"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:453
-msgid "To include products from selected categories only, enter categories here."
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:453
+msgid ""
+"To include products from selected categories only, enter categories here."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:462
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:462
 msgid "Categories to exclude"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:463
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:463
 msgid "To exclude products from selected categories, enter categories here."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:472
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:472
 msgid "Tags to include"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:473
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:473
 msgid "To include products from selected tags only, enter tags here."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:482
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:482
 msgid "Tags to exclude"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:483
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:483
 msgid "To exclude products from selected tags, enter tags here."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:492
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:492
 msgid "Product types to include"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:493
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:493
 msgid "Product types to include (multiselect): "
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:494
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:494
 msgid "Leave blank to include all product types."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:503
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:503
 msgid "Variable products"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:509
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:509
 msgid "Variable product only"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:510
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:510
 msgid "Variation products only"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:511
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:511
 msgid "Both variable and variations products"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:515
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:515
 msgid "Products scope"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:521
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:521
 msgid "All products"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:522
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:522
 msgid "Only products that are on sale"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:523
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:523
 msgid "Only products that are not on sale"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:524
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:524
 msgid "Only products that are featured"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:525
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:525
 msgid "Only products that are not featured"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:529
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:529
 msgid "Offset products"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:530
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:530
 msgid "Number of products to pass over."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:537
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:537
 msgid "Total products"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:538
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:538
 msgid "Set to zero to include all products."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:549
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:549
 msgid "Extra Products Filtering Options"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:557
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:557
 msgid "Stock status"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:558
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:558
 msgid "Possible values (multiselect): In stock, Out of stock, On backorder."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:565
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:565
 msgid "In stock"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:566
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:566
 msgid "Out of stock"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:567
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:567
 msgid "On backorder"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:572
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:572
 msgid "Min price"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:573
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:581
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:573
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:581
 msgid "Ignored if empty."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:580
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:580
 msgid "Max price"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:588
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:588
 msgid "Catalog visibility"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:589
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:589
 msgid "If empty, then all products will be included in the feed."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:595
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:595
 msgid "Shop and search results (i.e. visible)"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:596
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:596
 msgid "Shop only"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:597
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:597
 msgid "Search results only"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:598
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:598
 msgid "Hidden"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:603
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:603
 msgid "Custom taxonomy to include"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:604
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:621
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:631
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:639
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:604
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:621
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:631
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:639
+#, php-format
 msgid "E.g.: %s"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:605
-msgid "To include products from selected taxonomy only, enter taxonomy slug here."
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:605
+msgid ""
+"To include products from selected taxonomy only, enter taxonomy slug here."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:613
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:613
 msgid "Custom taxonomy slugs (comma separated)"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:620
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:620
 msgid "Attribute to include"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:622
-msgid "To include products from selected attribute only, enter attribute slug here."
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:622
+msgid ""
+"To include products from selected attribute only, enter attribute slug here."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:630
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:630
 msgid "Attribute values (comma separated)"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:638
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:638
 msgid "Custom meta filter"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:639
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:639
 msgid "Meta key, compare, value (comma separated)"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:640
-msgid "To include products from selected custom meta value only, enter meta information here as per instruction."
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-feed.php:640
+msgid ""
+"To include products from selected custom meta value only, enter meta "
+"information here as per instruction."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:24
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-general.php:24
 msgid "General"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:39
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-general.php:39
 msgid "Product XML Feeds Options"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:44
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-general.php:44
 msgid "WooCommerce Product XML Feeds"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:45
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-general.php:45
 msgid "Enable plugin"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:46
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-general.php:46
 msgid "Product XML Feeds for WooCommerce."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:52
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-general.php:52
 msgid "Total XML files (feeds)"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:66
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-general.php:66
 msgid "Advanced Options"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:71
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-general.php:71
 msgid "Block size for products query"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:72
-msgid "Sets the number of products feed file creation script should process in single loop."
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-general.php:72
+msgid ""
+"Sets the number of products feed file creation script should process in "
+"single loop."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:79
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-general.php:79
 msgid "PHP memory limit"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:80
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-general.php:80
 msgid "Sets PHP memory limit."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:81
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-general.php:81
 msgid "Ignored if set to zero."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:82
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-general.php:82
 msgid "megabytes"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:89
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-general.php:89
 msgid "PHP time limit"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:90
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-general.php:90
 msgid "Sets the number of seconds feed file creation script is allowed to run."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:91
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-general.php:91
 msgid "Set to zero for no time limit."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:92
-msgid "Ignored if set to -1 (and server's default time limit of %s seconds is used)."
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-general.php:92
+#, php-format
+msgid ""
+"Ignored if set to -1 (and server's default time limit of %s seconds is used)."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:94
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-general.php:94
+#, php-format
 msgid "Check %s function documentation for more info."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:102
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-general.php:102
 msgid "\"Raw\" input"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:103
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-general.php:103
 msgid "Affects \"Template Options\"."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:104
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-product-xml-feeds-settings-general.php:104
+#, php-format
 msgid "If disabled, use %s instead of %s accordingly."
 msgstr ""
 
-#: includes/settings/class-alg-wc-settings-product-xml-feeds.php:24
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-settings-product-xml-feeds.php:24
 msgid "Product XML Feeds"
 msgstr ""
 
-#: includes/settings/class-alg-wc-settings-product-xml-feeds.php:49
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-settings-product-xml-feeds.php:49
 msgid "Reset Settings"
 msgstr ""
 
-#: includes/settings/class-alg-wc-settings-product-xml-feeds.php:54
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-settings-product-xml-feeds.php:54
 msgid "Reset section settings"
 msgstr ""
 
-#: includes/settings/class-alg-wc-settings-product-xml-feeds.php:55
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-settings-product-xml-feeds.php:55
 msgid "Reset"
 msgstr ""
 
-#: includes/settings/class-alg-wc-settings-product-xml-feeds.php:94
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\settings\class-alg-wc-settings-product-xml-feeds.php:94
 msgid "Your settings have been reset."
 msgstr ""
 
-#: includes/shortcodes/class-alg-products-shortcodes.php:421
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\shortcodes\class-alg-products-shortcodes.php:425
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\shortcodes\class-alg-products-shortcodes.php:482
+#, php-format
 msgid "%s ago"
 msgstr ""
 
-#: includes/shortcodes/class-alg-products-shortcodes.php:435
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\shortcodes\class-alg-products-shortcodes.php:439
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\shortcodes\class-alg-products-shortcodes.php:496
 msgid "No sales yet."
 msgstr ""
 
-#: includes/shortcodes/class-alg-products-shortcodes.php:458
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\includes\shortcodes\class-alg-products-shortcodes.php:520
 msgid "Any"
 msgstr ""
 
-#: product-xml-feeds-for-woocommerce-pro.php:119
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\product-xml-feeds-for-woocommerce-pro.php:117
+msgid "Settings"
+msgstr ""
+
+#: E:\xampp\htdocs\wpfactory-local\wp-content\plugins\product-xml-feeds-for-woocommerce-pro\product-xml-feeds-for-woocommerce-pro.php:119
 msgid "Unlock All"
 msgstr ""

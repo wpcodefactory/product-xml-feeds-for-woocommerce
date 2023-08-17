@@ -2,8 +2,8 @@
 Contributors: omardabbas, kousikmukherjeeli
 Tags: woocommerce, product xml feeds, xml, export
 Requires at least: 4.4
-Tested up to: 6.2
-Stable tag: 2.7.5
+Tested up to: 6.3
+Stable tag: 2.7.6
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -65,6 +65,11 @@ Password: G6_32e!r@
 3. Start by visiting plugin settings at "WooCommerce > Settings > Product XML Feeds".
 
 == Changelog ==
+
+= 2.7.6 - 18/08/2023 =
+* WC tested up to: 8.0.
+* Tested up to: 6.3.
+* HPOS Compatibility.
 
 = 2.7.5 - 18/06/2023 =
 * WC tested up to: 7.8.

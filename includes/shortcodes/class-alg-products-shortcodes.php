@@ -384,12 +384,16 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	/**
 	 * alg_product_time_since_last_sale.
 	 *
-	 * @version 1.3.1
+	 * @version 2.7.6
 	 * @since   1.0.0
 	 * @todo    [dev] use `wc_get_orders()` (instead of `WP_Query`)
 	 * @todo    [dev] recheck if maybe we need to use `time()` instead of `current_time( 'timestamp' )`
 	 */
 	function alg_product_time_since_last_sale( $atts ) {
+
+		// return new function support HPOS
+		return $this->alg_product_time_since_last_sale_HPOS( $atts );
+
 		$offset        = 0;
 		$block_size    = 512;
 		$result        = '';
@@ -434,6 +438,64 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 		// No sales found
 		return ( '' != $result ? $result : ( 'yes' === $atts['hide_if_no_sales'] ? '' : __( 'No sales yet.', 'product-xml-feeds-for-woocommerce' ) ) );
 	}
+
+	/**
+	 * alg_product_time_since_last_sale_HPOS.
+	 *
+	 * @version 2.7.6
+	 * @since   2.7.6
+	 * @todo    [dev] use `wc_get_orders()` (instead of `WP_Query`)
+	 * @todo    [dev] recheck if maybe we need to use `time()` instead of `current_time( 'timestamp' )`
+	 */
+	function alg_product_time_since_last_sale_HPOS( $atts ) {
+		$offset        = 0;
+		$block_size    = 512;
+		$result        = '';
+		while( true ) {
+			// Create args for new query
+			
+			$args = array(
+				'type'      => 'shop_order',
+				'status'    => $atts['order_status'],
+				'limit' => $block_size,
+				'paged'         => $offset,
+				'orderby'        => 'date',
+				'order'          => 'DESC',
+				'date_created'     => '< ' . $atts['days_to_cover'] . ' days',
+				'return'         => 'ids',
+			);
+			
+			$loop = wc_get_orders($args);
+			
+			
+			if ( !isset($loop) || empty($loop) ) {
+				break;
+			}
+			// Analyze the results, i.e. orders
+			foreach ( $loop as $order_id ) {
+				$order = wc_get_order( $order_id );
+				$items = $order->get_items();
+				foreach ( $items as $item ) {
+					// Run through all order's items
+					if ( $item['product_id'] == $atts['product_id'] ) {
+						// Found sale!
+						$result = sprintf( __( '%s ago', 'product-xml-feeds-for-woocommerce' ), human_time_diff( get_the_time( 'U', $order_id ), current_time( 'timestamp' ) ) );
+						break;
+					}
+				}
+				if ( '' != $result ) {
+					break;
+				}
+			}
+			if ( '' != $result ) {
+				break;
+			}
+			$offset += $block_size;
+		}
+		// No sales found
+		return ( '' != $result ? $result : ( 'yes' === $atts['hide_if_no_sales'] ? '' : __( 'No sales yet.', 'product-xml-feeds-for-woocommerce' ) ) );
+	}
+
 
 	/**
 	 * alg_product_available_variations.
