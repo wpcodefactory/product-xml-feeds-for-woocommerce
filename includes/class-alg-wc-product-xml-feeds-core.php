@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - Core Class
  *
- * @version 1.7.2
+ * @version 2.7.7
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -16,7 +16,7 @@ class Alg_WC_Product_XML_Feeds_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 1.7.0
+	 * @version 2.7.7
 	 * @since   1.0.0
 	 */
 	function __construct() {
@@ -28,12 +28,25 @@ class Alg_WC_Product_XML_Feeds_Core {
 			add_action('wp_ajax_nopriv_generate_xml_external', array( $this, 'generate_xml_external') );
 			add_action('wp_ajax_generate_xml_external', array( $this, 'generate_xml_external') );
 
+			add_filter( 'rp_wcdpd_request_is_product_feed', array( $this, 'allow_rd_wcdpd_to_allow_update_price' ), PHP_INT_MAX, 3 );
+
 			add_filter( 'cron_schedules', array( $this, 'cron_add_custom_intervals' ) );
 			$total_number = apply_filters( 'alg_wc_product_xml_feeds_values', 1, 'total_number' );
 			for ( $i = 1; $i <= $total_number; $i++ ) {
 				add_action( 'alg_create_products_xml_hook_' . $i, array( $this, 'create_products_xml_cron' ), PHP_INT_MAX, 2 );
 			}
 		}
+	}
+
+	/**
+	 * allow wc dynamic pricing and discount to overwrite price
+	 *
+	 * @version 2.7.7
+	 * @since   2.7.7
+	 */
+	function allow_rd_wcdpd_to_allow_update_price($return, $price, $product){
+		$return = true;
+		return $return;
 	}
 
 	/**

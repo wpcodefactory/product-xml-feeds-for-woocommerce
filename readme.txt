@@ -1,5 +1,5 @@
 === Product XML Feed Manager for WooCommerce - Google Shopping, Social Sites, Skroutz & More ===
-Contributors: omardabbas, kousikmukherjeeli
+Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmukherjeeli
 Tags: woocommerce, product xml feeds, xml, export
 Requires at least: 4.4
 Tested up to: 6.3
@@ -65,6 +65,10 @@ Password: G6_32e!r@
 3. Start by visiting plugin settings at "WooCommerce > Settings > Product XML Feeds".
 
 == Changelog ==
+
+= 2.7.7 - 29/08/2023 =
+* Fix - rp_wcdpd_request_is_product_feed compatibility.
+* Contributor update.
 
 = 2.7.6 - 18/08/2023 =
 * WC tested up to: 8.0.
