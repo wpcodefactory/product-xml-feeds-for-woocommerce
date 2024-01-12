@@ -20,22 +20,56 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 	 * @since   1.1.0
 	 */
 	function __construct( $feed_num ) {
-		$this->id       = 'feed_' . $feed_num;
-		$this->desc     = get_option( 'alg_products_xml_feed_title_' . $feed_num, sprintf( __( 'XML Feed #%d', 'product-xml-feeds-for-woocommerce' ), $feed_num ) );
-		$this->feed_num = $feed_num;
+		$this->id       			= 'feed_' . $feed_num;
+		$this->desc     			= get_option( 'alg_products_xml_feed_title_' . $feed_num, sprintf( __( 'XML Feed #%d', 'product-xml-feeds-for-woocommerce' ), $feed_num ) );
+		$this->ajax_filtering     	= get_option( 'alg_products_xml_ajax_load_filtering_option', 'no' );
+		$this->feed_num 			= $feed_num;
+		
+		if( $this->ajax_filtering == 'yes' ) {
+			add_action( 'admin_footer', array( $this, 'alg_wc_xml_feed_admin_footer_js' ) );
+			
+			add_action( 'wp_ajax_alg_wc_xml_feed_get_products_response', array( $this, 'alg_wc_xml_feed_get_products_response' ) );
+			add_action( 'wp_ajax_nopriv_alg_wc_xml_feed_get_products_response', array( $this, 'alg_wc_xml_feed_get_products_response' ) );
+			
+			add_action( 'wp_ajax_alg_wc_xml_feed_get_cats_response', array( $this, 'alg_wc_xml_feed_get_cats_response' ) );
+			add_action( 'wp_ajax_nopriv_alg_wc_xml_feed_get_cats_response', array( $this, 'alg_wc_xml_feed_get_cats_response' ) );
+			
+			add_action( 'wp_ajax_alg_wc_xml_feed_get_tags_response', array( $this, 'alg_wc_xml_feed_get_tags_response' ) );
+			add_action( 'wp_ajax_nopriv_alg_wc_xml_feed_get_tags_response', array( $this, 'alg_wc_xml_feed_get_tags_response' ) );
+			
+			
+			add_action( 'admin_enqueue_scripts',   array( $this, 'enqueue_backend_scripts_and_styles' ) );
+			
+			
+			add_action( 'wp_ajax_alg_wc_xml_feed_admin_product_ajax_feed_generation',        array( $this, 'alg_wc_xml_feed_admin_product_ajax_feed_generation' ) );
+			add_action( 'wp_ajax_nopriv_alg_wc_xml_feed_admin_product_ajax_feed_generation', array( $this, 'alg_wc_xml_feed_admin_product_ajax_feed_generation' ) );
+		
+			add_action( 'wp_ajax_alg_wc_xml_feed_admin_product_ajax_feed_generation_start',        array( $this, 'alg_wc_xml_feed_admin_product_ajax_feed_generation_start' ) );
+			add_action( 'wp_ajax_nopriv_alg_wc_xml_feed_admin_product_ajax_feed_generation_start', array( $this, 'alg_wc_xml_feed_admin_product_ajax_feed_generation_start' ) );
+		
+		
+		}
+		
 		parent::__construct();
 	}
 
 	/**
 	 * get_products.
 	 *
-	 * @version 1.4.5
+	 * @version 2.7.10
 	 * @since   1.0.0
 	 */
-	function get_products() {
+	function get_products( $ajax_request = false, $search_text = '' ) {
 		$products_options = array();
+		
 		$offset     = 0;
 		$block_size = 512;
+		$inc = 0;
+		
+		if( $ajax_request && empty( $search_text ) ){
+			return $products_options;
+		}
+		
 		while( true ) {
 			$args = array(
 				'post_type'      => 'product',
@@ -46,23 +80,262 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 				'order'          => 'ASC',
 				'fields'         => 'ids',
 			);
+			
+			if( !empty( $search_text ) ) {
+				$args['s'] = $search_text;
+			}
+			
 			$loop = new WP_Query( $args );
 			if ( ! $loop->have_posts() ) {
 				break;
 			}
 			foreach ( $loop->posts as $post_id ) {
 				$sku = get_post_meta($post_id, '_sku', true);
-				$products_options[ $post_id ] = get_the_title( $post_id ) . ' (#' . $post_id . ') (SKU# ' . $sku .')' ;
+				
+				if( $ajax_request ){
+					$products_options[$inc]['id'] = $post_id ;
+					$products_options[$inc]['text'] = get_the_title( $post_id ) . ' (#' . $post_id . ') (SKU# ' . $sku .')' ;
+				} else {
+					$products_options[ $post_id ] = get_the_title( $post_id ) . ' (#' . $post_id . ') (SKU# ' . $sku .')' ;
+				}
+				$inc = $inc + 1;
 			}
 			$offset += $block_size;
 		}
+		
 		return $products_options;
+	}
+	
+	/**
+	 * get_saved_products.
+	 *
+	 * @version 2.7.10
+	 * @since   1.0.0
+	 */
+	function get_saved_products() {
+		
+		$incl_key = 'alg_products_xml_products_incl_' . $this->feed_num;
+		$excl_key = 'alg_products_xml_products_excl_' . $this->feed_num;
+		
+		$saved_include = get_option( $incl_key, array() );
+		$saved_exclude = get_option( $excl_key, array() );
+		$saved_ids = array();
+		
+		$saved_ids = array_unique (array_merge ($saved_include, $saved_exclude));
+		$products_options = array();
+		
+		if( empty( $saved_ids ) ) {
+			return $saved_ids;
+		}
+		
+		$offset     = 0;
+		$block_size = 512;
+		$inc = 0;
+		while( true ) {
+			$args = array(
+				'post_type'      => 'product',
+				'post_status'    => 'publish',
+				'posts_per_page' => $block_size,
+				'offset'         => $offset,
+				'orderby'        => 'title',
+				'order'          => 'ASC',
+				'fields'         => 'ids',
+				'post__in'      => $saved_ids
+			);
+			$loop = new WP_Query( $args );
+			if ( ! $loop->have_posts() ) {
+				break;
+			}
+			foreach ( $loop->posts as $post_id ) {
+				$sku = get_post_meta($post_id, '_sku', true);
+				
+				if( $ajax_request ){
+					$products_options[$inc]['id'] = $post_id ;
+					$products_options[$inc]['text'] = get_the_title( $post_id ) . ' (#' . $post_id . ') (SKU# ' . $sku .')' ;
+				} else {
+					$products_options[ $post_id ] = get_the_title( $post_id ) . ' (#' . $post_id . ') (SKU# ' . $sku .')' ;
+				}
+				$inc = $inc + 1;
+			}
+			$offset += $block_size;
+		}
+		
+		return $products_options;
+	}
+	
+	/**
+	 * get_product_cats.
+	 *
+	 * @version 2.7.10
+	 * @since   1.0.0
+	 */
+	 
+	function get_product_cats( $ajax_request = false, $search_text = '' ) {
+		
+		$product_cats_options = array();
+		
+		if( $ajax_request && empty( $search_text ) ){
+			return $product_cats_options;
+		}
+		
+		$args = array(
+			'orderby' => 'name',
+			'hide_empty' => '0',
+		);
+		
+		if( !empty( $search_text ) ) {
+			$args['search'] = $search_text;
+		}
+		
+		$inc = 0;
+		$product_cats = get_terms( 'product_cat', $args );
+		if ( ! empty( $product_cats ) && ! is_wp_error( $product_cats ) ){
+			foreach ( $product_cats as $product_cat ) {
+				if( $ajax_request ){
+					
+					$product_cats_options[$inc]['id'] = $product_cat->term_id ;
+					$product_cats_options[$inc]['text'] = $product_cat->name;
+					
+				} else {
+					$product_cats_options[ $product_cat->term_id ] = $product_cat->name;
+				}
+				$inc++;
+			}
+		}
+		
+		return $product_cats_options;
+		
+	}
+	
+	/**
+	 * get_saved_product_cats.
+	 *
+	 * @version 2.7.10
+	 * @since   2.7.10
+	 */
+	function get_saved_product_cats(){
+		
+		$incl_key = 'alg_products_xml_cats_incl_' . $this->feed_num;
+		$excl_key = 'alg_products_xml_cats_excl_' . $this->feed_num;
+		
+		$saved_include = get_option( $incl_key, array() );
+		$saved_exclude = get_option( $excl_key, array() );
+		$saved_ids = array();
+		
+		$saved_ids = array_unique (array_merge ($saved_include, $saved_exclude));
+		
+		$product_cats_options = array();
+		
+		if( empty( $saved_ids ) ) {
+			return $saved_ids;
+		}
+		
+		$args = array(
+			'orderby' => 'name',
+			'hide_empty' => '0',
+			'include' => $saved_ids
+		);
+		$product_cats = get_terms( 'product_cat', $args );
+		if ( ! empty( $product_cats ) && ! is_wp_error( $product_cats ) ){
+			foreach ( $product_cats as $product_cat ) {
+				$product_cats_options[ $product_cat->term_id ] = $product_cat->name;
+			}
+		}
+		
+		return $product_cats_options;
+		
+	}
+	
+	
+	/**
+	 * get_product_cats.
+	 *
+	 * @version 2.7.10
+	 * @since   2.7.10
+	 */
+	 
+	function get_product_tags( $ajax_request = false, $search_text = '' ) {
+		
+		$product_tags_options = array();
+		
+		if( $ajax_request && empty( $search_text ) ){
+			return $product_tags_options;
+		}
+		
+		$args = array(
+			'orderby' => 'name',
+			'hide_empty' => '0',
+		);
+		
+		if( !empty( $search_text ) ) {
+			$args['search'] = $search_text;
+		}
+		
+		$inc = 0;
+		
+		$product_tags = get_terms( 'product_tag', $args );
+		if ( ! empty( $product_tags ) && ! is_wp_error( $product_tags ) ){
+			foreach ( $product_tags as $product_tag ) {
+				if( $ajax_request ){
+					
+					$product_tags_options[$inc]['id'] = $product_tag->term_id ;
+					$product_tags_options[$inc]['text'] = $product_tag->name;
+					
+				} else {
+					$product_tags_options[ $product_tag->term_id ] = $product_tag->name;
+				}
+				
+				$inc++;
+			}
+		}
+		
+		return $product_tags_options;
+		
+	}
+	
+	/**
+	 * get_saved_product_tags.
+	 *
+	 * @version 2.7.10
+	 * @since   2.7.10
+	 */
+	function get_saved_product_tags(){
+		
+		$incl_key = 'alg_products_xml_tags_incl_' . $this->feed_num;
+		$excl_key = 'alg_products_xml_tags_excl_' . $this->feed_num;
+		
+		$saved_include = get_option( $incl_key, array() );
+		$saved_exclude = get_option( $excl_key, array() );
+		$saved_ids = array();
+		
+		$saved_ids = array_unique (array_merge ($saved_include, $saved_exclude));
+		
+		$product_tags_options = array();
+		
+		if( empty( $saved_ids ) ) {
+			return $saved_ids;
+		}
+		
+		$args = array(
+			'orderby' => 'name',
+			'hide_empty' => '0',
+			'include' => $saved_ids
+		);
+		$product_tags = get_terms( 'product_tag', $args );
+		if ( ! empty( $product_tags ) && ! is_wp_error( $product_tags ) ){
+			foreach ( $product_tags as $product_tag ) {
+				$product_tags_options[ $product_tag->term_id ] = $product_tag->name;
+			}
+		}
+		
+		return $product_tags_options;
+		
 	}
 
 	/**
 	 * get_settings.
 	 *
-	 * @version 1.7.0
+	 * @version 2.7.10
 	 * @since   1.1.0
 	 * @todo    [dev] (maybe) move "Sorting" options to a separate subsection
 	 * @todo    [feature] Update period: "Manual only"
@@ -71,24 +344,26 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 	function get_settings() {
 
 		// Prepare Products Options
-		$products_options = $this->get_products();
+		if( $this->ajax_filtering == 'yes' ) {
+			$products_options = $this->get_saved_products();
+		} else {
+			$products_options = $this->get_products();
+		}
+		
+		
 
 		// Prepare Categories Options
-		$product_cats_options = array();
-		$product_cats = get_terms( 'product_cat', 'orderby=name&hide_empty=0' );
-		if ( ! empty( $product_cats ) && ! is_wp_error( $product_cats ) ){
-			foreach ( $product_cats as $product_cat ) {
-				$product_cats_options[ $product_cat->term_id ] = $product_cat->name;
-			}
+		if( $this->ajax_filtering == 'yes' ) {
+			$product_cats_options = $this->get_saved_product_cats();
+		} else {
+			$product_cats_options = $this->get_product_cats();
 		}
 
 		// Prepare Tags Options
-		$product_tags_options = array();
-		$product_tags = get_terms( 'product_tag', 'orderby=name&hide_empty=0' );
-		if ( ! empty( $product_tags ) && ! is_wp_error( $product_tags ) ){
-			foreach ( $product_tags as $product_tag ) {
-				$product_tags_options[ $product_tag->term_id ] = $product_tag->name;
-			}
+		if( $this->ajax_filtering == 'yes' ) {
+			$product_tags_options = $this->get_saved_product_tags();
+		} else {
+			$product_tags_options = $this->get_product_tags();
 		}
 		
 		// Prepare Type Options
@@ -122,9 +397,16 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 		// Settings
 		$products_xml_cron_desc = '';
 		if ( 'yes' === get_option( 'alg_wc_product_xml_feeds_enabled', 'yes' ) ) {
-			$products_xml_cron_desc .= '<a class="button" href="' . add_query_arg( 'alg_create_products_xml', $this->feed_num ) . '" title="' .
+			if ( 'yes' === get_option( 'alg_products_xml_ajax_feed_creation_option', 'no' ) ) {
+				$products_xml_cron_desc .= '<a class="button generate_feed_by_ajax" href="' . add_query_arg( 'alg_create_products_xml', $this->feed_num ) . '" title="' .
 				__( 'Don\'t forget to save settings if you\'ve made any changes.', 'product-xml-feeds-for-woocommerce' ) . '">' .
 					__( 'Create now', 'product-xml-feeds-for-woocommerce' ) . '</a>';
+			} else {
+				$products_xml_cron_desc .= '<a class="button" href="' . add_query_arg( 'alg_create_products_xml', $this->feed_num ) . '" title="' .
+				__( 'Don\'t forget to save settings if you\'ve made any changes.', 'product-xml-feeds-for-woocommerce' ) . '">' .
+					__( 'Create now', 'product-xml-feeds-for-woocommerce' ) . '</a>';
+			}
+			
 			if ( '' != get_option( 'alg_create_products_xml_cron_time_' . $this->feed_num, '' ) ) {
 				$scheduled_time_diff = get_option( 'alg_create_products_xml_cron_time_' . $this->feed_num, '' ) - time();
 				if ( $scheduled_time_diff > 60 ) {
@@ -651,6 +933,448 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 		) );
 
 		return $settings;
+	}
+	
+	
+	/**
+	 * alg_wc_xml_feed_admin_footer_js.
+	 *
+	 * @version 2.7.10
+	 * @since   2.7.10
+	 */
+	public function alg_wc_xml_feed_admin_footer_js($data) {
+		?>
+			<script>
+				jQuery(document).ready(function() {
+					jQuery('#alg_products_xml_products_incl_<?php echo $this->feed_num; ?>').select2({
+					  ajax: {
+						type   : 'POST',
+						url    : <?php echo "'" . admin_url( 'admin-ajax.php' ) . "'"; ?>,
+						dataType: 'json',
+						data: function (params) {
+						  var query = {
+							search: params.term,
+							type: 'public',
+							action: 'alg_wc_xml_feed_get_products_response'
+						  }
+
+						  // Query parameters will be ?search=[term]&type=public
+						  return query;
+						},
+						processResults: function (data) {
+							return {
+							  results: data
+							};
+						},
+					  },
+					  minimumInputLength: 3
+					});
+					
+					jQuery('#alg_products_xml_products_excl_<?php echo $this->feed_num; ?>').select2({
+					  ajax: {
+						type   : 'POST',
+						url    : <?php echo "'" . admin_url( 'admin-ajax.php' ) . "'"; ?>,
+						dataType: 'json',
+						data: function (params) {
+						  var query = {
+							search: params.term,
+							type: 'public',
+							action: 'alg_wc_xml_feed_get_products_response'
+						  }
+
+						  // Query parameters will be ?search=[term]&type=public
+						  return query;
+						},
+						processResults: function (data) {
+							return {
+							  results: data
+							};
+						},
+					  },
+					  minimumInputLength: 3
+					});
+				});
+				
+				jQuery(document).ready(function() {
+					jQuery('#alg_products_xml_cats_incl_<?php echo $this->feed_num; ?>').select2({
+					  ajax: {
+						type   : 'POST',
+						url    : <?php echo "'" . admin_url( 'admin-ajax.php' ) . "'"; ?>,
+						dataType: 'json',
+						data: function (params) {
+						  var query = {
+							search: params.term,
+							type: 'public',
+							action: 'alg_wc_xml_feed_get_cats_response'
+						  }
+
+						  // Query parameters will be ?search=[term]&type=public
+						  return query;
+						},
+						processResults: function (data) {
+							return {
+							  results: data
+							};
+						},
+					  },
+					  minimumInputLength: 3
+					});
+					
+					jQuery('#alg_products_xml_cats_excl_<?php echo $this->feed_num; ?>').select2({
+					  ajax: {
+						type   : 'POST',
+						url    : <?php echo "'" . admin_url( 'admin-ajax.php' ) . "'"; ?>,
+						dataType: 'json',
+						data: function (params) {
+						  var query = {
+							search: params.term,
+							type: 'public',
+							action: 'alg_wc_xml_feed_get_cats_response'
+						  }
+
+						  // Query parameters will be ?search=[term]&type=public
+						  return query;
+						},
+						processResults: function (data) {
+							return {
+							  results: data
+							};
+						},
+					  },
+					  minimumInputLength: 3
+					});
+					
+				});
+				
+				jQuery(document).ready(function() {
+					jQuery('#alg_products_xml_tags_incl_<?php echo $this->feed_num; ?>').select2({
+					  ajax: {
+						type   : 'POST',
+						url    : <?php echo "'" . admin_url( 'admin-ajax.php' ) . "'"; ?>,
+						dataType: 'json',
+						data: function (params) {
+						  var query = {
+							search: params.term,
+							type: 'public',
+							action: 'alg_wc_xml_feed_get_tags_response'
+						  }
+
+						  // Query parameters will be ?search=[term]&type=public
+						  return query;
+						},
+						processResults: function (data) {
+							return {
+							  results: data
+							};
+						},
+					  },
+					  minimumInputLength: 3
+					});
+					
+					jQuery('#alg_products_xml_tags_excl_<?php echo $this->feed_num; ?>').select2({
+					  ajax: {
+						type   : 'POST',
+						url    : <?php echo "'" . admin_url( 'admin-ajax.php' ) . "'"; ?>,
+						dataType: 'json',
+						data: function (params) {
+						  var query = {
+							search: params.term,
+							type: 'public',
+							action: 'alg_wc_xml_feed_get_tags_response'
+						  }
+
+						  // Query parameters will be ?search=[term]&type=public
+						  return query;
+						},
+						processResults: function (data) {
+							return {
+							  results: data
+							};
+						},
+					  },
+					  minimumInputLength: 3
+					});
+				});
+			</script>
+			
+			<style>
+			#alg-wc-xml-feed-overlay-id{
+				display: none;
+			}
+			
+			.alg-wc-xml-feed-overlay {
+				background-color: black;
+				background-color: rgba(0,0,0,.8);
+				position: fixed;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				/* opacity: 0.2; */
+				/* also -moz-opacity, etc. */
+				z-index: 100;
+			}
+			.alg-wc-xml-feed-progress {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				width:400px;
+				height:20px;
+				margin:-10px 0 0 -150px;
+				z-index:101;
+				opacity:1.0;
+				border: 1px solid #149bdf;
+			}
+			
+			.alg-wc-xml-feed-progress-striped .alg-wc-xml-feed-bar {
+				background-color: #149bdf;
+				background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+				background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+				background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+				background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+				background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+				-webkit-background-size: 40px 40px;
+				-moz-background-size: 40px 40px;
+				-o-background-size: 40px 40px;
+				background-size: 40px 40px;
+				
+				-webkit-animation: progress-bar-stripes 2s linear infinite;
+				-moz-animation: progress-bar-stripes 2s linear infinite;
+				-ms-animation: progress-bar-stripes 2s linear infinite;
+				-o-animation: progress-bar-stripes 2s linear infinite;
+				animation: progress-bar-stripes 2s linear infinite;
+				
+
+			}
+			
+			.alg-wc-xml-feed-progress .alg-wc-xml-feed-bar {
+				float: left;
+				width: 0;
+				height: 100%;
+				font-size: 12px;
+				color: #ffffff;
+				text-align: center;
+				text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+				background-color: #0e90d2;
+				background-image: -moz-linear-gradient(top, #149bdf, #0480be);
+				background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#149bdf), to(#0480be));
+				background-image: -webkit-linear-gradient(top, #149bdf, #0480be);
+				background-image: -o-linear-gradient(top, #149bdf, #0480be);
+				background-image: linear-gradient(to bottom, #149bdf, #0480be);
+				background-repeat: repeat-x;
+				filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff149bdf', endColorstr='#ff0480be', GradientType=0);
+				-webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+				-moz-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+				box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+				-webkit-transition: width 0.6s ease;
+				-moz-transition: width 0.6s ease;
+				-o-transition: width 0.6s ease;
+				transition: width 0.6s ease;
+				
+			}
+			.alg-wc-xml-feed-overlay .alg-wc-xml-feed-file-download-per-text{
+				color: #fff;
+				font-size: 24px;
+				position: absolute;
+				top: 53%;
+				left: 50%;
+				width: 400px;
+				
+				margin: -10px 0 0 -150px;
+				z-index: 101;
+				opacity: 1.0;
+				text-align: center;
+				line-height: 1.5;
+			}
+			.alg-wc-xml-feed-overlay .alg-wc-xml-feed-file-download-text{
+				color: #fff;
+				font-size: 20px;
+				position: absolute;
+				top: 56%;
+				left: 50%;
+				width: 400px;
+				
+				margin: -10px 0 0 -150px;
+				z-index: 101;
+				opacity: 1.0;
+				text-align: center;
+				line-height: 1.5;
+			}
+			
+			</style>
+			
+			<div class="alg-wc-xml-feed-overlay mouse-events-off" id="alg-wc-xml-feed-overlay-id">
+				<div class="alg-wc-xml-feed-progress alg-wc-xml-feed-progress-striped alg-wc-xml-feed-active">
+					<div class="alg-wc-xml-feed-bar" id="alg-wc-xml-feed-bar-percentage" style="width: 0%;"></div>
+				</div>
+				<div class="alg-wc-xml-feed-file-download-per-text">0%</div>
+				<div class="alg-wc-xml-feed-file-download-text"> Feed generation is in progress. Please don't close window till process complete. </div>
+			</div>
+		<?php
+	}
+	
+	
+	
+	/**
+	 * enqueue_backend_scripts_and_styles.
+	 *
+	 * @version 2.7.10
+	 * @since   2.7.10
+	 */
+	function enqueue_backend_scripts_and_styles() {
+		
+			wp_enqueue_script( 'alg-wc-xml-feed-admin-own-js',
+				alg_wc_product_xml_feeds()->plugin_url() . '/includes/js/alg-wc-xml-feed-admin-own.js',
+				array( 'jquery' ),
+				alg_wc_product_xml_feeds()->version,
+				true
+			);
+			$nonce = wp_create_nonce('alg-wc-xml-feed-ajax-nonce');
+			wp_localize_script( 'alg-wc-xml-feed-admin-own-js', 'alg_wc_xml_feed_admin_own_js', array( 'nonce' => $nonce, 'file_num' => $this->feed_num ) );
+		
+	}
+	
+	/**
+	 * alg_wc_xml_feed_admin_product_ajax_feed_generation_start.
+	 *
+	 * @version 2.7.10
+	 * @since   2.7.10
+	 */
+	function alg_wc_xml_feed_admin_product_ajax_feed_generation_start() {
+		
+		if ( ! current_user_can('manage_options') || ! wp_verify_nonce( $_POST['nonce'], 'alg-wc-xml-feed-ajax-nonce' ) ) {
+			exit;
+		}
+		
+		$totalpage = 1;
+		$nonce = $_POST['nonce'];
+		$file_num = $_POST['file_num'];
+		$dest = $this->create_temp_folder();
+		$file_name = 'product_feed-' . time() . '-'. $nonce . '.xml';
+		$file_url = $dest['url'] . 'product_csv-' . time() . '-'. $nonce . '.xml';
+		$count_pages = wp_count_posts( $post_type = 'product' );
+		
+		if ( !empty( $count_pages ) ) {
+			$block_size = (int) get_option( 'alg_products_xml_query_block_size', 512 );
+			$total = $count_pages->publish;
+			if( $total > 0 ){
+				if( $block_size >= $total ){
+					$totalpage = 1;
+				} else {
+					$totalpage = ceil( $total / $block_size);
+				}
+			}
+		}
+		
+		$progress_completed = ( 1 / ($totalpage + 1) ) * 100;
+		
+		$file_name = preg_replace('/\\\\/', '/', $file_name);
+		
+		echo json_encode( array( 'success' => true,'total_page' => $totalpage, 'file_path' => $file_name, 'file_url' => $file_url, 'progress' => $progress_completed ), JSON_UNESCAPED_SLASHES );
+		die;
+	}
+	
+	/**
+	 * alg_wc_xml_feed_admin_product_ajax_feed_generation.
+	 *
+	 * @version 2.7.10
+	 * @since   2.7.10
+	 */
+	function alg_wc_xml_feed_admin_product_ajax_feed_generation() {
+		
+		if ( ! current_user_can('manage_options') || ! wp_verify_nonce( $_POST['nonce'], 'alg-wc-xml-feed-ajax-nonce' ) ) {
+			exit;
+		}
+		
+		$file_num = $_POST['file_num'];
+		$progress_completed = 0;
+		$block_size = (int) get_option( 'alg_products_xml_query_block_size', 512 );
+		$current_page 	= $_POST['current_page'];
+		$total_page = $_POST['total_page'];
+		$isend = false;
+		
+		
+		if( $current_page >= $total_page ){
+			$isend = true;
+		}
+		
+		if( $current_page == 1 ) {
+			$start = 0;
+		}
+		
+		if( $current_page > 1 ) {
+			$start  = ($current_page - 1) * $block_size;
+		}
+		
+		$progress_completed = ( ( $current_page + 1 ) / ( $total_page + 1 ) ) * 100;
+		
+		alg_wc_product_xml_feeds()->core->create_products_xml( $file_num, true, array( 'start' => $start, 'block_size' => $block_size, 'current_page' => $current_page, 'is_end' => $isend ) );
+		
+		$file_name = $_POST['file_path'];
+		$file_url = $_POST['file_url'];
+		
+		echo json_encode( array( 'success' => true,'total_page' => $total_page, 'current_page' => $current_page, 'file_path' => $file_name, 'file_url' => $file_url, 'is_end' => $isend, 'progress' => $progress_completed ), JSON_UNESCAPED_SLASHES );
+		die;
+	}
+	
+	/**
+	 * create_temp_folder.
+	 *
+	 * @version 2.7.10
+	 * @since   2.7.10
+	 */
+	function create_temp_folder() {
+		
+		$upload_dir = wp_upload_dir();
+		$destination  = $upload_dir['basedir'] . '/alg_wc_xml_feed_temp/';
+		$url  = $upload_dir['baseurl'] . '/alg_wc_xml_feed_temp/';
+		
+		if ( !file_exists( $destination ) ) {
+			mkdir($destination , 0775, true);
+		}
+		return array( 'path' => $destination, 'url' => $url );
+	}
+	
+	/**
+	 * alg_wc_xml_feed_get_products_response.
+	 *
+	 * @version 2.7.10
+	 * @since   2.7.10
+	 */
+	public function alg_wc_xml_feed_get_products_response() {
+		$search_text = ( ( isset($_POST) && !empty( $_POST['search'] ) ) ?  $_POST['search'] : '' );
+		$products_options = $this->get_products( true, $search_text );
+		
+		wp_send_json( $products_options );
+	}
+	
+	/**
+	 * alg_wc_xml_feed_get_cats_response.
+	 *
+	 * @version 2.7.10
+	 * @since   2.7.10
+	 */
+	public function alg_wc_xml_feed_get_cats_response() {
+		$search_text = ( ( isset($_POST) && !empty( $_POST['search'] ) ) ?  $_POST['search'] : '' );
+		$cat_options = $this->get_product_cats( true, $search_text );
+		
+		wp_send_json( $cat_options );
+	}
+	
+	/**
+	 * alg_wc_xml_feed_get_tags_response.
+	 *
+	 * @version 2.7.10
+	 * @since   2.7.10
+	 */
+	public function alg_wc_xml_feed_get_tags_response() {
+		$search_text = ( ( isset($_POST) && !empty( $_POST['search'] ) ) ?  $_POST['search'] : '' );
+		$tag_options = $this->get_product_tags( true, $search_text );
+		
+		wp_send_json( $tag_options );
 	}
 
 }

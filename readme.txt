@@ -2,8 +2,8 @@
 Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmukherjeeli
 Tags: woocommerce, product xml feeds, xml, export
 Requires at least: 4.4
-Tested up to: 6.3
-Stable tag: 2.7.9
+Tested up to: 6.4
+Stable tag: 2.7.10
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -65,6 +65,12 @@ Password: G6_32e!r@
 3. Start by visiting plugin settings at "WooCommerce > Settings > Product XML Feeds".
 
 == Changelog ==
+
+= 2.7.10 - 12/01/2024 =
+* WC tested up to: 8.4.
+* Tested up to: 6.4.
+* Add - General > Ajax load filtering option.
+* Add - General > Ajax feed creation.
 
 = 2.7.9 - 26/09/2023 =
 * WC tested up to: 8.1.

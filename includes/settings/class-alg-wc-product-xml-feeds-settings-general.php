@@ -28,7 +28,7 @@ class Alg_WC_Product_XML_Feeds_Settings_General extends Alg_WC_Product_XML_Feeds
 	/**
 	 * get_settings.
 	 *
-	 * @version 1.7.2
+	 * @version 2.7.10
 	 * @since   1.0.0
 	 * @todo    [dev] better description for "Block size for products query"
 	 * @todo    [dev] (maybe) create all files at once (manually and synchronize update)
@@ -106,6 +106,24 @@ class Alg_WC_Product_XML_Feeds_Settings_General extends Alg_WC_Product_XML_Feeds
 				'desc'     => __( 'Enable', 'product-xml-feeds-for-woocommerce' ),
 				'id'       => 'alg_products_xml_raw_input',
 				'default'  => 'yes',
+				'type'     => 'checkbox',
+			),
+			
+			array(
+				'title'    => __( 'Ajax load filtering option', 'product-xml-feeds-for-woocommerce' ),
+				'desc_tip' => __( 'Affects "Products Filtering Options." Please apply for a high-volume store.', 'product-xml-feeds-for-woocommerce' ),
+				'desc'     => __( 'Enable', 'product-xml-feeds-for-woocommerce' ),
+				'id'       => 'alg_products_xml_ajax_load_filtering_option',
+				'default'  => 'no',
+				'type'     => 'checkbox',
+			),
+			
+			array(
+				'title'    => __( 'Ajax feed creation', 'product-xml-feeds-for-woocommerce' ),
+				'desc_tip' => __( 'Create a feed without page refresh. This application is suitable for high-volume stores.', 'product-xml-feeds-for-woocommerce' ),
+				'desc'     => __( 'Enable', 'product-xml-feeds-for-woocommerce' ),
+				'id'       => 'alg_products_xml_ajax_feed_creation_option',
+				'default'  => 'no',
 				'type'     => 'checkbox',
 			),
 			

@@ -260,7 +260,7 @@ class Alg_WC_Product_XML_Feeds_Core {
 	/**
 	 * create_products_xml.
 	 *
-	 * @version 1.7.2
+	 * @version 2.7.10
 	 * @since   1.0.0
 	 * @todo    [fix] `$query_post_type`: fix filtering by product/category/tag/custom taxonomy when *including variations* for `products_and_variations`
 	 * @todo    [dev] check attribute: for global attributes we can use custom taxonomy filtering instead - check if we can do the same for local attributes?
@@ -273,7 +273,7 @@ class Alg_WC_Product_XML_Feeds_Core {
 	 * @todo    [feature] condition: custom `meta_query`
 	 * @todo    [feature] condition: stock <>= X
 	 */
-	function create_products_xml( $file_num ) {
+	function create_products_xml( $file_num, $is_ajax = false, $additional_params = array() ) {
 		global $global_file_name;
 		$global_file_name = $file_num;
 		// Memory limit
@@ -306,7 +306,7 @@ class Alg_WC_Product_XML_Feeds_Core {
 		if ( ! empty( $product_types ) && ! is_wp_error( $product_types ) ){
 			foreach ( $product_types as $product_type ) {
 				/*if(in_array($product_type->slug, array('grouped', 'simple', 'variable'))){*/
-					$product_default_options[] = $product_type->term_id;
+					// $product_default_options[] = $product_type->term_id;
 				/*}*/
 			}
 		}
@@ -370,6 +370,14 @@ class Alg_WC_Product_XML_Feeds_Core {
 		$xml_v_items 	 = array();
 		$block_size      = get_option( 'alg_products_xml_query_block_size', 512 );
 		$_total_products = 0;
+		
+		if ( $is_ajax ) {
+			if ( isset( $additional_params['start'] ) ) {
+				$offset 	= $additional_params['start'];
+				$block_size = $additional_params['block_size'];
+			}
+		}
+		
 		while ( true ) {
 			// Time limit
 			if ( -1 != $php_time_limit ) {
@@ -615,6 +623,11 @@ class Alg_WC_Product_XML_Feeds_Core {
 					break;
 				}
 			}
+			
+			if ( $is_ajax ){
+				break;
+			}
+			
 			$offset += $block_size;
 			if ( 0 != $total_products && $_total_products >= $total_products ) {
 				break;
@@ -727,10 +740,46 @@ class Alg_WC_Product_XML_Feeds_Core {
 		}
 		
 		wp_reset_postdata();
-
+		
 		// Switch back language (WPML)
 		if ( '' != $current_lang ) {
 			$sitepress->switch_lang( $current_lang );
+		}
+		
+		if ( $is_ajax ){
+			if ( isset( $additional_params['start'] ) ) {
+				$offset 		= $additional_params['start'];
+				$block_size 	= $additional_params['block_size'];
+				$current_page 	= $additional_params['current_page'];
+				$is_end 		= $additional_params['is_end'];
+				if($current_page > 1){
+					
+					$xml_header_template = '';
+					
+					if ( !$is_end ) {
+						$xml_footer_template = '';
+					}
+					
+					if ( 'yes' === $create_text_feed ){
+						$feed_file_path = ABSPATH . get_option( 'alg_products_xml_text_file_path_' . $file_num, ( ( 1 == $file_num ) ? 'products.txt' : 'products_' . $file_num . '.txt' ) );
+					} else {
+						$feed_file_path = ABSPATH . get_option( 'alg_products_xml_file_path_' . $file_num, ( ( 1 == $file_num ) ? 'products.xml' : 'products_' . $file_num . '.xml' ) );
+					}
+					
+					$write_data = do_shortcode( $xml_header_template ) . $xml_items . do_shortcode( $xml_footer_template );
+					if(!empty($write_data)) {
+						$fp = fopen( $feed_file_path , 'a' );
+						fwrite( $fp, $write_data ); // Write information to the file
+						fclose( $fp );
+					}
+
+					return true;
+				}else {
+					if ( !$is_end ) {
+						$xml_footer_template = '';
+					}
+				}
+			}
 		}
 		// Create XML feed file
 		if('yes'==get_option( 'alg_products_xml_use_home_url_' . $file_num, 'no' ))
