@@ -3,60 +3,137 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, product xml feeds, xml, export
 Requires at least: 4.4
 Tested up to: 6.4
-Stable tag: 2.7.10
+Stable tag: 2.7.11
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Create your own XML files using tens of preconfigured shortcodes for you on your WooCommerce store
+Create your own XML feeds to export them, utilize tens of preconfigured shortcodes for you on your WooCommerce store as per marketplace needs
 
 == Description ==
 
-**Product XML Feeds for WooCommerce** plugin lets you add WooCommerce product XML feeds. Feeds are automatically regenerated using crons.
+> “Very good!: Very helpful support! I recomand this plugin, simple to use and very good documented.” – ⭐⭐⭐⭐⭐  [price4you](https://wordpress.org/support/topic/very-good-5904/)
 
-You can set **custom XML templates** for the feed. Feeds are created using plugin's [shortcodes](https://wpfactory.com/item/product-xml-feeds-woocommerce/). Different templates can be set for:
+Selling on marketplaces like Google & Amazon requires you to have custom XML feeds where you can export your products from WooCommerce to the marketplace.
 
-* XML header.
-* XML item.
-* XML footer.
+With our all-in-one toolkit designed to bridge the gap between your WooCommerce store and major marketplaces like Google Shopping, Amazon, and beyond, you can tailor and customize your product catalog in the exact language these global platforms understand: meticulously crafted XML feeds.
 
-In addition you can set custom **XML file path and name** and set custom **products sorting** options.
+Here's a glimpse of what this plugin offers:
 
-Plugin is **WPML compatible**. I.e. you can create separate feeds for each language.
+1. XML Feed Creation: Create your XML feed to showcase your entire product range to any vendor.
 
-To **include only certain products** in feed, you can use these products filtering options:
+2. Marketplace-specific Customization: Fine-tune your feeds to align with the unique specifications of each marketplace, whether it's Google, Social sites, Amazon, or any other marketplace.
 
-* Products to include/exclude.
-* Product categories to include/exclude.
-* Product tags to include/exclude.
-* Variable products: Variable products only; Variation products only; Both variable and variation products.
-* Products scope: All products; Only products that are on sale; Only products that are not on sale; Only products that are featured; Only products that are not featured.
-* Products offset and total number of products.
+3. Dynamic Product Selection: Include or exclude products based on categories, tags, and product.
 
-= Premium Version =
+4. Scheduled Updates (Pro): Set your XML feeds to refresh automatically, keeping your listings as current as your inventory.
 
-[Product XML Feeds for WooCommerce Pro](https://wpfactory.com/item/product-xml-feeds-woocommerce/) version allows you to create **unlimited number of feeds** with individual settings for each.
+5. Advanced Filtering Options (Partially Pro): Full customization with advanced filtering, allowing you to curate feeds that resonate with specific marketplace audiences.
 
-It also includes **additional products filtering options**:
+Let's explore in more details what you can do with this plugin.
 
-* Stock status: In stock products; Out of stock products; On backorder products.
-* Min and max product prices.
-* Catalog visibility: Shop and search results; Shop only; Search results only; Hidden products.
-* Custom taxonomy to include.
-* Attribute to include.
+#### Useful Links ####
+* **[Plugin Main Page](https://wpfactory.com/item/product-xml-feeds-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "Plugin Main Page")**
+* **[Plugin Support Forum](https://wpfactory.com/support/item/product-xml-feeds-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "Plugin Support Forum")**
+* **[Documentation & How to](https://wpfactory.com/docs/product-xml-feeds-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "Documentation & How to")**
 
-You can also change the **update (i.e. regeneration) period** (weekly by default): Every minute; Hourly; Twice daily; Daily; Weekly.
+## 🤝 Recommended By##
+* [Galusso Themes: Top 7 Best Woocommerce Product Feed plugin](https://galussothemes.com/woocommerce-product-feed-plugins/ "Galusso Themes: Top 7 Best Woocommerce Product Feed plugin")
+* [Engine Templates: Amazing Woocommerce Product Feed Plugins](https://enginetemplates.com/woocommerce-product-feed-plugins/ "Engine Templates: Amazing Woocommerce Product Feed Plugins")
+* [L Theme: Top Best Woocommerce Product Feed plugins](https://ltheme.com/woocommerce-product-feed-plugins/ "L Theme: Top Best Woocommerce Product Feed plugins")
+* [Woo Sell Services: Best WooCommerce Product Import & Export Plugins For WordPress](https://woosellservices.com/woocommerce-product-import-plugins/ "Woo Sell Services: Best WooCommerce Product Import & Export Plugins For WordPress")
+* [Android Standard: 5 Best WooCommerce 🥇 2024 Product Feed Plugins](https://androidstandard.com/5-melhores-plug-ins-de-feed-de-produtos-woocommerce-%F0%9F%A5%87-2023/ "Android Standard: 5 Best WooCommerce 🥇 2024 Product Feed Plugins")
+* [SD Studio: 5 Best WooCommerce Product Feed Plugins](https://techblog.sdstudio.top/de/die-5-besten-woocommerce-produkt-feed-plugins-2022-kostenlos-und-kostenpflichtig/ "SD Studio: 5 Best WooCommerce Product Feed Plugins")
 
-= Demo Store =
+## 🚀 Main Features: FREE Version ##
 
-If you want to try the plugin features, play around with its settings before installing it on your live website, feel free to do so on this demo store:
-URL: https://wpwhale.com/demo/wp-admin/
-User: demo
-Password: G6_32e!r@
+### 🚀 Create Customized XML Feeds ###
+Easily create XML feeds that fit what online stores like Amazon or Google Shopping need. This lets you show your products correctly on these platforms, helping customers find and buy your stuff with all details they need.
+Include images, prices, sizes, inventory, and much more info from your products to the marketplace.
 
-= Feedback =
+### 🚀 Edit XML Header, Body, and Footer ###
 
-* We are open to your suggestions and feedback. Thank you for using or trying out one of our plugins!
-* Please visit [Product XML Feeds for WooCommerce plugin page](https://wpfactory.com/item/product-xml-feeds-woocommerce/).
+Full customization of the header, body, and footer sections, ensuring that your feeds adhere to the unique XML format and standards required by different online marketplaces.
+
+### 🚀 Use Over 70 Shortcodes & Attributes ###
+
+With more than 50 shortcodes, you can show lots of details about your products. These shortcodes let you add info automatically, making your product listings full and accurate.
+
+Further more, you can utilize our global attributes and include them in your shortcodes, like text before or after them, finding & replacing values, and more. 
+
+This lets you tweak how product info looks, making it clearer or fitting what certain platforms require.
+
+### 🚀 Change XML File Name & Location ###
+
+You can rename your XML file and decide where to keep it. This helps with organizing your feeds, especially if you have many or need to find them easily for updates.
+
+### 🚀 Update Feed Using Built-in Weekly Schedule or Manual Cron Job Command ###
+
+Update your feeds without doing it yourself by setting a weekly schedule or using a Cron Job Command. This keeps your product info up-to-date, showing your current items and prices.
+
+### 🚀 Filter Products for Your Feeds ###
+
+Choose which products to show in your feeds by filtering them by category, tag, product itself, or even if they're on sale. This lets you focus on showing the right products for different situations or sales.
+
+> “Extra Star: Super fast and friendly support by Omar. Transferred a request immediately into a feature. Perfect. Thank you very much!” – ⭐⭐⭐⭐⭐ [charismeki](https://wordpress.org/support/topic/extra-star/)
+
+> “Perfect: Great little plugin – very simple to setup and works flawlessly.” – ⭐⭐⭐⭐⭐ [southmartin](https://wordpress.org/support/topic/perfect-7931/)
+
+## 🏆 Pro Version ##
+Our **[Plugin Pro version](https://wpfactory.com/item/product-xml-feeds-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "Plugin Pro version")** features further expands the capabilities of our plugin so you can have more control on your feeds, like:
+
+
+### 🏆 Create Unlimited Feeds ###
+
+Make as many XML feeds as you need. This is perfect if you have lots of products or want to target different online stores, giving you the freedom to reach more customers.
+
+### 🏆 Flexible Update Schedule ###
+
+Choose how often to update your feeds, from every minute to once a week. This helps keep your product listings always up-to-date, whether you have fast-changing stock or regular updates.
+
+### 🏆 Select Product Types ###
+
+Decide which types of products to include in your feeds, such as simple, grouped, variable, or external. This lets you be more specific about what products you want to show on each marketplace.
+
+### 🏆 Advanced Filtering Options ###
+
+Use more detailed filters for your feeds, like whether products are in stock, their price range, custom categories, or specific attributes. This makes your feeds more targeted, only showing products that match exactly what you're looking for.
+
+## 💯 Why WPFactory? ##
+
+* **Experience You Can Trust:** Over a decade in the business
+* **Wide Plugin Selection:** Offering 65+ unique and powerful plugins
+* **Highly-Rated Support:** Backed by hundreds of 5-star reviews
+* **Expert Team:** Dedicated developers and technical support at your service
+
+## What's Next? Discover More Plugins by WPFactory ##
+
+WPFactory has a diverse range of plugins tailored to enhance your experience, some of our top-selling plugins are:
+
+* [**Min Max Step Quantity**](https://wpfactory.com/item/product-quantity-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Min Max Step Quantity**"): Set minimum, maximum, step, and default product quantities, including dropdowns and decimal options on WooCommerce (**[Free version](https://wordpress.org/plugins/product-quantity-for-woocommerce/ "Free version")**)
+
+* [**Cost of Goods for WooCommerce**](https://wpfactory.com/item/cost-of-goods-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Cost of Goods WooCommerce**"): Enhance profit maximization and financial management by accurately calculating your WooCommerce store's COGS (**[Free version](https://wordpress.org/plugins/cost-of-goods-for-woocommerce/ "Free version")**)
+
+* [**Maximum Products per User**](https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Maximum Products per User**"): Impose personalized purchase limits based on user roles and date ranges to manage customer buying behavior (**[Free version](https://wordpress.org/plugins/maximum-products-per-user-for-woocommerce/ "Free version")**)
+
+* [**Order Minimum/Maximum Amount**](https://wpfactory.com/item/order-minimum-maximum-amount-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Order Minimum/Maximum Amount**"): Customize order limits by amount, quantity, weight, or volume, including user role, category, and more (**[Free version](https://wordpress.org/plugins/order-minimum-amount-for-woocommerce/ "Free version")**)
+
+* [**EU/UK VAT Manager for WooCommerce**](https://wpfactory.com/item/eu-vat-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**EU/UK VAT Manager for WooCommerce**"): Automate VAT compliance for your WooCommerce store, including settings and VIES validation for a seamless experience (**[Free version](https://wordpress.org/plugins/eu-vat-for-woocommerce/ "Free version")**)
+
+* [**Email Verification for WooCommerce**](https://wpfactory.com/item/email-verification-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Email Verification for WooCommerce**"): Boost security and credibility by verifying customer emails, reducing spam, and improving email marketing (**[Free version](https://wordpress.org/plugins/maximum-products-per-user-for-woocommerce/ "Free version")**)
+
+* [**Free Shipping Over Amount for WooCommerce**](https://wpfactory.com/item/amount-left-free-shipping-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Free Shipping Over Amount for WooCommerce**"): Encourage higher spending by offering free shipping based on amount, with a progress bar for customers (**[Free version](https://wordpress.org/plugins/amount-left-free-shipping-woocommerce/ "Free version")**)
+
+* [**Dynamic Pricing & Bulk Quantity Discounts**](https://wpfactory.com/item/product-price-by-quantity-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Dynamic Pricing & Bulk Quantity Discounts**"): Advanced dynamic pricing and discount rules for WooCommerce, encouraging bulk purchases and driving more sales (**[Free version](https://wordpress.org/plugins/wholesale-pricing-woocommerce/ "Free version")**)
+
+###❤️ USER TESTIMONIALS: SEE WHAT OTHERS ARE SAYING! ###
+
+> “Great plugin with even greater support! They tend to update with every feature we could ask in a matter of days! Thank you!” – ⭐⭐⭐⭐⭐ [Gencho Tanev](https://wpfactory.com/item/product-xml-feeds-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme)
+
+> “Great tool & one of the best support teams I've ever come across.” – ⭐⭐⭐⭐⭐ [Roger](https://wpfactory.com/item/product-xml-feeds-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme)
+
+> “This Product XML Feeds for WooCommerce works really well. It takes up very little system resources, is extremly reliable and efficient, and is of high quality of coding. Support for this plug-in is very good. Omar is very responsive to support request, and has in-depth knowledge about the ins and outs of this plug-in. Highly recommanded.” – ⭐⭐⭐⭐⭐ [Xing Gao](https://wpfactory.com/item/product-xml-feeds-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme)
+
+> “Simple and efficient, and the support is great: This plugin provides all the functionality I need even in free version. Inserting product information in XML is super easy with well documented shortcodes. I had a problem with shortcodes inside tag and Support responded quickly and found a solution instantly.” – ⭐⭐⭐⭐⭐ [Krzysztof Busłowicz](https://wordpress.org/support/topic/simple-and-efficient-and-the-support-is-great/)
 
 == Installation ==
 
@@ -65,6 +142,10 @@ Password: G6_32e!r@
 3. Start by visiting plugin settings at "WooCommerce > Settings > Product XML Feeds".
 
 == Changelog ==
+
+= 2.7.11 - 20/03/2024 =
+* Update readme.txt
+* WC tested up to: 8.5.
 
 = 2.7.10 - 12/01/2024 =
 * WC tested up to: 8.4.
