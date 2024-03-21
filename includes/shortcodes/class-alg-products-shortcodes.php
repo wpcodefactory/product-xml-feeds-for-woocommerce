@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - Products Shortcodes
  *
- * @version 1.5.4
+ * @version 2.7.12
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -985,12 +985,13 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	/**
 	 * Returns product (modified) price.
 	 *
-	 * @version 1.5.0
+	 * @version 2.7.12
 	 * @since   1.0.0
 	 * @todo    [dev] variable products: not range
 	 * @return  string The product (modified) price
 	 */
 	function alg_product_price( $atts ) {
+		
 		if ( $this->the_product->is_type( 'variable' ) && ( ! isset( $atts['variable_price_type'] ) || 'range' === $atts['variable_price_type'] ) ) {
 			// Variable
 			$min = $this->the_product->get_variation_price( 'min', false );
@@ -1009,6 +1010,13 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 				$min = wc_price( $min );
 				$max = wc_price( $max );
 			}
+			
+			if( isset( $atts['decimal_padding'] ) && !empty( $atts['decimal_padding'] )) {
+				$dec = (int) $atts['decimal_padding'];
+				$format = '%0.'. $dec  .'f';
+				$min = sprintf($format, $min);
+				$max = sprintf($format, $max);
+			}
 			return ( $min != $max ) ? sprintf( '%s-%s', $min, $max ) : $min;
 		} else {
 			// Simple etc.
@@ -1020,6 +1028,12 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 				if ( '' !== $atts['sum_with'] && is_numeric( $atts['sum_with'] ) ) {
 					$price = $price + $atts['sum_with'];
 				}
+			}
+			
+			if( isset( $atts['decimal_padding'] ) && !empty( $atts['decimal_padding'] )) {
+				$dec = (int) $atts['decimal_padding'];
+				$format = '%0.'. $dec  .'f';
+				$price = sprintf($format, $price);
 			}
 			return ( 'yes' === $atts['hide_currency'] ? $price : wc_price( $price ) );
 		}

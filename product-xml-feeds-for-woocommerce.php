@@ -3,7 +3,7 @@
 Plugin Name: Product XML Feeds for WooCommerce
 Plugin URI: https://wpfactory.com/item/product-xml-feeds-woocommerce/
 Description: Create your own XML files using tens of preconfigured shortcodes for you on your WooCommerce store
-Version: 2.7.11
+Version: 2.7.12
 Author: WPFactory
 Author URI: https://wpfactory.com
 Text Domain: product-xml-feeds-for-woocommerce
@@ -42,7 +42,7 @@ if ( ! class_exists( 'Alg_WC_Product_XML_Feeds' ) ) :
  * Main Alg_WC_Product_XML_Feeds Class
  *
  * @class   Alg_WC_Product_XML_Feeds
- * @version 2.7.11
+ * @version 2.7.12
  * @since   1.0.0
  */
 final class Alg_WC_Product_XML_Feeds {
@@ -53,7 +53,7 @@ final class Alg_WC_Product_XML_Feeds {
 	 * @var   string
 	 * @since 1.0.0
 	 */
-	public $version = '2.7.11';
+	public $version = '2.7.12';
 
 	/**
 	 * @var   Alg_WC_Product_XML_Feeds The single instance of the class

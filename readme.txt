@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, product xml feeds, xml, export
 Requires at least: 4.4
 Tested up to: 6.4
-Stable tag: 2.7.11
+Stable tag: 2.7.12
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -142,6 +142,9 @@ WPFactory has a diverse range of plugins tailored to enhance your experience, so
 3. Start by visiting plugin settings at "WooCommerce > Settings > Product XML Feeds".
 
 == Changelog ==
+
+= 2.7.12 - 21/03/2024 =
+* Add - decimal_padding attribute to [alg_product_price]
 
 = 2.7.11 - 20/03/2024 =
 * Update readme.txt
