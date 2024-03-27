@@ -351,33 +351,36 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	/**
 	 * alg_product_length.
 	 *
-	 * @version 1.0.0
+	 * @version 2.7.13
 	 * @since   1.0.0
 	 */
 	function alg_product_length( $atts ) {
-		$return = ( '' != $atts['to_unit'] ) ? wc_get_dimension( $this->the_product->get_length(), $atts['to_unit'] ) : $this->the_product->get_length();
+		$length = (float) $this->the_product->get_length();
+		$return = ( '' != $atts['to_unit'] ) ? wc_get_dimension( $length, $atts['to_unit'] ) : $length;
 		return ( 'yes' === $atts['round'] ) ? round( $return, $atts['precision'] ) : $return;
 	}
 
 	/**
 	 * alg_product_width.
 	 *
-	 * @version 1.0.0
+	 * @version 2.7.13
 	 * @since   1.0.0
 	 */
 	function alg_product_width( $atts ) {
-		$return = ( '' != $atts['to_unit'] ) ? wc_get_dimension( $this->the_product->get_width(), $atts['to_unit'] ) : $this->the_product->get_width();
+		$width = (float) $this->the_product->get_width();
+		$return = ( '' != $atts['to_unit'] ) ? wc_get_dimension( $width, $atts['to_unit'] ) : $width;
 		return ( 'yes' === $atts['round'] ) ? round( $return, $atts['precision'] ) : $return;
 	}
 
 	/**
 	 * alg_product_height.
 	 *
-	 * @version 1.0.0
+	 * @version 2.7.13
 	 * @since   1.0.0
 	 */
 	function alg_product_height( $atts ) {
-		$return = ( '' != $atts['to_unit'] ) ? wc_get_dimension( $this->the_product->get_height(), $atts['to_unit'] ) : $this->the_product->get_height();
+		$height = (float) $this->the_product->get_height();
+		$return = ( '' != $atts['to_unit'] ) ? wc_get_dimension( $height, $atts['to_unit'] ) : $height;
 		return ( 'yes' === $atts['round'] ) ? round( $return, $atts['precision'] ) : $return;
 	}
 
