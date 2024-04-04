@@ -2,8 +2,8 @@
 Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmukherjeeli
 Tags: woocommerce, product xml feeds, xml, export
 Requires at least: 4.4
-Tested up to: 6.4
-Stable tag: 2.7.13
+Tested up to: 6.5
+Stable tag: 2.7.14
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -12,6 +12,8 @@ Create your own XML feeds to export them, utilize tens of preconfigured shortcod
 == Description ==
 
 > “Very good!: Very helpful support! I recomand this plugin, simple to use and very good documented.” – ⭐⭐⭐⭐⭐  [price4you](https://wordpress.org/support/topic/very-good-5904/)
+
+[Main Page](https://wpfactory.com/item/product-xml-feeds-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme?utm_source=wporg&utm_medium=organic&utm_campaign=readme?utm_source=wporg&utm_medium=organic&utm_campaign=readme "Main Page") | [Support Forum](https://wpfactory.com/support/item/product-xml-feeds-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme?utm_source=wporg&utm_medium=organic&utm_campaign=readme?utm_source=wporg&utm_medium=organic&utm_campaign=readme "Support Forum") | [Documentation & How to](https://wpfactory.com/docs/product-xml-feeds-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme?utm_source=wporg&utm_medium=organic&utm_campaign=readme?utm_source=wporg&utm_medium=organic&utm_campaign=readme "Documentation & How to")
 
 Selling on marketplaces like Google & Amazon requires you to have custom XML feeds where you can export your products from WooCommerce to the marketplace.
 
@@ -30,11 +32,6 @@ Here's a glimpse of what this plugin offers:
 5. Advanced Filtering Options (Partially Pro): Full customization with advanced filtering, allowing you to curate feeds that resonate with specific marketplace audiences.
 
 Let's explore in more details what you can do with this plugin.
-
-#### Useful Links ####
-* **[Plugin Main Page](https://wpfactory.com/item/product-xml-feeds-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "Plugin Main Page")**
-* **[Plugin Support Forum](https://wpfactory.com/support/item/product-xml-feeds-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "Plugin Support Forum")**
-* **[Documentation & How to](https://wpfactory.com/docs/product-xml-feeds-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "Documentation & How to")**
 
 ## 🤝 Recommended By##
 * [Galusso Themes: Top 7 Best Woocommerce Product Feed plugin](https://galussothemes.com/woocommerce-product-feed-plugins/ "Galusso Themes: Top 7 Best Woocommerce Product Feed plugin")
@@ -137,11 +134,34 @@ WPFactory has a diverse range of plugins tailored to enhance your experience, so
 
 == Installation ==
 
-1. Upload the entire plugin folder to the `/wp-content/plugins/` directory.
-2. Activate the plugin through the "Plugins" menu in WordPress.
-3. Start by visiting plugin settings at "WooCommerce > Settings > Product XML Feeds".
+**Follow these simplified steps to get your plugin up and running:**
+
+**From the WordPress Admin Panel:**
+1. Navigate to “Plugins” > “Add New”.
+2. Use the search bar and find the plugin using the exact name.
+3. Click “Install Now” for the desired plugin.
+4. Once the installation is finished, and click “Activate”.
+
+**Manual Installation Using FTP:**
+1. Download the desired plugin from WordPress.org.
+2. Using your preferred FTP client, upload the entire plugin folder to the /wp-content/plugins/ directory of your WordPress installation.
+3. Go to “Plugins” > “Installed Plugins” in your dashboard and click “Activate”.
+
+**Manual download & upload from the WordPress Admin Panel:**
+1. Download the desired plugin in a ZIP format.
+2. On your site, navigate to “Plugins” > “Add New” and click the “Upload Plugin” button.
+3. Choose the downloaded plugin file and click “Install Now.”
+4. After the installation is complete, click “Activate”.
+
+**Post-Activation:**
+Once activated, access the plugin's settings by navigating to “WooCommerce > Settings” and look for the relevant tab.
 
 == Changelog ==
+
+= 2.7.14 - 04/04/2024 =
+* Update readme.txt
+* WC tested up to: 8.7.
+* Tested up to: 6.5.
 
 = 2.7.13 - 27/03/2024 =
 * Fix - support PHP 8.3 to shortcode [alg_product_length], [alg_product_width], [alg_product_height]
