@@ -66,7 +66,7 @@ class Alg_Shortcodes {
 	/**
 	 * alg_shortcode.
 	 *
-	 * @version 1.5.2
+	 * @version 2.7.15
 	 * @since   1.0.0
 	 * @todo    [dev] maybe add `esc_html` attribute? (or alternatively add example with `custom_function="esc_html"` to the site)
 	 * @todo    [dev] recheck global atts (before, after etc.)
@@ -102,6 +102,7 @@ class Alg_Shortcodes {
 			'strip_tags'                 => 'yes',
 			'strip_shortcodes'           => 'no',
 			'cdata'                      => 'no',
+			'append_currency'            => 'no',
 		);
 		$atts = array_merge( $global_defaults, $atts );
 
@@ -168,6 +169,12 @@ class Alg_Shortcodes {
 			}
 			if(!empty($atts['after'])){
 				$atts['after'] = str_replace( array('#algequal;','#algquotstart;','#algquotend;'), array('=','"','"'), $atts['after'] );
+			}
+			
+			// append currency
+			if(isset($atts['append_currency']) && 'yes' == strtolower($atts['append_currency']) ){
+				
+				$result = $result . ' '. get_woocommerce_currency();
 			}
 			
 			// Before/After
