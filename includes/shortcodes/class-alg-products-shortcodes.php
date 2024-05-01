@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - Products Shortcodes
  *
- * @version 2.7.12
+ * @version 2.7.16
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -74,6 +74,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 			'alg_product_list_attribute_value_slug',
 			'alg_product_list_available_variations_for_variable',
 			'alg_product_list_attributes_hirarchy',
+			'alg_product_custom_value',
 		);
 
 		$this->the_atts = array(
@@ -98,6 +99,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 			'taxonomy'              => '',
 			'to_unit'               => '',
 			'use_parent_id'         => 'no',
+			'show_onsale'           => 'no',
 		);
 
 		$this->is_wc_version_below_3 = version_compare( get_option( 'woocommerce_version', null ), '3.0.0', '<' );
@@ -1411,6 +1413,12 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 		return '';
 	}
 	
+	/**
+	 * alg_product_list_available_variations_for_variable.
+	 *
+	 * @version 2.7.16
+	 * @since   2.7.16
+	 */
 	function alg_product_list_available_variations_for_variable( $atts ){
 		if ( ! isset( $atts['strip_tags'] ) ) {
 			$atts['strip_tags'] = 'no';
@@ -1448,6 +1456,12 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 		return $return;
 	}
 	
+	/**
+	 * alg_product_list_attribute_slug.
+	 *
+	 * @version 2.7.16
+	 * @since   2.7.16
+	 */
 	function alg_product_list_attribute_slug( $atts )
 	{
 		$name = '';
@@ -1475,6 +1489,12 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 		return ' ';
 	}
 	
+	/**
+	 * alg_product_list_attribute_value_slug.
+	 *
+	 * @version 2.7.16
+	 * @since   2.7.16
+	 */
 	function alg_product_list_attribute_value_slug( $atts )
 	{
 		$name = '';
@@ -1518,6 +1538,14 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 		return ' ';
 	}
 	
+	
+	
+	/**
+	 * alg_product_list_attributes_hirarchy.
+	 *
+	 * @version 2.7.16
+	 * @since   2.7.16
+	 */
 	function alg_product_list_attributes_hirarchy($atts){
 		
 		$return = '' . PHP_EOL;
@@ -1552,6 +1580,23 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 		}
 
 		return $return;
+	}
+	
+	/**
+	 * alg_product_custom_value.
+	 *
+	 * @version 2.7.16
+	 * @since   2.7.16
+	 */
+	 
+	function alg_product_custom_value( $atts, $content = ''){
+		if( isset( $atts['show_onsale'] ) && !empty( $atts['show_onsale'] ) && $atts['show_onsale'] == 'yes' ) {
+			if ( $this->the_product->is_on_sale() ) {
+				return $content;
+			}
+			return '';
+		}
+		return $content;
 	}
 
 }
