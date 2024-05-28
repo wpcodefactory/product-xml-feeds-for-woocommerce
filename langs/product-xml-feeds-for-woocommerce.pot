@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: product-xml-feeds-for-woocommerce 2.7.16\n"
+"Project-Id-Version: product-xml-feeds-for-woocommerce 2.7.17\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/product-xml-feeds-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-05-01T20:59:57+02:00\n"
+"POT-Creation-Date: 2024-05-28T14:49:32+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: product-xml-feeds-for-woocommerce\n"
@@ -635,17 +635,17 @@ msgstr ""
 msgid "Your settings have been reset."
 msgstr ""
 
-#: includes/shortcodes/class-alg-products-shortcodes.php:430
-#: includes/shortcodes/class-alg-products-shortcodes.php:487
+#: includes/shortcodes/class-alg-products-shortcodes.php:431
+#: includes/shortcodes/class-alg-products-shortcodes.php:488
 msgid "%s ago"
 msgstr ""
 
-#: includes/shortcodes/class-alg-products-shortcodes.php:444
-#: includes/shortcodes/class-alg-products-shortcodes.php:501
+#: includes/shortcodes/class-alg-products-shortcodes.php:445
+#: includes/shortcodes/class-alg-products-shortcodes.php:502
 msgid "No sales yet."
 msgstr ""
 
-#: includes/shortcodes/class-alg-products-shortcodes.php:525
+#: includes/shortcodes/class-alg-products-shortcodes.php:526
 msgid "Any"
 msgstr ""
 

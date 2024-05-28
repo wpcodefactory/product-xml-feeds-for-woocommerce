@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - Products Shortcodes
  *
- * @version 2.7.16
+ * @version 2.7.17
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -75,6 +75,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 			'alg_product_list_available_variations_for_variable',
 			'alg_product_list_attributes_hirarchy',
 			'alg_product_custom_value',
+			'alg_wc_product_category_hierar_list',
 		);
 
 		$this->the_atts = array(
@@ -1597,6 +1598,42 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 			return '';
 		}
 		return $content;
+	}
+	
+	/**
+	 * alg_wc_product_category_hierar_list.
+	 *
+	 * @version 2.7.17
+	 * @since   2.7.17
+	 */
+	function alg_wc_product_category_hierar_list( $atts ){
+		$atts = shortcode_atts( array(
+			'id' => $this->the_product->get_id(),
+		), $atts, 'alg_wc_product_category_hierar_list' );
+
+		$output    = []; // Initialising
+		$taxonomy  = 'product_cat'; // Taxonomy for product category
+
+		// Get the product categories terms ids in the product:
+		$terms_ids = wp_get_post_terms( $atts['id'], $taxonomy, array('fields' => 'ids') );
+
+		// Loop though terms ids (product categories)
+		foreach( $terms_ids as $term_id ) {
+			$term_names = []; // Initialising category array
+
+			// Loop through product category ancestors
+			foreach( get_ancestors( $term_id, $taxonomy ) as $ancestor_id ){
+				// Add the ancestors term names to the category array
+				$term_names[] = get_term( $ancestor_id, $taxonomy )->name;
+			}
+			// Add the product category term name to the category array
+			$term_names[] = get_term( $term_id, $taxonomy )->name;
+
+			// Add the formatted ancestors with the product category to main array
+			$output[] = implode(' > ', $term_names);
+		}
+		// Output the formatted product categories with their ancestors
+		return   implode('" | "', $output);
 	}
 
 }
