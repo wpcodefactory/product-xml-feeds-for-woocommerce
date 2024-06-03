@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - Products Shortcodes
  *
- * @version 2.7.17
+ * @version 2.7.18
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -1198,11 +1198,19 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	 * Get the product's weight.
 	 *
 	 * @return  string
-	 * @version 1.0.0
+	 * @version 2.7.18
 	 * @since   1.0.0
 	 */
 	function alg_product_weight( $atts ) {
-		return ( $this->the_product->has_weight() ) ? $this->the_product->get_weight() : '';
+		$weight = '';
+		if( $this->the_product->has_weight() ) {
+			$weight = $this->the_product->get_weight();
+		}
+		
+		if ( 0 != $atts['multiply_by'] && is_numeric( $atts['multiply_by'] ) && is_numeric( $weight ) ) {
+			$weight = $weight * $atts['multiply_by'];
+		}
+		return $weight;
 	}
 
 	/**
