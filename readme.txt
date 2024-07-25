@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, product xml feeds, xml, export
 Requires at least: 4.4
 Tested up to: 6.5
-Stable tag: 2.7.18
+Stable tag: 2.7.19
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -157,6 +157,10 @@ WPFactory has a diverse range of plugins tailored to enhance your experience, so
 Once activated, access the plugin's settings by navigating to “WooCommerce > Settings” and look for the relevant tab.
 
 == Changelog ==
+
+= 2.7.19 - 25/07/2024 =
+* Update [alg_product_price] variable_price_type = "min" & "max".
+* WC tested up to: 9.0
 
 = 2.7.18 - 03/06/2024 =
 * Update [alg_product_weight] multiply_by

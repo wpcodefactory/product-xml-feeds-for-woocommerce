@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - Products Shortcodes
  *
- * @version 2.7.18
+ * @version 2.7.19
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -991,14 +991,14 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	/**
 	 * Returns product (modified) price.
 	 *
-	 * @version 2.7.12
+	 * @version 2.7.19
 	 * @since   1.0.0
 	 * @todo    [dev] variable products: not range
 	 * @return  string The product (modified) price
 	 */
 	function alg_product_price( $atts ) {
 		
-		if ( $this->the_product->is_type( 'variable' ) && ( ! isset( $atts['variable_price_type'] ) || 'range' === $atts['variable_price_type'] ) ) {
+		if ( $this->the_product->is_type( 'variable' ) && ( ! isset( $atts['variable_price_type'] ) || ( 'range' === $atts['variable_price_type'] || 'min' === $atts['variable_price_type'] || 'max' === $atts['variable_price_type'] ) ) ) {
 			// Variable
 			$min = $this->the_product->get_variation_price( 'min', false );
 			$max = $this->the_product->get_variation_price( 'max', false );
@@ -1023,6 +1023,15 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 				$min = sprintf($format, $min);
 				$max = sprintf($format, $max);
 			}
+			
+			if( isset( $atts['variable_price_type'] ) && $atts['variable_price_type'] == 'min' ) {
+				return $min;
+			}
+			
+			if( isset( $atts['variable_price_type'] ) && $atts['variable_price_type'] == 'max' ) {
+				return $max;
+			}
+			
 			return ( $min != $max ) ? sprintf( '%s-%s', $min, $max ) : $min;
 		} else {
 			// Simple etc.
