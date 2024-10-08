@@ -1,0 +1,70 @@
+/**
+ * alg-wc-xml-feed-admin.css
+ *
+ * @version 2.8.0
+ * @since   2.8.0
+ * @author  WPFactory
+ */
+
+/* Shortcodes dropdown */
+.alg-wc-xml-feed-shortcode-wrap {
+	position: relative;
+}
+
+.alg-wc-xml-feed-shortcode-button.button-secondary {
+	position: absolute;
+	top: 40px;
+	right: 30px;
+	vertical-align: middle;
+	display: flex;
+	align-items: center;
+	min-height: 30px;
+	flex-direction: row-reverse;
+	padding: 0 10px 0 5px;
+}
+
+.alg-wc-xml-feed-shortcode-button.button-secondary > span {
+	padding-right: 3px;
+}
+
+.alg-wc-xml-feed-shortcode-wrap.wp-editor-container .alg-wc-shortcode-button.button-secondary {
+	top: 2px;
+}
+
+.alg-wc-xml-feed-shortcode-list {
+	z-index: 999;
+	display: none;
+	max-width: 450px;
+	border: 1px solid #b5bfc9;
+	border-radius: 6px;
+	background: #fff;
+	position: absolute;
+	top: 72px;
+	right: 30px;
+	width: 80%;
+}
+
+.alg-wc-xml-feed-shortcode-search {
+	width: calc(100% - 10px) !important;
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	margin-top: 5px;
+}
+
+.alg-wc-xml-feed-shortcode-list ul {
+	margin: 40px 0 0 0;
+	height: 220px;
+	overflow: auto;
+}
+
+.alg-wc-xml-feed-shortcode-list li {
+	margin: 0;
+	padding: 10px 10px;
+	cursor: pointer;
+	border-bottom: 1px solid #b5bfc9;
+}
+
+.alg-wc-xml-feed-shortcode-list li:last-child {
+	border: none;
+}

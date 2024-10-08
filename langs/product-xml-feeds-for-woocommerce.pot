@@ -1,518 +1,515 @@
-# Copyright (C) 2024 WPFactory
-# This file is distributed under the GNU General Public License v3.0.
-msgid ""
-msgstr ""
-"Project-Id-Version: product-xml-feeds-for-woocommerce 2.7.21\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/product-xml-feeds-for-woocommerce\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-09-05T11:16:40+02:00\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.9.0\n"
-"X-Domain: product-xml-feeds-for-woocommerce\n"
-
-#. Plugin Name of the plugin
-msgid "Product XML Feeds for WooCommerce Pro"
-msgstr ""
-
-#. Plugin URI of the plugin
-msgid "https://wpfactory.com/item/product-xml-feeds-woocommerce/"
-msgstr ""
-
-#. Description of the plugin
-msgid "Create your own XML files using tens of preconfigured shortcodes for you on your WooCommerce store"
-msgstr ""
-
-#. Author of the plugin
-msgid "WPFactory"
-msgstr ""
-
-#. Author URI of the plugin
-msgid "https://wpfactory.com"
-msgstr ""
-
-#: includes/class-alg-wc-product-xml-feeds-core.php:105
+#: includes/class-alg-wc-product-xml-feeds-core.php:106
 msgid "Once Weekly"
 msgstr ""
 
-#: includes/class-alg-wc-product-xml-feeds-core.php:109
+#: includes/class-alg-wc-product-xml-feeds-core.php:110
 msgid "Once a Minute"
 msgstr ""
 
-#: includes/class-alg-wc-product-xml-feeds-core.php:121
+#: includes/class-alg-wc-product-xml-feeds-core.php:122
 msgid "Products XML file created successfully."
 msgstr ""
 
-#: includes/class-alg-wc-product-xml-feeds-core.php:131
+#: includes/class-alg-wc-product-xml-feeds-core.php:132
 msgid "An error has occurred while creating products XML file."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:24
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:491
+#: includes/pro/class-alg-wc-product-xml-feeds-pro.php:74
+#: includes/pro/class-alg-wc-product-xml-feeds-pro.php:75
+msgid "Save changes"
+msgstr ""
+
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:25
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:493
+#, php-format
 msgid "XML Feed #%d"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:384
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:386
 msgid "Default (current)"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:402
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:406
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:404
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:408
 msgid "Don't forget to save settings if you've made any changes."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:403
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:407
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:405
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:409
 msgid "Create now"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:413
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:415
+#, php-format
 msgid "%s till next update."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:415
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:417
+#, php-format
 msgid "%s seconds till next update."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:422
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:424
+#, php-format
 msgid "Recent file was created on %s"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:475
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:483
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:477
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:485
 msgid "XML Feed"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:481
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:483
 msgid "Enable/Disable"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:482
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:553
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:597
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:636
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:484
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:558
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:603
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:642
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:106
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:115
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:124
 msgid "Enable"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:489
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:491
 msgid "Admin title"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:500
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:502
 msgid "Template Options"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:505
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:507
 msgid "XML header"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:506
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:515
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:533
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:561
-msgid "Please visit <a href=\"%s\" target=\"_blank\">Product XML Feeds for WooCommerce page</a> to check all available shortcodes."
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:508
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:518
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:538
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:566
+#, php-format
+msgid ""
+"Please visit <a href=\"%s\" target=\"_blank\">Product XML Feeds for "
+"WooCommerce page</a> to check all available shortcodes."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:514
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:517
 msgid "XML item"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:523
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:527
 msgid "Variation XML item"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:524
-msgid "Please visit <a href=\"%s\" target=\"_blank\">Product XML Feeds for WooCommerce page</a> to check all available shortcodes. It will works when \"Variable products\" option selected to be \"Both variable and variations products\""
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:528
+#, php-format
+msgid ""
+"Please visit <a href=\"%s\" target=\"_blank\">Product XML Feeds for "
+"WooCommerce page</a> to check all available shortcodes. It will works when "
+"\"Variable products\" option selected to be \"Both variable and variations "
+"products\""
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:532
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:537
 msgid "XML footer"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:542
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:547
 msgid "Hide XML tags if empty"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:543
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:548
 msgid "Eg: product, stock etc with comma separated."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:552
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:557
 msgid "Create text feed"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:560
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:565
 msgid "Text item"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:573
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:647
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:579
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:653
 msgid "General Options"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:578
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:584
 msgid "XML file path and name"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:579
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:588
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:585
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:594
 msgid "Path on server:"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:580
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:589
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:586
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:595
 msgid "URL:"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:587
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:593
 msgid "Text file path and name"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:596
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:602
 msgid "Use Site Address (HOME_URL)"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:603
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:609
 msgid "Update period"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:612
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:618
 msgid "Update every minute"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:613
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:619
 msgid "Update hourly"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:614
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:620
 msgid "Update twice daily"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:615
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:621
 msgid "Update daily"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:616
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:622
 msgid "Update weekly"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:618
-msgid "Possible update periods are: every minute, hourly, twice daily, daily and weekly."
-msgstr ""
-
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:628
-msgid "Manual Cron Job Command"
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:624
+msgid ""
+"Possible update periods are: every minute, hourly, twice daily, daily and "
+"weekly."
 msgstr ""
 
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:634
+msgid "Manual Cron Job Command"
+msgstr ""
+
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:640
 msgid "Turn off WP schedule"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:635
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:641
 msgid "Turn off WP schedule of this plugin only."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:655
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:661
 msgid "WPML language"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:666
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:672
 msgid "Sorting: Order by"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:672
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:678
 msgid "Product ID"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:673
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:679
 msgid "Title"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:674
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:680
 msgid "Slug"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:675
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:681
 msgid "Date"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:676
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:682
 msgid "Last modified date"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:677
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:683
 msgid "Number of comments"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:678
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:684
 msgid "Author"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:679
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:685
 msgid "Random"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:680
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:686
 msgid "None"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:684
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:690
 msgid "Sorting: Order"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:690
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:696
 msgid "Ascending"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:691
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:697
 msgid "Descending"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:695
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:701
 msgid "Remove XML Plugin Branding"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:709
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:715
 msgid "Products Filtering Options"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:714
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:720
 msgid "Products to include"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:715
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:721
 msgid "To include selected products only, enter products here."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:716
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:726
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:736
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:746
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:756
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:766
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:841
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:888
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:905
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:923
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:722
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:732
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:742
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:752
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:762
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:772
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:847
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:894
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:911
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:929
 msgid "Leave blank to include all products."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:724
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:730
 msgid "Products to exclude"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:725
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:731
 msgid "To exclude selected products, enter products here."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:734
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:740
 msgid "Categories to include"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:735
-msgid "To include products from selected categories only, enter categories here."
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:741
+msgid ""
+"To include products from selected categories only, enter categories here."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:744
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:750
 msgid "Categories to exclude"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:745
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:751
 msgid "To exclude products from selected categories, enter categories here."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:754
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:760
 msgid "Tags to include"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:755
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:761
 msgid "To include products from selected tags only, enter tags here."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:764
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:770
 msgid "Tags to exclude"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:765
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:771
 msgid "To exclude products from selected tags, enter tags here."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:774
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:780
 msgid "Product types to include"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:775
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:781
 msgid "Product types to include (multiselect): "
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:776
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:782
 msgid "Leave blank to include all product types."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:785
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:791
 msgid "Variable products"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:791
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:797
 msgid "Variable product only"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:792
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:798
 msgid "Variation products only"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:793
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:799
 msgid "Both variable and variations products"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:797
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:803
 msgid "Products scope"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:803
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:809
 msgid "All products"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:804
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:810
 msgid "Only products that are on sale"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:805
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:811
 msgid "Only products that are not on sale"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:806
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:812
 msgid "Only products that are featured"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:807
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:813
 msgid "Only products that are not featured"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:811
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:817
 msgid "Offset products"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:812
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:818
 msgid "Number of products to pass over."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:819
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:825
 msgid "Total products"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:820
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:826
 msgid "Set to zero to include all products."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:831
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:837
 msgid "Extra Products Filtering Options"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:839
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:845
 msgid "Stock status"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:840
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:846
 msgid "Possible values (multiselect): In stock, Out of stock, On backorder."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:847
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:853
 msgid "In stock"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:848
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:854
 msgid "Out of stock"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:849
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:855
 msgid "On backorder"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:854
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:860
 msgid "Min price"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:855
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:863
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:861
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:869
 msgid "Ignored if empty."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:862
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:868
 msgid "Max price"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:870
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:876
 msgid "Catalog visibility"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:871
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:877
 msgid "If empty, then all products will be included in the feed."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:877
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:883
 msgid "Shop and search results (i.e. visible)"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:878
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:884
 msgid "Shop only"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:879
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:885
 msgid "Search results only"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:880
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:886
 msgid "Hidden"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:885
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:891
 msgid "Custom taxonomy to include"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:886
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:903
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:913
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:921
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:892
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:909
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:919
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:927
+#, php-format
 msgid "E.g.: %s"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:887
-msgid "To include products from selected taxonomy only, enter taxonomy slug here."
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:893
+msgid ""
+"To include products from selected taxonomy only, enter taxonomy slug here."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:895
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:901
 msgid "Custom taxonomy slugs (comma separated)"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:902
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:908
 msgid "Attribute to include"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:904
-msgid "To include products from selected attribute only, enter attribute slug here."
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:910
+msgid ""
+"To include products from selected attribute only, enter attribute slug here."
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:912
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:918
 msgid "Attribute values (comma separated)"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:920
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:926
 msgid "Custom meta filter"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:921
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:927
 msgid "Meta key, compare, value (comma separated)"
 msgstr ""
 
-#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:922
-msgid "To include products from selected custom meta value only, enter meta information here as per instruction."
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:928
+msgid ""
+"To include products from selected custom meta value only, enter meta "
+"information here as per instruction."
+msgstr ""
+
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:1420
+msgid "Shortcodes"
+msgstr ""
+
+#: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:1443
+msgid "Search for a shortcode&hellip;"
 msgstr ""
 
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:24
@@ -548,7 +545,9 @@ msgid "Block size for products query"
 msgstr ""
 
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:72
-msgid "Sets the number of products feed file creation script should process in single loop."
+msgid ""
+"Sets the number of products feed file creation script should process in "
+"single loop."
 msgstr ""
 
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:79
@@ -580,10 +579,13 @@ msgid "Set to zero for no time limit."
 msgstr ""
 
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:92
-msgid "Ignored if set to -1 (and server's default time limit of %s seconds is used)."
+#, php-format
+msgid ""
+"Ignored if set to -1 (and server's default time limit of %s seconds is used)."
 msgstr ""
 
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:94
+#, php-format
 msgid "Check %s function documentation for more info."
 msgstr ""
 
@@ -596,6 +598,7 @@ msgid "Affects \"Template Options\"."
 msgstr ""
 
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:104
+#, php-format
 msgid "If disabled, use %s instead of %s accordingly."
 msgstr ""
 
@@ -604,7 +607,8 @@ msgid "Ajax load filtering option"
 msgstr ""
 
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:114
-msgid "Affects \"Products Filtering Options.\" Please apply for a high-volume store."
+msgid ""
+"Affects \"Products Filtering Options.\" Please apply for a high-volume store."
 msgstr ""
 
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:122
@@ -612,7 +616,9 @@ msgid "Ajax feed creation"
 msgstr ""
 
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:123
-msgid "Create a feed without page refresh. This application is suitable for high-volume stores."
+msgid ""
+"Create a feed without page refresh. This application is suitable for high-"
+"volume stores."
 msgstr ""
 
 #: includes/settings/class-alg-wc-settings-product-xml-feeds.php:24
@@ -637,6 +643,7 @@ msgstr ""
 
 #: includes/shortcodes/class-alg-products-shortcodes.php:431
 #: includes/shortcodes/class-alg-products-shortcodes.php:488
+#, php-format
 msgid "%s ago"
 msgstr ""
 
@@ -649,6 +656,10 @@ msgstr ""
 msgid "Any"
 msgstr ""
 
-#: product-xml-feeds-for-woocommerce-pro.php:120
+#: product-xml-feeds-for-woocommerce.php:117
+msgid "Settings"
+msgstr ""
+
+#: product-xml-feeds-for-woocommerce.php:119
 msgid "Unlock All"
 msgstr ""

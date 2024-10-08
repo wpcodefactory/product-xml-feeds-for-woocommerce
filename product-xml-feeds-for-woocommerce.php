@@ -3,19 +3,18 @@
 Plugin Name: Product XML Feeds for WooCommerce
 Plugin URI: https://wpfactory.com/item/product-xml-feeds-woocommerce/
 Description: Create your own XML files using tens of preconfigured shortcodes for you on your WooCommerce store
-Version: 2.7.21
+Version: 2.8.0
 Author: WPFactory
 Author URI: https://wpfactory.com
 Text Domain: product-xml-feeds-for-woocommerce
 Domain Path: /langs
-Copyright: © 2023 WPFactory
-WC tested up to: 9.2
+WC tested up to: 9.3
 Requires Plugins: woocommerce
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+defined( 'ABSPATH' ) || exit;
 
 // Check if WooCommerce is active
 $plugin = 'woocommerce/woocommerce.php';
@@ -54,7 +53,7 @@ final class Alg_WC_Product_XML_Feeds {
 	 * @var   string
 	 * @since 1.0.0
 	 */
-	public $version = '2.7.21';
+	public $version = '2.8.0';
 
 	/**
 	 * @var   Alg_WC_Product_XML_Feeds The single instance of the class
@@ -221,8 +220,14 @@ if ( ! function_exists( 'alg_wc_product_xml_feeds' ) ) {
 	}
 }
 
+/**
+ * alg_wc_product_xml_feeds.
+ */
 alg_wc_product_xml_feeds();
 
+/**
+ * before_woocommerce_init.
+ */
 add_action( 'before_woocommerce_init', function() {
 	if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
 		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );

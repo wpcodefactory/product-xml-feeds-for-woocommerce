@@ -1,9 +1,9 @@
 === Product XML Feed Manager for WooCommerce - Google Shopping, Social Sites, Skroutz & More ===
-Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmukherjeeli
+Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmukherjeeli, aegkr
 Tags: woocommerce, product xml feeds, xml, export
 Requires at least: 4.4
 Tested up to: 6.6
-Stable tag: 2.7.21
+Stable tag: 2.8.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -55,7 +55,7 @@ Full customization of the header, body, and footer sections, ensuring that your 
 
 With more than 50 shortcodes, you can show lots of details about your products. These shortcodes let you add info automatically, making your product listings full and accurate.
 
-Further more, you can utilize our global attributes and include them in your shortcodes, like text before or after them, finding & replacing values, and more. 
+Further more, you can utilize our global attributes and include them in your shortcodes, like text before or after them, finding & replacing values, and more.
 
 This lets you tweak how product info looks, making it clearer or fitting what certain platforms require.
 
@@ -158,44 +158,49 @@ Once activated, access the plugin's settings by navigating to “WooCommerce > S
 
 == Changelog ==
 
+= 2.8.0 - 08/10/2024 =
+* XML item / Variation XML item / XML footer / Text item - Added shortcode selector with search.
+* Dev - Code refactoring.
+* WC tested up to: 9.3.
+
 = 2.7.21 - 05/09/2024 =
-* WC tested up to: 9.2
+* WC tested up to: 9.2.
 
 = 2.7.20 - 31/07/2024 =
-* WC tested up to: 9.1
-* Tested up to: 6.6
+* WC tested up to: 9.1.
+* Tested up to: 6.6.
 
 = 2.7.19 - 25/07/2024 =
 * Update [alg_product_price] variable_price_type = "min" & "max".
-* WC tested up to: 9.0
+* WC tested up to: 9.0.
 
 = 2.7.18 - 03/06/2024 =
-* Update [alg_product_weight] multiply_by
+* Update [alg_product_weight] multiply_by.
 
 = 2.7.17 - 28/05/2024 =
-* WC tested up to: 8.9
-* Add - new shortcode [alg_wc_product_category_hierar_list]
+* WC tested up to: 8.9.
+* Add - new shortcode [alg_wc_product_category_hierar_list].
 
 = 2.7.16 - 01/05/2024 =
-* Add - new shortcode [alg_product_custom_value]
-* WC tested up to: 8.8
+* Add - new shortcode [alg_product_custom_value].
+* WC tested up to: 8.8.
 
 = 2.7.15 - 10/04/2024 =
-* Add - new attribute 'append_currency'
+* Add - new attribute 'append_currency'.
 
 = 2.7.14 - 04/04/2024 =
-* Update readme.txt
+* Update readme.txt.
 * WC tested up to: 8.7.
 * Tested up to: 6.5.
 
 = 2.7.13 - 27/03/2024 =
-* Fix - support PHP 8.3 to shortcode [alg_product_length], [alg_product_width], [alg_product_height]
+* Fix - support PHP 8.3 to shortcode [alg_product_length], [alg_product_width], [alg_product_height].
 
 = 2.7.12 - 21/03/2024 =
-* Add - decimal_padding attribute to [alg_product_price]
+* Add - decimal_padding attribute to [alg_product_price].
 
 = 2.7.11 - 20/03/2024 =
-* Update readme.txt
+* Update readme.txt.
 * WC tested up to: 8.5.
 
 = 2.7.10 - 12/01/2024 =
