@@ -6,10 +6,11 @@
  *
  * @version 1.4.5
  * @since   1.0.0
+ *
  * @author  WPFactory
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'Alg_Products_Shortcodes' ) ) :
 

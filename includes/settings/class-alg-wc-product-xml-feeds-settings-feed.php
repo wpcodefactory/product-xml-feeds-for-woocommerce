@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - Feed Section Settings
  *
- * @version 2.8.0
+ * @version 2.9.0
  * @since   1.1.0
  *
  * @author  WPFactory
@@ -27,9 +27,9 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 		$this->feed_num       = $feed_num;
 
 		// Enqueue admin scripts and styles.
-		add_action( 'admin_enqueue_scripts',   array( $this, 'enqueue_admin_scripts_and_styles' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts_and_styles' ) );
 
-		if( $this->ajax_filtering == 'yes' ) {
+		if ( $this->ajax_filtering == 'yes' ) {
 			add_action( 'admin_footer', array( $this, 'alg_wc_xml_feed_admin_footer_js' ) );
 
 			add_action( 'wp_ajax_alg_wc_xml_feed_get_products_response', array( $this, 'alg_wc_xml_feed_get_products_response' ) );
@@ -42,7 +42,7 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 			add_action( 'wp_ajax_nopriv_alg_wc_xml_feed_get_tags_response', array( $this, 'alg_wc_xml_feed_get_tags_response' ) );
 
 
-			add_action( 'admin_enqueue_scripts',   array( $this, 'enqueue_backend_scripts_and_styles' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_backend_scripts_and_styles' ) );
 
 
 			add_action( 'wp_ajax_alg_wc_xml_feed_admin_product_ajax_feed_generation',        array( $this, 'alg_wc_xml_feed_admin_product_ajax_feed_generation' ) );
@@ -68,13 +68,13 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 
 		$offset     = 0;
 		$block_size = 512;
-		$inc = 0;
+		$inc        = 0;
 
-		if( $ajax_request && empty( $search_text ) ){
+		if ( $ajax_request && empty( $search_text ) ) {
 			return $products_options;
 		}
 
-		while( true ) {
+		while ( true ) {
 			$args = array(
 				'post_type'      => 'product',
 				'post_status'    => 'publish',
@@ -85,7 +85,7 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 				'fields'         => 'ids',
 			);
 
-			if( !empty( $search_text ) ) {
+			if ( ! empty( $search_text ) ) {
 				$args['s'] = $search_text;
 			}
 
@@ -93,14 +93,15 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 			if ( ! $loop->have_posts() ) {
 				break;
 			}
-			foreach ( $loop->posts as $post_id ) {
-				$sku = get_post_meta($post_id, '_sku', true);
 
-				if( $ajax_request ){
-					$products_options[$inc]['id'] = $post_id ;
-					$products_options[$inc]['text'] = get_the_title( $post_id ) . ' (#' . $post_id . ') (SKU# ' . $sku .')' ;
+			foreach ( $loop->posts as $post_id ) {
+				$sku = get_post_meta( $post_id, '_sku', true );
+
+				if ( $ajax_request ) {
+					$products_options[ $inc ]['id']   = $post_id;
+					$products_options[ $inc ]['text'] = get_the_title( $post_id ) . ' (#' . $post_id . ') (SKU# ' . $sku . ')';
 				} else {
-					$products_options[ $post_id ] = get_the_title( $post_id ) . ' (#' . $post_id . ') (SKU# ' . $sku .')' ;
+					$products_options[ $post_id ] = get_the_title( $post_id ) . ' (#' . $post_id . ') (SKU# ' . $sku . ')';
 				}
 				$inc = $inc + 1;
 			}
@@ -135,7 +136,7 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 		$offset     = 0;
 		$block_size = 512;
 		$inc = 0;
-		while( true ) {
+		while ( true ) {
 			$args = array(
 				'post_type'      => 'product',
 				'post_status'    => 'publish',
@@ -144,20 +145,22 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 				'orderby'        => 'title',
 				'order'          => 'ASC',
 				'fields'         => 'ids',
-				'post__in'      => $saved_ids
+				'post__in'       => $saved_ids
 			);
+
 			$loop = new WP_Query( $args );
 			if ( ! $loop->have_posts() ) {
 				break;
 			}
-			foreach ( $loop->posts as $post_id ) {
-				$sku = get_post_meta($post_id, '_sku', true);
 
-				if( $ajax_request ){
-					$products_options[$inc]['id'] = $post_id ;
-					$products_options[$inc]['text'] = get_the_title( $post_id ) . ' (#' . $post_id . ') (SKU# ' . $sku .')' ;
+			foreach ( $loop->posts as $post_id ) {
+				$sku = get_post_meta( $post_id, '_sku', true );
+
+				if ( $ajax_request ) {
+					$products_options[ $inc ]['id']   = $post_id;
+					$products_options[ $inc ]['text'] = get_the_title( $post_id ) . ' (#' . $post_id . ') (SKU# ' . $sku . ')';
 				} else {
-					$products_options[ $post_id ] = get_the_title( $post_id ) . ' (#' . $post_id . ') (SKU# ' . $sku .')' ;
+					$products_options[ $post_id ] = get_the_title( $post_id ) . ' (#' . $post_id . ') (SKU# ' . $sku . ')';
 				}
 				$inc = $inc + 1;
 			}
@@ -178,32 +181,32 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 
 		$product_cats_options = array();
 
-		if( $ajax_request && empty( $search_text ) ){
+		if ( $ajax_request && empty( $search_text ) ) {
 			return $product_cats_options;
 		}
 
 		$args = array(
-			'orderby' => 'name',
+			'orderby'    => 'name',
 			'hide_empty' => '0',
 		);
 
-		if( !empty( $search_text ) ) {
+		if ( ! empty( $search_text ) ) {
 			$args['search'] = $search_text;
 		}
 
 		$inc = 0;
 		$product_cats = get_terms( 'product_cat', $args );
-		if ( ! empty( $product_cats ) && ! is_wp_error( $product_cats ) ){
+		if ( ! empty( $product_cats ) && ! is_wp_error( $product_cats ) ) {
 			foreach ( $product_cats as $product_cat ) {
-				if( $ajax_request ){
+				if ( $ajax_request ) {
 
-					$product_cats_options[$inc]['id'] = $product_cat->term_id ;
-					$product_cats_options[$inc]['text'] = $product_cat->name;
+					$product_cats_options[ $inc ]['id']   = $product_cat->term_id;
+					$product_cats_options[ $inc ]['text'] = $product_cat->name;
 
 				} else {
 					$product_cats_options[ $product_cat->term_id ] = $product_cat->name;
 				}
-				$inc++;
+				$inc ++;
 			}
 		}
 
@@ -226,11 +229,11 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 		$saved_exclude = get_option( $excl_key, array() );
 		$saved_ids = array();
 
-		$saved_ids = array_unique (array_merge ($saved_include, $saved_exclude));
+		$saved_ids = array_unique( array_merge( $saved_include, $saved_exclude ) );
 
 		$product_cats_options = array();
 
-		if( empty( $saved_ids ) ) {
+		if ( empty( $saved_ids ) ) {
 			return $saved_ids;
 		}
 
@@ -240,7 +243,7 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 			'include' => $saved_ids
 		);
 		$product_cats = get_terms( 'product_cat', $args );
-		if ( ! empty( $product_cats ) && ! is_wp_error( $product_cats ) ){
+		if ( ! empty( $product_cats ) && ! is_wp_error( $product_cats ) ) {
 			foreach ( $product_cats as $product_cat ) {
 				$product_cats_options[ $product_cat->term_id ] = $product_cat->name;
 			}
@@ -262,34 +265,33 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 
 		$product_tags_options = array();
 
-		if( $ajax_request && empty( $search_text ) ){
+		if ( $ajax_request && empty( $search_text ) ) {
 			return $product_tags_options;
 		}
 
 		$args = array(
-			'orderby' => 'name',
+			'orderby'    => 'name',
 			'hide_empty' => '0',
 		);
 
-		if( !empty( $search_text ) ) {
+		if ( ! empty( $search_text ) ) {
 			$args['search'] = $search_text;
 		}
 
 		$inc = 0;
 
 		$product_tags = get_terms( 'product_tag', $args );
-		if ( ! empty( $product_tags ) && ! is_wp_error( $product_tags ) ){
+		if ( ! empty( $product_tags ) && ! is_wp_error( $product_tags ) ) {
 			foreach ( $product_tags as $product_tag ) {
-				if( $ajax_request ){
-
-					$product_tags_options[$inc]['id'] = $product_tag->term_id ;
-					$product_tags_options[$inc]['text'] = $product_tag->name;
+				if ( $ajax_request ) {
+					$product_tags_options[ $inc ]['id']   = $product_tag->term_id;
+					$product_tags_options[ $inc ]['text'] = $product_tag->name;
 
 				} else {
 					$product_tags_options[ $product_tag->term_id ] = $product_tag->name;
 				}
 
-				$inc++;
+				$inc ++;
 			}
 		}
 
@@ -310,23 +312,23 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 
 		$saved_include = get_option( $incl_key, array() );
 		$saved_exclude = get_option( $excl_key, array() );
-		$saved_ids = array();
+		$saved_ids     = array();
 
 		$saved_ids = array_unique (array_merge ($saved_include, $saved_exclude));
 
 		$product_tags_options = array();
 
-		if( empty( $saved_ids ) ) {
+		if ( empty( $saved_ids ) ) {
 			return $saved_ids;
 		}
 
 		$args = array(
-			'orderby' => 'name',
+			'orderby'    => 'name',
 			'hide_empty' => '0',
-			'include' => $saved_ids
+			'include'    => $saved_ids
 		);
 		$product_tags = get_terms( 'product_tag', $args );
-		if ( ! empty( $product_tags ) && ! is_wp_error( $product_tags ) ){
+		if ( ! empty( $product_tags ) && ! is_wp_error( $product_tags ) ) {
 			foreach ( $product_tags as $product_tag ) {
 				$product_tags_options[ $product_tag->term_id ] = $product_tag->name;
 			}
@@ -339,8 +341,9 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.8.0
+	 * @version 2.9.0
 	 * @since   1.1.0
+	 *
 	 * @todo    [dev] (maybe) move "Sorting" options to a separate subsection
 	 * @todo    [feature] Update period: "Manual only"
 	 * @todo    [feature] (maybe) `alg_products_xml_orderby_`: `parent`, `menu_order`, `post__in`
@@ -348,37 +351,35 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 	function get_settings() {
 
 		// Prepare Products Options
-		if( $this->ajax_filtering == 'yes' ) {
+		if ( $this->ajax_filtering == 'yes' ) {
 			$products_options = $this->get_saved_products();
 		} else {
 			$products_options = $this->get_products();
 		}
 
 		// Prepare Categories Options
-		if( $this->ajax_filtering == 'yes' ) {
+		if ( $this->ajax_filtering == 'yes' ) {
 			$product_cats_options = $this->get_saved_product_cats();
 		} else {
 			$product_cats_options = $this->get_product_cats();
 		}
 
 		// Prepare Tags Options
-		if( $this->ajax_filtering == 'yes' ) {
+		if ( $this->ajax_filtering == 'yes' ) {
 			$product_tags_options = $this->get_saved_product_tags();
 		} else {
 			$product_tags_options = $this->get_product_tags();
 		}
 
 		// Prepare Type Options
-		$product_type_options = array();
+		$product_type_options    = array();
 		$product_default_options = array();
-		$product_types = get_terms( 'product_type', 'orderby=name&hide_empty=0' );
+		$product_types           = get_terms( 'product_type', 'orderby=name&hide_empty=0' );
 
-		if ( ! empty( $product_types ) && ! is_wp_error( $product_types ) ){
+		if ( ! empty( $product_types ) && ! is_wp_error( $product_types ) ) {
 			foreach ( $product_types as $product_type ) {
-				/*if(in_array($product_type->slug, array('grouped', 'simple', 'variable'))){*/
-					$product_type_options[ $product_type->term_id ] = ucfirst($product_type->name);
-					$product_default_options[] = (string) $product_type->term_id;
-				/*}*/
+				$product_type_options[ $product_type->term_id ] = ucfirst( $product_type->name );
+				$product_default_options[]                      = (string) $product_type->term_id;
 			}
 		}
 
@@ -389,7 +390,7 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 			if ( ! empty( $langs ) ) {
 				foreach ( $langs as $lang ) {
 					if ( ! empty( $lang['language_code'] ) ) {
-						$lang_code = $lang['language_code'];
+						$lang_code                   = $lang['language_code'];
 						$langs_options[ $lang_code ] = ( ! empty( $lang['translated_name'] ) ? $lang['translated_name'] . ' (' . $lang_code . ')' : $lang_code );
 					}
 				}
@@ -418,6 +419,7 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 				}
 			}
 		}
+
 		$products_time_file_created_desc = '';
 		if ( '' != get_option( 'alg_products_time_file_created_' . $this->feed_num, '' ) ) {
 			$products_time_file_created_desc = sprintf(
@@ -425,50 +427,43 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 				date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), get_option( 'alg_products_time_file_created_' . $this->feed_num, '' ) )
 			);
 		}
-		$default_file_name = ( ( 1 == $this->feed_num ) ? 'products.xml' : 'products_' . $this->feed_num . '.xml' );
-		$default_xml_file_name = ( ( 1 == $this->feed_num ) ? 'products.txt' : 'products_' . $this->feed_num . '.txt' );
-		$use_home_url = get_option( 'alg_products_xml_use_home_url_' . $this->feed_num, 'no' );
 
-		if( 'yes' == $use_home_url )
-		{
+		$default_file_name     = ( ( 1 == $this->feed_num ) ? 'products.xml' : 'products_' . $this->feed_num . '.xml' );
+		$default_xml_file_name = ( ( 1 == $this->feed_num ) ? 'products.txt' : 'products_' . $this->feed_num . '.txt' );
+		$use_home_url          = get_option( 'alg_products_xml_use_home_url_' . $this->feed_num, 'no' );
+
+		if ( 'yes' == $use_home_url ) {
 			$feed_url = home_url() . '/' . get_option( 'alg_products_xml_file_path_' . $this->feed_num, $default_file_name );
-		}
-		else
-		{
+		} else {
 			$feed_url = site_url() . '/' . get_option( 'alg_products_xml_file_path_' . $this->feed_num, $default_file_name );
 		}
 
-		$home_url = home_url();
-		$site_url = site_url();
+		$home_url  = home_url();
+		$site_url  = site_url();
 		$feed_path = ABSPATH;
-		if($home_url!=$site_url)
-		{
-			$compare = strcmp($site_url,$home_url);
+		if ( $home_url != $site_url ) {
+			$compare = strcmp( $site_url, $home_url );
 
-			if($compare > 0)
-			{
-				$extra = str_replace($home_url, '', $site_url);
-				$extra = ltrim($extra, '/');
-				$extra = rtrim($extra, '/');
-				$newPath = str_replace(DIRECTORY_SEPARATOR . $extra, '', ABSPATH);
-				$newPath = ltrim($newPath, '/');
-				$newPath = ltrim($newPath, '\\');
-				$newPath = rtrim($newPath, '\\');
-				$feed_path = rtrim($newPath, '/') . DIRECTORY_SEPARATOR;
-			}
-			else if($compare < 0)
-			{
-				$extra = str_replace($site_url, '', $home_url);
-				$extra = ltrim($extra, '/');
-				$extra = rtrim($extra, '/');
-				$feed_path = rtrim(ABSPATH, '/') . '/' . $extra . '/';
+			if ( $compare > 0 ) {
+				$extra     = str_replace( $home_url, '', $site_url );
+				$extra     = ltrim( $extra, '/' );
+				$extra     = rtrim( $extra, '/' );
+				$newPath   = str_replace( DIRECTORY_SEPARATOR . $extra, '', ABSPATH );
+				$newPath   = ltrim( $newPath, '/' );
+				$newPath   = ltrim( $newPath, '\\' );
+				$newPath   = rtrim( $newPath, '\\' );
+				$feed_path = rtrim( $newPath, '/' ) . DIRECTORY_SEPARATOR;
+			} else if ( $compare < 0 ) {
+				$extra     = str_replace( $site_url, '', $home_url );
+				$extra     = ltrim( $extra, '/' );
+				$extra     = rtrim( $extra, '/' );
+				$feed_path = rtrim( ABSPATH, '/' ) . '/' . $extra . '/';
 			}
 		}
-		if(!is_writable($feed_path)){
-			$is_writable = '<br><br><em style="color:red">  Plugin doesn\'t have access to '. $feed_path .' </em>';
-		}
-		else
-		{
+
+		if ( ! is_writable( $feed_path ) ) {
+			$is_writable = '<br><br><em style="color:red">  Plugin doesn\'t have access to ' . $feed_path . ' </em>';
+		} else {
 			$is_writable = '';
 		}
 
@@ -668,6 +663,16 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 			) );
 		}
 		$settings = array_merge( $settings, array(
+			array(
+				'title'    => __( 'Products status', 'product-xml-feeds-for-woocommerce' ),
+				'desc_tip' => __( 'Product status to include, enter status here.', 'product-xml-feeds-for-woocommerce' ) . ' ' .
+				              __( 'Leave blank to include all status.', 'product-xml-feeds-for-woocommerce' ),
+				'id'       => 'alg_products_xml_products_status_' . $this->feed_num,
+				'default'  => array( 'publish' ),
+				'class'    => 'chosen_select',
+				'type'     => 'multiselect',
+				'options'  => get_post_stati(),
+			),
 			array(
 				'title'    => __( 'Sorting: Order by', 'product-xml-feeds-for-woocommerce' ),
 				'id'       => 'alg_products_xml_orderby_' . $this->feed_num,
@@ -940,7 +945,6 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 
 		return $settings;
 	}
-
 
 	/**
 	 * alg_wc_xml_feed_admin_footer_js.
@@ -1221,8 +1225,6 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 			</div>
 		<?php
 	}
-
-
 
 	/**
 	 * enqueue_backend_scripts_and_styles.

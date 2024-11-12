@@ -2,12 +2,13 @@
 /**
  * Product XML Feeds for WooCommerce - Products Shortcodes
  *
- * @version 2.7.19
+ * @version 2.9.0
  * @since   1.0.0
+ *
  * @author  WPFactory
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'Alg_Products_Shortcodes' ) ) :
 
@@ -16,7 +17,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	/**
 	 * Constructor.
 	 *
-	 * @version 1.5.1
+	 * @version 2.9.0
 	 * @since   1.0.0
 	 * @todo    [dev] recheck shortcodes and atts
 	 */
@@ -39,6 +40,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 			'alg_product_gallery_image_url',
 			'alg_product_height',
 			'alg_product_id',
+			'alg_product_status',
 			'alg_product_image_url',
 			'alg_product_length',
 			'alg_product_list_attribute',
@@ -181,14 +183,15 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 		if ( ! $_product ) {
 			return false;
 		}
-		if( $_product->is_type( 'variation' ) ){
+		if ( $_product->is_type( 'variation' ) ) {
 			$parent_id = $_product->get_parent_id();
-			$product = wc_get_product($parent_id);
-			if(!$product){
+			$product   = wc_get_product( $parent_id );
+			if ( ! $product ) {
 				return false;
 			}
+
 			return $product->get_short_description();
-		}else{
+		} else {
 			return ( $this->is_wc_version_below_3 ? $_product->post->post_excerpt : $_product->get_short_description() );
 		}
 	}
@@ -289,6 +292,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 			return false;
 		}
 		$data_store = WC_Data_Store::load( 'product' );
+
 		return $data_store->find_matching_product_variation( $product, $match_attributes ); // matching variation ID or 0
 	}
 
@@ -301,6 +305,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	function alg_product_variation_meta( $atts ) {
 		$product = ( isset( $atts['sibling'] ) && 'yes' === $atts['sibling'] && ( $parent_product_id = $this->the_product->get_parent_id() ) ?
 			wc_get_product( $parent_product_id ) : $this->the_product );
+
 		return ( isset( $atts['key'] ) && ( $variation_id = $this->get_matching_product_variation( $atts, $product ) ) ? get_post_meta( $variation_id, $atts['key'], true ) : '' );
 	}
 
@@ -313,8 +318,9 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	function alg_product_variation_data( $atts ) {
 		$product = ( isset( $atts['sibling'] ) && 'yes' === $atts['sibling'] && ( $parent_product_id = $this->the_product->get_parent_id() ) ?
 			wc_get_product( $parent_product_id ) : $this->the_product );
+
 		return ( isset( $atts['key'] ) && ( $variation_id = $this->get_matching_product_variation( $atts, $product ) ) &&
-			( $variation = $product->get_available_variation( $variation_id ) ) && isset( $variation[ $atts['key'] ] ) ? $variation[ $atts['key'] ] : '' );
+		         ( $variation = $product->get_available_variation( $variation_id ) ) && isset( $variation[ $atts['key'] ] ) ? $variation[ $atts['key'] ] : '' );
 	}
 
 	/**
@@ -328,6 +334,27 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	}
 
 	/**
+	 * alg_product_status.
+	 *
+	 * @version 2.9.0
+	 * @since   2.9.0
+	 */
+	function alg_product_status( $atts ) {
+
+		$atts = shortcode_atts( array(
+			'name' => '',
+		), $atts, 'alg_product_status' );
+
+		$status = get_post_status_object( $this->the_product->get_status() );
+
+		if ( $status ) {
+			return ( 'yes' === sanitize_text_field( $atts['name'] ) ) ? $status->label : $this->the_product->get_status();
+		}
+
+		return false;
+	}
+
+	/**
 	 * alg_product_function.
 	 *
 	 * @version 1.4.0
@@ -338,7 +365,11 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 			return '';
 		}
 		$function_name = $atts['function'];
-		return ( is_callable( array( $this->the_product, $function_name ) ) ? $this->the_product->$function_name() : '' );
+
+		return ( is_callable( array(
+			$this->the_product,
+			$function_name
+		) ) ? $this->the_product->$function_name() : '' );
 	}
 
 	/**
@@ -360,6 +391,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	function alg_product_length( $atts ) {
 		$length = (float) $this->the_product->get_length();
 		$return = ( '' != $atts['to_unit'] ) ? wc_get_dimension( $length, $atts['to_unit'] ) : $length;
+
 		return ( 'yes' === $atts['round'] ) ? round( $return, $atts['precision'] ) : $return;
 	}
 
@@ -370,8 +402,9 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	 * @since   1.0.0
 	 */
 	function alg_product_width( $atts ) {
-		$width = (float) $this->the_product->get_width();
+		$width  = (float) $this->the_product->get_width();
 		$return = ( '' != $atts['to_unit'] ) ? wc_get_dimension( $width, $atts['to_unit'] ) : $width;
+
 		return ( 'yes' === $atts['round'] ) ? round( $return, $atts['precision'] ) : $return;
 	}
 
@@ -384,6 +417,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	function alg_product_height( $atts ) {
 		$height = (float) $this->the_product->get_height();
 		$return = ( '' != $atts['to_unit'] ) ? wc_get_dimension( $height, $atts['to_unit'] ) : $height;
+
 		return ( 'yes' === $atts['round'] ) ? round( $return, $atts['precision'] ) : $return;
 	}
 
@@ -400,10 +434,10 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 		// return new function support HPOS
 		return $this->alg_product_time_since_last_sale_HPOS( $atts );
 
-		$offset        = 0;
-		$block_size    = 512;
-		$result        = '';
-		while( true ) {
+		$offset     = 0;
+		$block_size = 512;
+		$result     = '';
+		while ( true ) {
 			// Create args for new query
 			$args = array(
 				'post_type'      => 'shop_order',
@@ -441,6 +475,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 			}
 			$offset += $block_size;
 		}
+
 		// No sales found
 		return ( '' != $result ? $result : ( 'yes' === $atts['hide_if_no_sales'] ? '' : __( 'No sales yet.', 'product-xml-feeds-for-woocommerce' ) ) );
 	}
@@ -454,27 +489,27 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	 * @todo    [dev] recheck if maybe we need to use `time()` instead of `current_time( 'timestamp' )`
 	 */
 	function alg_product_time_since_last_sale_HPOS( $atts ) {
-		$offset        = 0;
-		$block_size    = 512;
-		$result        = '';
-		while( true ) {
+		$offset     = 0;
+		$block_size = 512;
+		$result     = '';
+		while ( true ) {
 			// Create args for new query
-			
+
 			$args = array(
-				'type'      => 'shop_order',
-				'status'    => $atts['order_status'],
-				'limit' => $block_size,
-				'paged'         => $offset,
-				'orderby'        => 'date',
-				'order'          => 'DESC',
-				'date_created'     => '< ' . $atts['days_to_cover'] . ' days',
-				'return'         => 'ids',
+				'type'         => 'shop_order',
+				'status'       => $atts['order_status'],
+				'limit'        => $block_size,
+				'paged'        => $offset,
+				'orderby'      => 'date',
+				'order'        => 'DESC',
+				'date_created' => '< ' . $atts['days_to_cover'] . ' days',
+				'return'       => 'ids',
 			);
-			
-			$loop = wc_get_orders($args);
-			
-			
-			if ( !isset($loop) || empty($loop) ) {
+
+			$loop = wc_get_orders( $args );
+
+
+			if ( ! isset( $loop ) || empty( $loop ) ) {
 				break;
 			}
 			// Analyze the results, i.e. orders
@@ -498,6 +533,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 			}
 			$offset += $block_size;
 		}
+
 		// No sales found
 		return ( '' != $result ? $result : ( 'yes' === $atts['hide_if_no_sales'] ? '' : __( 'No sales yet.', 'product-xml-feeds-for-woocommerce' ) ) );
 	}
@@ -512,13 +548,13 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	function alg_product_available_variations( $atts ) {
 		global $global_file_name;
 		if ( $this->the_product->is_type( 'variable' ) ) {
-			
+
 			$sep2 = ( isset( $atts['sep2'] ) ? $atts['sep2'] : ': ' );
 			$sep3 = ( isset( $atts['sep3'] ) ? $atts['sep3'] : ' | ' );
-			
-			$variations = array();
+
+			$variations       = array();
 			$arrange_by_price = array();
-			
+
 			foreach ( $this->the_product->get_available_variations() as $variation ) {
 				$attributes = array();
 				foreach ( $variation['attributes'] as $attribute_slug => $attribute_name ) {
@@ -530,43 +566,46 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 				if ( ! empty( $attributes ) ) {
 					$variations[] = implode( $atts['sep'], $attributes ) . $sep2 . $variation['price_html'];
 				}
-				
+
 				$display_price = $variation['display_price'];
-				if(!isset($arrange_by_price[$display_price])){
-					$arrange_by_price[$display_price] = $variation['attributes'];
+				if ( ! isset( $arrange_by_price[ $display_price ] ) ) {
+					$arrange_by_price[ $display_price ] = $variation['attributes'];
 				}
 			}
-			
-			if ( isset( $global_file_name ) && !empty( $global_file_name ) ) {
-				$file_num = $global_file_name;
-				$products_variable          = get_option( 'alg_products_xml_variable_' . $file_num, 'variable_only' );
-				if($products_variable == 'both'){
-					return 'scvariations#'.$this->the_product->get_id();
+
+			if ( isset( $global_file_name ) && ! empty( $global_file_name ) ) {
+				$file_num          = $global_file_name;
+				$products_variable = get_option( 'alg_products_xml_variable_' . $file_num, 'variable_only' );
+				if ( $products_variable == 'both' ) {
+					return 'scvariations#' . $this->the_product->get_id();
 				}
 			}
-			
-			if(isset( $atts['select'] ) && $atts['select'] == 'min_price' && isset( $atts['attribute'] ) && !empty( $atts['attribute'] )){
-				if(isset($arrange_by_price) && !empty($arrange_by_price)){
-					$min_price = min(array_keys($arrange_by_price));
-					$selected_arr = $arrange_by_price[$min_price];
-					$given_attr = 'attribute_' . $atts['attribute'];
-					if(isset($selected_arr[$given_attr])){
-						$slug = $selected_arr[$given_attr];
+
+			if ( isset( $atts['select'] ) && $atts['select'] == 'min_price' && isset( $atts['attribute'] ) && ! empty( $atts['attribute'] ) ) {
+				if ( isset( $arrange_by_price ) && ! empty( $arrange_by_price ) ) {
+					$min_price    = min( array_keys( $arrange_by_price ) );
+					$selected_arr = $arrange_by_price[ $min_price ];
+					$given_attr   = 'attribute_' . $atts['attribute'];
+					if ( isset( $selected_arr[ $given_attr ] ) ) {
+						$slug = $selected_arr[ $given_attr ];
 						$term = get_term_by( 'slug', $slug, $atts['attribute'] );
-						if(!empty($term)){
+						if ( ! empty( $term ) ) {
 							return $term->name;
 						}
 					}
 				}
+
 				return '';
 			}
-			
+
 			return ( ! empty( $variations ) ? implode( $sep3, $variations ) : '' );
 		} else {
-			if ($this->the_product instanceof WC_Product_Variation) {
-				 $formatted_name = implode(', ', $this->the_product->get_variation_attributes());
-				 return $formatted_name;
-			 }
+			if ( $this->the_product instanceof WC_Product_Variation ) {
+				$formatted_name = implode( ', ', $this->the_product->get_variation_attributes() );
+
+				return $formatted_name;
+			}
+
 			return '';
 		}
 	}
@@ -600,7 +639,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	function get_product_price_including_or_excluding_tax( $atts, $including_or_excluding ) {
 		if ( $this->the_product->is_type( 'variable' ) && ( ! isset( $atts['variable_price_type'] ) || 'range' === $atts['variable_price_type'] ) ) {
 			// Variable
-			$prices = $this->the_product->get_variation_prices( false );
+			$prices         = $this->the_product->get_variation_prices( false );
 			$min_product_id = key( $prices['price'] );
 			end( $prices['price'] );
 			$max_product_id = key( $prices['price'] );
@@ -622,10 +661,11 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 					$min = wc_price( $min );
 					$max = wc_price( $max );
 				}
+
 				return ( $min != $max ) ? sprintf( '%s-%s', $min, $max ) : $min;
 			}
 		} else {
-			 // Simple etc.
+			// Simple etc.
 			if ( 'including' === $including_or_excluding ) {
 				$the_price = $this->get_product_price_including_tax( $this->the_product );
 			} else { // 'excluding'
@@ -634,6 +674,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 			if ( 0 != $atts['multiply_by'] && is_numeric( $atts['multiply_by'] ) ) {
 				$the_price = $the_price * $atts['multiply_by'];
 			}
+
 			return ( 'yes' === $atts['hide_currency'] ) ? $the_price : wc_price( $the_price );
 		}
 	}
@@ -654,7 +695,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 					$min = $min * $atts['multiply_by'];
 					$max = $max * $atts['multiply_by'];
 				}
-				if (isset($atts['sum_with'])) {
+				if ( isset( $atts['sum_with'] ) ) {
 					if ( '' !== $atts['sum_with'] && is_numeric( $atts['sum_with'] ) ) {
 						$min = $min + $atts['sum_with'];
 						$max = $max + $atts['sum_with'];
@@ -664,20 +705,23 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 					$min = wc_price( $min );
 					$max = wc_price( $max );
 				}
+
 				return ( $min != $max ) ? sprintf( '%s-%s', $min, $max ) : $min;
 			} else {
 				$the_price = $this->the_product->get_regular_price();
 				if ( '' !== $atts['multiply_by'] && is_numeric( $atts['multiply_by'] ) ) {
 					$the_price = $the_price * $atts['multiply_by'];
 				}
-				if (isset($atts['sum_with'])) {
+				if ( isset( $atts['sum_with'] ) ) {
 					if ( '' !== $atts['sum_with'] && is_numeric( $atts['sum_with'] ) ) {
 						$the_price = $the_price + $atts['sum_with'];
 					}
 				}
+
 				return ( 'yes' === $atts['hide_currency'] ) ? $the_price : wc_price( $the_price );
 			}
 		}
+
 		return '';
 	}
 
@@ -701,12 +745,15 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 					$min = wc_price( $min );
 					$max = wc_price( $max );
 				}
+
 				return ( $min != $max ) ? sprintf( '%s-%s', $min, $max ) : $min;
 			} else {
 				$the_price = $this->the_product->get_sale_price();
+
 				return ( 'yes' === $atts['hide_currency'] ) ? $the_price : wc_price( $the_price );
 			}
 		}
+
 		return '';
 	}
 
@@ -730,8 +777,10 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 		if ( $this->the_product->has_attributes() ) {
 			ob_start();
 			$this->list_product_attributes( $this->the_product );
+
 			return str_replace( array( '</th>', '</tr>' ), array( ':', '|' ), ob_get_clean() );
 		}
+
 		return ' ';
 	}
 
@@ -753,7 +802,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	 * @since   1.0.0
 	 */
 	function alg_product_stock_quantity( $atts ) {
-		return ( '' != ( $stock_quantity = $this->the_product->get_stock_quantity() ) ? (!empty($stock_quantity) ? $stock_quantity : 0) : 0 );
+		return ( '' != ( $stock_quantity = $this->the_product->get_stock_quantity() ) ? ( ! empty( $stock_quantity ) ? $stock_quantity : 0 ) : 0 );
 	}
 
 	/**
@@ -804,27 +853,28 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	 * @since   1.0.0
 	 */
 	function alg_product_stock_availability( $atts ) {
-		$true_label = '';
+		$true_label  = '';
 		$false_label = '';
-		if(isset($atts['true_label']) && !empty($atts['true_label'])){
+		if ( isset( $atts['true_label'] ) && ! empty( $atts['true_label'] ) ) {
 			$true_label = $atts['true_label'];
 		}
-		if(isset($atts['false_label']) && !empty($atts['false_label'])){
+		if ( isset( $atts['false_label'] ) && ! empty( $atts['false_label'] ) ) {
 			$false_label = $atts['false_label'];
 		}
-		if(!empty($true_label) && !empty($false_label)){
-			if($this->the_product->is_in_stock()){
+		if ( ! empty( $true_label ) && ! empty( $false_label ) ) {
+			if ( $this->the_product->is_in_stock() ) {
 				return $true_label;
-			}else{
+			} else {
 				return $false_label;
 			}
 		}
-		
+
 		$stock_availability_array = $this->the_product->get_availability();
-		if(isset($atts['remove_number']) && $atts['remove_number'] == 'yes'){
-			return ( isset( $stock_availability_array['availability'] ) ) ?  ucfirst(trim(preg_replace('/[0-9]+/', '', $stock_availability_array['availability']))) : '';
+		if ( isset( $atts['remove_number'] ) && $atts['remove_number'] == 'yes' ) {
+			return ( isset( $stock_availability_array['availability'] ) ) ? ucfirst( trim( preg_replace( '/[0-9]+/', '', $stock_availability_array['availability'] ) ) ) : '';
 		}
-		return ( isset( $stock_availability_array['availability'] ) ) ?  $stock_availability_array['availability'] : '';
+
+		return ( isset( $stock_availability_array['availability'] ) ) ? $stock_availability_array['availability'] : '';
 	}
 
 	/**
@@ -852,6 +902,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 				}
 			}
 		}
+
 		return '';
 	}
 
@@ -863,10 +914,11 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	 */
 	function alg_product_total_sales( $atts ) {
 		$product_custom_fields = get_post_custom( $this->get_product_or_variation_parent_id( $this->the_product ) );
-		$total_sales = ( isset( $product_custom_fields['total_sales'][0] ) ) ? $product_custom_fields['total_sales'][0] : '';
+		$total_sales           = ( isset( $product_custom_fields['total_sales'][0] ) ) ? $product_custom_fields['total_sales'][0] : '';
 		if ( 0 != $atts['offset'] ) {
 			$total_sales += $atts['offset'];
 		}
+
 		return ( 0 == $total_sales && 'yes' === $atts['hide_if_zero'] ) ? '' : $total_sales;
 	}
 
@@ -879,27 +931,28 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	 * @todo    [dev] do we need add_links attribute
 	 */
 	function alg_product_tags( $atts ) {
-		
+
 		if ( 'yes' === $atts['add_links'] ) {
 			return $this->get_product_tags( $this->the_product, $atts['sep'] );
 		}
 
-		$product_tags = get_the_terms( $atts['product_id'], 'product_tag' );
+		$product_tags       = get_the_terms( $atts['product_id'], 'product_tag' );
 		$product_tags_names = array();
-		
-		if(isset($product_tags) && !empty($product_tags)){
+
+		if ( isset( $product_tags ) && ! empty( $product_tags ) ) {
 			foreach ( $product_tags as $product_tag ) {
 				$product_tags_names[] = $product_tag->name;
 			}
 		}
-		
-		
-		if(isset($atts['tag_name']) && !empty($atts['tag_name']) && !empty($product_tags_names)){
+
+
+		if ( isset( $atts['tag_name'] ) && ! empty( $atts['tag_name'] ) && ! empty( $product_tags_names ) ) {
 			$tag_name = $atts['tag_name'];
-			$result = PHP_EOL . "\t" . '<'. $tag_name .'>'.implode('</'. $tag_name .'>' . PHP_EOL . "\t" . '<'. $tag_name .'>', $product_tags_names).'</'. $tag_name .'>'. PHP_EOL;
+			$result   = PHP_EOL . "\t" . '<' . $tag_name . '>' . implode( '</' . $tag_name . '>' . PHP_EOL . "\t" . '<' . $tag_name . '>', $product_tags_names ) . '</' . $tag_name . '>' . PHP_EOL;
+
 			return $result;
 		}
-		
+
 		return implode( $atts['sep'], $product_tags_names );
 	}
 
@@ -917,6 +970,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 			} else {
 				$you_save = ( $this->the_product->get_regular_price() - $this->the_product->get_sale_price() );
 			}
+
 			return ( 'yes' === $atts['hide_currency'] ) ? $you_save : wc_price( $you_save );
 		} else {
 			return ( 'yes' === $atts['hide_if_zero'] ) ? '' : 0;
@@ -941,6 +995,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 			}
 			if ( 0 != $regular_price ) {
 				$you_save_percent = intval( $you_save / $regular_price * 100 );
+
 				return ( 'yes' === $atts['reverse'] ) ? ( 100 - $you_save_percent ) : $you_save_percent;
 			} else {
 				return '';
@@ -958,18 +1013,20 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	 * @return  string
 	 */
 	function alg_product_meta( $atts ) {
-		if(isset($atts['product_id'])) {
+		if ( isset( $atts['product_id'] ) ) {
 			$meta = get_post_meta( $atts['product_id'], $atts['name'], true );
-			if(isset($atts['array_key'])){
+			if ( isset( $atts['array_key'] ) ) {
 				$key = $atts['array_key'];
-				if(isset($meta[$key])){
+				if ( isset( $meta[ $key ] ) ) {
 					$key_child = $atts['array_key_child'];
-					if(isset($meta[$key][$key_child])){
-						return $meta[$key][$key_child];
+					if ( isset( $meta[ $key ][ $key_child ] ) ) {
+						return $meta[ $key ][ $key_child ];
 					}
-					return $meta[$key];
+
+					return $meta[ $key ];
 				}
 			}
+
 			return $meta;
 		} else {
 			return get_post_meta( $this->the_product->get_id(), $atts['name'], true );
@@ -985,6 +1042,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	 */
 	function alg_product_custom_field( $atts ) {
 		$product_custom_fields = get_post_custom( $atts['product_id'] );
+
 		return ( isset( $product_custom_fields[ $atts['name'] ][0] ) ) ? $product_custom_fields[ $atts['name'] ][0] : '';
 	}
 
@@ -997,7 +1055,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	 * @return  string The product (modified) price
 	 */
 	function alg_product_price( $atts ) {
-		
+
 		if ( $this->the_product->is_type( 'variable' ) && ( ! isset( $atts['variable_price_type'] ) || ( 'range' === $atts['variable_price_type'] || 'min' === $atts['variable_price_type'] || 'max' === $atts['variable_price_type'] ) ) ) {
 			// Variable
 			$min = $this->the_product->get_variation_price( 'min', false );
@@ -1006,7 +1064,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 				$min = $min * $atts['multiply_by'];
 				$max = $max * $atts['multiply_by'];
 			}
-			if (isset($atts['sum_with'])) {
+			if ( isset( $atts['sum_with'] ) ) {
 				if ( '' !== $atts['sum_with'] && is_numeric( $atts['sum_with'] ) ) {
 					$min = $min + $atts['sum_with'];
 					$max = $max + $atts['sum_with'];
@@ -1016,22 +1074,22 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 				$min = wc_price( $min );
 				$max = wc_price( $max );
 			}
-			
-			if( isset( $atts['decimal_padding'] ) && !empty( $atts['decimal_padding'] )) {
-				$dec = (int) $atts['decimal_padding'];
-				$format = '%0.'. $dec  .'f';
-				$min = sprintf($format, $min);
-				$max = sprintf($format, $max);
+
+			if ( isset( $atts['decimal_padding'] ) && ! empty( $atts['decimal_padding'] ) ) {
+				$dec    = (int) $atts['decimal_padding'];
+				$format = '%0.' . $dec . 'f';
+				$min    = sprintf( $format, $min );
+				$max    = sprintf( $format, $max );
 			}
-			
-			if( isset( $atts['variable_price_type'] ) && $atts['variable_price_type'] == 'min' ) {
+
+			if ( isset( $atts['variable_price_type'] ) && $atts['variable_price_type'] == 'min' ) {
 				return $min;
 			}
-			
-			if( isset( $atts['variable_price_type'] ) && $atts['variable_price_type'] == 'max' ) {
+
+			if ( isset( $atts['variable_price_type'] ) && $atts['variable_price_type'] == 'max' ) {
 				return $max;
 			}
-			
+
 			return ( $min != $max ) ? sprintf( '%s-%s', $min, $max ) : $min;
 		} else {
 			// Simple etc.
@@ -1039,17 +1097,18 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 			if ( '' !== $atts['multiply_by'] && is_numeric( $atts['multiply_by'] ) ) {
 				$price = $price * $atts['multiply_by'];
 			}
-			if (isset($atts['sum_with'])) {
+			if ( isset( $atts['sum_with'] ) ) {
 				if ( '' !== $atts['sum_with'] && is_numeric( $atts['sum_with'] ) ) {
 					$price = $price + $atts['sum_with'];
 				}
 			}
-			
-			if( isset( $atts['decimal_padding'] ) && !empty( $atts['decimal_padding'] )) {
-				$dec = (int) $atts['decimal_padding'];
-				$format = '%0.'. $dec  .'f';
-				$price = sprintf($format, $price);
+
+			if ( isset( $atts['decimal_padding'] ) && ! empty( $atts['decimal_padding'] ) ) {
+				$dec    = (int) $atts['decimal_padding'];
+				$format = '%0.' . $dec . 'f';
+				$price  = sprintf( $format, $price );
 			}
+
 			return ( 'yes' === $atts['hide_currency'] ? $price : wc_price( $price ) );
 		}
 	}
@@ -1062,45 +1121,40 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	 * @return  string
 	 */
 	function alg_product_description( $atts ) {
-		if( $this->the_product->is_type( 'variation' ) ){
+		if ( $this->the_product->is_type( 'variation' ) ) {
 			$parent_id = $this->the_product->get_parent_id();
-			$product = wc_get_product($parent_id);
+			$product   = wc_get_product( $parent_id );
 
 			$des = '';
-			if($product){
-				$des = wpautop($product->get_description());
+			if ( $product ) {
+				$des = wpautop( $product->get_description() );
 			}
-			
-		}else{
-			$des = wpautop($this->the_product->get_description());
+
+		} else {
+			$des = wpautop( $this->the_product->get_description() );
 		}
 
-		if(function_exists('qtranxf_split'))
-		{
-			if(isset($atts['ln']) && !empty($atts['ln']))
-			{
-			$ln = $atts['ln'];
-			$des_arr = qtranxf_split($des, true);
-			$des = $des_arr[$ln];
+		if ( function_exists( 'qtranxf_split' ) ) {
+			if ( isset( $atts['ln'] ) && ! empty( $atts['ln'] ) ) {
+				$ln      = $atts['ln'];
+				$des_arr = qtranxf_split( $des, true );
+				$des     = $des_arr[ $ln ];
 			}
 		}
-		
-		if(isset($atts['strip_tags']))
-		{
-			if(!empty($atts['strip_tags']))
-			{
-				if($atts['strip_tags'] == 'no'){
+
+		if ( isset( $atts['strip_tags'] ) ) {
+			if ( ! empty( $atts['strip_tags'] ) ) {
+				if ( $atts['strip_tags'] == 'no' ) {
 					return $des;
-				}else{
+				} else {
 					$tags = $atts['strip_tags'];
-					$des = strip_tags($des, $tags);
+					$des  = strip_tags( $des, $tags );
 				}
-			}
-			else
-			{
-				$des = strip_tags($des);
+			} else {
+				$des = strip_tags( $des );
 			}
 		}
+
 		return $des;
 	}
 
@@ -1117,9 +1171,10 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 			apply_filters( 'woocommerce_short_description', $short_description );
 		}
 		if ( 0 != $atts['length'] ) {
-			$excerpt_more = apply_filters( 'excerpt_more', ' ' . '[&hellip;]' );
+			$excerpt_more      = apply_filters( 'excerpt_more', ' ' . '[&hellip;]' );
 			$short_description = wp_trim_words( $short_description, $atts['length'], $excerpt_more );
 		}
+
 		return $short_description;
 	}
 
@@ -1145,13 +1200,14 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 		if ( '' === $the_excerpt ) {
 			if ( 0 != $atts['length'] ) {
 				$this->product_excerpt_length = $atts['length'];
-				add_filter(    'excerpt_length', array( $this, 'custom_excerpt_length' ), PHP_INT_MAX );
+				add_filter( 'excerpt_length', array( $this, 'custom_excerpt_length' ), PHP_INT_MAX );
 				$the_excerpt = get_the_excerpt( $atts['product_id'] );
 				remove_filter( 'excerpt_length', array( $this, 'custom_excerpt_length' ), PHP_INT_MAX );
 			} else {
 				$the_excerpt = get_the_excerpt( $atts['product_id'] );
 			}
 		}
+
 		return $the_excerpt;
 	}
 
@@ -1175,15 +1231,14 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	 */
 	function alg_product_title( $atts ) {
 		$name = $this->the_product->get_title();
-		if(function_exists('qtranxf_split'))
-		{
-			if(isset($atts['ln']) && !empty($atts['ln']))
-			{
-			$ln = $atts['ln'];
-			$des_arr = qtranxf_split($name, true);
-			$name = $des_arr[$ln];
+		if ( function_exists( 'qtranxf_split' ) ) {
+			if ( isset( $atts['ln'] ) && ! empty( $atts['ln'] ) ) {
+				$ln      = $atts['ln'];
+				$des_arr = qtranxf_split( $name, true );
+				$name    = $des_arr[ $ln ];
 			}
 		}
+
 		return $name;
 	}
 	/**
@@ -1194,12 +1249,13 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	 * @return  string
 	 */
 	function alg_product_publish_date( $atts ) {
-		if(isset($atts['format']) && !empty($atts['format'])){
+		if ( isset( $atts['format'] ) && ! empty( $atts['format'] ) ) {
 			$format = $atts['format'];
-		}else{
+		} else {
 			$format = wc_date_format();
 		}
-		$date = date_i18n($format, strtotime($this->the_product->get_date_created()));
+		$date = date_i18n( $format, strtotime( $this->the_product->get_date_created() ) );
+
 		return $date;
 	}
 
@@ -1212,13 +1268,14 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	 */
 	function alg_product_weight( $atts ) {
 		$weight = '';
-		if( $this->the_product->has_weight() ) {
+		if ( $this->the_product->has_weight() ) {
 			$weight = $this->the_product->get_weight();
 		}
-		
+
 		if ( 0 != $atts['multiply_by'] && is_numeric( $atts['multiply_by'] ) && is_numeric( $weight ) ) {
 			$weight = $weight * $atts['multiply_by'];
 		}
+
 		return $weight;
 	}
 
@@ -1239,6 +1296,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 		} else {
 			$image_url = '';
 		}
+
 		return $image_url;
 	}
 
@@ -1259,6 +1317,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 				return $props['url'];
 			}
 		}
+
 		return '';
 	}
 
@@ -1280,12 +1339,13 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	 */
 	function alg_product_categories_names( $atts ) {
 		$product_cats = get_the_terms( $this->get_product_or_variation_parent_id( $this->the_product ), 'product_cat' );
-		$cats = array();
+		$cats         = array();
 		if ( ! empty( $product_cats ) && is_array( $product_cats ) ) {
 			foreach ( $product_cats as $product_cat ) {
 				$cats[] = $product_cat->name;
 			}
 		}
+
 		return implode( $atts['sep'], $cats );
 	}
 
@@ -1297,37 +1357,39 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	 */
 	function alg_product_categories_urls( $atts ) {
 		$product_cats = get_the_terms( $this->get_product_or_variation_parent_id( $this->the_product ), 'product_cat' );
-		$cats = array();
+		$cats         = array();
 		if ( ! empty( $product_cats ) && is_array( $product_cats ) ) {
 			foreach ( $product_cats as $product_cat ) {
 				$cats[] = get_term_link( $product_cat );
 			}
 		}
+
 		return implode( $atts['sep'], $cats );
 	}
-	
+
 	/**
 	 * alg_product_category_description.
 	 *
 	 * @version 1.2.0
 	 * @since   1.0.0
 	 */
-	 function alg_product_category_description( $atts ) {
-		 $parse_attr = shortcode_atts( array('id' =>'' ), $atts );
-		 if(isset($parse_attr['id']) && !empty($parse_attr['id'])){
-			 $shortcode_cat_id = do_shortcode( str_replace( array( '{', '}' ), array( '[', ']' ), $parse_attr['id'] ) );
-			 $cat_id = (int) $shortcode_cat_id;
-			 if($cat_id > 0){
-				$cat_term = get_term_by('id', $cat_id, 'product_cat');
-				if($cat_term){
+	function alg_product_category_description( $atts ) {
+		$parse_attr = shortcode_atts( array( 'id' => '' ), $atts );
+		if ( isset( $parse_attr['id'] ) && ! empty( $parse_attr['id'] ) ) {
+			$shortcode_cat_id = do_shortcode( str_replace( array( '{', '}' ), array( '[', ']' ), $parse_attr['id'] ) );
+			$cat_id           = (int) $shortcode_cat_id;
+			if ( $cat_id > 0 ) {
+				$cat_term = get_term_by( 'id', $cat_id, 'product_cat' );
+				if ( $cat_term ) {
 					return $cat_term->description;
 				}
-			 }
-			 
-		 }
-		 return '';
-	 }
-	 
+			}
+
+		}
+
+		return '';
+	}
+
 	 /**
 	 * alg_product_categories_ids.
 	 *
@@ -1336,12 +1398,13 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	 */
 	function alg_product_categories_ids( $atts ) {
 		$product_cats = get_the_terms( $this->get_product_or_variation_parent_id( $this->the_product ), 'product_cat' );
-		$cats = array();
+		$cats         = array();
 		if ( ! empty( $product_cats ) && is_array( $product_cats ) ) {
 			foreach ( $product_cats as $product_cat ) {
 				$cats[] = $product_cat->term_id;
 			}
 		}
+
 		return implode( $atts['sep'], $cats );
 	}
 
@@ -1352,7 +1415,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	 * @since   1.5.3
 	 */
 	function sort_terms_by_parent_id( $a, $b ) {
-		return ( $a->parent == $b->parent ? 0 : ( $a->parent < $b->parent ? -1 : 1 ) );
+		return ( $a->parent == $b->parent ? 0 : ( $a->parent < $b->parent ? - 1 : 1 ) );
 	}
 
 	/**
@@ -1362,7 +1425,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	 * @since   1.5.4
 	 */
 	function sort_terms_by_term_id( $a, $b ) {
-		return ( $a->term_id == $b->term_id ? 0 : ( $a->term_id < $b->term_id ? -1 : 1 ) );
+		return ( $a->term_id == $b->term_id ? 0 : ( $a->term_id < $b->term_id ? - 1 : 1 ) );
 	}
 
 	/**
@@ -1375,6 +1438,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 		$walker = new Alg_WC_PXF_Walker_Terms();
 		$output = $walker->walk( $product_terms, 0, $atts );
 		$output = substr( $output, 0, strlen( $output ) - strlen( $atts['sep'] ) );
+
 		return $output;
 	}
 
@@ -1391,26 +1455,42 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 			return '';
 		}
 		$product_terms = get_the_terms( $this->get_product_or_variation_parent_id( $this->the_product ), $atts['taxonomy'] );
+
 		if ( $product_terms && ! is_wp_error( $product_terms ) ) {
-			
-			if( isset($atts['exclude']) && !empty($atts['exclude']) ){
-				$product_terms = array_filter( $product_terms, array( new Alg_WC_PXF_Filter_Terms_Exclude( $atts['exclude'] ), 'after_exclude' ) );
+
+			if ( isset( $atts['exclude'] ) && ! empty( $atts['exclude'] ) ) {
+				$product_terms = array_filter( $product_terms, array(
+					new Alg_WC_PXF_Filter_Terms_Exclude( $atts['exclude'] ),
+					'after_exclude'
+				) );
 			}
-			
-			if( isset($atts['is_parent']) && 'yes' === $atts['is_parent'] ){
-				$product_terms = array_filter( $product_terms, array( new Alg_WC_PXF_Filter_Terms_Is_Parent_Child(), 'is_parent' ) );
+
+			if ( isset( $atts['is_parent'] ) && 'yes' === $atts['is_parent'] ) {
+				$product_terms = array_filter( $product_terms, array(
+					new Alg_WC_PXF_Filter_Terms_Is_Parent_Child(),
+					'is_parent'
+				) );
 			}
-			
-			if( isset($atts['is_child']) && 'yes' === $atts['is_child'] ){
-				$product_terms = array_filter( $product_terms, array( new Alg_WC_PXF_Filter_Terms_Is_Parent_Child(), 'is_child' ) );
+
+			if ( isset( $atts['is_child'] ) && 'yes' === $atts['is_child'] ) {
+				$product_terms = array_filter( $product_terms, array(
+					new Alg_WC_PXF_Filter_Terms_Is_Parent_Child(),
+					'is_child'
+				) );
 			}
-			
-			if( isset($atts['pick_order']) && !empty($atts['pick_order']) ){
-				$product_terms = array_filter( $product_terms, array( new Alg_WC_PXF_Filter_Terms_Pick_Order( $atts['pick_order'] ), 'pick_order' ), ARRAY_FILTER_USE_BOTH );
+
+			if ( isset( $atts['pick_order'] ) && ! empty( $atts['pick_order'] ) ) {
+				$product_terms = array_filter( $product_terms, array(
+					new Alg_WC_PXF_Filter_Terms_Pick_Order( $atts['pick_order'] ),
+					'pick_order'
+				), ARRAY_FILTER_USE_BOTH );
 			}
-			
+
 			if ( isset( $atts['parent'] ) ) {
-				$product_terms = array_filter( $product_terms, array( new Alg_WC_PXF_Filter_Terms_Parent( $atts['parent'] ), 'is_equal' ) );
+				$product_terms = array_filter( $product_terms, array(
+					new Alg_WC_PXF_Filter_Terms_Parent( $atts['parent'] ),
+					'is_equal'
+				) );
 			}
 			if ( ! isset( $atts['orderby'] ) ) {
 				$atts['orderby'] = 'name';
@@ -1418,9 +1498,11 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 			switch ( $atts['orderby'] ) {
 				case 'parent_id':
 					usort( $product_terms, array( $this, 'sort_terms_by_parent_id' ) );
+
 					return implode( $atts['sep'], wp_list_pluck( $product_terms, 'name' ) );
 				case 'term_id':
 					usort( $product_terms, array( $this, 'sort_terms_by_term_id' ) );
+
 					return implode( $atts['sep'], wp_list_pluck( $product_terms, 'name' ) );
 				case 'hierarchy':
 					return $this->get_terms_by_hierarchy( $product_terms, $atts );
@@ -1428,52 +1510,54 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 					return implode( $atts['sep'], wp_list_pluck( $product_terms, 'name' ) );
 			}
 		}
+
 		return '';
 	}
-	
+
 	/**
 	 * alg_product_list_available_variations_for_variable.
 	 *
 	 * @version 2.7.16
 	 * @since   2.7.16
 	 */
-	function alg_product_list_available_variations_for_variable( $atts ){
+	function alg_product_list_available_variations_for_variable( $atts ) {
 		if ( ! isset( $atts['strip_tags'] ) ) {
 			$atts['strip_tags'] = 'no';
 		}
 		if ( ! isset( $atts['in_stock'] ) ) {
 			$atts['in_stock'] = 'no';
 		}
-		
+
 		$return = '' . PHP_EOL;
-		if($this->the_product->is_type( 'variable' )){
+		if ( $this->the_product->is_type( 'variable' ) ) {
 			$variations = $this->the_product->get_available_variations();
 			$titlearray = array();
-			if(!empty( $variations )){
+			if ( ! empty( $variations ) ) {
 				foreach ( $variations as $variation ) {
 					$title = '';
-					if(!empty($variation['attributes'])){
-						$title = implode(' - ', $variation['attributes']);
+					if ( ! empty( $variation['attributes'] ) ) {
+						$title = implode( ' - ', $variation['attributes'] );
 					}
-					if('yes' === $atts['in_stock'] ){
-						if($variation['is_in_stock'] == '1'){
-							$return .= "\t" .'<variationItem>' . $title . '</variationItem>' . PHP_EOL;
+					if ( 'yes' === $atts['in_stock'] ) {
+						if ( $variation['is_in_stock'] == '1' ) {
+							$return       .= "\t" . '<variationItem>' . $title . '</variationItem>' . PHP_EOL;
 							$titlearray[] = $title;
 						}
-					}else{
-						$return .= "\t" .'<variationItem>' . $title . '</variationItem>' . PHP_EOL;
+					} else {
+						$return       .= "\t" . '<variationItem>' . $title . '</variationItem>' . PHP_EOL;
 						$titlearray[] = $title;
 					}
 				}
 			}
 		}
-		
-		if($atts['strip_tags'] == 'yes'){
-			return implode(', ', $titlearray);
+
+		if ( $atts['strip_tags'] == 'yes' ) {
+			return implode( ', ', $titlearray );
 		}
+
 		return $return;
 	}
-	
+
 	/**
 	 * alg_product_list_attribute_slug.
 	 *
@@ -1483,30 +1567,27 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	function alg_product_list_attribute_slug( $atts )
 	{
 		$name = '';
-		if (isset($atts['name']) && !empty($atts['name']))
-		{
+		if ( isset( $atts['name'] ) && ! empty( $atts['name'] ) ) {
 			$name = $atts['name'];
-
 		}
 
 		if ( $this->the_product->has_attributes() ) {
 			$attributes = $this->the_product->get_attributes();
-			if (!empty($name) && !isset( $attributes[$name] )) {
+			if ( ! empty( $name ) && ! isset( $attributes[ $name ] ) ) {
 				return '';
 			}
-			if (isset( $attributes[$name] ))
-			{
+			if ( isset( $attributes[ $name ] ) ) {
 				return $name;
 			} else {
-				if(isset($attributes) && !empty($attributes)){
-					return implode( ', ' , array_keys($attributes));
+				if ( isset( $attributes ) && ! empty( $attributes ) ) {
+					return implode( ', ', array_keys( $attributes ) );
 				}
 			}
 		}
 
 		return ' ';
 	}
-	
+
 	/**
 	 * alg_product_list_attribute_value_slug.
 	 *
@@ -1516,32 +1597,27 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	function alg_product_list_attribute_value_slug( $atts )
 	{
 		$name = '';
-		if (isset($atts['name']) && !empty($atts['name']))
-		{
+		if ( isset( $atts['name'] ) && ! empty( $atts['name'] ) ) {
 			$name = $atts['name'];
-
 		}
+
 		$return = array();
 		if ( $this->the_product->has_attributes() ) {
 			$attributes = $this->the_product->get_attributes();
-			if (!empty($name) && !isset( $attributes[$name] )) {
+			if ( ! empty( $name ) && ! isset( $attributes[ $name ] ) ) {
 				return '';
 			}
-			if (isset( $attributes[$name] ))
-			{
-				$attributes = array_intersect_key( $attributes, array_flip( array($name) ) );
+			if ( isset( $attributes[ $name ] ) ) {
+				$attributes = array_intersect_key( $attributes, array_flip( array( $name ) ) );
 			}
-			if (isset($attributes) && !empty($attributes)){
-				foreach ($attributes as $attr) {
-					$name = $attr->get_name();
+			if ( isset( $attributes ) && ! empty( $attributes ) ) {
+				foreach ( $attributes as $attr ) {
+					$name    = $attr->get_name();
 					$options = $attr->get_options();
-					if (isset($options) && count($options) > 0 )
-					{
-						foreach ($options as $opn)
-						{
+					if ( isset( $options ) && count( $options ) > 0 ) {
+						foreach ( $options as $opn ) {
 							$term = get_term_by( 'id', $opn, $name );
-							if (!empty($term))
-							{
+							if ( ! empty( $term ) ) {
 								$return[] = $term->slug;
 							}
 						}
@@ -1549,23 +1625,24 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 				}
 			}
 		}
-		if (!empty($return) && count($return) > 0 )
-		{
-			return implode( ', ' , $return);
+
+		if ( ! empty( $return ) && count( $return ) > 0 ) {
+			return implode( ', ', $return );
 		}
+
 		return ' ';
 	}
-	
-	
-	
+
+
+
 	/**
 	 * alg_product_list_attributes_hirarchy.
 	 *
 	 * @version 2.7.16
 	 * @since   2.7.16
 	 */
-	function alg_product_list_attributes_hirarchy($atts){
-		
+	function alg_product_list_attributes_hirarchy( $atts ) {
+
 		$return = '' . PHP_EOL;
 		if ( $this->the_product->has_attributes() ) {
 			$return .= "\t" .'<properties>'. PHP_EOL;
@@ -1599,47 +1676,49 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 
 		return $return;
 	}
-	
+
 	/**
 	 * alg_product_custom_value.
 	 *
 	 * @version 2.7.16
 	 * @since   2.7.16
 	 */
-	 
-	function alg_product_custom_value( $atts, $content = ''){
-		if( isset( $atts['show_onsale'] ) && !empty( $atts['show_onsale'] ) && $atts['show_onsale'] == 'yes' ) {
+
+	function alg_product_custom_value( $atts, $content = '' ) {
+		if ( isset( $atts['show_onsale'] ) && ! empty( $atts['show_onsale'] ) && $atts['show_onsale'] == 'yes' ) {
 			if ( $this->the_product->is_on_sale() ) {
 				return $content;
 			}
+
 			return '';
 		}
+
 		return $content;
 	}
-	
+
 	/**
 	 * alg_wc_product_category_hierar_list.
 	 *
 	 * @version 2.7.17
 	 * @since   2.7.17
 	 */
-	function alg_wc_product_category_hierar_list( $atts ){
+	function alg_wc_product_category_hierar_list( $atts ) {
 		$atts = shortcode_atts( array(
 			'id' => $this->the_product->get_id(),
 		), $atts, 'alg_wc_product_category_hierar_list' );
 
-		$output    = []; // Initialising
-		$taxonomy  = 'product_cat'; // Taxonomy for product category
+		$output   = []; // Initialising
+		$taxonomy = 'product_cat'; // Taxonomy for product category
 
 		// Get the product categories terms ids in the product:
-		$terms_ids = wp_get_post_terms( $atts['id'], $taxonomy, array('fields' => 'ids') );
+		$terms_ids = wp_get_post_terms( $atts['id'], $taxonomy, array( 'fields' => 'ids' ) );
 
 		// Loop though terms ids (product categories)
-		foreach( $terms_ids as $term_id ) {
+		foreach ( $terms_ids as $term_id ) {
 			$term_names = []; // Initialising category array
 
 			// Loop through product category ancestors
-			foreach( get_ancestors( $term_id, $taxonomy ) as $ancestor_id ){
+			foreach ( get_ancestors( $term_id, $taxonomy ) as $ancestor_id ) {
 				// Add the ancestors term names to the category array
 				$term_names[] = get_term( $ancestor_id, $taxonomy )->name;
 			}
@@ -1647,10 +1726,11 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 			$term_names[] = get_term( $term_id, $taxonomy )->name;
 
 			// Add the formatted ancestors with the product category to main array
-			$output[] = implode(' > ', $term_names);
+			$output[] = implode( ' > ', $term_names );
 		}
+
 		// Output the formatted product categories with their ancestors
-		return   implode('" | "', $output);
+		return implode( '" | "', $output );
 	}
 
 }
@@ -1676,7 +1756,7 @@ class Alg_WC_PXF_Filter_Terms_Is_Parent_Child {
 	function is_parent( $term ) {
 		return ( $term->parent == 0 );
 	}
-	
+
 	/**
 	 * is_child.
 	 *
@@ -1798,7 +1878,7 @@ class Alg_WC_PXF_Filter_Terms_Exclude {
 	 * @since   1.5.4
 	 */
 	function __construct( $exclude_ids ) {
-		$exclude_ids = explode(',', $exclude_ids);
+		$exclude_ids       = explode( ',', $exclude_ids );
 		$this->exclude_ids = $exclude_ids;
 	}
 
@@ -1809,9 +1889,9 @@ class Alg_WC_PXF_Filter_Terms_Exclude {
 	 * @since   1.5.4
 	 */
 	function after_exclude( $term ) {
-		if(isset($this->exclude_ids) && !empty($this->exclude_ids)){
-			return (!in_array($term->term_id, $this->exclude_ids));
-		}else{
+		if ( isset( $this->exclude_ids ) && ! empty( $this->exclude_ids ) ) {
+			return ( ! in_array( $term->term_id, $this->exclude_ids ) );
+		} else {
 			return true;
 		}
 	}

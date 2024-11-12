@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - Core Class
  *
- * @version 2.8.0
+ * @version 2.9.0
  * @since   1.0.0
  *
  * @author  WPFactory
@@ -119,7 +119,9 @@ class Alg_WC_Product_XML_Feeds_Core {
 	 * @since   1.0.0
 	 */
 	function admin_notice__success() {
-		echo '<div class="notice notice-success is-dismissible"><p>' . __( 'Products XML file created successfully.', 'product-xml-feeds-for-woocommerce' ) . '</p></div>';
+		echo '<div class="notice notice-success is-dismissible"><p>' .
+			__( 'Products XML file created successfully.', 'product-xml-feeds-for-woocommerce' ) .
+		'</p></div>';
 	}
 
 	/**
@@ -129,7 +131,9 @@ class Alg_WC_Product_XML_Feeds_Core {
 	 * @since   1.0.0
 	 */
 	function admin_notice__error() {
-		echo '<div class="notice notice-error"><p>' . __( 'An error has occurred while creating products XML file.', 'product-xml-feeds-for-woocommerce' ) . '</p></div>';
+		echo '<div class="notice notice-error"><p>' .
+			__( 'An error has occurred while creating products XML file.', 'product-xml-feeds-for-woocommerce' ) .
+		'</p></div>';
 	}
 
 	/**
@@ -201,7 +205,7 @@ class Alg_WC_Product_XML_Feeds_Core {
 	/**
 	 * get_default_template.
 	 *
-	 * @version 1.5.1
+	 * @version 2.9.0
 	 * @since   1.4.7
 	 */
 	function get_default_template( $part ) {
@@ -221,6 +225,7 @@ class Alg_WC_Product_XML_Feeds_Core {
 					"\t" . '<image_url>[alg_product_image_url image_size="full"]</image_url>' . PHP_EOL .
 					"\t" . '[alg_product_gallery_image_url image_nr="1" before="<image_url_1>" after="</image_url_1>"]' . PHP_EOL .
 					"\t" . '<sku>[alg_product_sku]</sku>' . PHP_EOL .
+					"\t" . '<status>[alg_product_status name="yes"]</status>' . PHP_EOL .
 					"\t" . '<stock_quantity>[alg_product_stock_quantity]</stock_quantity>' . PHP_EOL .
 					"\t" . '<categories>[alg_product_categories]</categories>' . PHP_EOL .
 					"\t" . '<tags>[alg_product_tags]</tags>' . PHP_EOL .
@@ -261,7 +266,7 @@ class Alg_WC_Product_XML_Feeds_Core {
 	/**
 	 * create_products_xml.
 	 *
-	 * @version 2.8.0
+	 * @version 2.9.0
 	 * @since   1.0.0
 	 *
 	 * @todo    (fix) `$query_post_type`: fix filtering by product/category/tag/custom taxonomy when *including variations* for `products_and_variations`
@@ -306,41 +311,39 @@ class Alg_WC_Product_XML_Feeds_Core {
 		$product_types = get_terms( 'product_type', 'orderby=name&hide_empty=0' );
 
 		// Get options
-		$xml_header_template        = get_option( 'alg_products_xml_header_'          . $file_num, $this->get_default_template( 'header' ) );
-		$xml_footer_template        = get_option( 'alg_products_xml_footer_'          . $file_num, $this->get_default_template( 'footer' ) );
-		$xml_item_template          = get_option( 'alg_products_xml_item_'            . $file_num, $this->get_default_template( 'item' ) );
-		$xml_variation_item_template = get_option( 'alg_products_xml_variation_item_' . $file_num, alg_wc_product_xml_feeds()->core->get_default_template( 'variation_item' ) );
+		$xml_header_template         = get_option( 'alg_products_xml_header_'                . $file_num, $this->get_default_template( 'header' ) );
+		$xml_footer_template         = get_option( 'alg_products_xml_footer_'                . $file_num, $this->get_default_template( 'footer' ) );
+		$xml_item_template           = get_option( 'alg_products_xml_item_'                  . $file_num, $this->get_default_template( 'item' ) );
+		$xml_variation_item_template = get_option( 'alg_products_xml_variation_item_'        . $file_num, alg_wc_product_xml_feeds()->core->get_default_template( 'variation_item' ) );
+		$xml_text_item_template      = get_option( 'alg_products_xml_text_item_'             . $file_num, $this->get_default_template( 'text_item' ) );
+		$sorting_orderby             = get_option( 'alg_products_xml_orderby_'               . $file_num, 'date' );
+		$sorting_order               = get_option( 'alg_products_xml_order_'                 . $file_num, 'DESC' );
+		$products_in_ids             = get_option( 'alg_products_xml_products_incl_'         . $file_num, '' );
+		$products_ex_ids             = get_option( 'alg_products_xml_products_excl_'         . $file_num, '' );
+		$products_cats_in_ids        = get_option( 'alg_products_xml_cats_incl_'             . $file_num, '' );
+		$products_cats_ex_ids        = get_option( 'alg_products_xml_cats_excl_'             . $file_num, '' );
+		$products_tags_in_ids        = get_option( 'alg_products_xml_tags_incl_'             . $file_num, '' );
+		$products_tags_ex_ids        = get_option( 'alg_products_xml_tags_excl_'             . $file_num, '' );
+		$products_scope              = get_option( 'alg_products_xml_scope_'                 . $file_num, 'all' );
+		$products_variable           = get_option( 'alg_products_xml_variable_'              . $file_num, 'variable_only' );
+		$offset                      = get_option( 'alg_products_xml_offset_'                . $file_num, 0 );
+		$total_products              = get_option( 'alg_products_xml_total_products_'        . $file_num, 0 );
+		$create_text_feed            = get_option( 'alg_products_xml_create_text_feed_'      . $file_num, 'no' );
+		$tags_if_empty               = get_option( 'alg_products_xml_tags_if_empty_'         . $file_num, '' );
+		$product_type                = get_option( 'alg_products_xml_product_type_include_'  . $file_num, $product_default_options );
+		$custom_meta                 = get_option( 'alg_products_xml_custom_meta_incl_'      . $file_num, '' );
 
-		$xml_text_item_template     = get_option( 'alg_products_xml_text_item_'       . $file_num, $this->get_default_template( 'text_item' ) );
-		$sorting_orderby            = get_option( 'alg_products_xml_orderby_'         . $file_num, 'date' );
-		$sorting_order              = get_option( 'alg_products_xml_order_'           . $file_num, 'DESC' );
-		$products_in_ids            = get_option( 'alg_products_xml_products_incl_'   . $file_num, '' );
-		$products_ex_ids            = get_option( 'alg_products_xml_products_excl_'   . $file_num, '' );
-		$products_cats_in_ids       = get_option( 'alg_products_xml_cats_incl_'       . $file_num, '' );
-		$products_cats_ex_ids       = get_option( 'alg_products_xml_cats_excl_'       . $file_num, '' );
-		$products_tags_in_ids       = get_option( 'alg_products_xml_tags_incl_'       . $file_num, '' );
-		$products_tags_ex_ids       = get_option( 'alg_products_xml_tags_excl_'       . $file_num, '' );
-		$products_scope             = get_option( 'alg_products_xml_scope_'           . $file_num, 'all' );
-		$products_variable          = get_option( 'alg_products_xml_variable_'        . $file_num, 'variable_only' );
-		$offset                     = get_option( 'alg_products_xml_offset_'          . $file_num, 0 );
-		$total_products             = get_option( 'alg_products_xml_total_products_'  . $file_num, 0 );
-		$create_text_feed           = get_option( 'alg_products_xml_create_text_feed_'  . $file_num, 'no' );
-		$tags_if_empty              = get_option( 'alg_products_xml_tags_if_empty_'  . $file_num, '' );
-		$product_type               = get_option( 'alg_products_xml_product_type_include_'  . $file_num, $product_default_options );
-
-		$custom_meta                = get_option( 'alg_products_xml_custom_meta_incl_'  . $file_num, '' );
-
-		$query_post_type            = '';
-		$products_stock_status      = apply_filters( 'alg_wc_product_xml_feeds_values', array(), 'stock_status', $file_num );
-		$min_price                  = apply_filters( 'alg_wc_product_xml_feeds_values', '', 'min_price', $file_num );
-		$max_price                  = apply_filters( 'alg_wc_product_xml_feeds_values', '', 'max_price', $file_num );
-		$catalog_visibility         = apply_filters( 'alg_wc_product_xml_feeds_values', '', 'catalog_visibility', $file_num );
-		$custom_taxonomy_in         = apply_filters( 'alg_wc_product_xml_feeds_values', '', 'custom_taxonomy_in', $file_num );
-		$custom_taxonomy_in_slugs   = apply_filters( 'alg_wc_product_xml_feeds_values', '', 'custom_taxonomy_in_slugs', $file_num );
-		$attribute_in               = apply_filters( 'alg_wc_product_xml_feeds_values', '', 'attribute_in', $file_num );
-		$attribute_in_values        = apply_filters( 'alg_wc_product_xml_feeds_values', '', 'attribute_in_values', $file_num );
-		$varPidsTaxQuey             = array();
-		$childShown                 = array();
+		$query_post_type             = '';
+		$products_stock_status       = apply_filters( 'alg_wc_product_xml_feeds_values', array(), 'stock_status', $file_num );
+		$min_price                   = apply_filters( 'alg_wc_product_xml_feeds_values', '', 'min_price', $file_num );
+		$max_price                   = apply_filters( 'alg_wc_product_xml_feeds_values', '', 'max_price', $file_num );
+		$catalog_visibility          = apply_filters( 'alg_wc_product_xml_feeds_values', '', 'catalog_visibility', $file_num );
+		$custom_taxonomy_in          = apply_filters( 'alg_wc_product_xml_feeds_values', '', 'custom_taxonomy_in', $file_num );
+		$custom_taxonomy_in_slugs    = apply_filters( 'alg_wc_product_xml_feeds_values', '', 'custom_taxonomy_in_slugs', $file_num );
+		$attribute_in                = apply_filters( 'alg_wc_product_xml_feeds_values', '', 'attribute_in', $file_num );
+		$attribute_in_values         = apply_filters( 'alg_wc_product_xml_feeds_values', '', 'attribute_in_values', $file_num );
+		$varPidsTaxQuey              = array();
+		$childShown                  = array();
 
 		// Handle "raw" input
 		if ( 'no' === get_option( 'alg_products_xml_raw_input', 'yes' ) ) {
@@ -379,12 +382,13 @@ class Alg_WC_Product_XML_Feeds_Core {
 			// Args
 			$args = array(
 				'post_type'      => ( 'variable_only' === $products_variable || 'products_only' === $query_post_type || 'variations_only' === $products_variable ? 'product' : array( 'product', 'product_variation' ) ),
-				'post_status'    => 'publish',
+				'post_status'    => get_option( 'alg_products_xml_products_status_' . $file_num, array( 'publish' ) ),
 				'posts_per_page' => $block_size,
 				'orderby'        => $sorting_orderby,
 				'order'          => $sorting_order,
 				'offset'         => $offset,
 			);
+
 			if ( 'all' != $products_scope ) {
 				$args['meta_query'] = WC()->query->get_meta_query();
 				switch ( $products_scope ) {
@@ -485,20 +489,20 @@ class Alg_WC_Product_XML_Feeds_Core {
 				);
 			}
 
-			if(!empty( $custom_meta )){
-				$custom_meta_parts = explode(',', $custom_meta);
-				$meta_k = (isset($custom_meta_parts[0]) ? $custom_meta_parts[0] : '' );
-				$meta_compare = (isset($custom_meta_parts[1]) ? $custom_meta_parts[1] : '' );
-				$meta_value = (isset($custom_meta_parts[2]) ? $custom_meta_parts[2] : '' );
+			if ( ! empty( $custom_meta ) ) {
+				$custom_meta_parts = explode( ',', $custom_meta );
+				$meta_k            = ( $custom_meta_parts[0] ?? '' );
+				$meta_compare      = ( $custom_meta_parts[1] ?? '' );
+				$meta_value        = ( $custom_meta_parts[2] ?? '' );
 
 				$part_meta_arr = array();
-				if(!empty($meta_k)){
+				if ( ! empty( $meta_k ) ) {
 					$part_meta_arr['key'] = $meta_k;
 				}
-				if(!empty($meta_value)){
+				if ( ! empty( $meta_value ) ) {
 					$part_meta_arr['value'] = $meta_value;
 				}
-				if(!empty($meta_compare)){
+				if ( ! empty( $meta_compare ) ) {
 					$part_meta_arr['compare'] = $meta_compare;
 				}
 
@@ -506,14 +510,14 @@ class Alg_WC_Product_XML_Feeds_Core {
 			}
 
 			$has_real_tax_query = false;
-			if(isset($args['tax_query']) && !empty($args['tax_query'])){
+			if ( ! empty( $args['tax_query'] ) ) {
 				$has_real_tax_query = true;
 			}
 
 			$p_ty_q_index = 0;
 
-			if(!empty($product_type) && is_array($product_type)){
-				$p_ty_q_index = (isset($args['tax_query']) ? count($args['tax_query']) : 0);
+			if ( ! empty( $product_type ) && is_array( $product_type ) ) {
+				$p_ty_q_index = ( isset( $args['tax_query'] ) ? count( $args['tax_query'] ) : 0 );
 				$args['tax_query'][] = array(
 					'taxonomy' => 'product_type',
 					'field'    => 'term_id',

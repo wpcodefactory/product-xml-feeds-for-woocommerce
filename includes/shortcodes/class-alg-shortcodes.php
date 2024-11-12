@@ -4,10 +4,11 @@
  *
  * @version 1.5.2
  * @since   1.0.0
+ *
  * @author  WPFactory
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'Alg_Shortcodes' ) ) :
 
@@ -144,12 +145,12 @@ class Alg_Shortcodes {
 				);
 			}
 			// Custom function
-			
+
 			if ( '' != $atts['custom_function'] && function_exists( $atts['custom_function'] ) ) {
 				$custom_function = $atts['custom_function'];
 				$result          = $custom_function( $result );
 			}
-			
+
 			// on_zero_apply_shortcodes
 			if(isset($atts['on_zero_apply_shortcodes']) && 'yes' == strtolower($atts['on_zero_apply_shortcodes']) ){
 				if(isset($atts['on_zero']) && '' != $atts['on_zero'] ){
@@ -158,25 +159,25 @@ class Alg_Shortcodes {
 					}
 				}
 			}
-			
+
 			// CDATA
 			if ( 'yes' === $atts['cdata'] ) {
 				$result = '<![CDATA[' . $result . ']]>';
 			}
-			
+
 			if(!empty($atts['before'])){
 				$atts['before'] = str_replace( array('#algequal;','#algquotstart;','#algquotend;'), array('=','"','"'), $atts['before'] );
 			}
 			if(!empty($atts['after'])){
 				$atts['after'] = str_replace( array('#algequal;','#algquotstart;','#algquotend;'), array('=','"','"'), $atts['after'] );
 			}
-			
+
 			// append currency
 			if(isset($atts['append_currency']) && 'yes' == strtolower($atts['append_currency']) ){
-				
+
 				$result = $result . ' '. get_woocommerce_currency();
 			}
-			
+
 			// Before/After
 			return $atts['before'] . $result . $atts['after'];
 		} else {
