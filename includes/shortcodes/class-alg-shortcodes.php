@@ -98,7 +98,7 @@ class Alg_Shortcodes {
 			'convert_currency_from'      => '',
 			'convert_currency_to'        => '',
 			'convert_currency_precision' => 2,
-			'exchange_rate' 			 => 0,
+			'exchange_rate'              => 0,
 			'custom_function'            => '',
 			'strip_tags'                 => 'yes',
 			'strip_shortcodes'           => 'no',

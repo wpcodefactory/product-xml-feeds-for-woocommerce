@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - Products Shortcodes
  *
- * @version 2.9.0
+ * @version 2.9.1
  * @since   1.0.0
  *
  * @author  WPFactory
@@ -849,32 +849,49 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	/**
 	 * alg_product_stock_availability.
 	 *
-	 * @version 1.0.0
+	 * @version 2.9.1
 	 * @since   1.0.0
 	 */
 	function alg_product_stock_availability( $atts ) {
-		$true_label  = '';
-		$false_label = '';
-		if ( isset( $atts['true_label'] ) && ! empty( $atts['true_label'] ) ) {
-			$true_label = $atts['true_label'];
-		}
-		if ( isset( $atts['false_label'] ) && ! empty( $atts['false_label'] ) ) {
-			$false_label = $atts['false_label'];
-		}
-		if ( ! empty( $true_label ) && ! empty( $false_label ) ) {
-			if ( $this->the_product->is_in_stock() ) {
-				return $true_label;
-			} else {
-				return $false_label;
-			}
+		$atts = shortcode_atts(
+			array(
+				'true_label'    => '',
+				'false_label'   => '',
+				'remove_number' => 'no',
+			),
+			$atts,
+			'alg_product_stock_availability'
+		);
+
+		if (
+			! empty( $atts['true_label'] ) &&
+			! empty( $atts['false_label'] )
+		) {
+			$res = (
+				$this->the_product->is_in_stock() ?
+				$atts['true_label'] :
+				$atts['false_label']
+			);
+			return str_replace( '{{0}}', '0', $res );
 		}
 
 		$stock_availability_array = $this->the_product->get_availability();
-		if ( isset( $atts['remove_number'] ) && $atts['remove_number'] == 'yes' ) {
-			return ( isset( $stock_availability_array['availability'] ) ) ? ucfirst( trim( preg_replace( '/[0-9]+/', '', $stock_availability_array['availability'] ) ) ) : '';
+		if ( 'yes' === $atts['remove_number'] ) {
+			return (
+				isset( $stock_availability_array['availability'] ) ?
+				ucfirst(
+					trim(
+						preg_replace(
+							'/[0-9]+/',
+							'',
+							$stock_availability_array['availability']
+						)
+					)
+				) :
+				''
+			);
 		}
-
-		return ( isset( $stock_availability_array['availability'] ) ) ? $stock_availability_array['availability'] : '';
+		return ( $stock_availability_array['availability'] ?? '' );
 	}
 
 	/**

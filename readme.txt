@@ -2,8 +2,8 @@
 Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmukherjeeli, aegkr
 Tags: woocommerce, product xml feeds, xml, export
 Requires at least: 4.4
-Tested up to: 6.6
-Stable tag: 2.9.0
+Tested up to: 6.7
+Stable tag: 2.9.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -157,6 +157,13 @@ WPFactory has a diverse range of plugins tailored to enhance your experience, so
 Once activated, access the plugin's settings by navigating to “WooCommerce > Settings” and look for the relevant tab.
 
 == Changelog ==
+
+= 2.9.1 - 04/12/2024 =
+* Fix - Resolved warning "Function _load_textdomain_just_in_time was called incorrectly".
+* Dev - Shortcodes - `[alg_product_stock_availability]` - Allowed stock label to be set to `0` using `{{0}}`.
+* Dev - Key Manager - Library updated.
+* WC tested up to: 9.4.
+* Tested up to: 6.7.
 
 = 2.9.0 - 12/11/2024 =
 * Add - Feeds - General Options - "Products status" option added (defaults to `publish`).

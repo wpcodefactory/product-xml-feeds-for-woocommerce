@@ -3,12 +3,12 @@
 Plugin Name: Product XML Feeds for WooCommerce
 Plugin URI: https://wpfactory.com/item/product-xml-feeds-woocommerce/
 Description: Create your own XML files using tens of preconfigured shortcodes for you on your WooCommerce store.
-Version: 2.9.0
+Version: 2.9.1
 Author: WPFactory
 Author URI: https://wpfactory.com
 Text Domain: product-xml-feeds-for-woocommerce
 Domain Path: /langs
-WC tested up to: 9.3
+WC tested up to: 9.4
 Requires Plugins: woocommerce
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -41,7 +41,7 @@ if ( ! class_exists( 'Alg_WC_Product_XML_Feeds' ) ) :
 /**
  * Main Alg_WC_Product_XML_Feeds Class
  *
- * @version 2.7.16
+ * @version 2.9.1
  * @since   1.0.0
  *
  * @class   Alg_WC_Product_XML_Feeds
@@ -54,7 +54,7 @@ final class Alg_WC_Product_XML_Feeds {
 	 * @var   string
 	 * @since 1.0.0
 	 */
-	public $version = '2.9.0';
+	public $version = '2.9.1';
 
 	/**
 	 * @var   Alg_WC_Product_XML_Feeds The single instance of the class
@@ -83,7 +83,7 @@ final class Alg_WC_Product_XML_Feeds {
 	/**
 	 * Alg_WC_Product_XML_Feeds Constructor.
 	 *
-	 * @version 2.9.0
+	 * @version 2.9.1
 	 * @since   1.0.0
 	 *
 	 * @access  public
@@ -96,7 +96,7 @@ final class Alg_WC_Product_XML_Feeds {
 		}
 
 		// Set up localisation
-		load_plugin_textdomain( 'product-xml-feeds-for-woocommerce', false, dirname( plugin_basename( __FILE__ ) ) . '/langs/' );
+		add_action( 'init', array( $this, 'localize' ) );
 
 		// Declare compatibility with custom order tables for WooCommerce
 		add_action( 'before_woocommerce_init', array( $this, 'wc_declare_compatibility' ) );
@@ -113,6 +113,20 @@ final class Alg_WC_Product_XML_Feeds {
 		if ( is_admin() ) {
 			$this->admin();
 		}
+	}
+
+	/**
+	 * localize.
+	 *
+	 * @version 2.9.1
+	 * @since   2.9.1
+	 */
+	function localize() {
+		load_plugin_textdomain(
+			'product-xml-feeds-for-woocommerce',
+			false,
+			dirname( plugin_basename( __FILE__ ) ) . '/langs/'
+		);
 	}
 
 	/**

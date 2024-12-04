@@ -634,8 +634,8 @@ msgid ""
 msgstr ""
 
 #: includes/settings/class-alg-wc-settings-product-xml-feeds.php:24
-#: product-xml-feeds-for-woocommerce.php:246
-#: product-xml-feeds-for-woocommerce.php:247
+#: product-xml-feeds-for-woocommerce.php:260
+#: product-xml-feeds-for-woocommerce.php:261
 msgid "Product XML Feeds"
 msgstr ""
 
@@ -670,10 +670,10 @@ msgstr ""
 msgid "Any"
 msgstr ""
 
-#: product-xml-feeds-for-woocommerce.php:148
+#: product-xml-feeds-for-woocommerce.php:162
 msgid "Settings"
 msgstr ""
 
-#: product-xml-feeds-for-woocommerce.php:152
+#: product-xml-feeds-for-woocommerce.php:166
 msgid "Unlock All"
 msgstr ""
