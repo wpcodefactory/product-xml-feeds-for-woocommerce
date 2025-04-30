@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - Products Shortcodes
  *
- * @version 2.9.1
+ * @version 2.9.2
  * @since   1.0.0
  *
  * @author  WPFactory
@@ -15,11 +15,36 @@ if ( ! class_exists( 'Alg_Products_Shortcodes' ) ) :
 class Alg_Products_Shortcodes extends Alg_Shortcodes {
 
 	/**
+	 * the_product.
+	 *
+	 * @version 2.9.2
+	 * @since   2.9.2
+	 */
+	public $the_product;
+
+	/**
+	 * is_wc_version_below_3.
+	 *
+	 * @version 2.9.2
+	 * @since   2.9.2
+	 */
+	public $is_wc_version_below_3;
+
+	/**
+	 * product_excerpt_length.
+	 *
+	 * @version 2.9.2
+	 * @since   2.9.2
+	 */
+	public $product_excerpt_length;
+
+	/**
 	 * Constructor.
 	 *
 	 * @version 2.9.0
 	 * @since   1.0.0
-	 * @todo    [dev] recheck shortcodes and atts
+	 *
+	 * @todo    (dev) recheck shortcodes and atts
 	 */
 	function __construct() {
 
@@ -81,28 +106,28 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 		);
 
 		$this->the_atts = array(
-			'add_links'             => 'yes',
-			'apply_filters'         => 'no',
-			'days_to_cover'         => 90,
-			'hide_currency'         => 'yes',
-			'hide_if_no_sales'      => 'no',
-			'hide_if_zero'          => 'no',
-			'image_size'            => 'shop_thumbnail',
-			'length'                => 0,
-			'multiply_by'           => '',
-			'name'                  => '',
-			'offset'                => '',
-			'order_status'          => 'wc-completed',
-			'precision'             => 2,
-			'product_id'            => 0,
-			'reverse'               => 'no',
-			'round'                 => 'no',
-			'sep'                   => ', ',
-			'show_always'           => 'yes',
-			'taxonomy'              => '',
-			'to_unit'               => '',
-			'use_parent_id'         => 'no',
-			'show_onsale'           => 'no',
+			'add_links'        => 'yes',
+			'apply_filters'    => 'no',
+			'days_to_cover'    => 90,
+			'hide_currency'    => 'yes',
+			'hide_if_no_sales' => 'no',
+			'hide_if_zero'     => 'no',
+			'image_size'       => 'shop_thumbnail',
+			'length'           => 0,
+			'multiply_by'      => '',
+			'name'             => '',
+			'offset'           => '',
+			'order_status'     => 'wc-completed',
+			'precision'        => 2,
+			'product_id'       => 0,
+			'reverse'          => 'no',
+			'round'            => 'no',
+			'sep'              => ', ',
+			'show_always'      => 'yes',
+			'taxonomy'         => '',
+			'to_unit'          => '',
+			'use_parent_id'    => 'no',
+			'show_onsale'      => 'no',
 		);
 
 		$this->is_wc_version_below_3 = version_compare( get_option( 'woocommerce_version', null ), '3.0.0', '<' );
@@ -115,6 +140,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	 *
 	 * @version 1.3.0
 	 * @since   1.0.0
+	 *
 	 * @param   array $atts Shortcode atts.
 	 * @return  array The (modified) shortcode atts.
 	 */
@@ -424,94 +450,38 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	/**
 	 * alg_product_time_since_last_sale.
 	 *
-	 * @version 2.7.6
+	 * @version 2.9.2
 	 * @since   1.0.0
-	 * @todo    [dev] use `wc_get_orders()` (instead of `WP_Query`)
-	 * @todo    [dev] recheck if maybe we need to use `time()` instead of `current_time( 'timestamp' )`
+	 *
+	 * @todo    (v2.9.2) test this
+	 * @todo    (dev) recheck if maybe we need to use `time()` instead of `current_time( 'timestamp' )`
 	 */
 	function alg_product_time_since_last_sale( $atts ) {
 
-		// return new function support HPOS
-		return $this->alg_product_time_since_last_sale_HPOS( $atts );
-
 		$offset     = 0;
 		$block_size = 512;
 		$result     = '';
+
 		while ( true ) {
+
 			// Create args for new query
 			$args = array(
-				'post_type'      => 'shop_order',
-				'post_status'    => $atts['order_status'],
-				'posts_per_page' => $block_size,
+				'type'           => 'shop_order',
+				'status'         => $atts['order_status'],
+				'limit'          => $block_size,
 				'offset'         => $offset,
 				'orderby'        => 'date',
 				'order'          => 'DESC',
-				'date_query'     => array( 'after' => '-' . $atts['days_to_cover'] . ' days' ),
-				'fields'         => 'ids',
-			);
-			// Run new query
-			$loop = new WP_Query( $args );
-			if ( ! $loop->have_posts() ) {
-				break;
-			}
-			// Analyze the results, i.e. orders
-			foreach ( $loop->posts as $order_id ) {
-				$order = wc_get_order( $order_id );
-				$items = $order->get_items();
-				foreach ( $items as $item ) {
-					// Run through all order's items
-					if ( $item['product_id'] == $atts['product_id'] ) {
-						// Found sale!
-						$result = sprintf( __( '%s ago', 'product-xml-feeds-for-woocommerce' ), human_time_diff( get_the_time( 'U', $order_id ), current_time( 'timestamp' ) ) );
-						break;
-					}
-				}
-				if ( '' != $result ) {
-					break;
-				}
-			}
-			if ( '' != $result ) {
-				break;
-			}
-			$offset += $block_size;
-		}
-
-		// No sales found
-		return ( '' != $result ? $result : ( 'yes' === $atts['hide_if_no_sales'] ? '' : __( 'No sales yet.', 'product-xml-feeds-for-woocommerce' ) ) );
-	}
-
-	/**
-	 * alg_product_time_since_last_sale_HPOS.
-	 *
-	 * @version 2.7.6
-	 * @since   2.7.6
-	 * @todo    [dev] use `wc_get_orders()` (instead of `WP_Query`)
-	 * @todo    [dev] recheck if maybe we need to use `time()` instead of `current_time( 'timestamp' )`
-	 */
-	function alg_product_time_since_last_sale_HPOS( $atts ) {
-		$offset     = 0;
-		$block_size = 512;
-		$result     = '';
-		while ( true ) {
-			// Create args for new query
-
-			$args = array(
-				'type'         => 'shop_order',
-				'status'       => $atts['order_status'],
-				'limit'        => $block_size,
-				'paged'        => $offset,
-				'orderby'      => 'date',
-				'order'        => 'DESC',
-				'date_created' => '< ' . $atts['days_to_cover'] . ' days',
-				'return'       => 'ids',
+				'date_created'   => '>' . strtotime( '-' . $atts['days_to_cover'] . ' days' ),
+				'return'         => 'ids',
 			);
 
 			$loop = wc_get_orders( $args );
 
-
 			if ( ! isset( $loop ) || empty( $loop ) ) {
 				break;
 			}
+
 			// Analyze the results, i.e. orders
 			foreach ( $loop as $order_id ) {
 				$order = wc_get_order( $order_id );
@@ -520,7 +490,13 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 					// Run through all order's items
 					if ( $item['product_id'] == $atts['product_id'] ) {
 						// Found sale!
-						$result = sprintf( __( '%s ago', 'product-xml-feeds-for-woocommerce' ), human_time_diff( get_the_time( 'U', $order_id ), current_time( 'timestamp' ) ) );
+						$result = sprintf(
+							__( '%s ago', 'product-xml-feeds-for-woocommerce' ),
+							human_time_diff(
+								get_the_time( 'U', $order_id ),
+								current_time( 'timestamp' )
+							)
+						);
 						break;
 					}
 				}
@@ -528,16 +504,27 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 					break;
 				}
 			}
+
 			if ( '' != $result ) {
 				break;
 			}
+
 			$offset += $block_size;
+
 		}
 
 		// No sales found
-		return ( '' != $result ? $result : ( 'yes' === $atts['hide_if_no_sales'] ? '' : __( 'No sales yet.', 'product-xml-feeds-for-woocommerce' ) ) );
-	}
+		return (
+			'' != $result ?
+			$result :
+			(
+				'yes' === $atts['hide_if_no_sales'] ?
+				'' :
+				__( 'No sales yet.', 'product-xml-feeds-for-woocommerce' )
+			)
+		);
 
+	}
 
 	/**
 	 * alg_product_available_variations.
@@ -961,7 +948,6 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 				$product_tags_names[] = $product_tag->name;
 			}
 		}
-
 
 		if ( isset( $atts['tag_name'] ) && ! empty( $atts['tag_name'] ) && ! empty( $product_tags_names ) ) {
 			$tag_name = $atts['tag_name'];
@@ -1650,8 +1636,6 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 		return ' ';
 	}
 
-
-
 	/**
 	 * alg_product_list_attributes_hirarchy.
 	 *
@@ -1827,7 +1811,6 @@ class Alg_WC_PXF_Filter_Terms_Pick_Order {
 }
 
 endif;
-
 
 if ( ! class_exists( 'Alg_WC_PXF_Filter_Terms_Parent' ) ) :
 

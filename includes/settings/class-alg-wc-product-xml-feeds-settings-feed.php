@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - Feed Section Settings
  *
- * @version 2.9.0
+ * @version 2.9.2
  * @since   1.1.0
  *
  * @author  WPFactory
@@ -13,6 +13,22 @@ defined( 'ABSPATH' ) || exit;
 if ( ! class_exists( 'Alg_WC_Product_XML_Feeds_Settings_Feed' ) ) :
 
 class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Settings_Section {
+
+	/**
+	 * feed_num.
+	 *
+	 * @version 2.9.2
+	 * @since   2.9.2
+	 */
+	public $feed_num;
+
+	/**
+	 * ajax_filtering.
+	 *
+	 * @version 2.9.2
+	 * @since   2.9.2
+	 */
+	public $ajax_filtering;
 
 	/**
 	 * Constructor.
@@ -29,7 +45,7 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 		// Enqueue admin scripts and styles.
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts_and_styles' ) );
 
-		if ( $this->ajax_filtering == 'yes' ) {
+		if ( 'yes' === $this->ajax_filtering ) {
 			add_action( 'admin_footer', array( $this, 'alg_wc_xml_feed_admin_footer_js' ) );
 
 			add_action( 'wp_ajax_alg_wc_xml_feed_get_products_response', array( $this, 'alg_wc_xml_feed_get_products_response' ) );
@@ -351,21 +367,21 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 	function get_settings() {
 
 		// Prepare Products Options
-		if ( $this->ajax_filtering == 'yes' ) {
+		if ( 'yes' === $this->ajax_filtering ) {
 			$products_options = $this->get_saved_products();
 		} else {
 			$products_options = $this->get_products();
 		}
 
 		// Prepare Categories Options
-		if ( $this->ajax_filtering == 'yes' ) {
+		if ( 'yes' === $this->ajax_filtering ) {
 			$product_cats_options = $this->get_saved_product_cats();
 		} else {
 			$product_cats_options = $this->get_product_cats();
 		}
 
 		// Prepare Tags Options
-		if ( $this->ajax_filtering == 'yes' ) {
+		if ( 'yes' === $this->ajax_filtering ) {
 			$product_tags_options = $this->get_saved_product_tags();
 		} else {
 			$product_tags_options = $this->get_product_tags();

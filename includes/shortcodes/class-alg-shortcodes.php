@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - Shortcodes
  *
- * @version 1.5.2
+ * @version 2.9.2
  * @since   1.0.0
  *
  * @author  WPFactory
@@ -13,6 +13,30 @@ defined( 'ABSPATH' ) || exit;
 if ( ! class_exists( 'Alg_Shortcodes' ) ) :
 
 class Alg_Shortcodes {
+
+	/**
+	 * the_shortcodes.
+	 *
+	 * @version 2.9.2
+	 * @since   2.9.2
+	 */
+	public $the_shortcodes;
+
+	/**
+	 * the_atts.
+	 *
+	 * @version 2.9.2
+	 * @since   2.9.2
+	 */
+	public $the_atts;
+
+	/**
+	 * currency_exchange_rates.
+	 *
+	 * @version 2.9.2
+	 * @since   2.9.2
+	 */
+	public $currency_exchange_rates;
 
 	/**
 	 * Constructor.
@@ -191,7 +215,8 @@ class Alg_Shortcodes {
 	 *
 	 * @version 1.4.3
 	 * @since   1.4.3
-	 * @todo    [dev] maybe add more exchange rate servers
+	 *
+	 * @todo    (dev) maybe add more exchange rate servers
 	 */
 	function get_currency_exchange_rate_ecb( $currency_from, $currency_to ) {
 		if ( ! empty( $this->currency_exchange_rates[ $currency_from ][ $currency_to ] ) ) {

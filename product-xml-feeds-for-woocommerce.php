@@ -3,12 +3,12 @@
 Plugin Name: Product XML Feeds for WooCommerce
 Plugin URI: https://wpfactory.com/item/product-xml-feeds-woocommerce/
 Description: Create your own XML files using tens of preconfigured shortcodes for you on your WooCommerce store.
-Version: 2.9.1
+Version: 2.9.2
 Author: WPFactory
 Author URI: https://wpfactory.com
 Text Domain: product-xml-feeds-for-woocommerce
 Domain Path: /langs
-WC tested up to: 9.4
+WC tested up to: 9.8
 Requires Plugins: woocommerce
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -36,12 +36,16 @@ if ( 'product-xml-feeds-for-woocommerce.php' === basename( __FILE__ ) ) {
 	}
 }
 
+defined( 'ALG_WC_PRODUCT_XML_FEEDS_VERSION' ) || define( 'ALG_WC_PRODUCT_XML_FEEDS_VERSION', '2.9.2' );
+
+defined( 'ALG_WC_PRODUCT_XML_FEEDS_FILE' ) || define( 'ALG_WC_PRODUCT_XML_FEEDS_FILE', __FILE__ );
+
 if ( ! class_exists( 'Alg_WC_Product_XML_Feeds' ) ) :
 
 /**
  * Main Alg_WC_Product_XML_Feeds Class
  *
- * @version 2.9.1
+ * @version 2.9.2
  * @since   1.0.0
  *
  * @class   Alg_WC_Product_XML_Feeds
@@ -54,7 +58,7 @@ final class Alg_WC_Product_XML_Feeds {
 	 * @var   string
 	 * @since 1.0.0
 	 */
-	public $version = '2.9.1';
+	public $version = ALG_WC_PRODUCT_XML_FEEDS_VERSION;
 
 	/**
 	 * @var   Alg_WC_Product_XML_Feeds The single instance of the class
@@ -63,7 +67,15 @@ final class Alg_WC_Product_XML_Feeds {
 	protected static $_instance = null;
 
 	/**
-	 * Main Alg_WC_Product_XML_Feeds Instance
+	 * core.
+	 *
+	 * @version 2.9.2
+	 * @since   2.9.2
+	 */
+	public $core;
+
+	/**
+	 * Main Alg_WC_Product_XML_Feeds Instance.
 	 *
 	 * Ensures only one instance of Alg_WC_Product_XML_Feeds is loaded or can be loaded.
 	 *
@@ -158,14 +170,17 @@ final class Alg_WC_Product_XML_Feeds {
 	 */
 	function action_links( $links ) {
 		$custom_links = array();
+
 		$custom_links[] = '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=alg_wc_product_xml_feeds' ) . '">' .
 			__( 'Settings', 'product-xml-feeds-for-woocommerce' ) .
 		'</a>';
+
 		if ( 'product-xml-feeds-for-woocommerce.php' === basename( __FILE__ ) ) {
 			$custom_links[] = '<a href="https://wpfactory.com/item/product-xml-feeds-woocommerce/">' .
 				__( 'Unlock All', 'product-xml-feeds-for-woocommerce' ) .
 			'</a>';
 		}
+
 		return array_merge( $custom_links, $links );
 	}
 
@@ -187,7 +202,7 @@ final class Alg_WC_Product_XML_Feeds {
 	/**
 	 * admin.
 	 *
-	 * @version 2.9.0
+	 * @version 2.9.2
 	 * @since   1.4.0
 	 */
 	function admin() {
@@ -199,18 +214,10 @@ final class Alg_WC_Product_XML_Feeds {
 		$this->add_cross_selling_library();
 
 		// WC Settings tab as WPFactory submenu item
-		$this->move_wc_settings_tab_to_wpfactory_menu();
+		add_action( 'init', array( $this, 'move_wc_settings_tab_to_wpfactory_menu' ) );
 
 		// Settings
 		add_filter( 'woocommerce_get_settings_pages', array( $this, 'add_woocommerce_settings_tab' ) );
-		require_once( 'includes/settings/class-alg-wc-product-xml-feeds-settings-section.php' );
-		$this->settings = array();
-		$this->settings['general'] = require_once( 'includes/settings/class-alg-wc-product-xml-feeds-settings-general.php' );
-		require_once( 'includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php' );
-		$total_number = apply_filters( 'alg_wc_product_xml_feeds_values', 1, 'total_number' );
-		for ( $i = 1; $i <= $total_number; $i++ ) {
-			$this->settings[ 'feed_' . $i ] = new Alg_WC_Product_XML_Feeds_Settings_Feed( $i );
-		}
 
 		// Version updated
 		if ( get_option( 'alg_product_xml_feeds_version', '' ) !== $this->version ) {

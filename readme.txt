@@ -2,8 +2,8 @@
 Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmukherjeeli, aegkr
 Tags: woocommerce, product xml feeds, xml, export
 Requires at least: 4.4
-Tested up to: 6.7
-Stable tag: 2.9.1
+Tested up to: 6.8
+Stable tag: 2.9.2
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -157,6 +157,14 @@ WPFactory has a diverse range of plugins tailored to enhance your experience, so
 Once activated, access the plugin's settings by navigating to “WooCommerce > Settings” and look for the relevant tab.
 
 == Changelog ==
+
+= 2.9.2 - 30/04/2025 =
+* Fix - Translation domain loading triggered too early.
+* Fix - Declared missing properties to fix PHP 8.2 deprecation notices.
+* Dev - Key Manager - Library updated.
+* Dev - Code refactoring and cleanup.
+* WC tested up to: 9.8.
+* Tested up to: 6.8.
 
 = 2.9.1 - 04/12/2024 =
 * Fix - Resolved warning "Function _load_textdomain_just_in_time was called incorrectly".

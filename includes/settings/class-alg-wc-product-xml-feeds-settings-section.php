@@ -2,8 +2,9 @@
 /**
  * Product XML Feeds for WooCommerce - Section Settings
  *
- * @version 1.0.0
+ * @version 2.9.2
  * @since   1.0.0
+ *
  * @author  WPFactory
  */
 
@@ -12,6 +13,22 @@ defined( 'ABSPATH' ) || exit;
 if ( ! class_exists( 'Alg_WC_Product_XML_Feeds_Settings_Section' ) ) :
 
 class Alg_WC_Product_XML_Feeds_Settings_Section {
+
+	/**
+	 * id.
+	 *
+	 * @version 2.9.2
+	 * @since   2.9.2
+	 */
+	public $id;
+
+	/**
+	 * desc.
+	 *
+	 * @version 2.9.2
+	 * @since   2.9.2
+	 */
+	public $desc;
 
 	/**
 	 * Constructor.
