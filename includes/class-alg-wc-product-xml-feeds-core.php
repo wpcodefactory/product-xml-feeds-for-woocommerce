@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - Core Class
  *
- * @version 2.9.0
+ * @version 2.9.3
  * @since   1.0.0
  *
  * @author  WPFactory
@@ -17,7 +17,7 @@ class Alg_WC_Product_XML_Feeds_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.7.7
+	 * @version 2.9.3
 	 * @since   1.0.0
 	 */
 	function __construct() {
@@ -25,9 +25,10 @@ class Alg_WC_Product_XML_Feeds_Core {
 			add_action( 'init',           array( $this, 'schedule_the_events' ) );
 			add_action( 'admin_init',     array( $this, 'schedule_the_events' ) );
 			add_action( 'admin_init',     array( $this, 'alg_create_products_xml' ) );
+			add_action( 'admin_notices',  array( $this, 'admin_notices' ) );
 
-			add_action('wp_ajax_nopriv_generate_xml_external', array( $this, 'generate_xml_external') );
-			add_action('wp_ajax_generate_xml_external', array( $this, 'generate_xml_external') );
+			add_action( 'wp_ajax_nopriv_generate_xml_external', array( $this, 'alg_create_products_xml' ) );
+			add_action( 'wp_ajax_generate_xml_external', array( $this, 'alg_create_products_xml' ) );
 
 			add_filter( 'rp_wcdpd_request_is_product_feed', array( $this, 'allow_rd_wcdpd_to_allow_update_price' ), PHP_INT_MAX, 3 );
 
@@ -137,42 +138,107 @@ class Alg_WC_Product_XML_Feeds_Core {
 	}
 
 	/**
-	 * generate_xml_external.
+	 * admin_notices.
 	 *
-	 * @version 1.2.0
-	 * @since   1.0.0
-	 * @todo    [dev] with wp_safe_redirect there is no notice displayed
+	 * @version 2.9.3
+	 * @since   2.9.3
 	 */
-	function generate_xml_external() {
-		if ( isset( $_GET['alg_create_products_xml'] ) ) {
-			$file_num = $_GET['alg_create_products_xml'];
-			$result = $this->create_products_xml( $file_num );
-			add_action( 'admin_notices', array( $this, ( ( false !== $result ) ? 'admin_notice__success' : 'admin_notice__error' ) ) );
-			if ( false !== $result ) {
-				update_option( 'alg_products_time_file_created_' . $file_num, current_time( 'timestamp' ) );
-			}
-			exit;
+	function admin_notices() {
+		if ( ! isset( $_GET['alg_create_products_xml_status'] ) ) {
+			return;
 		}
-		die;
+
+		$status = sanitize_text_field( wp_unslash( $_GET['alg_create_products_xml_status'] ) );
+		if ( 'success' === $status ) {
+			$this->admin_notice__success();
+		} elseif ( 'error' === $status ) {
+			$this->admin_notice__error();
+		}
+	}
+
+	/**
+	 * send_error_response.
+	 *
+	 * @version 2.9.3
+	 * @since   2.9.3
+	 */
+	function send_error_response( $message, $status_code ) {
+		if ( isset( $_GET['secret'] ) ) {
+			wp_send_json_error( $message, $status_code );
+		} else {
+			wp_die( $message, '', array( 'response' => $status_code ) );
+		}
 	}
 
 	/**
 	 * alg_create_products_xml.
 	 *
-	 * @version 1.2.0
+	 * @version 2.9.3
 	 * @since   1.0.0
-	 *
-	 * @todo    (dev) with wp_safe_redirect there is no notice displayed
 	 */
 	function alg_create_products_xml() {
-		if ( isset( $_GET['alg_create_products_xml'] ) ) {
-			$file_num = $_GET['alg_create_products_xml'];
-			$result = $this->create_products_xml( $file_num );
-			add_action( 'admin_notices', array( $this, ( ( false !== $result ) ? 'admin_notice__success' : 'admin_notice__error' ) ) );
-			if ( false !== $result ) {
-				update_option( 'alg_products_time_file_created_' . $file_num, current_time( 'timestamp' ) );
+		// Validate basic parameters
+		if ( ! isset( $_GET['alg_create_products_xml'] ) ) {
+			return;
+		}
+
+		// Sanitize and validate input
+		$file_num    = absint( $_GET['alg_create_products_xml'] );
+		$is_external = isset( $_GET['secret'] );
+
+		// Different security checks based on the access method
+		if ( $is_external ) {
+			$secret = sanitize_text_field( wp_unslash( $_GET['secret'] ) );
+			if ( ! hash_equals( wp_hash( get_option( 'alg_products_xml_feeds_security_key', '' ) ), $secret ) ) {
+				$this->send_error_response( __( 'Invalid secret key.', 'product-xml-feeds-for-woocommerce' ), 403 );
 			}
-			wp_safe_redirect( remove_query_arg( 'alg_create_products_xml' ) );
+		} else {
+			if (
+				! isset( $_GET['_wpnonce'] ) ||
+				! wp_verify_nonce(
+					sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ),
+					'alg_create_products_xml_nonce'
+				)
+			) {
+				$this->send_error_response( __( 'Invalid nonce.', 'product-xml-feeds-for-woocommerce' ), 403 );
+			}
+		}
+
+		// Validate file number
+		$total_number = apply_filters( 'alg_wc_product_xml_feeds_values', 1, 'total_number' );
+		if ( ! $file_num || $file_num > $total_number ) {
+			$this->send_error_response( __( 'Invalid feed number.', 'product-xml-feeds-for-woocommerce' ), 404 );
+		}
+
+		// Generate XML
+		$result = $this->create_products_xml( $file_num );
+
+		if ( false === $result ) {
+			if ( ! $is_external ) {
+				wp_safe_redirect(
+					add_query_arg(
+						'alg_create_products_xml_status', 'error',
+						remove_query_arg( array( 'alg_create_products_xml', '_wpnonce' ) )
+					)
+				);
+				exit;
+			}
+			$this->send_error_response( __( 'Failed to generate XML feed.', 'product-xml-feeds-for-woocommerce' ), 500 );
+		}
+
+		// Update creation time
+		update_option( 'alg_products_time_file_created_' . $file_num, current_time( 'timestamp' ) );
+
+		// Handle response based on an access method
+		if ( $is_external ) {
+			wp_send_json_success( __( 'XML feed generated successfully.', 'product-xml-feeds-for-woocommerce' ) );
+		} else {
+			wp_safe_redirect(
+				add_query_arg(
+					'alg_create_products_xml_status', 'success',
+					remove_query_arg( array( 'alg_create_products_xml', '_wpnonce' ) )
+				)
+			);
 			exit;
 		}
 	}

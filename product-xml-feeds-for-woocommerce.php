@@ -3,7 +3,7 @@
 Plugin Name: Product XML Feeds for WooCommerce
 Plugin URI: https://wpfactory.com/item/product-xml-feeds-woocommerce/
 Description: Create your own XML files using tens of preconfigured shortcodes for you on your WooCommerce store.
-Version: 2.9.2
+Version: 2.9.3
 Author: WPFactory
 Author URI: https://wpfactory.com
 Text Domain: product-xml-feeds-for-woocommerce
@@ -36,7 +36,7 @@ if ( 'product-xml-feeds-for-woocommerce.php' === basename( __FILE__ ) ) {
 	}
 }
 
-defined( 'ALG_WC_PRODUCT_XML_FEEDS_VERSION' ) || define( 'ALG_WC_PRODUCT_XML_FEEDS_VERSION', '2.9.2' );
+defined( 'ALG_WC_PRODUCT_XML_FEEDS_VERSION' ) || define( 'ALG_WC_PRODUCT_XML_FEEDS_VERSION', '2.9.3' );
 
 defined( 'ALG_WC_PRODUCT_XML_FEEDS_FILE' ) || define( 'ALG_WC_PRODUCT_XML_FEEDS_FILE', __FILE__ );
 
@@ -45,7 +45,7 @@ if ( ! class_exists( 'Alg_WC_Product_XML_Feeds' ) ) :
 /**
  * Main Alg_WC_Product_XML_Feeds Class
  *
- * @version 2.9.2
+ * @version 2.9.3
  * @since   1.0.0
  *
  * @class   Alg_WC_Product_XML_Feeds
@@ -202,7 +202,7 @@ final class Alg_WC_Product_XML_Feeds {
 	/**
 	 * admin.
 	 *
-	 * @version 2.9.2
+	 * @version 2.9.3
 	 * @since   1.4.0
 	 */
 	function admin() {
@@ -211,7 +211,7 @@ final class Alg_WC_Product_XML_Feeds {
 		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'action_links' ) );
 
 		// "Recommendations" page
-		$this->add_cross_selling_library();
+		add_action( 'init', array( $this, 'add_cross_selling_library' ) );
 
 		// WC Settings tab as WPFactory submenu item
 		add_action( 'init', array( $this, 'move_wc_settings_tab_to_wpfactory_menu' ) );
@@ -273,11 +273,16 @@ final class Alg_WC_Product_XML_Feeds {
 	/**
 	 * version_updated.
 	 *
-	 * @version 1.4.2
+	 * @version 2.9.3
 	 * @since   1.3.0
 	 */
 	function version_updated() {
 		update_option( 'alg_product_xml_feeds_version', $this->version );
+
+		// Generate a security key for XML feed access if not already set
+		if ( '' === get_option( 'alg_products_xml_feeds_security_key', '' ) ) {
+			update_option( 'alg_products_xml_feeds_security_key', wp_generate_password( 24, false ) );
+		}
 	}
 
 	/**

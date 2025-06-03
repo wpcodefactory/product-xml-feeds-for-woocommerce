@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, product xml feeds, xml, export
 Requires at least: 4.4
 Tested up to: 6.8
-Stable tag: 2.9.2
+Stable tag: 2.9.3
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -157,6 +157,14 @@ WPFactory has a diverse range of plugins tailored to enhance your experience, so
 Once activated, access the plugin's settings by navigating to “WooCommerce > Settings” and look for the relevant tab.
 
 == Changelog ==
+
+= 2.9.3 - 03/06/2025 =
+* Fix - Resolved a security vulnerability when generating an XML feed.
+* Add - General - Advanced Options - "Security Key" option added.
+* Dev - Display admin notice after generating an XML feed.
+* Dev - Removed `generate_xml_external()` and merged it with `alg_create_products_xml()`.
+* Dev - Recommendations - Move to the `init` action.
+* Dev - Key Manager - Move to the `init` action.
 
 = 2.9.2 - 30/04/2025 =
 * Fix - Translation domain loading triggered too early.

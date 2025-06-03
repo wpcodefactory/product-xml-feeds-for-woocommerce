@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - General Section Settings
  *
- * @version 2.9.2
+ * @version 2.9.3
  * @since   1.0.0
  *
  * @author  WPFactory
@@ -29,7 +29,7 @@ class Alg_WC_Product_XML_Feeds_Settings_General extends Alg_WC_Product_XML_Feeds
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.9.2
+	 * @version 2.9.3
 	 * @since   1.0.0
 	 *
 	 * @todo    (dev) better description for "Block size for products query"
@@ -81,6 +81,13 @@ class Alg_WC_Product_XML_Feeds_Settings_General extends Alg_WC_Product_XML_Feeds
 				'title'             => __( 'Advanced Options', 'product-xml-feeds-for-woocommerce' ),
 				'type'              => 'title',
 				'id'                => 'alg_wc_product_xml_feeds_advanced_options',
+			),
+			array(
+				'title'             => __( 'Security Key', 'product-xml-feeds-for-woocommerce' ),
+				'desc_tip'          => __( 'This key is used to protect access to the product feed generation URL. Regenerate only if necessary.', 'product-xml-feeds-for-woocommerce' ),
+				'id'                => 'alg_products_xml_feeds_security_key',
+				'default'           => get_option( 'alg_products_xml_feeds_security_key', '' ),
+				'type'              => 'text'
 			),
 			array(
 				'title'             => __( 'Block size for products query', 'product-xml-feeds-for-woocommerce' ),

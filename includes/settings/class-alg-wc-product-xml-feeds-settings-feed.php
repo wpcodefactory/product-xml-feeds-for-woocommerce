@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - Feed Section Settings
  *
- * @version 2.9.2
+ * @version 2.9.3
  * @since   1.1.0
  *
  * @author  WPFactory
@@ -357,7 +357,7 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.9.0
+	 * @version 2.9.3
 	 * @since   1.1.0
 	 *
 	 * @todo    [dev] (maybe) move "Sorting" options to a separate subsection
@@ -415,13 +415,18 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 
 		// Settings
 		$products_xml_cron_desc = '';
+		$url = wp_nonce_url(
+			add_query_arg( 'alg_create_products_xml', $this->feed_num ),
+			'alg_create_products_xml_nonce'
+		);
+
 		if ( 'yes' === get_option( 'alg_wc_product_xml_feeds_enabled', 'yes' ) ) {
 			if ( 'yes' === get_option( 'alg_products_xml_ajax_feed_creation_option', 'no' ) ) {
-				$products_xml_cron_desc .= '<a class="button generate_feed_by_ajax" href="' . add_query_arg( 'alg_create_products_xml', $this->feed_num ) . '" title="' .
+				$products_xml_cron_desc .= '<a class="button generate_feed_by_ajax" href="' . $url . '" title="' .
 				__( 'Don\'t forget to save settings if you\'ve made any changes.', 'product-xml-feeds-for-woocommerce' ) . '">' .
 					__( 'Create now', 'product-xml-feeds-for-woocommerce' ) . '</a>';
 			} else {
-				$products_xml_cron_desc .= '<a class="button" href="' . add_query_arg( 'alg_create_products_xml', $this->feed_num ) . '" title="' .
+				$products_xml_cron_desc .= '<a class="button" href="' . $url . '" title="' .
 				__( 'Don\'t forget to save settings if you\'ve made any changes.', 'product-xml-feeds-for-woocommerce' ) . '">' .
 					__( 'Create now', 'product-xml-feeds-for-woocommerce' ) . '</a>';
 			}
@@ -644,7 +649,7 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 			array(
 				'title'    => __( 'Manual Cron Job Command', 'product-xml-feeds-for-woocommerce' ),
 				'type'     => 'title',
-				'desc'     => '<strong>wget -qO- '.get_site_url().'/wp-admin/admin-ajax.php?action=generate_xml_external&alg_create_products_xml='.$this->feed_num.' >/dev/null 2>&1</strong>',
+				'desc'     => '<code>wget -qO- ' . get_site_url() . '/wp-admin/admin-ajax.php?action=generate_xml_external&secret=' . wp_hash( get_option( 'alg_products_xml_feeds_security_key', '' )  ) . '&alg_create_products_xml=' . $this->feed_num . ' >/dev/null 2>&1</code>',
 				'id'       => 'alg_products_xml_manual_cron_options_' . $this->feed_num,
 			),
 			array(
