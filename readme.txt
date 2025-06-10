@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, product xml feeds, xml, export
 Requires at least: 4.4
 Tested up to: 6.8
-Stable tag: 2.9.3
+Stable tag: 2.9.4
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -157,6 +157,11 @@ WPFactory has a diverse range of plugins tailored to enhance your experience, so
 Once activated, access the plugin's settings by navigating to “WooCommerce > Settings” and look for the relevant tab.
 
 == Changelog ==
+
+= 2.9.4 - 10/06/2025 =
+* Fix - Resolved a security vulnerability related to Remote Code Execution (RCE).
+* Dev - Code refactoring and cleanup.
+* WC tested up to: 9.9.
 
 = 2.9.3 - 03/06/2025 =
 * Fix - Resolved a security vulnerability when generating an XML feed.
