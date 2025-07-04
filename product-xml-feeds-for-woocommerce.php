@@ -3,7 +3,7 @@
 Plugin Name: Product XML Feeds for WooCommerce
 Plugin URI: https://wpfactory.com/item/product-xml-feeds-woocommerce/
 Description: Create your own XML files using tens of preconfigured shortcodes for you on your WooCommerce store.
-Version: 2.9.4
+Version: 2.9.5
 Author: WPFactory
 Author URI: https://wpfactory.com
 Text Domain: product-xml-feeds-for-woocommerce
@@ -45,7 +45,7 @@ if ( 'product-xml-feeds-for-woocommerce.php' === basename( __FILE__ ) ) {
 	}
 }
 
-defined( 'ALG_WC_PRODUCT_XML_FEEDS_VERSION' ) || define( 'ALG_WC_PRODUCT_XML_FEEDS_VERSION', '2.9.4' );
+defined( 'ALG_WC_PRODUCT_XML_FEEDS_VERSION' ) || define( 'ALG_WC_PRODUCT_XML_FEEDS_VERSION', '2.9.5' );
 
 defined( 'ALG_WC_PRODUCT_XML_FEEDS_FILE' ) || define( 'ALG_WC_PRODUCT_XML_FEEDS_FILE', __FILE__ );
 
@@ -54,7 +54,7 @@ if ( ! class_exists( 'Alg_WC_Product_XML_Feeds' ) ) :
 /**
  * Main Alg_WC_Product_XML_Feeds Class
  *
- * @version 2.9.3
+ * @version 2.9.5
  * @since   1.0.0
  *
  * @class   Alg_WC_Product_XML_Feeds
@@ -256,7 +256,7 @@ final class Alg_WC_Product_XML_Feeds {
 	/**
 	 * move_wc_settings_tab_to_wpfactory_menu.
 	 *
-	 * @version 2.9.0
+	 * @version 2.9.5
 	 * @since   2.9.0
 	 */
 	function move_wc_settings_tab_to_wpfactory_menu() {
@@ -274,7 +274,11 @@ final class Alg_WC_Product_XML_Feeds {
 		$wpfactory_admin_menu->move_wc_settings_tab_to_wpfactory_menu( array(
 			'wc_settings_tab_id' => 'alg_wc_product_xml_feeds',
 			'menu_title'         => __( 'Product XML Feeds', 'product-xml-feeds-for-woocommerce' ),
-			'page_title'         => __( 'Product XML Feeds', 'product-xml-feeds-for-woocommerce' ),
+			'page_title'         => __( 'Product XML Feed Manager for WooCommerce', 'product-xml-feeds-for-woocommerce' ),
+			'plugin_icon'        => array(
+				'get_url_method'    => 'wporg_plugins_api',
+				'wporg_plugin_slug' => 'product-xml-feeds-for-woocommerce',
+			),
 		) );
 
 	}

@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, product xml feeds, xml, export
 Requires at least: 4.4
 Tested up to: 6.8
-Stable tag: 2.9.4
+Stable tag: 2.9.5
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -77,7 +77,6 @@ Choose which products to show in your feeds by filtering them by category, tag, 
 
 ## 🏆 Pro Version ##
 Our **[Plugin Pro version](https://wpfactory.com/item/product-xml-feeds-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "Plugin Pro version")** features further expands the capabilities of our plugin so you can have more control on your feeds, like:
-
 
 ### 🏆 Create Unlimited Feeds ###
 
@@ -154,9 +153,13 @@ WPFactory has a diverse range of plugins tailored to enhance your experience, so
 4. After the installation is complete, click “Activate”.
 
 **Post-Activation:**
-Once activated, access the plugin's settings by navigating to “WooCommerce > Settings” and look for the relevant tab.
+Once activated, access the plugin's settings by navigating to the “WPFactory” menu and look for the relevant tab.
 
 == Changelog ==
+
+= 2.9.5 - 04/07/2025 =
+* Dev - WPFactory Admin Menu - Library updated.
+* Dev - WPFactory Admin Menu - Icon added.
 
 = 2.9.4 - 10/06/2025 =
 * Fix - Resolved a security vulnerability related to Remote Code Execution (RCE).
