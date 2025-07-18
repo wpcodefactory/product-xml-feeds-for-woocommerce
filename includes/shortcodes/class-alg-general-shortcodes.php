@@ -2,9 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - General Shortcodes
  *
- * The Product XML Feeds for WooCommerce General Shortcodes class.
- *
- * @version 1.4.5
+ * @version 2.9.6
  * @since   1.0.0
  *
  * @author  WPFactory
@@ -90,7 +88,7 @@ class Alg_General_Shortcodes extends Alg_Shortcodes {
 	/**
 	 * alg_format_number.
 	 *
-	 * @version 1.4.5
+	 * @version 2.9.6
 	 * @since   1.4.5
 	 */
 	function alg_format_number( $atts, $content ) {
@@ -99,7 +97,19 @@ class Alg_General_Shortcodes extends Alg_Shortcodes {
 			'dec_point'     => '.',
 			'thousands_sep' => ',',
 		), $atts, 'alg_format_number' );
-		return number_format( do_shortcode( $content ), $atts['decimals'], $atts['dec_point'], $atts['thousands_sep'] );
+
+		$value = do_shortcode( $content );
+
+		if ( ! is_numeric( $value ) ) {
+			return $value;
+		}
+
+		return number_format(
+			$value,
+			$atts['decimals'],
+			$atts['dec_point'],
+			$atts['thousands_sep']
+		);
 	}
 
 	/**

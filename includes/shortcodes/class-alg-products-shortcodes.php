@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - Products Shortcodes
  *
- * @version 2.9.2
+ * @version 2.9.6
  * @since   1.0.0
  *
  * @author  WPFactory
@@ -973,7 +973,6 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 			} else {
 				$you_save = ( $this->the_product->get_regular_price() - $this->the_product->get_sale_price() );
 			}
-
 			return ( 'yes' === $atts['hide_currency'] ) ? $you_save : wc_price( $you_save );
 		} else {
 			return ( 'yes' === $atts['hide_if_zero'] ) ? '' : 0;
@@ -1039,40 +1038,55 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	/**
 	 * Get product custom field.
 	 *
-	 * @version 1.0.0
+	 * @version 2.9.6
 	 * @since   1.0.0
+	 *
 	 * @return  string
 	 */
 	function alg_product_custom_field( $atts ) {
 		$product_custom_fields = get_post_custom( $atts['product_id'] );
-
-		return ( isset( $product_custom_fields[ $atts['name'] ][0] ) ) ? $product_custom_fields[ $atts['name'] ][0] : '';
+		return ( $product_custom_fields[ $atts['name'] ][0] ?? '' );
 	}
 
 	/**
 	 * Returns product (modified) price.
 	 *
-	 * @version 2.7.19
+	 * @version 2.9.6
 	 * @since   1.0.0
+	 *
 	 * @todo    [dev] variable products: not range
 	 * @return  string The product (modified) price
 	 */
 	function alg_product_price( $atts ) {
 
-		if ( $this->the_product->is_type( 'variable' ) && ( ! isset( $atts['variable_price_type'] ) || ( 'range' === $atts['variable_price_type'] || 'min' === $atts['variable_price_type'] || 'max' === $atts['variable_price_type'] ) ) ) {
+		if (
+			$this->the_product->is_type( 'variable' ) &&
+			(
+				! isset( $atts['variable_price_type'] ) ||
+				(
+					'range' === $atts['variable_price_type'] ||
+					'min'   === $atts['variable_price_type'] ||
+					'max'   === $atts['variable_price_type']
+				)
+			)
+		) {
+
 			// Variable
 			$min = $this->the_product->get_variation_price( 'min', false );
 			$max = $this->the_product->get_variation_price( 'max', false );
+
 			if ( '' !== $atts['multiply_by'] && is_numeric( $atts['multiply_by'] ) ) {
 				$min = $min * $atts['multiply_by'];
 				$max = $max * $atts['multiply_by'];
 			}
+
 			if ( isset( $atts['sum_with'] ) ) {
 				if ( '' !== $atts['sum_with'] && is_numeric( $atts['sum_with'] ) ) {
 					$min = $min + $atts['sum_with'];
 					$max = $max + $atts['sum_with'];
 				}
 			}
+
 			if ( 'yes' !== $atts['hide_currency'] ) {
 				$min = wc_price( $min );
 				$max = wc_price( $max );
@@ -1094,12 +1108,20 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 			}
 
 			return ( $min != $max ) ? sprintf( '%s-%s', $min, $max ) : $min;
+
 		} else {
+
 			// Simple etc.
 			$price = $this->the_product->get_price();
+
+			if ( ! is_numeric( $price ) ) {
+				return $price;
+			}
+
 			if ( '' !== $atts['multiply_by'] && is_numeric( $atts['multiply_by'] ) ) {
 				$price = $price * $atts['multiply_by'];
 			}
+
 			if ( isset( $atts['sum_with'] ) ) {
 				if ( '' !== $atts['sum_with'] && is_numeric( $atts['sum_with'] ) ) {
 					$price = $price + $atts['sum_with'];
@@ -1113,7 +1135,9 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 			}
 
 			return ( 'yes' === $atts['hide_currency'] ? $price : wc_price( $price ) );
+
 		}
+
 	}
 
 	/**
