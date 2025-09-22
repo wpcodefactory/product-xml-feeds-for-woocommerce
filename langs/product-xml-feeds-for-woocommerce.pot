@@ -2,40 +2,40 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Product XML Feeds for WooCommerce 2.9.6\n"
+"Project-Id-Version: product-xml-feeds-for-woocommerce 2.9.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/product-xml-feeds-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-07-18T13:37:26+00:00\n"
+"POT-Creation-Date: 2025-09-22T17:11:39+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.11.0\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: product-xml-feeds-for-woocommerce\n"
 
 #. Plugin Name of the plugin
-#: product-xml-feeds-for-woocommerce.php
-msgid "Product XML Feeds for WooCommerce"
+#: product-xml-feeds-for-woocommerce-pro.php
+msgid "Product XML Feeds for WooCommerce Pro"
 msgstr ""
 
 #. Plugin URI of the plugin
-#: product-xml-feeds-for-woocommerce.php
+#: product-xml-feeds-for-woocommerce-pro.php
 msgid "https://wpfactory.com/item/product-xml-feeds-woocommerce/"
 msgstr ""
 
 #. Description of the plugin
-#: product-xml-feeds-for-woocommerce.php
+#: product-xml-feeds-for-woocommerce-pro.php
 msgid "Create your own XML files using tens of preconfigured shortcodes for you on your WooCommerce store."
 msgstr ""
 
 #. Author of the plugin
-#: product-xml-feeds-for-woocommerce.php
+#: product-xml-feeds-for-woocommerce-pro.php
 msgid "WPFactory"
 msgstr ""
 
 #. Author URI of the plugin
-#: product-xml-feeds-for-woocommerce.php
+#: product-xml-feeds-for-woocommerce-pro.php
 msgid "https://wpfactory.com"
 msgstr ""
 
@@ -94,6 +94,7 @@ msgstr ""
 
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:41
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:509
+#, php-format
 msgid "XML Feed #%d"
 msgstr ""
 
@@ -112,14 +113,17 @@ msgid "Create now"
 msgstr ""
 
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:437
+#, php-format
 msgid "%s till next update."
 msgstr ""
 
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:439
+#, php-format
 msgid "%s seconds till next update."
 msgstr ""
 
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:447
+#, php-format
 msgid "Recent file was created on %s"
 msgstr ""
 
@@ -158,6 +162,7 @@ msgstr ""
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:534
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:554
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:582
+#, php-format
 msgid "Please visit <a href=\"%s\" target=\"_blank\">Product XML Feeds for WooCommerce page</a> to check all available shortcodes."
 msgstr ""
 
@@ -170,6 +175,7 @@ msgid "Variation XML item"
 msgstr ""
 
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:544
+#, php-format
 msgid "Please visit <a href=\"%s\" target=\"_blank\">Product XML Feeds for WooCommerce page</a> to check all available shortcodes. It will works when \"Variable products\" option selected to be \"Both variable and variations products\""
 msgstr ""
 
@@ -534,6 +540,7 @@ msgstr ""
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:935
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:945
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:953
+#, php-format
 msgid "E.g.: %s"
 msgstr ""
 
@@ -650,10 +657,12 @@ msgid "Set to zero for no time limit."
 msgstr ""
 
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:118
+#, php-format
 msgid "Ignored if set to -1 (and server's default time limit of %s seconds is used)."
 msgstr ""
 
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:124
+#, php-format
 msgid "Check %s function documentation for more info."
 msgstr ""
 
@@ -666,6 +675,7 @@ msgid "Affects \"Template Options\"."
 msgstr ""
 
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-general.php:138
+#, php-format
 msgid "If disabled, use %s instead of %s accordingly."
 msgstr ""
 
@@ -702,6 +712,7 @@ msgid "Your settings have been reset."
 msgstr ""
 
 #: includes/shortcodes/class-alg-products-shortcodes.php:494
+#, php-format
 msgid "%s ago"
 msgstr ""
 
