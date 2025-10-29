@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, kousikmukherjeeli, ae
 Tags: woocommerce, product xml feeds, xml, export
 Requires at least: 4.4
 Tested up to: 6.8
-Stable tag: 2.9.7
+Stable tag: 2.9.8
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -13,7 +13,7 @@ Create your own XML feeds to export them, utilize tens of preconfigured shortcod
 
 > “Very good!: Very helpful support! I recomand this plugin, simple to use and very good documented.” – ⭐⭐⭐⭐⭐  [price4you](https://wordpress.org/support/topic/very-good-5904/)
 
-[Main Page](https://wpfactory.com/item/product-xml-feeds-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme?utm_source=wporg&utm_medium=organic&utm_campaign=readme?utm_source=wporg&utm_medium=organic&utm_campaign=readme "Main Page") | [Support Forum](https://wpfactory.com/support/item/product-xml-feeds-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme?utm_source=wporg&utm_medium=organic&utm_campaign=readme?utm_source=wporg&utm_medium=organic&utm_campaign=readme "Support Forum") | [Documentation & How to](https://wpfactory.com/docs/product-xml-feeds-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme?utm_source=wporg&utm_medium=organic&utm_campaign=readme?utm_source=wporg&utm_medium=organic&utm_campaign=readme "Documentation & How to")
+[Main Page](https://wpfactory.com/item/product-xml-feeds-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme?utm_source=wporg&utm_medium=organic&utm_campaign=readme?utm_source=wporg&utm_medium=organic&utm_campaign=readme "Main Page") | [Support Forum](https://wpfactory.com/support/item/product-xml-feeds-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme?utm_source=wporg&utm_medium=organic&utm_campaign=readme?utm_source=wporg&utm_medium=organic&utm_campaign=readme "Support Forum") | [Documentation & How to](https://wpfactory.com/docs/product-xml-feeds-manager/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "Documentation & How to")
 
 Selling on marketplaces like Google & Amazon requires you to have custom XML feeds where you can export your products from WooCommerce to the marketplace.
 
@@ -156,6 +156,10 @@ WPFactory has a diverse range of plugins tailored to enhance your experience, so
 Once activated, access the plugin's settings by navigating to the “WPFactory” menu and look for the relevant tab.
 
 == Changelog ==
+
+= 2.9.8 - 29/10/2025 =
+* Dev - WPFactory Recommendations - Library updated (to 1.0.6).
+* WC tested up to: 10.3.
 
 = 2.9.7 - 22/09/2025 =
 * WC tested up to: 10.2.
