@@ -161,7 +161,7 @@ Once activated, access the plugin's settings by navigating to the â€œWPFactoryâ€
 * Dev - readme.txt - "Main Page" and "Support Forum" links cleaned up.
 
 = 2.9.8 - 29/10/2025 =
-* Fix - readme.txt - "Support Forum" link fixed.
+* Fix - readme.txt - "Documentation & How to" link fixed.
 * Dev - WPFactory Recommendations - Library updated (to v1.0.6).
 * WC tested up to: 10.3.
 
