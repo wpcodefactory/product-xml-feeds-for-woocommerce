@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - Main Class
  *
- * @version 2.9.6
+ * @version 3.0.0
  * @since   1.0.0
  *
  * @author  WPFactory
@@ -186,7 +186,7 @@ final class Alg_WC_Product_XML_Feeds {
 	/**
 	 * admin.
 	 *
-	 * @version 2.9.6
+	 * @version 3.0.0
 	 * @since   1.4.0
 	 */
 	function admin() {
@@ -203,6 +203,13 @@ final class Alg_WC_Product_XML_Feeds {
 		// WC Settings tab as WPFactory submenu item
 		add_action( 'init', array( $this, 'move_wc_settings_tab_to_wpfactory_menu' ) );
 
+		// Load settings page class
+		add_action(
+			'admin_init',
+			function () {
+				include_once plugin_dir_path( __FILE__ ) . 'settings/class-alg-wc-settings-product-xml-feeds.php';
+			}
+		);
 		// Settings
 		add_filter(
 			'woocommerce_get_settings_pages',

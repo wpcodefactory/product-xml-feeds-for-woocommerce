@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - Feed Section Settings
  *
- * @version 2.9.3
+ * @version 3.0.0
  * @since   1.1.0
  *
  * @author  WPFactory
@@ -130,28 +130,29 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 	/**
 	 * get_saved_products.
 	 *
-	 * @version 2.7.10
+	 * @version 3.0.0
 	 * @since   1.0.0
 	 */
-	function get_saved_products() {
+	function get_saved_products( $ajax_request = false ) {
 
 		$incl_key = 'alg_products_xml_products_incl_' . $this->feed_num;
 		$excl_key = 'alg_products_xml_products_excl_' . $this->feed_num;
 
 		$saved_include = get_option( $incl_key, array() );
 		$saved_exclude = get_option( $excl_key, array() );
+
 		$saved_ids = array();
+		$saved_ids = array_unique( array_merge( $saved_include, $saved_exclude ) );
 
-		$saved_ids = array_unique (array_merge ($saved_include, $saved_exclude));
-		$products_options = array();
-
-		if( empty( $saved_ids ) ) {
+		if ( empty( $saved_ids ) ) {
 			return $saved_ids;
 		}
 
+		$products_options = array();
+
 		$offset     = 0;
 		$block_size = 512;
-		$inc = 0;
+		$inc        = 0;
 		while ( true ) {
 			$args = array(
 				'post_type'      => 'product',

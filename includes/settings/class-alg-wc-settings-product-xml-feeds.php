@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - Settings
  *
- * @version 2.9.2
+ * @version 3.0.0
  * @since   1.0.0
  *
  * @author  WPFactory
@@ -11,6 +11,16 @@
 defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'Alg_WC_Settings_Product_XML_Feeds' ) ) :
+
+/**
+ * WC_Settings_Page.
+ *
+ * @version 3.0.0
+ * @since   3.0.0
+ */
+if ( ! class_exists( 'WC_Settings_Page' ) ) {
+	include_once WC()->plugin_path() . '/includes/admin/settings/class-wc-settings-page.php';
+}
 
 class Alg_WC_Settings_Product_XML_Feeds extends WC_Settings_Page {
 

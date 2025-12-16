@@ -2,8 +2,8 @@
 Contributors: wpcodefactory, omardabbas, karzin, anbinder, kousikmukherjeeli, aegkr
 Tags: woocommerce, product xml feeds, xml, export
 Requires at least: 4.4
-Tested up to: 6.8
-Stable tag: 2.9.9
+Tested up to: 6.9
+Stable tag: 3.0.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -156,6 +156,12 @@ WPFactory has a diverse range of plugins tailored to enhance your experience, so
 Once activated, access the plugin's settings by navigating to the “WPFactory” menu and look for the relevant tab.
 
 == Changelog ==
+
+= 3.0.0 - 16/12/2025 =
+* Fix - Resolved AJAX issues on settings option filtering and AJAX-based XML feed creation.
+* Fix - Initialized `$ajax_request` to avoid undefined variable notice.
+* Tested up to: 6.9.
+* WC tested up to: 10.4.
 
 = 2.9.9 - 30/10/2025 =
 * Dev - readme.txt - "Main Page" and "Support Forum" links cleaned up.
