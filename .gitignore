@@ -1,10 +1,3 @@
-langs/desktop.ini
-*.ini
-includes/shortcodes/desktop.ini
-includes/settings/desktop.ini
-includes/pro/desktop.ini
-includes/desktop.ini
-
 # PhpStorm
 .idea
 .idea/*
