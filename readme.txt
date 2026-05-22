@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, kousikmukherjeeli, ae
 Tags: woocommerce, product xml feeds, xml, export
 Requires at least: 4.4
 Tested up to: 7.0
-Stable tag: 3.1.0
+Stable tag: 3.0.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -157,7 +157,7 @@ Once activated, access the plugin's settings by navigating to the â€œWPFactoryâ€
 
 == Changelog ==
 
-= 3.1.0 - 22/05/2026 =
+= 3.0.1 - 22/05/2026 =
 * Tested up to: 7.0.
 * WC tested up to: 10.7.
 
