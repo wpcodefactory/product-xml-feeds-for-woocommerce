@@ -139,7 +139,7 @@ class Alg_WC_Settings_Product_XML_Feeds extends WC_Settings_Page {
 	function save() {
 		parent::save();
 		$this->maybe_reset_settings();
-		if ( isset( $_GET['tab'] ) && 'alg_wc_product_xml_feeds' === $_GET['tab'] ) {
+		if ( isset( $_GET['tab'] ) && 'alg_wc_product_xml_feeds' === $_GET['tab'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			wp_safe_redirect( add_query_arg( '', '' ) );
 			exit;
 		}

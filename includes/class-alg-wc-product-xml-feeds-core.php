@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - Core Class
  *
- * @version 2.9.3
+ * @version 3.1.0
  * @since   1.0.0
  *
  * @author  WPFactory
@@ -17,25 +17,41 @@ class Alg_WC_Product_XML_Feeds_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.9.3
+	 * @version 3.1.0
 	 * @since   1.0.0
 	 */
 	function __construct() {
 		if ( 'yes' === get_option( 'alg_wc_product_xml_feeds_enabled', 'yes' ) ) {
-			add_action( 'init',           array( $this, 'schedule_the_events' ) );
-			add_action( 'admin_init',     array( $this, 'schedule_the_events' ) );
-			add_action( 'admin_init',     array( $this, 'alg_create_products_xml' ) );
-			add_action( 'admin_notices',  array( $this, 'admin_notices' ) );
+			add_action( 'init',          array( $this, 'schedule_the_events' ) );
+			add_action( 'admin_init',    array( $this, 'schedule_the_events' ) );
+			add_action( 'admin_init',    array( $this, 'alg_create_products_xml' ) );
+			add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 
-			add_action( 'wp_ajax_nopriv_generate_xml_external', array( $this, 'alg_create_products_xml' ) );
-			add_action( 'wp_ajax_generate_xml_external', array( $this, 'alg_create_products_xml' ) );
+			add_action(
+				'wp_ajax_nopriv_' . 'alg_wc_product_xml_feeds_generate_xml_external',
+				array( $this, 'alg_create_products_xml' )
+			);
+			add_action(
+				'wp_ajax_' . 'alg_wc_product_xml_feeds_generate_xml_external',
+				array( $this, 'alg_create_products_xml' )
+			);
 
-			add_filter( 'rp_wcdpd_request_is_product_feed', array( $this, 'allow_rd_wcdpd_to_allow_update_price' ), PHP_INT_MAX, 3 );
+			add_filter(
+				'rp_wcdpd_request_is_product_feed',
+				array( $this, 'allow_rd_wcdpd_to_allow_update_price' ),
+				PHP_INT_MAX,
+
+				3 );
 
 			add_filter( 'cron_schedules', array( $this, 'cron_add_custom_intervals' ) );
 			$total_number = apply_filters( 'alg_wc_product_xml_feeds_values', 1, 'total_number' );
 			for ( $i = 1; $i <= $total_number; $i++ ) {
-				add_action( 'alg_create_products_xml_hook_' . $i, array( $this, 'create_products_xml_cron' ), PHP_INT_MAX, 2 );
+				add_action(
+					'alg_wc_product_xml_feeds_create_products_xml_hook_' . $i,
+					array( $this, 'create_products_xml_cron' ),
+					PHP_INT_MAX,
+					2
+				);
 			}
 		}
 	}
@@ -54,7 +70,7 @@ class Alg_WC_Product_XML_Feeds_Core {
 	/**
 	 * On an early action hook, check if the hook is scheduled - if not, schedule it.
 	 *
-	 * @version 1.7.0
+	 * @version 3.1.0
 	 * @since   1.0.0
 	 */
 	function schedule_the_events() {
@@ -68,7 +84,7 @@ class Alg_WC_Product_XML_Feeds_Core {
 		$total_number = apply_filters( 'alg_wc_product_xml_feeds_values', 1, 'total_number' );
 
 		for ( $i = 1; $i <= $total_number; $i++ ) {
-			$event_hook = 'alg_create_products_xml_hook_' . $i;
+			$event_hook = 'alg_wc_product_xml_feeds_create_products_xml_hook_' . $i;
 			$turn_off_schedule = get_option( 'alg_products_xml_turn_off_wp_schedule_' . $i, 'no' );
 			if ( 'yes' === get_option( 'alg_products_xml_enabled_' . $i, 'yes' ) && $turn_off_schedule === 'no' ) {
 				$selected_interval = apply_filters( 'alg_wc_product_xml_feeds_values', 'weekly', 'update_interval', $i );
@@ -102,38 +118,39 @@ class Alg_WC_Product_XML_Feeds_Core {
 	 * @since   1.0.0
 	 */
 	function cron_add_custom_intervals( $schedules ) {
-		$schedules['weekly'] = array(
+		$schedules['weekly']   = array(
 			'interval' => 604800,
-			'display' => __( 'Once Weekly', 'product-xml-feeds-for-woocommerce' )
+			'display'  => __( 'Once Weekly', 'product-xml-feeds-for-woocommerce' )
 		);
 		$schedules['minutely'] = array(
 			'interval' => 60,
-			'display' => __( 'Once a Minute', 'product-xml-feeds-for-woocommerce' )
+			'display'  => __( 'Once a Minute', 'product-xml-feeds-for-woocommerce' )
 		);
+
 		return $schedules;
 	}
 
 	/**
 	 * admin_notice__success.
 	 *
-	 * @version 1.0.0
+	 * @version 3.1.0
 	 * @since   1.0.0
 	 */
 	function admin_notice__success() {
 		echo '<div class="notice notice-success is-dismissible"><p>' .
-			__( 'Products XML file created successfully.', 'product-xml-feeds-for-woocommerce' ) .
+			esc_html__( 'Products XML file created successfully.', 'product-xml-feeds-for-woocommerce' ) .
 		'</p></div>';
 	}
 
 	/**
 	 * admin_notice__error.
 	 *
-	 * @version 1.0.0
+	 * @version 3.1.0
 	 * @since   1.0.0
 	 */
 	function admin_notice__error() {
 		echo '<div class="notice notice-error"><p>' .
-			__( 'An error has occurred while creating products XML file.', 'product-xml-feeds-for-woocommerce' ) .
+			esc_html__( 'An error has occurred while creating products XML file.', 'product-xml-feeds-for-woocommerce' ) .
 		'</p></div>';
 	}
 
@@ -144,11 +161,11 @@ class Alg_WC_Product_XML_Feeds_Core {
 	 * @since   2.9.3
 	 */
 	function admin_notices() {
-		if ( ! isset( $_GET['alg_create_products_xml_status'] ) ) {
+		if ( ! isset( $_GET['alg_create_products_xml_status'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			return;
 		}
 
-		$status = sanitize_text_field( wp_unslash( $_GET['alg_create_products_xml_status'] ) );
+		$status = sanitize_text_field( wp_unslash( $_GET['alg_create_products_xml_status'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( 'success' === $status ) {
 			$this->admin_notice__success();
 		} elseif ( 'error' === $status ) {
@@ -159,14 +176,14 @@ class Alg_WC_Product_XML_Feeds_Core {
 	/**
 	 * send_error_response.
 	 *
-	 * @version 2.9.3
+	 * @version 3.1.0
 	 * @since   2.9.3
 	 */
 	function send_error_response( $message, $status_code ) {
-		if ( isset( $_GET['secret'] ) ) {
+		if ( isset( $_GET['secret'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			wp_send_json_error( $message, $status_code );
 		} else {
-			wp_die( $message, '', array( 'response' => $status_code ) );
+			wp_die( esc_html( $message ), '', array( 'response' => absint( $status_code ) ) );
 		}
 	}
 
@@ -260,12 +277,12 @@ class Alg_WC_Product_XML_Feeds_Core {
 	/**
 	 * get_default_template.
 	 *
-	 * @version 1.5.1
+	 * @version 3.1.0
 	 * @since   1.4.7
 	 */
 	function get_default_credit() {
 		return '<!-- Product XML Feeds for WooCommerce -->' . PHP_EOL .
-			'<!--Created By: https://wpfactory.com/item/product-xml-feeds-woocommerce/ @ ' . date('Y-m-d H:i:s') . '-->' . PHP_EOL;
+			'<!--Created By: https://wpfactory.com/item/product-xml-feeds-woocommerce/ @ ' . wp_date('Y-m-d H:i:s') . '-->' . PHP_EOL;
 	}
 
 	/**
@@ -332,7 +349,7 @@ class Alg_WC_Product_XML_Feeds_Core {
 	/**
 	 * create_products_xml.
 	 *
-	 * @version 2.9.0
+	 * @version 3.1.0
 	 * @since   1.0.0
 	 *
 	 * @todo    (fix) `$query_post_type`: fix filtering by product/category/tag/custom taxonomy when *including variations* for `products_and_variations`
@@ -347,10 +364,19 @@ class Alg_WC_Product_XML_Feeds_Core {
 	 * @todo    (feature) condition: stock <>= X
 	 */
 	function create_products_xml( $file_num, $is_ajax = false, $additional_params = array() ) {
-		global $global_file_name;
-		$global_file_name = $file_num;
+		global $alg_wc_product_xml_feeds_global_file_name, $wp_filesystem;
+
+		if ( ! function_exists( 'WP_Filesystem' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+		}
+
+		WP_Filesystem();
+		$alg_wc_product_xml_feeds_global_file_name = $file_num;
+
 		// Memory limit
-		if ( 0 != ( $php_memory_limit = get_option( 'alg_products_xml_php_memory_limit', 0 ) ) ) {
+		$php_memory_limit = absint( get_option( 'alg_products_xml_php_memory_limit', 0 ) );
+		if ( $php_memory_limit > 0 && function_exists( 'ini_set' ) ) {
+			// phpcs:ignore Squiz.PHP.DiscouragedFunctions.Discouraged -- Allow increasing the memory limit for large feed generation when supported.
 			ini_set( 'memory_limit', $php_memory_limit . 'M' );
 		}
 		// Time limit (will be used in loop)
@@ -374,7 +400,6 @@ class Alg_WC_Product_XML_Feeds_Core {
 		}
 
 		$product_default_options = array();
-		$product_types = get_terms( 'product_type', 'orderby=name&hide_empty=0' );
 
 		// Get options
 		$xml_header_template         = get_option( 'alg_products_xml_header_'                . $file_num, $this->get_default_template( 'header' ) );
@@ -394,10 +419,7 @@ class Alg_WC_Product_XML_Feeds_Core {
 		$products_variable           = get_option( 'alg_products_xml_variable_'              . $file_num, 'variable_only' );
 		$offset                      = get_option( 'alg_products_xml_offset_'                . $file_num, 0 );
 		$total_products              = get_option( 'alg_products_xml_total_products_'        . $file_num, 0 );
-		$create_text_feed            = get_option( 'alg_products_xml_create_text_feed_'      . $file_num, 'no' );
 		$tags_if_empty               = get_option( 'alg_products_xml_tags_if_empty_'         . $file_num, '' );
-		$product_type                = get_option( 'alg_products_xml_product_type_include_'  . $file_num, $product_default_options );
-		$custom_meta                 = get_option( 'alg_products_xml_custom_meta_incl_'      . $file_num, '' );
 
 		$query_post_type             = '';
 		$products_stock_status       = apply_filters( 'alg_wc_product_xml_feeds_values', array(), 'stock_status', $file_num );
@@ -408,6 +430,9 @@ class Alg_WC_Product_XML_Feeds_Core {
 		$custom_taxonomy_in_slugs    = apply_filters( 'alg_wc_product_xml_feeds_values', '', 'custom_taxonomy_in_slugs', $file_num );
 		$attribute_in                = apply_filters( 'alg_wc_product_xml_feeds_values', '', 'attribute_in', $file_num );
 		$attribute_in_values         = apply_filters( 'alg_wc_product_xml_feeds_values', '', 'attribute_in_values', $file_num );
+		$create_text_feed            = apply_filters( 'alg_wc_product_xml_feeds_values', 'no', 'create_text_feed', $file_num );
+		$product_type                = apply_filters( 'alg_wc_product_xml_feeds_values', $product_default_options, 'product_type_include', $file_num );
+		$custom_meta                 = apply_filters( 'alg_wc_product_xml_feeds_values', '', 'custom_meta_incl', $file_num );
 		$varPidsTaxQuey              = array();
 		$childShown                  = array();
 
@@ -418,14 +443,14 @@ class Alg_WC_Product_XML_Feeds_Core {
 			$xml_item_template      = str_replace( array( '{', '}' ), array( '<', '>' ), $xml_item_template );
 		}
 
-		if ( 'no' === get_option( 'alg_products_xml_enabled_branding_' . $file_num, 'no' ) ) {
+		if ( 'no' === apply_filters( 'wpfactory_wc_product_xml_feeds_values', 'no', 'enabled_branding', $file_num ) ) {
 			$xml_footer_template .= $this->get_default_credit();
 		}
 
-		if( 'yes' === $create_text_feed ){
-			$xml_header_template    = '' . PHP_EOL;
-			$xml_footer_template    = '' . PHP_EOL;
-			$xml_item_template      = $xml_text_item_template;
+		if ( 'yes' === $create_text_feed ) {
+			$xml_header_template = '' . PHP_EOL;
+			$xml_footer_template = '' . PHP_EOL;
+			$xml_item_template   = $xml_text_item_template;
 		}
 		// Get products and feed
 		$xml_items       = '';
@@ -443,7 +468,7 @@ class Alg_WC_Product_XML_Feeds_Core {
 		while ( true ) {
 			// Time limit
 			if ( -1 != $php_time_limit ) {
-				set_time_limit( $php_time_limit );
+				set_time_limit( $php_time_limit ); // phpcs:ignore Squiz.PHP.DiscouragedFunctions.Discouraged -- Required for long-running feed generation.
 			}
 			// Args
 			$args = array(
@@ -456,25 +481,25 @@ class Alg_WC_Product_XML_Feeds_Core {
 			);
 
 			if ( 'all' != $products_scope ) {
-				$args['meta_query'] = WC()->query->get_meta_query();
+				$args['meta_query'] = WC()->query->get_meta_query(); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 				switch ( $products_scope ) {
 					case 'sale_only':
 						$args['post__in']     = array_merge( array( 0 ), wc_get_product_ids_on_sale() );
 						break;
 					case 'not_sale_only':
-						$args['post__not_in'] = array_merge( array( 0 ), wc_get_product_ids_on_sale() );
+						$args['post__not_in'] = array_merge( array( 0 ), wc_get_product_ids_on_sale() ); // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_post__not_in
 						break;
 					case 'featured_only':
 						$args['post__in']     = array_merge( array( 0 ), wc_get_featured_product_ids() );
 						break;
 					case 'not_featured_only':
-						$args['post__not_in'] = array_merge( array( 0 ), wc_get_featured_product_ids() );
+						$args['post__not_in'] = array_merge( array( 0 ), wc_get_featured_product_ids() ); // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_post__not_in
 						break;
 				}
 			}
 			if ( ! empty( $products_stock_status ) ) {
 				if ( ! isset( $args['meta_query'] ) ) {
-					$args['meta_query'] = array();
+					$args['meta_query'] = array(); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 				} else {
 					$args['meta_query']['relation'] = 'AND';
 				}
@@ -497,11 +522,11 @@ class Alg_WC_Product_XML_Feeds_Core {
 				}
 			}
 			if ( ! empty( $products_ex_ids ) ) {
-				$args['post__not_in'] = $products_ex_ids;
+				$args['post__not_in'] = $products_ex_ids; // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_post__not_in
 			}
 			if ( ! empty( $products_cats_in_ids ) ) {
 				if ( ! isset( $args['tax_query'] ) ) {
-					$args['tax_query'] = array();
+					$args['tax_query'] = array(); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 				}
 				$args['tax_query'][] = array(
 					'taxonomy' => 'product_cat',
@@ -512,7 +537,7 @@ class Alg_WC_Product_XML_Feeds_Core {
 			}
 			if ( ! empty( $products_cats_ex_ids ) ) {
 				if ( ! isset( $args['tax_query'] ) ) {
-					$args['tax_query'] = array();
+					$args['tax_query'] = array(); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 				}
 				$args['tax_query'][] = array(
 					'taxonomy' => 'product_cat',
@@ -523,7 +548,7 @@ class Alg_WC_Product_XML_Feeds_Core {
 			}
 			if ( ! empty( $products_tags_in_ids ) ) {
 				if ( ! isset( $args['tax_query'] ) ) {
-					$args['tax_query'] = array();
+					$args['tax_query'] = array(); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 				}
 				$args['tax_query'][] = array(
 					'taxonomy' => 'product_tag',
@@ -534,7 +559,7 @@ class Alg_WC_Product_XML_Feeds_Core {
 			}
 			if ( ! empty( $products_tags_ex_ids ) ) {
 				if ( ! isset( $args['tax_query'] ) ) {
-					$args['tax_query'] = array();
+					$args['tax_query'] = array(); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 				}
 				$args['tax_query'][] = array(
 					'taxonomy' => 'product_tag',
@@ -545,7 +570,7 @@ class Alg_WC_Product_XML_Feeds_Core {
 			}
 			if ( ! empty( $custom_taxonomy_in ) && ! empty( $custom_taxonomy_in_slugs ) ) {
 				if ( ! isset( $args['tax_query'] ) ) {
-					$args['tax_query'] = array();
+					$args['tax_query'] = array(); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 				}
 				$args['tax_query'][] = array(
 					'taxonomy' => $custom_taxonomy_in,
@@ -623,19 +648,21 @@ class Alg_WC_Product_XML_Feeds_Core {
 					}
 				}
 
-				if( in_array($products_variable, array('variations_only','both')) && $_product->is_type( 'variable' ))
-					{
-						$varPidsTaxQuey[] = get_the_ID();
-					}
+				if (
+					in_array( $products_variable, array( 'variations_only', 'both' ) ) &&
+					$_product->is_type( 'variable' )
+				) {
+					$varPidsTaxQuey[] = get_the_ID();
+				}
 
-				if(get_post_type() == 'product_variation') {
+				if ( get_post_type() == 'product_variation' ) {
 					$childShown[] = get_the_ID();
 				}
 				if ( $do_add ) {
 					// Add product to XML feed
-					if(get_post_type() == 'product_variation' && $products_variable=='both'){
-						$xml_v_items[$_product->get_parent_id()][] = str_replace( '&', '&amp;', html_entity_decode( do_shortcode( $xml_variation_item_template ) ) );
-					}else{
+					if ( get_post_type() == 'product_variation' && $products_variable == 'both' ) {
+						$xml_v_items[ $_product->get_parent_id() ][] = str_replace( '&', '&amp;', html_entity_decode( do_shortcode( $xml_variation_item_template ) ) );
+					} else {
 						$xml_items .= str_replace( '&', '&amp;', html_entity_decode( do_shortcode( $xml_item_template ) ) );
 					}
 
@@ -668,9 +695,9 @@ class Alg_WC_Product_XML_Feeds_Core {
 							}
 							// Add variation product to XML feed
 
-							if($products_variable=='both'){
-								$xml_v_items[$_product->get_id()][] = str_replace( '&', '&amp;', html_entity_decode( do_shortcode( $xml_variation_item_template ) ) );
-							}else{
+							if ( $products_variable == 'both' ) {
+								$xml_v_items[ $_product->get_id() ][] = str_replace( '&', '&amp;', html_entity_decode( do_shortcode( $xml_variation_item_template ) ) );
+							} else {
 								$xml_items .= str_replace( '&', '&amp;', html_entity_decode( do_shortcode( $xml_item_template ) ) );
 							}
 							$_total_products++;
@@ -695,58 +722,70 @@ class Alg_WC_Product_XML_Feeds_Core {
 
 		wp_reset_postdata();
 
-		if(count($varPidsTaxQuey) > 0 && ($has_real_tax_query || ($products_variable=='both' && ! empty( $products_in_ids )) ) )
-		{
-			unset($args['post__in']);
-			unset($args['tax_query']);
+		if (
+			count( $varPidsTaxQuey ) > 0 &&
+			( $has_real_tax_query || ( $products_variable == 'both' && ! empty( $products_in_ids ) ) )
+		) {
+			unset( $args['post__in'] );
+			unset( $args['tax_query'] );
 
-			if($products_variable=='variations_only'){
-				$args['post_type'] = array('product_variation');
+			if ( $products_variable == 'variations_only' ) {
+				$args['post_type'] = array( 'product_variation' );
 
-				if ( ! empty( $products_cats_in_ids ) || ! empty( $products_cats_ex_ids ) || ! empty( $products_tags_in_ids ) || ! empty( $products_tags_ex_ids ) ) {
+				if (
+					! empty( $products_cats_in_ids ) ||
+					! empty( $products_cats_ex_ids ) ||
+					! empty( $products_tags_in_ids ) ||
+					! empty( $products_tags_ex_ids )
+				) {
 					$args['post_parent__in'] = $varPidsTaxQuey;
-				}else{
+				} else {
 					$args['post_parent__not_in'] = $varPidsTaxQuey;
 				}
 
-			}else{
+			} else {
 				$args['post_parent__in'] = $varPidsTaxQuey;
 			}
-			if(isset($childShown) && count($childShown) > 0){
-				$args['post__not_in'] = array_unique($childShown);
+			if ( isset( $childShown ) && count( $childShown ) > 0 ) {
+				$args['post__not_in'] = array_unique( $childShown ); // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_post__not_in
 			}
 
-			if(!empty($product_type) && is_array($product_type)){
-				unset($args['tax_query'][$p_ty_q_index]);
+			if ( ! empty( $product_type ) && is_array( $product_type ) ) {
+				unset( $args['tax_query'][ $p_ty_q_index ] );
 			}
 
 			$args['posts_per_page'] = '-1';
-			$loop = new WP_Query( $args );
 
+			$loop = new WP_Query( $args );
 			if ( $loop->have_posts() ) {
 
 				while ( $loop->have_posts() ) {
 					$loop->the_post();
-					if($products_variable=='both'){
-						$paridsecond = $loop->post->post_parent;
-						$xml_v_items[$paridsecond][] = str_replace( '&', '&amp;', html_entity_decode( do_shortcode( $xml_variation_item_template ) ) );
-					}else{
+					if ( $products_variable == 'both' ) {
+						$paridsecond                   = $loop->post->post_parent;
+						$xml_v_items[ $paridsecond ][] = str_replace(
+							'&',
+							'&amp;',
+							html_entity_decode( do_shortcode( $xml_variation_item_template ) )
+						);
+					} else {
 						$xml_items .= str_replace( '&', '&amp;', html_entity_decode( do_shortcode( $xml_item_template ) ) );
 					}
 				}
 			}
-		}else if( count($varPidsTaxQuey) > 0 && $products_variable=='variations_only' ){
+		} else if ( count( $varPidsTaxQuey ) > 0 && $products_variable == 'variations_only' ) {
 
-			if($products_variable=='variations_only'){
-				$args['post_type'] = array('product_variation');
+			if ( $products_variable == 'variations_only' ) {
+				$args['post_type']       = array( 'product_variation' );
 				$args['post_parent__in'] = $varPidsTaxQuey;
 			}
 
-			if(!empty($product_type) && is_array($product_type)){
-				unset($args['tax_query'][$p_ty_q_index]);
+			if ( ! empty( $product_type ) && is_array( $product_type ) ) {
+				unset( $args['tax_query'][ $p_ty_q_index ] );
 			}
 
 			$args['posts_per_page'] = '-1';
+
 			$loop = new WP_Query( $args );
 			if ( $loop->have_posts() ) {
 				while ( $loop->have_posts() ) {
@@ -756,28 +795,30 @@ class Alg_WC_Product_XML_Feeds_Core {
 			}
 		}
 
-		if($products_variable=='both'){
-			if(isset($xml_v_items) && !empty($xml_v_items)){
-				foreach($xml_v_items as $v_parent_id => $v_itm){
-					$replace_string = 'scvariations#'. $v_parent_id;
-					$global_replace[] = implode(' ', $v_itm);
-					$global_search[] = $replace_string;
+		if ( 'both' === $products_variable ) {
+			$global_search  = array();
+			$global_replace = array();
+			if ( isset( $xml_v_items ) && ! empty( $xml_v_items ) ) {
+				foreach ( $xml_v_items as $v_parent_id => $v_itm ) {
+					$replace_string   = 'scvariations#' . $v_parent_id;
+					$global_replace[] = implode( ' ', $v_itm );
+					$global_search[]  = $replace_string;
 				}
 			}
 
-			$xml_items = str_replace($global_search, $global_replace, $xml_items);
+			$xml_items = str_replace( $global_search, $global_replace, $xml_items );
 		}
 
-		if(!empty($tags_if_empty)){
-			$all_tags_without_bracket = explode(',', $tags_if_empty);
+		if ( ! empty( $tags_if_empty ) ) {
+			$all_tags_without_bracket = explode( ',', $tags_if_empty );
 
 			$sr = array();
 			$rp = array();
 
-			if(!empty($all_tags_without_bracket) && is_array($all_tags_without_bracket)){
-				foreach($all_tags_without_bracket as $tg){
+			if ( ! empty( $all_tags_without_bracket ) && is_array( $all_tags_without_bracket ) ) {
+				foreach ( $all_tags_without_bracket as $tg ) {
 
-					$tg = trim($tg);
+					$tg   = trim( $tg );
 					$sr[] = '<' . $tg . '></' . $tg . '>';
 					$sr[] = '<' . $tg . '> </' . $tg . '>';
 					$sr[] = '<' . $tg . '>  </' . $tg . '>';
@@ -790,8 +831,8 @@ class Alg_WC_Product_XML_Feeds_Core {
 				}
 			}
 
-			if(!empty($sr) && !empty($rp)){
-				$xml_items = str_replace($sr, $rp, $xml_items);
+			if ( ! empty( $sr ) && ! empty( $rp ) ) {
+				$xml_items = str_replace( $sr, $rp, $xml_items );
 			}
 		}
 
@@ -802,133 +843,97 @@ class Alg_WC_Product_XML_Feeds_Core {
 			$sitepress->switch_lang( $current_lang );
 		}
 
-		if ( $is_ajax ){
+		if ( $is_ajax ) {
 			if ( isset( $additional_params['start'] ) ) {
-				$offset         = $additional_params['start'];
-				$block_size     = $additional_params['block_size'];
-				$current_page   = $additional_params['current_page'];
-				$is_end         = $additional_params['is_end'];
-				if($current_page > 1){
+				$current_page = $additional_params['current_page'];
+				$is_end       = $additional_params['is_end'];
+
+				if ( $current_page > 1 ) {
 
 					$xml_header_template = '';
 
-					if ( !$is_end ) {
+					if ( ! $is_end ) {
 						$xml_footer_template = '';
 					}
 
-					if ( 'yes' === $create_text_feed ){
-						$feed_file_path = ABSPATH . get_option( 'alg_products_xml_text_file_path_' . $file_num, ( ( 1 == $file_num ) ? 'products.txt' : 'products_' . $file_num . '.txt' ) );
+					if ( 'yes' === $create_text_feed ) {
+						$feed_file_path = ABSPATH . get_option( 'alg_products_xml_text_file_path_' . $file_num, ( ( 1 == $file_num ) ?
+								'products.txt' :
+								'products_' . $file_num . '.txt' )
+							);
 					} else {
-						$feed_file_path = ABSPATH . get_option( 'alg_products_xml_file_path_' . $file_num, ( ( 1 == $file_num ) ? 'products.xml' : 'products_' . $file_num . '.xml' ) );
+						$feed_file_path = ABSPATH . get_option( 'alg_products_xml_file_path_' . $file_num, ( ( 1 == $file_num ) ?
+								'products.xml' :
+								'products_' . $file_num . '.xml' )
+							);
 					}
 
 					$write_data = do_shortcode( $xml_header_template ) . $xml_items . do_shortcode( $xml_footer_template );
-					if(!empty($write_data)) {
-						$fp = fopen( $feed_file_path , 'a' );
-						fwrite( $fp, $write_data ); // Write information to the file
-						fclose( $fp );
+					if ( ! empty( $write_data ) ) {
+						$content = '';
+
+						if ( $wp_filesystem->exists( $feed_file_path ) ) {
+							$content = $wp_filesystem->get_contents( $feed_file_path );
+						}
+
+						$wp_filesystem->put_contents(
+							$feed_file_path,
+							$content . $write_data,
+							FS_CHMOD_FILE
+						);
 					}
 
 					return true;
-				}else {
-					if ( !$is_end ) {
+				} else {
+					if ( ! $is_end ) {
 						$xml_footer_template = '';
 					}
 				}
 			}
 		}
+
+		$new_path = ABSPATH;
+
 		// Create XML feed file
-		if('yes'==get_option( 'alg_products_xml_use_home_url_' . $file_num, 'no' ))
-		{
+		if ( 'yes' == get_option( 'alg_products_xml_use_home_url_' . $file_num, 'no' ) ) {
+
 			$home_url = home_url();
 			$site_url = site_url();
-			if($home_url!=$site_url)
-			{
-				$compare = strcmp($site_url,$home_url);
+
+			if ( $home_url != $site_url ) {
+				$compare = strcmp( $site_url, $home_url );
 
 				if ( $compare > 0 ) {
 					// $site_url long
+					$extra    = trim( str_replace( $home_url, '', $site_url ), '/' );
 
-					$extra = str_replace($home_url, '', $site_url);
-					$extra = ltrim($extra, '/');
-					$extra = rtrim($extra, '/');
-					$new_path = str_replace(DIRECTORY_SEPARATOR . $extra, '', ABSPATH);
-					$new_path = ltrim($new_path, '/');
-					$new_path = ltrim($new_path, '\\');
-					$new_path = rtrim($new_path, '\\');
-					$new_path = rtrim($new_path, '/') . DIRECTORY_SEPARATOR;
-
-					if( 'yes' === $create_text_feed ){
-						return file_put_contents(
-							$new_path . get_option( 'alg_products_xml_text_file_path_' . $file_num, ( ( 1 == $file_num ) ? 'products.txt' : 'products_' . $file_num . '.txt' ) ),
-							do_shortcode( $xml_header_template ) . $xml_items . do_shortcode( $xml_footer_template )
-						);
-					}else{
-						return file_put_contents(
-							$new_path . get_option( 'alg_products_xml_file_path_' . $file_num, ( ( 1 == $file_num ) ? 'products.xml' : 'products_' . $file_num . '.xml' ) ),
-							do_shortcode( $xml_header_template ) . $xml_items . do_shortcode( $xml_footer_template )
-						);
-					}
+					$new_path = str_replace( DIRECTORY_SEPARATOR . $extra, '', ABSPATH );
+					$new_path = trim( $new_path, '/\\' ) . DIRECTORY_SEPARATOR;
 				} elseif ( $compare < 0 ) {
 					// $home_url long
-					$extra = str_replace($site_url, '', $home_url);
-					$extra = ltrim($extra, '/');
-					$extra = rtrim($extra, '/');
-					$new_path = rtrim(ABSPATH, '/') . '/' . $extra . '/';
-					wp_mkdir_p($new_path);
+					$extra    = trim( str_replace( $site_url, '', $home_url ), '/' );
 
-					if( 'yes' === $create_text_feed ){
-						return file_put_contents(
-							$new_path . get_option( 'alg_products_xml_text_file_path_' . $file_num, ( ( 1 == $file_num ) ? 'products.txt' : 'products_' . $file_num . '.txt' ) ),
-							do_shortcode( $xml_header_template ) . $xml_items . do_shortcode( $xml_footer_template )
-						);
-					}else{
-						return file_put_contents(
-							$new_path . get_option( 'alg_products_xml_file_path_' . $file_num, ( ( 1 == $file_num ) ? 'products.xml' : 'products_' . $file_num . '.xml' ) ),
-							do_shortcode( $xml_header_template ) . $xml_items . do_shortcode( $xml_footer_template )
-						);
-					}
-				} else {
-					if( 'yes' === $create_text_feed ){
-						return file_put_contents(
-							ABSPATH . get_option( 'alg_products_xml_text_file_path_' . $file_num, ( ( 1 == $file_num ) ? 'products.txt' : 'products_' . $file_num . '.txt' ) ),
-							do_shortcode( $xml_header_template ) . $xml_items . do_shortcode( $xml_footer_template )
-						);
-
-					}else{
-						return file_put_contents(
-							ABSPATH . get_option( 'alg_products_xml_file_path_' . $file_num, ( ( 1 == $file_num ) ? 'products.xml' : 'products_' . $file_num . '.xml' ) ),
-							do_shortcode( $xml_header_template ) . $xml_items . do_shortcode( $xml_footer_template )
-						);
-					}
+					$new_path = trailingslashit( ABSPATH ) . $extra . DIRECTORY_SEPARATOR;
+					wp_mkdir_p( $new_path );
 				}
-			} else {
-				if( 'yes' === $create_text_feed ){
-					return file_put_contents(
-						ABSPATH . get_option( 'alg_products_xml_text_file_path_' . $file_num, ( ( 1 == $file_num ) ? 'products.txt' : 'products_' . $file_num . '.txt' ) ),
-						do_shortcode( $xml_header_template ) . $xml_items . do_shortcode( $xml_footer_template )
-					);
-
-				}else{
-					return file_put_contents(
-						ABSPATH . get_option( 'alg_products_xml_file_path_' . $file_num, ( ( 1 == $file_num ) ? 'products.xml' : 'products_' . $file_num . '.xml' ) ),
-						do_shortcode( $xml_header_template ) . $xml_items . do_shortcode( $xml_footer_template )
-					);
-				}
-			}
-		} else {
-			if( 'yes' === $create_text_feed ) {
-				return file_put_contents(
-					ABSPATH . get_option( 'alg_products_xml_text_file_path_' . $file_num, ( ( 1 == $file_num ) ? 'products.txt' : 'products_' . $file_num . '.txt' ) ),
-					do_shortcode( $xml_header_template ) . $xml_items . do_shortcode( $xml_footer_template )
-				);
-			} else {
-				return file_put_contents(
-					ABSPATH . get_option( 'alg_products_xml_file_path_' . $file_num, ( ( 1 == $file_num ) ? 'products.xml' : 'products_' . $file_num . '.xml' ) ),
-					do_shortcode( $xml_header_template ) . $xml_items . do_shortcode( $xml_footer_template )
-				);
 			}
 		}
+
+		$file_path = 'yes' === $create_text_feed ?
+			get_option(
+				'alg_products_xml_text_file_path_' . $file_num,
+				1 == $file_num ? 'products.txt' : 'products_' . $file_num . '.txt'
+			) :
+			get_option(
+				'alg_products_xml_file_path_' . $file_num,
+				1 == $file_num ? 'products.xml' : 'products_' . $file_num . '.xml'
+			);
+
+		return $wp_filesystem->put_contents(
+			$new_path . $file_path,
+			do_shortcode( $xml_header_template ) . $xml_items . do_shortcode( $xml_footer_template ),
+			FS_CHMOD_FILE
+		);
 	}
 
 }

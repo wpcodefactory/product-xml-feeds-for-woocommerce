@@ -1,0 +1,158 @@
+/**
+ * alg-wc-product-xml-feeds-admin.css
+ *
+ * @version 3.1.0
+ * @since   2.8.0
+ *
+ * @author  WPFactory
+ */
+
+/* Shortcodes dropdown */
+.alg-wc-xml-feed-shortcode-wrap {
+	position: relative;
+}
+
+.alg-wc-xml-feed-shortcode-button.button-secondary {
+	position: absolute;
+	top: 45px;
+	right: 15px;
+	vertical-align: middle;
+	display: flex;
+	align-items: center;
+	min-height: 30px;
+	flex-direction: row-reverse;
+	padding: 0 10px 0 5px;
+}
+
+.alg-wc-xml-feed-shortcode-button.button-secondary > span {
+	padding-right: 3px;
+	line-height: 1 !important;
+}
+
+.alg-wc-xml-feed-shortcode-wrap.wp-editor-container .alg-wc-shortcode-button.button-secondary {
+	top: 2px;
+}
+
+.alg-wc-xml-feed-shortcode-list {
+	z-index: 999;
+	display: none;
+	max-width: 450px;
+	border: 1px solid #b5bfc9;
+	border-radius: 6px;
+	background: #fff;
+	position: absolute;
+	top: 72px;
+	right: 30px;
+	width: 80%;
+}
+
+.alg-wc-xml-feed-shortcode-search {
+	width: calc(100% - 10px) !important;
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	margin-top: 5px;
+}
+
+.alg-wc-xml-feed-shortcode-list ul {
+	margin: 40px 0 0 0;
+	height: 220px;
+	overflow: auto;
+}
+
+.alg-wc-xml-feed-shortcode-list li {
+	margin: 0;
+	padding: 10px 10px;
+	cursor: pointer;
+	border-bottom: 1px solid #b5bfc9;
+}
+
+.alg-wc-xml-feed-shortcode-list li:last-child {
+	border: none;
+}
+
+/* Overlay */
+#alg-wc-xml-feed-overlay-id {
+	display: none;
+}
+
+.alg-wc-xml-feed-overlay {
+	background-color: black;
+	background-color: rgba(0, 0, 0, .8);
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 100;
+}
+
+.alg-wc-xml-feed-progress {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 400px;
+	height: 20px;
+	margin: -10px 0 0 -150px;
+	z-index: 101;
+	opacity: 1.0;
+	border: 1px solid #149bdf;
+}
+
+.alg-wc-xml-feed-progress-striped .alg-wc-xml-feed-bar {
+	background-color: #149bdf;
+	background-image: linear-gradient(
+			45deg,
+			rgb(255 255 255 / 15%) 25%,
+			transparent 25%,
+			transparent 50%,
+			rgb(255 255 255 / 15%) 50%,
+			rgb(255 255 255 / 15%) 75%,
+			transparent 75%,
+			transparent
+	);
+	background-size: 40px 40px;
+	animation: progress-bar-stripes 2s linear infinite;
+}
+
+.alg-wc-xml-feed-progress .alg-wc-xml-feed-bar {
+	float: left;
+	width: 0;
+	height: 100%;
+	font-size: 12px;
+	color: #fff;
+	text-align: center;
+	text-shadow: 0 -1px 0 rgb(0 0 0 / 25%);
+	background: linear-gradient(to bottom, #149bdf, #0480be);
+	box-shadow: inset 0 -1px 0 rgb(0 0 0 / 15%);
+	box-sizing: border-box;
+	transition: width 0.6s ease;
+}
+
+.alg-wc-xml-feed-overlay .alg-wc-xml-feed-file-download-per-text {
+	color: #fff;
+	font-size: 24px;
+	position: absolute;
+	top: 53%;
+	left: 50%;
+	width: 400px;
+	margin: -10px 0 0 -150px;
+	z-index: 101;
+	opacity: 1.0;
+	text-align: center;
+	line-height: 1.5;
+}
+
+.alg-wc-xml-feed-overlay .alg-wc-xml-feed-file-download-text {
+	color: #fff;
+	font-size: 20px;
+	position: absolute;
+	top: 56%;
+	left: 50%;
+	width: 400px;
+	margin: -10px 0 0 -150px;
+	z-index: 101;
+	opacity: 1.0;
+	text-align: center;
+	line-height: 1.5;
+}

@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - General Section Settings
  *
- * @version 2.9.3
+ * @version 3.1.0
  * @since   1.0.0
  *
  * @author  WPFactory
@@ -29,7 +29,7 @@ class Alg_WC_Product_XML_Feeds_Settings_General extends Alg_WC_Product_XML_Feeds
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.9.3
+	 * @version 3.1.0
 	 * @since   1.0.0
 	 *
 	 * @todo    (dev) better description for "Block size for products query"
@@ -115,12 +115,14 @@ class Alg_WC_Product_XML_Feeds_Settings_General extends Alg_WC_Product_XML_Feeds
 					__( 'Sets the number of seconds feed file creation script is allowed to run.', 'product-xml-feeds-for-woocommerce' ) . ' ' .
 					__( 'Set to zero for no time limit.', 'product-xml-feeds-for-woocommerce' ) . ' ' .
 					sprintf(
+						/* Translators: %s: Seconds. */
 						__( 'Ignored if set to -1 (and server\'s default time limit of %s seconds is used).', 'product-xml-feeds-for-woocommerce' ),
 						ini_get( 'max_execution_time' )
 					)
 				),
 				'desc'              => (
 					'<p>' . sprintf(
+						/* Translators: %s: Link. */
 						__( 'Check %s function documentation for more info.', 'product-xml-feeds-for-woocommerce' ),
 						'<a target="_blank" href="http://php.net/manual/en/function.set-time-limit.php"><code>set_time_limit()</code></a>'
 					) . '</p>'
@@ -135,7 +137,8 @@ class Alg_WC_Product_XML_Feeds_Settings_General extends Alg_WC_Product_XML_Feeds
 				'desc_tip'          => (
 					__( 'Affects "Template Options".', 'product-xml-feeds-for-woocommerce' ) . ' ' .
 					sprintf(
-						__( 'If disabled, use %s instead of %s accordingly.', 'product-xml-feeds-for-woocommerce' ),
+						/* Translators: %1$s: Curly braces, %2$s: Angle brackets. */
+						__( 'If disabled, use %1$s instead of %2$s accordingly.', 'product-xml-feeds-for-woocommerce' ),
 						'<code>{</code> and <code>}</code>',
 						'<code><</code> and <code>></code>'
 					)

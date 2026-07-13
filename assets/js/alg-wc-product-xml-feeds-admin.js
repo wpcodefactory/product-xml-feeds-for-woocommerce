@@ -1,8 +1,9 @@
 /**
- * alg-wc-xml-feed-admin.js
+ * alg-wc-product-xml-feeds-admin.js
  *
- * @version 2.8.0
+ * @version 3.1.0
  * @since   2.8.0
+ *
  * @author  WPFactory
  */
 
@@ -15,9 +16,9 @@ jQuery( document ).ready( function ( $ ) {
 		// Create the link element
 		let link = $( '<a>', {
 			href: '#',
-			title: alg_wc_xml_feed_admin_js.shortcodes_text,
+			title: alg_wc_product_xml_feeds_admin_object.shortcodes_text,
 			class: 'alg-wc-xml-feed-shortcode-button button button-secondary',
-			text: alg_wc_xml_feed_admin_js.shortcodes_text
+			text: alg_wc_product_xml_feeds_admin_object.shortcodes_text
 		} );
 
 		// Create the span element for the icon
@@ -33,7 +34,7 @@ jQuery( document ).ready( function ( $ ) {
 	} );
 
 	// Define the content to append.
-	let shortcodes_list = alg_wc_xml_feed_admin_js.shortcodes;
+	let shortcodes_list = alg_wc_product_xml_feeds_admin_object.shortcodes;
 
 	const shortcode_list_class = '.alg-wc-xml-feed-shortcode-list';
 

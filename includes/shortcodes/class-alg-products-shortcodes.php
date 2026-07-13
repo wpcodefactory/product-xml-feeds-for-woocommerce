@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - Products Shortcodes
  *
- * @version 2.9.6
+ * @version 3.1.0
  * @since   1.0.0
  *
  * @author  WPFactory
@@ -491,6 +491,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 					if ( $item['product_id'] == $atts['product_id'] ) {
 						// Found sale!
 						$result = sprintf(
+							/* Translators: %s: Time difference. */
 							__( '%s ago', 'product-xml-feeds-for-woocommerce' ),
 							human_time_diff(
 								get_the_time( 'U', $order_id ),
@@ -529,11 +530,11 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	/**
 	 * alg_product_available_variations.
 	 *
-	 * @version 1.4.3
+	 * @version 3.1.0
 	 * @since   1.0.0
 	 */
 	function alg_product_available_variations( $atts ) {
-		global $global_file_name;
+		global $alg_wc_product_xml_feeds_global_file_name;
 		if ( $this->the_product->is_type( 'variable' ) ) {
 
 			$sep2 = ( isset( $atts['sep2'] ) ? $atts['sep2'] : ': ' );
@@ -560,8 +561,8 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 				}
 			}
 
-			if ( isset( $global_file_name ) && ! empty( $global_file_name ) ) {
-				$file_num          = $global_file_name;
+			if ( isset( $alg_wc_product_xml_feeds_global_file_name ) && ! empty( $alg_wc_product_xml_feeds_global_file_name ) ) {
+				$file_num          = $alg_wc_product_xml_feeds_global_file_name;
 				$products_variable = get_option( 'alg_products_xml_variable_' . $file_num, 'variable_only' );
 				if ( $products_variable == 'both' ) {
 					return 'scvariations#' . $this->the_product->get_id();
@@ -1143,7 +1144,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	/**
 	 * Get product description.
 	 *
-	 * @version 1.4.0
+	 * @version 3.1.0
 	 * @since   1.4.0
 	 * @return  string
 	 */
@@ -1175,10 +1176,10 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 					return $des;
 				} else {
 					$tags = $atts['strip_tags'];
-					$des  = strip_tags( $des, $tags );
+					$des  = wp_strip_all_tags( $des, $tags );
 				}
 			} else {
-				$des = strip_tags( $des );
+				$des = wp_strip_all_tags( $des );
 			}
 		}
 

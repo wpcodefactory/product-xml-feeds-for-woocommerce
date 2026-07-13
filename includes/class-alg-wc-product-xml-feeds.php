@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - Main Class
  *
- * @version 3.0.0
+ * @version 3.1.0
  * @since   1.0.0
  *
  * @author  WPFactory
@@ -57,7 +57,7 @@ final class Alg_WC_Product_XML_Feeds {
 	/**
 	 * Alg_WC_Product_XML_Feeds Constructor.
 	 *
-	 * @version 2.9.6
+	 * @version 3.1.0
 	 * @since   1.0.0
 	 *
 	 * @access  public
@@ -73,9 +73,6 @@ final class Alg_WC_Product_XML_Feeds {
 		if ( is_admin() ) {
 			require_once plugin_dir_path( ALG_WC_PRODUCT_XML_FEEDS_FILE ) . 'vendor/autoload.php';
 		}
-
-		// Set up localisation
-		add_action( 'init', array( $this, 'localize' ) );
 
 		// Declare compatibility with custom order tables for WooCommerce
 		add_action( 'before_woocommerce_init', array( $this, 'wc_declare_compatibility' ) );
@@ -93,20 +90,6 @@ final class Alg_WC_Product_XML_Feeds {
 			$this->admin();
 		}
 
-	}
-
-	/**
-	 * localize.
-	 *
-	 * @version 2.9.6
-	 * @since   2.9.1
-	 */
-	function localize() {
-		load_plugin_textdomain(
-			'product-xml-feeds-for-woocommerce',
-			false,
-			dirname( plugin_basename( ALG_WC_PRODUCT_XML_FEEDS_FILE ) ) . '/langs/'
-		);
 	}
 
 	/**
@@ -146,18 +129,12 @@ final class Alg_WC_Product_XML_Feeds {
 	function action_links( $links ) {
 		$custom_links = array();
 
-		$custom_links[] = '<a' .
-			' href="' . admin_url( 'admin.php?page=wc-settings&tab=alg_wc_product_xml_feeds' ) . '"' .
-		'>' .
+		$custom_links[] = '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=alg_wc_product_xml_feeds' ) . '">' .
 			__( 'Settings', 'product-xml-feeds-for-woocommerce' ) .
 		'</a>';
 
 		if ( 'product-xml-feeds-for-woocommerce.php' === basename( ALG_WC_PRODUCT_XML_FEEDS_FILE ) ) {
-			$custom_links[] = '<a' .
-				' target="_blank"' .
-				' style="font-weight: bold; color: green;"' .
-				' href="https://wpfactory.com/item/product-xml-feeds-woocommerce/"' .
-			'>' .
+			$custom_links[] = '<a target="_blank" style="font-weight: bold; color: green;" href="https://wpfactory.com/item/product-xml-feeds-woocommerce/">' .
 				__( 'Go Pro', 'product-xml-feeds-for-woocommerce' ) .
 			'</a>';
 		}
@@ -325,6 +302,21 @@ final class Alg_WC_Product_XML_Feeds {
 	 */
 	function plugin_path() {
 		return untrailingslashit( plugin_dir_path( ALG_WC_PRODUCT_XML_FEEDS_FILE ) );
+	}
+
+	/**
+	 * Get the plugin asset URL.
+	 *
+	 * @version 3.1.0
+	 * @since   3.1.0
+	 *
+	 * @return  string
+	 */
+	function plugin_asset_url( $file ) {
+
+		$dir = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '/assets/' : '/assets/build/';
+
+		return $this->plugin_url() . $dir . ltrim( $file, '/' );
 	}
 
 }

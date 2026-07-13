@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - Feed Section Settings
  *
- * @version 3.0.0
+ * @version 3.1.0
  * @since   1.1.0
  *
  * @author  WPFactory
@@ -33,12 +33,19 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.8.0
+	 * @version 3.1.0
 	 * @since   1.1.0
 	 */
 	function __construct( $feed_num ) {
 		$this->id             = 'feed_' . $feed_num;
-		$this->desc           = get_option( 'alg_products_xml_feed_title_' . $feed_num, sprintf( __( 'XML Feed #%d', 'product-xml-feeds-for-woocommerce' ), $feed_num ) );
+		$this->desc           = get_option(
+			'alg_products_xml_feed_title_' . $feed_num,
+			sprintf(
+				/* Translators: %d: Feed number. */
+				__( 'XML Feed #%d', 'product-xml-feeds-for-woocommerce' ),
+				$feed_num
+			)
+		);
 		$this->ajax_filtering = get_option( 'alg_products_xml_ajax_load_filtering_option', 'no' );
 		$this->feed_num       = $feed_num;
 
@@ -46,28 +53,53 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts_and_styles' ) );
 
 		if ( 'yes' === $this->ajax_filtering ) {
-			add_action( 'admin_footer', array( $this, 'alg_wc_xml_feed_admin_footer_js' ) );
+			add_action( 'admin_footer', array( $this, 'admin_footer' ) );
 
-			add_action( 'wp_ajax_alg_wc_xml_feed_get_products_response', array( $this, 'alg_wc_xml_feed_get_products_response' ) );
-			add_action( 'wp_ajax_nopriv_alg_wc_xml_feed_get_products_response', array( $this, 'alg_wc_xml_feed_get_products_response' ) );
+			add_action(
+				'wp_ajax_' . 'alg_wc_product_xml_feeds_get_products_response',
+				array( $this, 'get_products_response' )
+			);
+			add_action(
+				'wp_ajax_nopriv_' . 'alg_wc_product_xml_feeds_get_products_response',
+				array( $this, 'get_products_response' )
+			);
 
-			add_action( 'wp_ajax_alg_wc_xml_feed_get_cats_response', array( $this, 'alg_wc_xml_feed_get_cats_response' ) );
-			add_action( 'wp_ajax_nopriv_alg_wc_xml_feed_get_cats_response', array( $this, 'alg_wc_xml_feed_get_cats_response' ) );
+			add_action(
+				'wp_ajax_' . 'alg_wc_product_xml_feeds_get_cats_response',
+				array( $this, 'get_cats_response' )
+			);
+			add_action(
+				'wp_ajax_nopriv_' . 'alg_wc_product_xml_feeds_get_cats_response',
+				array( $this, 'get_cats_response' )
+			);
 
-			add_action( 'wp_ajax_alg_wc_xml_feed_get_tags_response', array( $this, 'alg_wc_xml_feed_get_tags_response' ) );
-			add_action( 'wp_ajax_nopriv_alg_wc_xml_feed_get_tags_response', array( $this, 'alg_wc_xml_feed_get_tags_response' ) );
+			add_action(
+				'wp_ajax_' . 'alg_wc_product_xml_feeds_get_tags_response',
+				array( $this, 'get_tags_response' )
+			);
+			add_action(
+				'wp_ajax_nopriv_' . 'alg_wc_product_xml_feeds_get_tags_response',
+				array( $this, 'get_tags_response' )
+			);
 
 
-			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_backend_scripts_and_styles' ) );
+			add_action(
+				'wp_ajax_' . 'alg_wc_product_xml_feeds_admin_product_ajax_feed_generation',
+				array( $this, 'admin_product_ajax_feed_generation' )
+			);
+			add_action(
+				'wp_ajax_nopriv_' . 'alg_wc_product_xml_feeds_admin_product_ajax_feed_generation',
+				array( $this, 'admin_product_ajax_feed_generation' )
+			);
 
-
-			add_action( 'wp_ajax_alg_wc_xml_feed_admin_product_ajax_feed_generation',        array( $this, 'alg_wc_xml_feed_admin_product_ajax_feed_generation' ) );
-			add_action( 'wp_ajax_nopriv_alg_wc_xml_feed_admin_product_ajax_feed_generation', array( $this, 'alg_wc_xml_feed_admin_product_ajax_feed_generation' ) );
-
-			add_action( 'wp_ajax_alg_wc_xml_feed_admin_product_ajax_feed_generation_start',        array( $this, 'alg_wc_xml_feed_admin_product_ajax_feed_generation_start' ) );
-			add_action( 'wp_ajax_nopriv_alg_wc_xml_feed_admin_product_ajax_feed_generation_start', array( $this, 'alg_wc_xml_feed_admin_product_ajax_feed_generation_start' ) );
-
-
+			add_action(
+				'wp_ajax_' . 'alg_wc_product_xml_feeds_admin_product_ajax_feed_generation_start',
+				array( $this, 'admin_product_ajax_feed_generation_start' )
+			);
+			add_action(
+				'wp_ajax_nopriv_' . 'alg_wc_product_xml_feeds_admin_product_ajax_feed_generation_start',
+				array( $this, 'admin_product_ajax_feed_generation_start' )
+			);
 		}
 
 		parent::__construct();
@@ -190,7 +222,7 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 	/**
 	 * get_product_cats.
 	 *
-	 * @version 2.7.10
+	 * @version 3.1.0
 	 * @since   1.0.0
 	 */
 
@@ -203,16 +235,17 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 		}
 
 		$args = array(
+			'taxonomy'   => 'product_cat',
 			'orderby'    => 'name',
-			'hide_empty' => '0',
+			'hide_empty' => false,
 		);
 
 		if ( ! empty( $search_text ) ) {
 			$args['search'] = $search_text;
 		}
+		$product_cats = get_terms(  $args );
 
 		$inc = 0;
-		$product_cats = get_terms( 'product_cat', $args );
 		if ( ! empty( $product_cats ) && ! is_wp_error( $product_cats ) ) {
 			foreach ( $product_cats as $product_cat ) {
 				if ( $ajax_request ) {
@@ -234,7 +267,7 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 	/**
 	 * get_saved_product_cats.
 	 *
-	 * @version 2.7.10
+	 * @version 3.1.0
 	 * @since   2.7.10
 	 */
 	function get_saved_product_cats(){
@@ -244,7 +277,6 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 
 		$saved_include = get_option( $incl_key, array() );
 		$saved_exclude = get_option( $excl_key, array() );
-		$saved_ids = array();
 
 		$saved_ids = array_unique( array_merge( $saved_include, $saved_exclude ) );
 
@@ -255,11 +287,13 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 		}
 
 		$args = array(
-			'orderby' => 'name',
-			'hide_empty' => '0',
-			'include' => $saved_ids
+			'taxonomy'   => 'product_cat',
+			'orderby'    => 'name',
+			'hide_empty' => false,
+			'include'    => $saved_ids,
 		);
-		$product_cats = get_terms( 'product_cat', $args );
+
+		$product_cats = get_terms( $args );
 		if ( ! empty( $product_cats ) && ! is_wp_error( $product_cats ) ) {
 			foreach ( $product_cats as $product_cat ) {
 				$product_cats_options[ $product_cat->term_id ] = $product_cat->name;
@@ -274,7 +308,7 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 	/**
 	 * get_product_cats.
 	 *
-	 * @version 2.7.10
+	 * @version 3.1.0
 	 * @since   2.7.10
 	 */
 
@@ -287,17 +321,17 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 		}
 
 		$args = array(
+			'taxonomy'   => 'product_tag',
 			'orderby'    => 'name',
-			'hide_empty' => '0',
+			'hide_empty' => false,
 		);
 
 		if ( ! empty( $search_text ) ) {
 			$args['search'] = $search_text;
 		}
+		$product_tags = get_terms( $args );
 
 		$inc = 0;
-
-		$product_tags = get_terms( 'product_tag', $args );
 		if ( ! empty( $product_tags ) && ! is_wp_error( $product_tags ) ) {
 			foreach ( $product_tags as $product_tag ) {
 				if ( $ajax_request ) {
@@ -319,7 +353,7 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 	/**
 	 * get_saved_product_tags.
 	 *
-	 * @version 2.7.10
+	 * @version 3.1.0
 	 * @since   2.7.10
 	 */
 	function get_saved_product_tags(){
@@ -329,9 +363,8 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 
 		$saved_include = get_option( $incl_key, array() );
 		$saved_exclude = get_option( $excl_key, array() );
-		$saved_ids     = array();
 
-		$saved_ids = array_unique (array_merge ($saved_include, $saved_exclude));
+		$saved_ids = array_unique( array_merge( $saved_include, $saved_exclude ) );
 
 		$product_tags_options = array();
 
@@ -339,12 +372,14 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 			return $saved_ids;
 		}
 
-		$args = array(
+
+		$args         = array(
+			'taxonomy'   => 'product_tag',
 			'orderby'    => 'name',
-			'hide_empty' => '0',
-			'include'    => $saved_ids
+			'hide_empty' => false,
+			'include'    => $saved_ids,
 		);
-		$product_tags = get_terms( 'product_tag', $args );
+		$product_tags = get_terms( $args );
 		if ( ! empty( $product_tags ) && ! is_wp_error( $product_tags ) ) {
 			foreach ( $product_tags as $product_tag ) {
 				$product_tags_options[ $product_tag->term_id ] = $product_tag->name;
@@ -358,7 +393,7 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.9.3
+	 * @version 3.1.0
 	 * @since   1.1.0
 	 *
 	 * @todo    [dev] (maybe) move "Sorting" options to a separate subsection
@@ -391,7 +426,13 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 		// Prepare Type Options
 		$product_type_options    = array();
 		$product_default_options = array();
-		$product_types           = get_terms( 'product_type', 'orderby=name&hide_empty=0' );
+
+		$args          = array(
+			'taxonomy'   => 'product_type',
+			'orderby'    => 'name',
+			'hide_empty' => false,
+		);
+		$product_types = get_terms( $args );
 
 		if ( ! empty( $product_types ) && ! is_wp_error( $product_types ) ) {
 			foreach ( $product_types as $product_type ) {
@@ -435,9 +476,21 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 			if ( '' != get_option( 'alg_create_products_xml_cron_time_' . $this->feed_num, '' ) ) {
 				$scheduled_time_diff = get_option( 'alg_create_products_xml_cron_time_' . $this->feed_num, '' ) - time();
 				if ( $scheduled_time_diff > 60 ) {
-					$products_xml_cron_desc .= ' <em>' . sprintf( __( '%s till next update.', 'product-xml-feeds-for-woocommerce' ), human_time_diff( 0, $scheduled_time_diff ) ) . '</em>';
+					$products_xml_cron_desc .= ' <em>' .
+						sprintf(
+							/* Translators: %s: Time difference. */
+							__( '%s till next update.', 'product-xml-feeds-for-woocommerce' ),
+							human_time_diff( 0, $scheduled_time_diff )
+						) .
+					'</em>';
 				} elseif ( $scheduled_time_diff > 0 ) {
-					$products_xml_cron_desc .= ' <em>' . sprintf( __( '%s seconds till next update.', 'product-xml-feeds-for-woocommerce' ), $scheduled_time_diff ) . '</em>';
+					$products_xml_cron_desc .= ' <em>' .
+						sprintf(
+							/* Translators: %s: Seconds. */
+							__( '%s seconds till next update.', 'product-xml-feeds-for-woocommerce' ),
+							$scheduled_time_diff
+						) .
+					'</em>';
 				}
 			}
 		}
@@ -445,6 +498,7 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 		$products_time_file_created_desc = '';
 		if ( '' != get_option( 'alg_products_time_file_created_' . $this->feed_num, '' ) ) {
 			$products_time_file_created_desc = sprintf(
+				/* Translators: %s: Date. */
 				'<em>' . __( 'Recent file was created on %s', 'product-xml-feeds-for-woocommerce' ) . '</em>',
 				date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), get_option( 'alg_products_time_file_created_' . $this->feed_num, '' ) )
 			);
@@ -483,7 +537,7 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 			}
 		}
 
-		if ( ! is_writable( $feed_path ) ) {
+		if ( ! is_writable( $feed_path ) ) { // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_is_writable -- Checking local directory permissions.
 			$is_writable = '<br><br><em style="color:red">  Plugin doesn\'t have access to ' . $feed_path . ' </em>';
 		} else {
 			$is_writable = '';
@@ -507,7 +561,11 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 			array(
 				'title'    => __( 'Admin title', 'product-xml-feeds-for-woocommerce' ),
 				'id'       => 'alg_products_xml_feed_title_' . $this->feed_num,
-				'default'  => sprintf( __( 'XML Feed #%d', 'product-xml-feeds-for-woocommerce' ), $this->feed_num ),
+				'default'  => sprintf(
+					/* Translators: %d: Feed number. */
+					__( 'XML Feed #%d', 'product-xml-feeds-for-woocommerce' ),
+					$this->feed_num
+				),
 				'type'     => 'text',
 				'css'      => 'width:100%;',
 			),
@@ -522,7 +580,14 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 			),
 			array(
 				'title'    => __( 'XML header', 'product-xml-feeds-for-woocommerce' ),
-				'desc'     => sprintf( __( 'Please visit <a href="%s" target="_blank">Product XML Feeds for WooCommerce page</a> to check all available shortcodes.', 'product-xml-feeds-for-woocommerce' ), 'https://wpfactory.com/item/product-xml-feeds-woocommerce/' ),
+				'desc'     => sprintf(
+					/* Translators: %s: URL. */
+					__(
+						'Please visit <a href="%s" target="_blank">Product XML Feeds for WooCommerce page</a> to check all available shortcodes.',
+						'product-xml-feeds-for-woocommerce'
+					),
+					'https://wpfactory.com/item/product-xml-feeds-woocommerce/'
+				),
 				'id'       => 'alg_products_xml_header_' . $this->feed_num,
 				'class'    => 'alg-wc-xml-feed-shortcode-field',
 				'default'  => alg_wc_product_xml_feeds()->core->get_default_template( 'header' ),
@@ -532,7 +597,11 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 			),
 			array(
 				'title'    => __( 'XML item', 'product-xml-feeds-for-woocommerce' ),
-				'desc'     => sprintf( __( 'Please visit <a href="%s" target="_blank">Product XML Feeds for WooCommerce page</a> to check all available shortcodes.', 'product-xml-feeds-for-woocommerce' ), 'https://wpfactory.com/item/product-xml-feeds-woocommerce/' ),
+				'desc'     => sprintf(
+					/* Translators: %s: URL. */
+					__( 'Please visit <a href="%s" target="_blank">Product XML Feeds for WooCommerce page</a> to check all available shortcodes.', 'product-xml-feeds-for-woocommerce' ),
+					'https://wpfactory.com/item/product-xml-feeds-woocommerce/'
+				),
 				'id'       => 'alg_products_xml_item_' . $this->feed_num,
 				'class'    => 'alg-wc-xml-feed-shortcode-field',
 				'default'  => alg_wc_product_xml_feeds()->core->get_default_template( 'item' ),
@@ -542,7 +611,11 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 			),
 			array(
 				'title'    => __( 'Variation XML item', 'product-xml-feeds-for-woocommerce' ),
-				'desc'     => sprintf( __( 'Please visit <a href="%s" target="_blank">Product XML Feeds for WooCommerce page</a> to check all available shortcodes. It will works when "Variable products" option selected to be "Both variable and variations products"', 'product-xml-feeds-for-woocommerce' ), 'https://wpfactory.com/item/product-xml-feeds-woocommerce/' ),
+				'desc'     => sprintf(
+					/* Translators: %s: URL. */
+					__( 'Please visit <a href="%s" target="_blank">Product XML Feeds for WooCommerce page</a> to check all available shortcodes. It will works when "Variable products" option selected to be "Both variable and variations products"', 'product-xml-feeds-for-woocommerce' ),
+					'https://wpfactory.com/item/product-xml-feeds-woocommerce/'
+				),
 				'id'       => 'alg_products_xml_variation_item_' . $this->feed_num,
 				'class'    => 'alg-wc-xml-feed-shortcode-field',
 				'default'  => alg_wc_product_xml_feeds()->core->get_default_template( 'variation_item' ),
@@ -552,7 +625,11 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 			),
 			array(
 				'title'    => __( 'XML footer', 'product-xml-feeds-for-woocommerce' ),
-				'desc'     => sprintf( __( 'Please visit <a href="%s" target="_blank">Product XML Feeds for WooCommerce page</a> to check all available shortcodes.', 'product-xml-feeds-for-woocommerce' ), 'https://wpfactory.com/item/product-xml-feeds-woocommerce/' ),
+				'desc'     => sprintf(
+					/* Translators: %s: URL. */
+					__( 'Please visit <a href="%s" target="_blank">Product XML Feeds for WooCommerce page</a> to check all available shortcodes.', 'product-xml-feeds-for-woocommerce' ),
+					'https://wpfactory.com/item/product-xml-feeds-woocommerce/'
+				),
 				'id'       => 'alg_products_xml_footer_' . $this->feed_num,
 				'default'  => alg_wc_product_xml_feeds()->core->get_default_template( 'footer' ),
 				'type'     => 'textarea',
@@ -580,7 +657,11 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 			),
 			array(
 				'title'    => __( 'Text item', 'product-xml-feeds-for-woocommerce' ),
-				'desc'     => sprintf( __( 'Please visit <a href="%s" target="_blank">Product XML Feeds for WooCommerce page</a> to check all available shortcodes.', 'product-xml-feeds-for-woocommerce' ), 'https://wpfactory.com/item/product-xml-feeds-woocommerce/' ),
+				'desc'     => sprintf(
+					/* Translators: %s: URL. */
+					__( 'Please visit <a href="%s" target="_blank">Product XML Feeds for WooCommerce page</a> to check all available shortcodes.', 'product-xml-feeds-for-woocommerce' ),
+					'https://wpfactory.com/item/product-xml-feeds-woocommerce/'
+				),
 				'id'       => 'alg_products_xml_text_item_' . $this->feed_num,
 				'class'    => 'alg-wc-xml-feed-shortcode-field',
 				'default'  => alg_wc_product_xml_feeds()->core->get_default_template( 'text_item' ),
@@ -650,7 +731,7 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 			array(
 				'title'    => __( 'Manual Cron Job Command', 'product-xml-feeds-for-woocommerce' ),
 				'type'     => 'title',
-				'desc'     => '<code>wget -qO- ' . get_site_url() . '/wp-admin/admin-ajax.php?action=generate_xml_external&secret=' . wp_hash( get_option( 'alg_products_xml_feeds_security_key', '' )  ) . '&alg_create_products_xml=' . $this->feed_num . ' >/dev/null 2>&1</code>',
+				'desc'     => '<code>wget -qO- ' . get_site_url() . '/wp-admin/admin-ajax.php?action=alg_wc_product_xml_feeds_generate_xml_external&secret=' . wp_hash( get_option( 'alg_products_xml_feeds_security_key', '' )  ) . '&alg_create_products_xml=' . $this->feed_num . ' >/dev/null 2>&1</code>',
 				'id'       => 'alg_products_xml_manual_cron_options_' . $this->feed_num,
 			),
 			array(
@@ -749,7 +830,7 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 					__( 'Leave blank to include all products.', 'product-xml-feeds-for-woocommerce' ),
 				'id'       => 'alg_products_xml_products_incl_' . $this->feed_num,
 				'default'  => '',
-				'class'    => 'chosen_select',
+				'class'    => 'chosen_select alg-wc-product-xml-feeds-products',
 				'type'     => 'multiselect',
 				'options'  => $products_options,
 			),
@@ -759,7 +840,7 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 					__( 'Leave blank to include all products.', 'product-xml-feeds-for-woocommerce' ),
 				'id'       => 'alg_products_xml_products_excl_' . $this->feed_num,
 				'default'  => '',
-				'class'    => 'chosen_select',
+				'class'    => 'chosen_select alg-wc-product-xml-feeds-products',
 				'type'     => 'multiselect',
 				'options'  => $products_options,
 			),
@@ -769,7 +850,7 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 					__( 'Leave blank to include all products.', 'product-xml-feeds-for-woocommerce' ),
 				'id'       => 'alg_products_xml_cats_incl_' . $this->feed_num,
 				'default'  => '',
-				'class'    => 'chosen_select',
+				'class'    => 'chosen_select alg-wc-product-xml-feeds-cats',
 				'type'     => 'multiselect',
 				'options'  => $product_cats_options,
 			),
@@ -779,7 +860,7 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 					__( 'Leave blank to include all products.', 'product-xml-feeds-for-woocommerce' ),
 				'id'       => 'alg_products_xml_cats_excl_' . $this->feed_num,
 				'default'  => '',
-				'class'    => 'chosen_select',
+				'class'    => 'chosen_select alg-wc-product-xml-feeds-cats',
 				'type'     => 'multiselect',
 				'options'  => $product_cats_options,
 			),
@@ -789,7 +870,7 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 					__( 'Leave blank to include all products.', 'product-xml-feeds-for-woocommerce' ),
 				'id'       => 'alg_products_xml_tags_incl_' . $this->feed_num,
 				'default'  => '',
-				'class'    => 'chosen_select',
+				'class'    => 'chosen_select alg-wc-product-xml-feeds-tags',
 				'type'     => 'multiselect',
 				'options'  => $product_tags_options,
 			),
@@ -799,7 +880,7 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 					__( 'Leave blank to include all products.', 'product-xml-feeds-for-woocommerce' ),
 				'id'       => 'alg_products_xml_tags_excl_' . $this->feed_num,
 				'default'  => '',
-				'class'    => 'chosen_select',
+				'class'    => 'chosen_select alg-wc-product-xml-feeds-tags',
 				'type'     => 'multiselect',
 				'options'  => $product_tags_options,
 			),
@@ -916,7 +997,11 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 			),
 			array(
 				'title'    => __( 'Custom taxonomy to include', 'product-xml-feeds-for-woocommerce' ),
-				'desc'     => sprintf( __( 'E.g.: %s', 'product-xml-feeds-for-woocommerce' ), '<code>pwb-brand</code>' ),
+				'desc'     => sprintf(
+					/* Translators: %s: Taxonomy slug. */
+					__( 'E.g.: %s', 'product-xml-feeds-for-woocommerce' ),
+					'<code>pwb-brand</code>'
+				),
 				'desc_tip' => __( 'To include products from selected taxonomy only, enter taxonomy slug here.', 'product-xml-feeds-for-woocommerce' ) . ' ' .
 					__( 'Leave blank to include all products.', 'product-xml-feeds-for-woocommerce' ),
 				'id'       => 'alg_products_xml_custom_taxonomy_incl_' . $this->feed_num,
@@ -933,7 +1018,11 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 			),
 			array(
 				'title'    => __( 'Attribute to include', 'product-xml-feeds-for-woocommerce' ),
-				'desc'     => sprintf( __( 'E.g.: %s', 'product-xml-feeds-for-woocommerce' ), '<code>color</code>' ),
+				'desc'     => sprintf(
+					/* Translators: %s: Attribute slug. */
+					__( 'E.g.: %s', 'product-xml-feeds-for-woocommerce' ),
+					'<code>color</code>'
+				),
 				'desc_tip' => __( 'To include products from selected attribute only, enter attribute slug here.', 'product-xml-feeds-for-woocommerce' ) . ' ' .
 					__( 'Leave blank to include all products.', 'product-xml-feeds-for-woocommerce' ),
 				'id'       => 'alg_products_xml_attribute_incl_' . $this->feed_num,
@@ -943,7 +1032,11 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 			),
 			array(
 				'desc'     => __( 'Attribute values (comma separated)', 'product-xml-feeds-for-woocommerce' ) . ' ' .
-					sprintf( __( 'E.g.: %s', 'product-xml-feeds-for-woocommerce' ), '<code>Red,Green</code>' ),
+					sprintf(
+						/* Translators: %s: Attribute values. */
+						__( 'E.g.: %s', 'product-xml-feeds-for-woocommerce' ),
+						'<code>Red,Green</code>'
+					),
 				'id'       => 'alg_products_xml_attribute_incl_values_' . $this->feed_num,
 				'default'  => '',
 				'type'     => 'text',
@@ -951,7 +1044,12 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 			),
 			array(
 				'title'    => __( 'Custom meta filter', 'product-xml-feeds-for-woocommerce' ),
-				'desc'     => __( 'Meta key, compare, value (comma separated)', 'product-xml-feeds-for-woocommerce' ) . ' ' . sprintf( __( 'E.g.: %s', 'product-xml-feeds-for-woocommerce' ), '<code>meta_key, = , value</code>' ),
+				'desc'     => __( 'Meta key, compare, value (comma separated)', 'product-xml-feeds-for-woocommerce' ) . ' ' .
+					sprintf(
+						/* Translators: %s: Meta key, compare, value. */
+						__( 'E.g.: %s', 'product-xml-feeds-for-woocommerce' ),
+						'<code>meta_key, = , value</code>'
+					),
 				'desc_tip' => __( 'To include products from selected custom meta value only, enter meta information here as per instruction.', 'product-xml-feeds-for-woocommerce' ) . ' ' .
 					__( 'Leave blank to include all products.', 'product-xml-feeds-for-woocommerce' ),
 				'id'       => 'alg_products_xml_custom_meta_incl_' . $this->feed_num,
@@ -969,362 +1067,177 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 	}
 
 	/**
-	 * alg_wc_xml_feed_admin_footer_js.
+	 * is_settings_feed_screen.
 	 *
-	 * @version 2.7.10
+	 * @version 3.1.0
+	 * @since   3.1.0
+	 */
+	function is_settings_feed_screen() {
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+		return (
+			isset( $_GET['page'], $_GET['tab'], $_GET['section'] ) &&
+			'wc-settings' === sanitize_text_field( wp_unslash( $_GET['page'] ) ) &&
+			'alg_wc_product_xml_feeds' === sanitize_text_field( wp_unslash( $_GET['tab'] ) ) &&
+			0 === strpos( sanitize_text_field( wp_unslash( $_GET['section'] ) ), 'feed' )
+		);
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
+	}
+
+	/**
+	 * admin_footer.
+	 *
+	 * @version 3.1.0
 	 * @since   2.7.10
 	 */
-	public function alg_wc_xml_feed_admin_footer_js($data) {
+	public function admin_footer() {
+		if ( ! $this->is_settings_feed_screen() ) {
+			return;
+		}
 		?>
-			<script>
-				jQuery(document).ready(function() {
-					jQuery('#alg_products_xml_products_incl_<?php echo $this->feed_num; ?>').select2({
-					  ajax: {
-						type   : 'POST',
-						url    : <?php echo "'" . admin_url( 'admin-ajax.php' ) . "'"; ?>,
-						dataType: 'json',
-						data: function (params) {
-						  var query = {
-							search: params.term,
-							type: 'public',
-							action: 'alg_wc_xml_feed_get_products_response'
-						  }
-
-						  // Query parameters will be ?search=[term]&type=public
-						  return query;
-						},
-						processResults: function (data) {
-							return {
-							  results: data
-							};
-						},
-					  },
-					  minimumInputLength: 3
-					});
-
-					jQuery('#alg_products_xml_products_excl_<?php echo $this->feed_num; ?>').select2({
-					  ajax: {
-						type   : 'POST',
-						url    : <?php echo "'" . admin_url( 'admin-ajax.php' ) . "'"; ?>,
-						dataType: 'json',
-						data: function (params) {
-						  var query = {
-							search: params.term,
-							type: 'public',
-							action: 'alg_wc_xml_feed_get_products_response'
-						  }
-
-						  // Query parameters will be ?search=[term]&type=public
-						  return query;
-						},
-						processResults: function (data) {
-							return {
-							  results: data
-							};
-						},
-					  },
-					  minimumInputLength: 3
-					});
-				});
-
-				jQuery(document).ready(function() {
-					jQuery('#alg_products_xml_cats_incl_<?php echo $this->feed_num; ?>').select2({
-					  ajax: {
-						type   : 'POST',
-						url    : <?php echo "'" . admin_url( 'admin-ajax.php' ) . "'"; ?>,
-						dataType: 'json',
-						data: function (params) {
-						  var query = {
-							search: params.term,
-							type: 'public',
-							action: 'alg_wc_xml_feed_get_cats_response'
-						  }
-
-						  // Query parameters will be ?search=[term]&type=public
-						  return query;
-						},
-						processResults: function (data) {
-							return {
-							  results: data
-							};
-						},
-					  },
-					  minimumInputLength: 3
-					});
-
-					jQuery('#alg_products_xml_cats_excl_<?php echo $this->feed_num; ?>').select2({
-					  ajax: {
-						type   : 'POST',
-						url    : <?php echo "'" . admin_url( 'admin-ajax.php' ) . "'"; ?>,
-						dataType: 'json',
-						data: function (params) {
-						  var query = {
-							search: params.term,
-							type: 'public',
-							action: 'alg_wc_xml_feed_get_cats_response'
-						  }
-
-						  // Query parameters will be ?search=[term]&type=public
-						  return query;
-						},
-						processResults: function (data) {
-							return {
-							  results: data
-							};
-						},
-					  },
-					  minimumInputLength: 3
-					});
-
-				});
-
-				jQuery(document).ready(function() {
-					jQuery('#alg_products_xml_tags_incl_<?php echo $this->feed_num; ?>').select2({
-					  ajax: {
-						type   : 'POST',
-						url    : <?php echo "'" . admin_url( 'admin-ajax.php' ) . "'"; ?>,
-						dataType: 'json',
-						data: function (params) {
-						  var query = {
-							search: params.term,
-							type: 'public',
-							action: 'alg_wc_xml_feed_get_tags_response'
-						  }
-
-						  // Query parameters will be ?search=[term]&type=public
-						  return query;
-						},
-						processResults: function (data) {
-							return {
-							  results: data
-							};
-						},
-					  },
-					  minimumInputLength: 3
-					});
-
-					jQuery('#alg_products_xml_tags_excl_<?php echo $this->feed_num; ?>').select2({
-					  ajax: {
-						type   : 'POST',
-						url    : <?php echo "'" . admin_url( 'admin-ajax.php' ) . "'"; ?>,
-						dataType: 'json',
-						data: function (params) {
-						  var query = {
-							search: params.term,
-							type: 'public',
-							action: 'alg_wc_xml_feed_get_tags_response'
-						  }
-
-						  // Query parameters will be ?search=[term]&type=public
-						  return query;
-						},
-						processResults: function (data) {
-							return {
-							  results: data
-							};
-						},
-					  },
-					  minimumInputLength: 3
-					});
-				});
-			</script>
-
-			<style>
-			#alg-wc-xml-feed-overlay-id{
-				display: none;
-			}
-
-			.alg-wc-xml-feed-overlay {
-				background-color: black;
-				background-color: rgba(0,0,0,.8);
-				position: fixed;
-				top: 0;
-				right: 0;
-				bottom: 0;
-				left: 0;
-				/* opacity: 0.2; */
-				/* also -moz-opacity, etc. */
-				z-index: 100;
-			}
-			.alg-wc-xml-feed-progress {
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				width:400px;
-				height:20px;
-				margin:-10px 0 0 -150px;
-				z-index:101;
-				opacity:1.0;
-				border: 1px solid #149bdf;
-			}
-
-			.alg-wc-xml-feed-progress-striped .alg-wc-xml-feed-bar {
-				background-color: #149bdf;
-				background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
-				background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-				background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-				background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-				background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-				-webkit-background-size: 40px 40px;
-				-moz-background-size: 40px 40px;
-				-o-background-size: 40px 40px;
-				background-size: 40px 40px;
-
-				-webkit-animation: progress-bar-stripes 2s linear infinite;
-				-moz-animation: progress-bar-stripes 2s linear infinite;
-				-ms-animation: progress-bar-stripes 2s linear infinite;
-				-o-animation: progress-bar-stripes 2s linear infinite;
-				animation: progress-bar-stripes 2s linear infinite;
-
-
-			}
-
-			.alg-wc-xml-feed-progress .alg-wc-xml-feed-bar {
-				float: left;
-				width: 0;
-				height: 100%;
-				font-size: 12px;
-				color: #ffffff;
-				text-align: center;
-				text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-				background-color: #0e90d2;
-				background-image: -moz-linear-gradient(top, #149bdf, #0480be);
-				background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#149bdf), to(#0480be));
-				background-image: -webkit-linear-gradient(top, #149bdf, #0480be);
-				background-image: -o-linear-gradient(top, #149bdf, #0480be);
-				background-image: linear-gradient(to bottom, #149bdf, #0480be);
-				background-repeat: repeat-x;
-				filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff149bdf', endColorstr='#ff0480be', GradientType=0);
-				-webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
-				-moz-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
-				box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
-				-webkit-box-sizing: border-box;
-				-moz-box-sizing: border-box;
-				box-sizing: border-box;
-				-webkit-transition: width 0.6s ease;
-				-moz-transition: width 0.6s ease;
-				-o-transition: width 0.6s ease;
-				transition: width 0.6s ease;
-
-			}
-			.alg-wc-xml-feed-overlay .alg-wc-xml-feed-file-download-per-text{
-				color: #fff;
-				font-size: 24px;
-				position: absolute;
-				top: 53%;
-				left: 50%;
-				width: 400px;
-
-				margin: -10px 0 0 -150px;
-				z-index: 101;
-				opacity: 1.0;
-				text-align: center;
-				line-height: 1.5;
-			}
-			.alg-wc-xml-feed-overlay .alg-wc-xml-feed-file-download-text{
-				color: #fff;
-				font-size: 20px;
-				position: absolute;
-				top: 56%;
-				left: 50%;
-				width: 400px;
-
-				margin: -10px 0 0 -150px;
-				z-index: 101;
-				opacity: 1.0;
-				text-align: center;
-				line-height: 1.5;
-			}
-
-			</style>
-
-			<div class="alg-wc-xml-feed-overlay mouse-events-off" id="alg-wc-xml-feed-overlay-id">
-				<div class="alg-wc-xml-feed-progress alg-wc-xml-feed-progress-striped alg-wc-xml-feed-active">
-					<div class="alg-wc-xml-feed-bar" id="alg-wc-xml-feed-bar-percentage" style="width: 0%;"></div>
-				</div>
-				<div class="alg-wc-xml-feed-file-download-per-text">0%</div>
-				<div class="alg-wc-xml-feed-file-download-text"> Feed generation is in progress. Please don't close window till process complete. </div>
+		<div class="alg-wc-xml-feed-overlay mouse-events-off" id="alg-wc-xml-feed-overlay-id">
+			<div class="alg-wc-xml-feed-progress alg-wc-xml-feed-progress-striped alg-wc-xml-feed-active">
+				<div class="alg-wc-xml-feed-bar" id="alg-wc-xml-feed-bar-percentage" style="width: 0%;"></div>
 			</div>
+			<div class="alg-wc-xml-feed-file-download-per-text">0%</div>
+			<div class="alg-wc-xml-feed-file-download-text"> Feed generation is in progress. Please don't close window till process complete. </div>
+		</div>
 		<?php
 	}
 
 	/**
-	 * enqueue_backend_scripts_and_styles.
+	 * Enqueue admin scripts and styles.
 	 *
-	 * @version 2.7.10
-	 * @since   2.7.10
+	 * @version 3.1.0
+	 * @since   2.8.0
 	 */
-	function enqueue_backend_scripts_and_styles() {
+	function enqueue_admin_scripts_and_styles() {
 
-			wp_enqueue_script( 'alg-wc-xml-feed-admin-own-js',
-				alg_wc_product_xml_feeds()->plugin_url() . '/includes/js/alg-wc-xml-feed-admin-own.js',
+		// Enqueue CSS for the admin page.
+		wp_enqueue_style( 'alg-wc-product-xml-feeds-admin',
+			alg_wc_product_xml_feeds()->plugin_asset_url( 'css/alg-wc-product-xml-feeds-admin.css' ),
+			array(),
+			alg_wc_product_xml_feeds()->version
+		);
+
+		// Enqueue JS for the admin page.
+		wp_enqueue_script( 'alg-wc-product-xml-feeds-admin',
+			alg_wc_product_xml_feeds()->plugin_asset_url( 'js/alg-wc-product-xml-feeds-admin.js' ),
+			array( 'jquery' ),
+			alg_wc_product_xml_feeds()->version,
+			true
+		);
+
+		// Localize the script to pass PHP data to JavaScript.
+		wp_localize_script(
+			'alg-wc-product-xml-feeds-admin',
+			'alg_wc_product_xml_feeds_admin_object',
+			array(
+				'shortcodes'      => $this->generate_shortcode_list_html(),
+				'shortcodes_text' => __( 'Shortcodes', 'product-xml-feeds-for-woocommerce' )
+			)
+		);
+
+		if ( 'yes' === $this->ajax_filtering ) {
+			wp_enqueue_script(
+				'alg-wc-product-xml-feeds-admin-own',
+				alg_wc_product_xml_feeds()->plugin_asset_url( 'js/alg-wc-product-xml-feeds-admin-own.js' ),
 				array( 'jquery' ),
 				alg_wc_product_xml_feeds()->version,
 				true
 			);
-			$nonce = wp_create_nonce('alg-wc-xml-feed-ajax-nonce');
-			wp_localize_script( 'alg-wc-xml-feed-admin-own-js', 'alg_wc_xml_feed_admin_own_js', array( 'nonce' => $nonce, 'file_num' => $this->feed_num ) );
 
+			$nonce = wp_create_nonce( 'alg-wc-product-xml-feeds-ajax-nonce' );
+			wp_localize_script(
+				'alg-wc-product-xml-feeds-admin-own',
+				'alg_wc_product_xml_feeds_admin_ajax_object',
+				array(
+					'nonce'    => $nonce,
+					'file_num' => $this->feed_num
+				)
+			);
+		}
 	}
 
 	/**
-	 * alg_wc_xml_feed_admin_product_ajax_feed_generation_start.
+	 * admin_product_ajax_feed_generation_start.
 	 *
-	 * @version 2.7.10
+	 * @version 3.1.0
 	 * @since   2.7.10
 	 */
-	function alg_wc_xml_feed_admin_product_ajax_feed_generation_start() {
+	function admin_product_ajax_feed_generation_start() {
 
-		if ( ! current_user_can('manage_options') || ! wp_verify_nonce( $_POST['nonce'], 'alg-wc-xml-feed-ajax-nonce' ) ) {
+		if (
+			! current_user_can( 'manage_options' ) ||
+			! isset( $_POST['nonce'] ) ||
+			! wp_verify_nonce(
+				sanitize_text_field( wp_unslash( $_POST['nonce'] ) ),
+				'alg-wc-product-xml-feeds-ajax-nonce'
+			)
+		) {
 			exit;
 		}
 
-		$totalpage = 1;
-		$nonce = $_POST['nonce'];
-		$file_num = $_POST['file_num'];
-		$dest = $this->create_temp_folder();
-		$file_name = 'product_feed-' . time() . '-'. $nonce . '.xml';
-		$file_url = $dest['url'] . 'product_csv-' . time() . '-'. $nonce . '.xml';
+		$totalpage   = 1;
+		$nonce       = sanitize_text_field( wp_unslash( $_POST['nonce'] ) );
+		$dest        = $this->create_temp_folder();
+		$file_name   = 'product_feed-' . time() . '-' . $nonce . '.xml';
+		$file_url    = $dest['url'] . 'product_csv-' . time() . '-' . $nonce . '.xml';
 		$count_pages = wp_count_posts( $post_type = 'product' );
 
-		if ( !empty( $count_pages ) ) {
+		if ( ! empty( $count_pages ) ) {
 			$block_size = (int) get_option( 'alg_products_xml_query_block_size', 512 );
-			$total = $count_pages->publish;
-			if( $total > 0 ){
-				if( $block_size >= $total ){
+			$total      = $count_pages->publish;
+			if ( $total > 0 ) {
+				if ( $block_size >= $total ) {
 					$totalpage = 1;
 				} else {
-					$totalpage = ceil( $total / $block_size);
+					$totalpage = ceil( $total / $block_size );
 				}
 			}
 		}
 
-		$progress_completed = ( 1 / ($totalpage + 1) ) * 100;
+		$progress_completed = ( 1 / ( $totalpage + 1 ) ) * 100;
 
-		$file_name = preg_replace('/\\\\/', '/', $file_name);
+		$file_name = preg_replace( '/\\\\/', '/', $file_name );
 
-		echo json_encode( array( 'success' => true,'total_page' => $totalpage, 'file_path' => $file_name, 'file_url' => $file_url, 'progress' => $progress_completed ), JSON_UNESCAPED_SLASHES );
+		echo json_encode(
+			array(
+				'success'    => true,
+				'total_page' => $totalpage,
+				'file_path'  => $file_name,
+				'file_url'   => $file_url,
+				'progress'   => $progress_completed
+			),
+			JSON_UNESCAPED_SLASHES
+		);
 		die;
 	}
 
 	/**
-	 * alg_wc_xml_feed_admin_product_ajax_feed_generation.
+	 * admin_product_ajax_feed_generation.
 	 *
-	 * @version 2.7.10
+	 * @version 3.1.0
 	 * @since   2.7.10
 	 */
-	function alg_wc_xml_feed_admin_product_ajax_feed_generation() {
+	function admin_product_ajax_feed_generation() {
 
-		if ( ! current_user_can('manage_options') || ! wp_verify_nonce( $_POST['nonce'], 'alg-wc-xml-feed-ajax-nonce' ) ) {
+		if (
+			! current_user_can( 'manage_options' ) ||
+			! isset( $_POST['nonce'] ) ||
+			! wp_verify_nonce(
+				sanitize_text_field( wp_unslash( $_POST['nonce'] ) ),
+				'alg-wc-product-xml-feeds-ajax-nonce'
+			)
+		) {
 			exit;
 		}
 
-		$file_num = $_POST['file_num'];
-		$progress_completed = 0;
+		$file_num     = isset( $_POST['file_num'] ) ? absint( wp_unslash( $_POST['file_num'] ) ) : 0;
+		$current_page = isset( $_POST['current_page'] ) ? absint( wp_unslash( $_POST['current_page'] ) ) : 1;
+		$total_page   = isset( $_POST['total_page'] ) ? absint( wp_unslash( $_POST['total_page'] ) ) : 1;
+
 		$block_size = (int) get_option( 'alg_products_xml_query_block_size', 512 );
-		$current_page 	= $_POST['current_page'];
-		$total_page = $_POST['total_page'];
-		$isend = false;
+		$isend      = false;
 
 
 		if( $current_page >= $total_page ){
@@ -1341,109 +1254,91 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 
 		$progress_completed = ( ( $current_page + 1 ) / ( $total_page + 1 ) ) * 100;
 
-		alg_wc_product_xml_feeds()->core->create_products_xml( $file_num, true, array( 'start' => $start, 'block_size' => $block_size, 'current_page' => $current_page, 'is_end' => $isend ) );
+		alg_wc_product_xml_feeds()->core->create_products_xml(
+			$file_num,
+			true,
+			array(
+				'start'        => $start,
+				'block_size'   => $block_size,
+				'current_page' => $current_page,
+				'is_end'       => $isend
+			)
+		);
 
-		$file_name = $_POST['file_path'];
-		$file_url = $_POST['file_url'];
+		$file_name = isset( $_POST['file_path'] ) ? sanitize_text_field( wp_unslash( $_POST['file_path'] ) ) : '';
+		$file_url  = isset( $_POST['file_url'] ) ? esc_url_raw( wp_unslash( $_POST['file_url'] ) ) : '';
 
-		echo json_encode( array( 'success' => true,'total_page' => $total_page, 'current_page' => $current_page, 'file_path' => $file_name, 'file_url' => $file_url, 'is_end' => $isend, 'progress' => $progress_completed ), JSON_UNESCAPED_SLASHES );
+		echo json_encode(
+			array(
+				'success'      => true,
+				'total_page'   => $total_page,
+				'current_page' => $current_page,
+				'file_path'    => $file_name,
+				'file_url'     => $file_url,
+				'is_end'       => $isend,
+				'progress'     => $progress_completed
+			),
+			JSON_UNESCAPED_SLASHES
+		);
 		die;
 	}
 
 	/**
 	 * create_temp_folder.
 	 *
-	 * @version 2.7.10
+	 * @version 3.1.0
 	 * @since   2.7.10
 	 */
 	function create_temp_folder() {
 
-		$upload_dir = wp_upload_dir();
-		$destination  = $upload_dir['basedir'] . '/alg_wc_xml_feed_temp/';
-		$url  = $upload_dir['baseurl'] . '/alg_wc_xml_feed_temp/';
+		$upload_dir  = wp_upload_dir();
+		$destination = $upload_dir['basedir'] . '/alg_wc_xml_feed_temp/';
+		$url         = $upload_dir['baseurl'] . '/alg_wc_xml_feed_temp/';
 
-		if ( !file_exists( $destination ) ) {
-			mkdir($destination , 0775, true);
+		if ( ! file_exists( $destination ) ) {
+			wp_mkdir_p( $destination );
 		}
+
 		return array( 'path' => $destination, 'url' => $url );
 	}
 
 	/**
-	 * alg_wc_xml_feed_get_products_response.
+	 * get_products_response.
 	 *
-	 * @version 2.7.10
+	 * @version 3.1.0
 	 * @since   2.7.10
 	 */
-	public function alg_wc_xml_feed_get_products_response() {
-		$search_text = ( ( isset($_POST) && !empty( $_POST['search'] ) ) ?  $_POST['search'] : '' );
+	public function get_products_response() {
+		$search_text = ( ( isset($_POST) && !empty( $_POST['search'] ) ) ? sanitize_text_field( wp_unslash( $_POST['search'] ) ) : '' ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		$products_options = $this->get_products( true, $search_text );
 
 		wp_send_json( $products_options );
 	}
 
 	/**
-	 * alg_wc_xml_feed_get_cats_response.
+	 * get_cats_response.
 	 *
-	 * @version 2.7.10
+	 * @version 3.1.0
 	 * @since   2.7.10
 	 */
-	public function alg_wc_xml_feed_get_cats_response() {
-		$search_text = ( ( isset($_POST) && !empty( $_POST['search'] ) ) ?  $_POST['search'] : '' );
+	public function get_cats_response() {
+		$search_text = ( ( isset( $_POST ) && ! empty( $_POST['search'] ) ) ? sanitize_text_field( wp_unslash( $_POST['search'] ) ) : '' ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		$cat_options = $this->get_product_cats( true, $search_text );
 
 		wp_send_json( $cat_options );
 	}
 
 	/**
-	 * alg_wc_xml_feed_get_tags_response.
+	 * get_tags_response.
 	 *
-	 * @version 2.7.10
+	 * @version 3.1.0
 	 * @since   2.7.10
 	 */
-	public function alg_wc_xml_feed_get_tags_response() {
-		$search_text = ( ( isset($_POST) && !empty( $_POST['search'] ) ) ?  $_POST['search'] : '' );
+	public function get_tags_response() {
+		$search_text = ( isset( $_POST ) && ! empty( $_POST['search'] ) ? sanitize_text_field( wp_unslash( $_POST['search'] ) ) : '' ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		$tag_options = $this->get_product_tags( true, $search_text );
 
 		wp_send_json( $tag_options );
-	}
-
-	/**
-	 * Enqueue admin scripts and styles.
-	 *
-	 * @version 2.8.0
-	 * @since   2.8.0
-	 */
-	function enqueue_admin_scripts_and_styles() {
-
-		// Check if we are on the specific page, tab, and section for the XML feed settings.
-		if (
-			isset( $_GET['page'], $_GET['tab'], $_GET['section'] ) &&
-			'wc-settings' === wc_clean( $_GET['page'] ) &&
-			'alg_wc_product_xml_feeds' === wc_clean( $_GET['tab'] ) &&
-			'feed' === substr( wc_clean( $_GET['section'] ), 0, 4 )
-		) {
-
-			// Enqueue CSS for the admin page.
-			wp_enqueue_style( 'alg-wc-xml-feed-admin-css',
-				alg_wc_product_xml_feeds()->plugin_url() . '/includes/css/alg-wc-xml-feed-admin.css',
-				'',
-				alg_wc_product_xml_feeds()->version
-			);
-
-			// Enqueue JS for the admin page.
-			wp_enqueue_script( 'alg-wc-xml-feed-admin-js',
-				alg_wc_product_xml_feeds()->plugin_url() . '/includes/js/alg-wc-xml-feed-admin.js',
-				array( 'jquery' ),
-				alg_wc_product_xml_feeds()->version,
-				true
-			);
-
-			// Localize the script to pass PHP data to JavaScript.
-			wp_localize_script( 'alg-wc-xml-feed-admin-js', 'alg_wc_xml_feed_admin_js', array(
-				'shortcodes'      => $this->generate_shortcode_list_html(),
-				'shortcodes_text' => __( 'Shortcodes', 'product-xml-feeds-for-woocommerce' )
-			) );
-		}
 	}
 
 	/**

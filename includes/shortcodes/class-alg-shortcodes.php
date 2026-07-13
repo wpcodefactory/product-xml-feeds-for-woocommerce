@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - Shortcodes
  *
- * @version 2.9.4
+ * @version 3.1.0
  * @since   1.0.0
  *
  * @author  WPFactory
@@ -92,7 +92,7 @@ class Alg_Shortcodes {
 	/**
 	 * alg_shortcode.
 	 *
-	 * @version 2.9.4
+	 * @version 3.1.0
 	 * @since   1.0.0
 	 * @todo    [dev] maybe add `esc_html` attribute? (or alternatively add example with `custom_function="esc_html"` to the site)
 	 * @todo    [dev] recheck global atts (before, after etc.)
@@ -143,7 +143,7 @@ class Alg_Shortcodes {
 		if ( '' !== ( $result = $this->$shortcode_function( $atts, $content ) ) ) {
 			// Strip tags
 			if ( 'yes' === $atts['strip_tags'] ) {
-				$result = strip_tags( $result );
+				$result = wp_strip_all_tags( $result );
 			}
 
 			// Strip shortcodes
