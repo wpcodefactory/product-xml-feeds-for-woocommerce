@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - Feed Section Settings
  *
- * @version 3.1.0
+ * @version 3.1.1
  * @since   1.1.0
  *
  * @author  WPFactory
@@ -393,12 +393,12 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 	/**
 	 * get_settings.
 	 *
-	 * @version 3.1.0
+	 * @version 3.1.1
 	 * @since   1.1.0
 	 *
-	 * @todo    [dev] (maybe) move "Sorting" options to a separate subsection
-	 * @todo    [feature] Update period: "Manual only"
-	 * @todo    [feature] (maybe) `alg_products_xml_orderby_`: `parent`, `menu_order`, `post__in`
+	 * @todo    (dev) (maybe) move "Sorting" options to a separate subsection
+	 * @todo    (feature) Update period: "Manual only"
+	 * @todo    (feature) (maybe) `alg_products_xml_orderby_`: `parent`, `menu_order`, `post__in`
 	 */
 	function get_settings() {
 
@@ -731,7 +731,17 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 			array(
 				'title'    => __( 'Manual Cron Job Command', 'product-xml-feeds-for-woocommerce' ),
 				'type'     => 'title',
-				'desc'     => '<code>wget -qO- ' . get_site_url() . '/wp-admin/admin-ajax.php?action=alg_wc_product_xml_feeds_generate_xml_external&secret=' . wp_hash( get_option( 'alg_products_xml_feeds_security_key', '' )  ) . '&alg_create_products_xml=' . $this->feed_num . ' >/dev/null 2>&1</code>',
+				'desc'     => sprintf(
+					'<code>wget -qO- %s >/dev/null 2>&1</code>',
+					add_query_arg(
+						array(
+							'action'                  => 'alg_wc_product_xml_feeds_generate_xml_external',
+							'secret'                  => wp_hash( get_option( 'alg_products_xml_feeds_security_key', '' ) ),
+							'alg_create_products_xml' => $this->feed_num,
+						),
+						admin_url( 'admin-ajax.php' )
+					)
+				),
 				'id'       => 'alg_products_xml_manual_cron_options_' . $this->feed_num,
 			),
 			array(

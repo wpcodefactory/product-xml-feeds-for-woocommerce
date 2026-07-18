@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - Products Shortcodes
  *
- * @version 3.1.0
+ * @version 3.1.1
  * @since   1.0.0
  *
  * @author  WPFactory
@@ -383,7 +383,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	/**
 	 * alg_product_function.
 	 *
-	 * @version 1.4.0
+	 * @version 3.1.1
 	 * @since   1.4.0
 	 */
 	function alg_product_function( $atts ) {
@@ -392,10 +392,80 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 		}
 		$function_name = $atts['function'];
 
-		return ( is_callable( array(
-			$this->the_product,
-			$function_name
-		) ) ? $this->the_product->$function_name() : '' );
+		$allowed_functions = apply_filters(
+			'alg_wc_product_xml_feeds_shortcode_allowed_functions',
+			array(
+				'get_average_rating',
+				'get_backorders',
+				'get_catalog_visibility',
+				'get_clone_mode',
+				'get_cogs_effective_value',
+				'get_cogs_total_value',
+				'get_cogs_value',
+				'get_cogs_value_html',
+				'get_description',
+				'get_download_expiry',
+				'get_download_limit',
+				'get_downloadable',
+				'get_featured',
+				'get_file_download_path',
+				'get_formatted_name',
+				'get_global_unique_id',
+				'get_height',
+				'get_id',
+				'get_image',
+				'get_image_id',
+				'get_length',
+				'get_low_stock_amount',
+				'get_manage_stock',
+				'get_max_purchase_quantity',
+				'get_menu_order',
+				'get_meta_cache_key',
+				'get_min_purchase_quantity',
+				'get_name',
+				'get_object_read',
+				'get_parent_id',
+				'get_permalink',
+				'get_post_password',
+				'get_price',
+				'get_price_html',
+				'get_price_suffix',
+				'get_purchase_note',
+				'get_purchase_quantity_step',
+				'get_rating_count',
+				'get_regular_price',
+				'get_review_count',
+				'get_reviews_allowed',
+				'get_sale_price',
+				'get_shipping_class',
+				'get_shipping_class_id',
+				'get_short_description',
+				'get_sku',
+				'get_slug',
+				'get_sold_individually',
+				'get_status',
+				'get_stock_managed_by_id',
+				'get_stock_quantity',
+				'get_stock_status',
+				'get_tax_class',
+				'get_tax_status',
+				'get_title',
+				'get_total_sales',
+				'get_type',
+				'get_virtual',
+				'get_weight',
+				'get_width',
+			)
+		);
+		if ( ! in_array( $function_name, $allowed_functions, true ) ) {
+			return '';
+		}
+
+		return (
+			is_callable( array( $this->the_product, $function_name ) ) ?
+			$this->the_product->$function_name() :
+			''
+		);
 	}
 
 	/**
@@ -777,7 +847,8 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	 *
 	 * @version 1.0.0
 	 * @since   1.0.0
-	 * @todo    [dev] (maybe) need to check if `'' != $atts['name']` (same in `alg_product_custom_field()`)
+	 *
+	 * @todo    (dev) (maybe) need to check if `'' != $atts['name']` (same in `alg_product_custom_field()`)
 	 */
 	function alg_product_list_attribute( $atts ) {
 		return $this->the_product->get_attribute( $atts['name'] );
@@ -808,7 +879,8 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	 *
 	 * @version 1.2.0
 	 * @since   1.0.0
-	 * @todo    [dev] do we need this shortcode (maybe `alg_product_categories_names` instead)?
+	 *
+	 * @todo    (dev) do we need this shortcode (maybe `alg_product_categories_names` instead)?
 	 */
 	function alg_product_categories( $atts ) {
 		return $this->get_product_categories( $this->the_product );
@@ -932,8 +1004,10 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	 *
 	 * @version 1.2.0
 	 * @since   1.0.0
+	 *
 	 * @return  string
-	 * @todo    [dev] do we need add_links attribute
+	 *
+	 * @todo    (dev) do we need add_links attribute
 	 */
 	function alg_product_tags( $atts ) {
 
@@ -1055,8 +1129,9 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	 * @version 2.9.6
 	 * @since   1.0.0
 	 *
-	 * @todo    [dev] variable products: not range
 	 * @return  string The product (modified) price
+	 *
+	 * @todo    (dev) variable products: not range
 	 */
 	function alg_product_price( $atts ) {
 
@@ -1312,7 +1387,8 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	 *
 	 * @version 1.2.0
 	 * @since   1.0.0
-	 * @todo    [dev] placeholder
+	 *
+	 * @todo    (dev) placeholder
 	 */
 	function alg_product_image_url( $atts ) {
 		$product_id = $this->get_product_id( $this->the_product );
@@ -1475,8 +1551,9 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	 *
 	 * @version 1.5.4
 	 * @since   1.2.2
-	 * @todo    [dev] (maybe) when `orderby` is set `hierarchy` (or maybe `parent_id`): check if taxonomy is hierarchical first
-	 * @todo    [dev] (maybe) `orderby`: add `count` value (i.e. `$product_term->count`)
+	 *
+	 * @todo    (dev) (maybe) when `orderby` is set `hierarchy` (or maybe `parent_id`): check if taxonomy is hierarchical first
+	 * @todo    (dev) (maybe) `orderby`: add `count` value (i.e. `$product_term->count`)
 	 */
 	function alg_product_terms( $atts ) {
 		if ( '' === $atts['taxonomy'] ) {

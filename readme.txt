@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, kousikmukherjeeli, ae
 Tags: woocommerce, product xml feeds, xml, export
 Requires at least: 5.3
 Tested up to: 7.0
-Stable tag: 3.1.0
+Stable tag: 3.1.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -38,7 +38,6 @@ Let's explore in more details what you can do with this plugin.
 * [Engine Templates: Amazing Woocommerce Product Feed Plugins](https://enginetemplates.com/woocommerce-product-feed-plugins/ "Engine Templates: Amazing Woocommerce Product Feed Plugins")
 * [L Theme: Top Best Woocommerce Product Feed plugins](https://ltheme.com/woocommerce-product-feed-plugins/ "L Theme: Top Best Woocommerce Product Feed plugins")
 * [Woo Sell Services: Best WooCommerce Product Import & Export Plugins For WordPress](https://woosellservices.com/woocommerce-product-import-plugins/ "Woo Sell Services: Best WooCommerce Product Import & Export Plugins For WordPress")
-* [Android Standard: 5 Best WooCommerce 🥇 2024 Product Feed Plugins](https://androidstandard.com/5-melhores-plug-ins-de-feed-de-produtos-woocommerce-%F0%9F%A5%87-2023/ "Android Standard: 5 Best WooCommerce 🥇 2024 Product Feed Plugins")
 * [SD Studio: 5 Best WooCommerce Product Feed Plugins](https://techblog.sdstudio.top/de/die-5-besten-woocommerce-produkt-feed-plugins-2022-kostenlos-und-kostenpflichtig/ "SD Studio: 5 Best WooCommerce Product Feed Plugins")
 
 ## 🚀 Main Features: FREE Version ##
@@ -185,6 +184,8 @@ This connection is made only when the `convert_currency_from` and `convert_curre
 
 `https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml`
 
+[ECB privacy policy](https://www.ecb.europa.eu/services/data-protection/privacy-statements/html/ecb.privacy_statement_website.en.html).
+
 == Installation ==
 
 **Follow these simplified steps to get your plugin up and running:**
@@ -210,6 +211,15 @@ This connection is made only when the `convert_currency_from` and `convert_curre
 Once activated, access the plugin's settings by navigating to the “WPFactory” menu and look for the relevant tab.
 
 == Changelog ==
+
+= 3.1.1 - 18/07/2026 =
+* Dev - Security - Create products XML - User capability check added.
+* Dev - Shortcodes - Security - `[alg_product_function]` - `alg_wc_product_xml_feeds_shortcode_allowed_functions` filter added.
+* Dev - Shortcodes - Security - `on_empty_apply_shortcodes` - Output escaped.
+* Dev - Shortcodes - ECB currency exchange rates URL updated.
+* Dev - Settings - AJAX URL determination improved.
+* Dev - Code refactoring and cleanup.
+* readme.txt updated.
 
 = 3.1.0 - 13/07/2026 =
 * Dev - Security - Improved output escaping.
@@ -420,10 +430,10 @@ Once activated, access the plugin's settings by navigating to the “WPFactory�
 * Verified compatibility with WooComemrce 6.6
 
 = 2.5.1 - 12/06/2022 =
-* Verified compatibily with  WooCommerce 6.5 & WordPress 6.0
+* Verified compatibility with  WooCommerce 6.5 & WordPress 6.0
 
 = 2.5 - 19/03/2022 =
-* Verified compatibily with  WooCommerce 6.3
+* Verified compatibility with  WooCommerce 6.3
 * Added new attribute select="min_price" to select the lowest price from variations
 
 = 2.4.1 - 18/02/2022 =
@@ -432,17 +442,17 @@ Once activated, access the plugin's settings by navigating to the “WPFactory�
 = 2.4 - 12/02/2022 =
 * Fixed a bug that showed draft products in feed in particular cases
 * Enhanced how feed should show products without stock
-* Verified compatibily with  WooCommerce 6.2
+* Verified compatibility with  WooCommerce 6.2
 
 = 2.3 - 28/01/2022 =
-* Verified compatibily with WordPress 5.9 & WooCommerce 6.1
+* Verified compatibility with WordPress 5.9 & WooCommerce 6.1
 
 = 2.2.6 - 11/10/2021 =
 * Fixed a bug related to duplicating variations with pre-set filters
 * Verified compatibility with WooCommerce 5.7
 
 = 2.2.5 - 20/09/2021 =
-* More WPML compatibilty with attribute exchange_rate for manual currency conversion when needed
+* More WPML compatibility with attribute exchange_rate for manual currency conversion when needed
 * Added 2 attributes to [alg_product_stock_availability] to show specific values (Y,N) based on stock status
 
 = 2.2.4 - 14/09/2021 =
@@ -469,16 +479,16 @@ Once activated, access the plugin's settings by navigating to the “WPFactory�
 * Verified compatibility with WooCommerce 5.4
 
 = 2.1.3 - 20/04/2021 =
-* Tested compatibilty with WC 5.2 & WP 5.7
+* Tested compatibility with WC 5.2 & WP 5.7
 
 = 2.1.2 - 28/02/2021 =
-* Tested compatibilty with WC 5.0
+* Tested compatibility with WC 5.0
 
 = 2.1.1 - 07/02/2021 =
 * Added options to multiply/add flat prices to regular price shortcode
 
 = 2.1 - 27/01/2021 =
-* Added shortcodes for compatibiltity with multi language stores
+* Added shortcodes for compatibility with multi language stores
 * Enhanced on shortcodes for proper results
 * Tested compatibility with WC 4.9
 

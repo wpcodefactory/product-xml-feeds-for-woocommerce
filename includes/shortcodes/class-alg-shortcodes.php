@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - Shortcodes
  *
- * @version 3.1.0
+ * @version 3.1.1
  * @since   1.0.0
  *
  * @author  WPFactory
@@ -92,14 +92,16 @@ class Alg_Shortcodes {
 	/**
 	 * alg_shortcode.
 	 *
-	 * @version 3.1.0
+	 * @version 3.1.1
 	 * @since   1.0.0
-	 * @todo    [dev] maybe add `esc_html` attribute? (or alternatively add example with `custom_function="esc_html"` to the site)
-	 * @todo    [dev] recheck global atts (before, after etc.)
-	 * @todo    [dev] maybe add `multiply` global attribute
-	 * @todo    [dev] Currency conversion: maybe add `exchange_rate` global attribute (i.e. instead of getting rates from ECB)
-	 * @todo    [dev] Currency conversion: handle price ranges (i.e. variable products)
-	 * @todo    [dev] (maybe) `strip_shortcodes`: `yes-force`: another optional regular expression
+	 *
+	 * @todo    (v3.1.1) `on_empty_apply_shortcodes`: is using `wp_kses_post()` safe?
+	 * @todo    (dev) maybe add `esc_html` attribute? (or alternatively add example with `custom_function="esc_html"` to the site)
+	 * @todo    (dev) recheck global atts (before, after etc.)
+	 * @todo    (dev) maybe add `multiply` global attribute
+	 * @todo    (dev) Currency conversion: maybe add `exchange_rate` global attribute (i.e. instead of getting rates from ECB)
+	 * @todo    (dev) Currency conversion: handle price ranges (i.e. variable products)
+	 * @todo    (dev) (maybe) `strip_shortcodes`: `yes-force`: another optional regular expression
 	 */
 	function alg_shortcode( $atts, $content, $shortcode ) {
 
@@ -259,8 +261,10 @@ class Alg_Shortcodes {
 			$on_empty = isset( $atts['on_empty'] ) ? wp_kses_post( $atts['on_empty'] ) : '';
 
 			if ( 'yes' === strtolower( $atts['on_empty_apply_shortcodes'] ) ) {
-				return do_shortcode(
-					str_replace( array( '{', '}' ), array( '[', ']' ), $on_empty )
+				return wp_kses_post(
+					do_shortcode(
+						str_replace( array( '{', '}' ), array( '[', ']' ), $on_empty )
+					)
 				);
 			}
 
@@ -271,7 +275,7 @@ class Alg_Shortcodes {
 	/**
 	 * get_currency_exchange_rate_ecb.
 	 *
-	 * @version 1.4.3
+	 * @version 3.1.1
 	 * @since   1.4.3
 	 *
 	 * @todo    (dev) maybe add more exchange rate servers
@@ -283,7 +287,7 @@ class Alg_Shortcodes {
 
 		$final_rate = false;
 		if ( function_exists( 'simplexml_load_file' ) ) {
-			$xml = @simplexml_load_file( 'http://www.ecb.int/stats/eurofxref/eurofxref-daily.xml' );
+			$xml = @simplexml_load_file( 'https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml' );
 			if ( isset( $xml->Cube->Cube->Cube ) ) {
 				if ( 'EUR' === $currency_from ) {
 					$eur_currency_from_rate = 1;

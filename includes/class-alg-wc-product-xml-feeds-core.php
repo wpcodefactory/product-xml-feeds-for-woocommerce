@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - Core Class
  *
- * @version 3.1.0
+ * @version 3.1.1
  * @since   1.0.0
  *
  * @author  WPFactory
@@ -17,16 +17,33 @@ class Alg_WC_Product_XML_Feeds_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.1.0
+	 * @version 3.1.1
 	 * @since   1.0.0
 	 */
 	function __construct() {
 		if ( 'yes' === get_option( 'alg_wc_product_xml_feeds_enabled', 'yes' ) ) {
-			add_action( 'init',          array( $this, 'schedule_the_events' ) );
-			add_action( 'admin_init',    array( $this, 'schedule_the_events' ) );
-			add_action( 'admin_init',    array( $this, 'alg_create_products_xml' ) );
-			add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 
+			add_action(
+				'init',
+				array( $this, 'schedule_the_events' )
+			);
+
+			add_action(
+				'admin_init',
+				array( $this, 'schedule_the_events' )
+			);
+
+			add_action(
+				'admin_init',
+				array( $this, 'alg_create_products_xml' )
+			);
+
+			add_action(
+				'admin_notices',
+				array( $this, 'admin_notices' )
+			);
+
+			// AJAX
 			add_action(
 				'wp_ajax_nopriv_' . 'alg_wc_product_xml_feeds_generate_xml_external',
 				array( $this, 'alg_create_products_xml' )
@@ -36,14 +53,18 @@ class Alg_WC_Product_XML_Feeds_Core {
 				array( $this, 'alg_create_products_xml' )
 			);
 
+			// Allow wc dynamic pricing and discount to overwrite price
 			add_filter(
 				'rp_wcdpd_request_is_product_feed',
-				array( $this, 'allow_rd_wcdpd_to_allow_update_price' ),
-				PHP_INT_MAX,
+				'__return_true',
+				PHP_INT_MAX
+			);
 
-				3 );
+			add_filter(
+				'cron_schedules',
+				array( $this, 'cron_add_custom_intervals' )
+			);
 
-			add_filter( 'cron_schedules', array( $this, 'cron_add_custom_intervals' ) );
 			$total_number = apply_filters( 'alg_wc_product_xml_feeds_values', 1, 'total_number' );
 			for ( $i = 1; $i <= $total_number; $i++ ) {
 				add_action(
@@ -54,17 +75,6 @@ class Alg_WC_Product_XML_Feeds_Core {
 				);
 			}
 		}
-	}
-
-	/**
-	 * allow wc dynamic pricing and discount to overwrite price
-	 *
-	 * @version 2.7.7
-	 * @since   2.7.7
-	 */
-	function allow_rd_wcdpd_to_allow_update_price($return, $price, $product){
-		$return = true;
-		return $return;
 	}
 
 	/**
@@ -190,7 +200,7 @@ class Alg_WC_Product_XML_Feeds_Core {
 	/**
 	 * alg_create_products_xml.
 	 *
-	 * @version 2.9.3
+	 * @version 3.1.1
 	 * @since   1.0.0
 	 */
 	function alg_create_products_xml() {
@@ -210,6 +220,9 @@ class Alg_WC_Product_XML_Feeds_Core {
 				$this->send_error_response( __( 'Invalid secret key.', 'product-xml-feeds-for-woocommerce' ), 403 );
 			}
 		} else {
+			if ( ! current_user_can( 'manage_woocommerce' ) ) {
+				$this->send_error_response( __( 'Invalid user.', 'product-xml-feeds-for-woocommerce' ), 403 );
+			}
 			if (
 				! isset( $_GET['_wpnonce'] ) ||
 				! wp_verify_nonce(
