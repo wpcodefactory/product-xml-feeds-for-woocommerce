@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - Core Class
  *
- * @version 3.1.1
+ * @version 3.1.2
  * @since   1.0.0
  *
  * @author  WPFactory
@@ -362,7 +362,7 @@ class Alg_WC_Product_XML_Feeds_Core {
 	/**
 	 * create_products_xml.
 	 *
-	 * @version 3.1.0
+	 * @version 3.1.2
 	 * @since   1.0.0
 	 *
 	 * @todo    (fix) `$query_post_type`: fix filtering by product/category/tag/custom taxonomy when *including variations* for `products_and_variations`
@@ -737,7 +737,7 @@ class Alg_WC_Product_XML_Feeds_Core {
 
 		if (
 			count( $varPidsTaxQuey ) > 0 &&
-			( $has_real_tax_query || ( $products_variable == 'both' && ! empty( $products_in_ids ) ) )
+			( $has_real_tax_query || $products_variable == 'both' )
 		) {
 			unset( $args['post__in'] );
 			unset( $args['tax_query'] );
@@ -813,7 +813,7 @@ class Alg_WC_Product_XML_Feeds_Core {
 			$global_replace = array();
 			if ( isset( $xml_v_items ) && ! empty( $xml_v_items ) ) {
 				foreach ( $xml_v_items as $v_parent_id => $v_itm ) {
-					$replace_string   = 'scvariations#' . $v_parent_id;
+					$replace_string   = 'scvariations#' . $v_parent_id . '#';
 					$global_replace[] = implode( ' ', $v_itm );
 					$global_search[]  = $replace_string;
 				}

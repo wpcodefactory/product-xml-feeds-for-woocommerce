@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - Products Shortcodes
  *
- * @version 3.1.1
+ * @version 3.1.2
  * @since   1.0.0
  *
  * @author  WPFactory
@@ -600,7 +600,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	/**
 	 * alg_product_available_variations.
 	 *
-	 * @version 3.1.0
+	 * @version 3.1.2
 	 * @since   1.0.0
 	 */
 	function alg_product_available_variations( $atts ) {
@@ -635,7 +635,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 				$file_num          = $alg_wc_product_xml_feeds_global_file_name;
 				$products_variable = get_option( 'alg_products_xml_variable_' . $file_num, 'variable_only' );
 				if ( $products_variable == 'both' ) {
-					return 'scvariations#' . $this->the_product->get_id();
+					return 'scvariations#' . $this->the_product->get_id() . '#';
 				}
 			}
 
@@ -1622,7 +1622,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	/**
 	 * alg_product_list_available_variations_for_variable.
 	 *
-	 * @version 2.7.16
+	 * @version 3.1.2
 	 * @since   2.7.16
 	 */
 	function alg_product_list_available_variations_for_variable( $atts ) {
@@ -1634,9 +1634,9 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 		}
 
 		$return = '' . PHP_EOL;
+		$titlearray = array();
 		if ( $this->the_product->is_type( 'variable' ) ) {
 			$variations = $this->the_product->get_available_variations();
-			$titlearray = array();
 			if ( ! empty( $variations ) ) {
 				foreach ( $variations as $variation ) {
 					$title = '';
