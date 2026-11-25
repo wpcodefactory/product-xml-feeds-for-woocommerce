@@ -38,6 +38,10 @@ if ( ! $ready ) {
 	Alg_WC_PXF_Admin_UI::banner( esc_html__( 'AI tools are not available right now.', 'product-xml-feeds-for-woocommerce' ), 'warn' );
 	return;
 }
+// The last run of this job ended with an error: say why (the run itself said nothing was charged where that is true).
+if ( $run && ! $busy && isset( $run['job'] ) && $job === $run['job'] && ! empty( $run['status_text'] ) && ( 'failed' === $run['status'] || ! empty( $run['failed'] ) ) ) {
+	Alg_WC_PXF_Admin_UI::banner( esc_html( $run['status_text'] ), 'failed' === $run['status'] ? 'bad' : 'warn' );
+}
 $ids      = Alg_WC_PXF_Admin::ai_candidates( $job, $feed_id );
 $editable = in_array( $job, array( 'titles', 'descriptions' ), true );
 $approved = 0;

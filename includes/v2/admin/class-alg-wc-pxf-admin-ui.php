@@ -59,7 +59,8 @@ class Alg_WC_PXF_Admin_UI {
 		}
 		$current = in_array( $view, array( 'new', 'edit' ), true ) ? 'feeds' : $view;
 		echo '<header class="topbar"><div class="left">';
-		echo '<div class="brand"><span class="brand-mark" aria-hidden="true">PF</span>' . esc_html__( 'Product Feeds', 'product-xml-feeds-for-woocommerce' );
+		// The plugin's own logo (the WordPress.org icon, shipped in assets/v2), never initials.
+		echo '<div class="brand"><img class="brand-mark" src="' . esc_url( Alg_WC_PXF::url( 'assets/v2/icon.svg' ) ) . '" width="32" height="32" alt="" aria-hidden="true">' . esc_html__( 'Product Feeds', 'product-xml-feeds-for-woocommerce' );
 		if ( Alg_WC_PXF::is_pro() ) {
 			echo ' <span class="edition">' . esc_html__( 'PRO', 'product-xml-feeds-for-woocommerce' ) . '</span>';
 		}

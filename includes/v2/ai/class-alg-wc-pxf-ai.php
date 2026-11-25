@@ -408,8 +408,9 @@ class Alg_WC_PXF_AI {
 				$run['failed'][] = (int) $id;
 			}
 			$run['error'] = $result['error']->get_error_message();
-			if ( in_array( $result['error']->get_error_code(), array( 'wpfactory_ai_not_connected', 'wpfactory_ai_insufficient_credits', 'alg_pxf_ai_low_credits', 'alg_pxf_ai_not_connected', 'alg_pxf_ai_missing' ), true ) ) {
-				// No point going on: keep the rest for Retry.
+			if ( ! in_array( $result['error']->get_error_code(), array( 'alg_pxf_ai_bad_answer', 'alg_pxf_ai_nothing' ), true ) ) {
+				// Only an unreadable answer or unreadable items concern this batch alone. Any other error (not connected,
+				// no credits, server or network) would fail every batch the same way: stop and keep the rest for Retry.
 				$run['failed'] = array_merge( $run['failed'], array_map( 'intval', $run['queue'] ) );
 				$run['queue']  = array();
 				$run['status'] = 'failed';
@@ -475,6 +476,7 @@ class Alg_WC_PXF_AI {
 		$run['percent'] = $run['total'] ? (int) floor( 100 * $run['done'] / $run['total'] ) : 0;
 		$run['left']    = count( $run['queue'] );
 		unset( $run['queue'], $run['user'] );
+		$run['error'] = self::plain_error( $run['error'] ); // Also for runs saved before this wording existed.
 		$statuses = array(
 			'queued'  => __( 'Waiting to start', 'product-xml-feeds-for-woocommerce' ),
 			/* translators: 1: done, 2: total. */
@@ -482,9 +484,15 @@ class Alg_WC_PXF_AI {
 			/* translators: %s: number of suggestions. */
 			'done'    => sprintf( _n( 'Finished: %s suggestion to review', 'Finished: %s suggestions to review', $run['suggested'], 'product-xml-feeds-for-woocommerce' ), number_format_i18n( $run['suggested'] ) ),
 			'stopped' => __( 'Stopped', 'product-xml-feeds-for-woocommerce' ),
-			'failed'  => __( 'Stopped because of an error', 'product-xml-feeds-for-woocommerce' ),
+			/* translators: %s: error message. */
+			'failed'  => '' !== (string) $run['error'] ? sprintf( __( 'Stopped: %s', 'product-xml-feeds-for-woocommerce' ), $run['error'] ) : __( 'Stopped because of an error', 'product-xml-feeds-for-woocommerce' ),
 		);
 		$run['status_text'] = isset( $statuses[ $run['status'] ] ) ? $statuses[ $run['status'] ] : $run['status'];
+		$failed             = count( (array) $run['failed'] );
+		if ( 'done' === $run['status'] && $failed ) {
+			/* translators: %s: number of products. */
+			$run['status_text'] .= '. ' . sprintf( _n( '%s item could not be done.', '%s items could not be done.', $failed, 'product-xml-feeds-for-woocommerce' ), number_format_i18n( $failed ) ) . ( '' !== (string) $run['error'] ? ' ' . $run['error'] : '' );
+		}
 		return $run;
 	}
 
@@ -666,9 +674,29 @@ class Alg_WC_PXF_AI {
 					array( 'link' => $ai->buy_url() ) + $data
 				);
 			}
+			if ( self::plain_error( $r->get_error_message() ) !== $r->get_error_message() ) {
+				return new WP_Error( 'alg_pxf_ai_not_ready', self::plain_error( $r->get_error_message() ), (array) $r->get_error_data() );
+			}
 			return $r; // Plain, ready-to-show message from the library. Nothing was charged.
 		}
 		return $r;
+	}
+
+	/**
+	 * A server message in merchant words. The server answers a plugin it does not know yet with a developer message
+	 * ("Send a known product id (X-WPFactory-Product) ..."); other messages are already plain and stay as they are.
+	 *
+	 * @version 4.0.0
+	 * @since   4.0.0
+	 *
+	 * @param   string $message Message.
+	 * @return  string
+	 */
+	static function plain_error( $message ) {
+		if ( false !== stripos( (string) $message, 'X-WPFactory-Product' ) ) {
+			return __( 'WPFactory AI does not run Product Feeds tasks yet. Nothing was charged. Please try again later.', 'product-xml-feeds-for-woocommerce' );
+		}
+		return (string) $message;
 	}
 
 	/**

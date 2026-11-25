@@ -273,6 +273,22 @@ $GLOBALS['pxf_answers'] = new WP_Error( 'alg_pxf_ai_low_credits', 'Not enough cr
 $run                    = Alg_WC_PXF_AI::run( 'titles', $ids, array( 'sync' => true ) );
 pxf_t( 'not enough credits stops the run', 'failed' === $run['status'] && 3 === count( $run['failed'] ), $run );
 
+// A server error stops the run at the first batch, in plain words (seen on wpwhale: the server did not know the
+// product yet, every batch failed and the run said "Finished: 0 suggestions").
+$GLOBALS['pxf_answers'] = new WP_Error( 'alg_pxf_ai_not_ready', 'WPFactory AI does not run Product Feeds tasks yet. Nothing was charged. Please try again later.' );
+$GLOBALS['pxf_bodies']  = array();
+$many_ids               = array_merge( $ids, array_map( 'intval', get_posts( array( 'post_type' => 'product', 'posts_per_page' => 12, 'fields' => 'ids', 'post__not_in' => $ids ) ) ) );
+$run                    = Alg_WC_PXF_AI::run( 'titles', $many_ids, array( 'sync' => true ) );
+pxf_t( 'server error stops after one call', 'failed' === $run['status'] && 1 === count( $GLOBALS['pxf_bodies'] ) && count( $run['failed'] ) === count( $many_ids ), array( 'calls' => count( $GLOBALS['pxf_bodies'] ), 'run' => $run ) );
+pxf_t( 'stopped run says why', 0 === strpos( $run['status_text'], 'Stopped: WPFactory AI does not run Product Feeds tasks yet' ), $run['status_text'] );
+$GLOBALS['pxf_answers'] = array( 'raw' => array( 'content' => array( array( 'type' => 'text', 'text' => 'Sorry' ) ) ) );
+$GLOBALS['pxf_bodies']  = array();
+$run                    = Alg_WC_PXF_AI::run( 'titles', $many_ids, array( 'sync' => true ) );
+pxf_t( 'unreadable answer does not stop the other batches', 'done' === $run['status'] && count( $GLOBALS['pxf_bodies'] ) > 1 && false !== strpos( $run['status_text'], 'could not be done' ), array( 'calls' => count( $GLOBALS['pxf_bodies'] ), 'text' => $run['status_text'] ) );
+
+$pub = Alg_WC_PXF_AI::public_run( array( 'id' => 'x', 'job' => 'titles', 'total' => 2, 'done' => 2, 'queue' => array(), 'user' => 1, 'failed' => array( 1, 2 ), 'suggested' => 0, 'status' => 'done', 'error' => 'Send a known product id (X-WPFactory-Product), for example ai-assistant-mcp.' ) );
+pxf_t( 'saved server message shown in plain words', false !== strpos( $pub['status_text'], 'does not run Product Feeds tasks yet' ) && false === strpos( $pub['status_text'], 'X-WPFactory' ), $pub['status_text'] );
+
 // Background run through Action Scheduler.
 $GLOBALS['pxf_answers'] = array( array( 'id' => $a, 'title' => 'Northwind Merino Beanie' ) );
 delete_option( Alg_WC_PXF_AI::OPTION_RUN );
