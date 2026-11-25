@@ -61,7 +61,8 @@ $channel = Alg_WC_PXF_Channels::get( 'google' );
 pxf_t( 'validator class loaded', class_exists( $v ) );
 
 $m      = alg_wc_pxf_test_model();
-$issues = $v::check( alg_wc_pxf_test_item( $m ), $m, $channel );
+// A clothing product: Google also needs size, gender and age group (real channel spec).
+$issues = $v::check( alg_wc_pxf_test_item( $m, array( 'size' => 'M', 'gender' => 'unisex', 'age_group' => 'adult' ) ), $m, $channel );
 pxf_t( 'clean item has no errors', ! array_filter( $issues, fn( $i ) => 'error' === $i['severity'] ), $issues );
 
 $m      = alg_wc_pxf_test_model( array( 'brand' => '', 'gtin' => '' ) );

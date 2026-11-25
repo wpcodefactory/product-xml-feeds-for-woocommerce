@@ -107,7 +107,12 @@ class Alg_WC_PXF_Validator {
 			if ( $empty ) {
 				if ( true === $required ) {
 					self::add( $issues, 'missing_' . $field, $field, 'error', sprintf( /* translators: %s: field name, for example "Brand". */ __( '%s is missing. This channel needs it.', 'product-xml-feeds-for-woocommerce' ), $label ) );
-				} elseif ( 'conditional' === $required && self::condition_holds( isset( $spec['when'] ) ? $spec['when'] : '', $item, $model ) ) {
+				} elseif (
+					'conditional' === $required &&
+					self::condition_holds( isset( $spec['when'] ) ? $spec['when'] : '', $item, $model ) &&
+					// A product sent with identifier_exists "no" needs no GTIN or MPN (Google's rule); it gets one warning instead.
+					! ( in_array( $field, array( 'gtin', 'mpn' ), true ) && 'no' === self::scalar( self::item_value( $item, 'identifier_exists' ) ) )
+				) {
 					self::add( $issues, 'missing_' . $field, $field, 'error', sprintf( /* translators: %s: field name, for example "MPN". */ __( '%s is missing. This channel needs it for this product.', 'product-xml-feeds-for-woocommerce' ), $label ) );
 				} elseif ( 'recommended' === $required ) {
 					self::add( $issues, 'missing_' . $field, $field, 'warning', sprintf( /* translators: %s: field name, for example "Color". */ __( '%s is missing. Adding it helps the product show up in more searches.', 'product-xml-feeds-for-woocommerce' ), $label ) );
