@@ -58,6 +58,8 @@ if ( ! empty( $state['last_good'] ) ) {
 	) . ' <a href="' . esc_url( Alg_WC_PXF_Admin::url( 'products', array( 'feed' => $feed_id ) ) ) . '">' . esc_html__( 'See why', 'product-xml-feeds-for-woocommerce' ) . '</a>';
 } elseif ( 'failed' === $status && ! empty( $state['error'] ) ) {
 	$lead = esc_html( $state['error'] );
+} elseif ( in_array( $status, array( 'running', 'queued' ), true ) ) {
+	$lead = esc_html__( 'The first file is being built now. You can leave this page.', 'product-xml-feeds-for-woocommerce' );
 } else {
 	$lead = esc_html__( 'Not built yet. Press Update now to build the first file.', 'product-xml-feeds-for-woocommerce' );
 }

@@ -24,13 +24,18 @@ Alg_WC_PXF_Admin_UI::page_head(
 );
 
 foreach ( $v2 as $feed ) {
-	if ( isset( $feed['status'] ) && 'failed' === $feed['status'] && ! empty( $feed['error'] ) ) {
-		Alg_WC_PXF_Admin_UI::banner(
-			/* translators: 1: feed name, 2: reason. */
-			sprintf( __( '<b>%1$s was not updated.</b> %2$s The last good file is still online.', 'product-xml-feeds-for-woocommerce' ), esc_html( $feed['name'] ), esc_html( $feed['error'] ) ),
-			'warn'
-		);
+	if ( ! isset( $feed['status'] ) || 'failed' !== $feed['status'] ) {
+		continue;
 	}
+	// The list has no error text: read it from the feed's run state.
+	$one   = Alg_WC_PXF_Admin::rest( 'GET', '/feeds/' . (int) $feed['id'] );
+	$error = ( is_array( $one ) && ! empty( $one['state']['error'] ) ) ? (string) $one['state']['error'] : '';
+	$error = '' !== $error ? $error : __( 'The last update stopped.', 'product-xml-feeds-for-woocommerce' );
+	Alg_WC_PXF_Admin_UI::banner(
+		/* translators: 1: feed name, 2: reason. */
+		sprintf( __( '<b>%1$s was not updated.</b> %2$s The last good file is still online.', 'product-xml-feeds-for-woocommerce' ), esc_html( $feed['name'] ), esc_html( $error ) ),
+		'warn'
+	);
 }
 
 if ( is_wp_error( Alg_WC_PXF_Admin::rest( 'GET', '/channels' ) ) ) {
@@ -69,7 +74,7 @@ if ( $v2 || $classic ) :
 		$status    = isset( $feed['status'] ) ? $feed['status'] : 'idle';
 		$last_good = isset( $feed['last_good'] ) ? (int) $feed['last_good'] : 0;
 		$written   = isset( $feed['written'] ) ? (int) $feed['written'] : ( isset( $feed['products'] ) ? (int) $feed['products'] : 0 );
-		$issues    = isset( $feed['issues'] ) ? ( is_array( $feed['issues'] ) ? array_sum( $feed['issues'] ) : (int) $feed['issues'] ) : 0;
+		$issues    = isset( $feed['issues_total'] ) ? (int) $feed['issues_total'] : 0;
 		$chip      = Alg_WC_PXF_Admin_UI::status( $status, $last_good );
 		$channel   = isset( $channels[ $feed['channel'] ] ) ? $channels[ $feed['channel'] ]['label'] : $feed['channel'];
 		$busy      = in_array( $status, array( 'running', 'queued' ), true );
@@ -78,7 +83,7 @@ if ( $v2 || $classic ) :
 		$meta[] = sprintf( _n( '%s product', '%s products', $written, 'product-xml-feeds-for-woocommerce' ), number_format_i18n( $written ) );
 		if ( $issues ) {
 			/* translators: %s: number of problems. */
-			$meta[] = sprintf( _n( '%s needs a fix', '%s need a fix', $issues, 'product-xml-feeds-for-woocommerce' ), number_format_i18n( $issues ) );
+			$meta[] = sprintf( _n( '%s problem to fix', '%s problems to fix', $issues, 'product-xml-feeds-for-woocommerce' ), number_format_i18n( $issues ) );
 		}
 		if ( $last_good ) {
 			/* translators: %s: date. */

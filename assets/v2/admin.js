@@ -166,7 +166,9 @@
 				language: nf.elements.language.value,
 				currency: nf.elements.currency.value
 			} ).then( function ( feed ) {
-				location.href = cfg.editUrl.replace( '__ID__', feed.id ) + '&pxf_msg=created';
+				var go = function () { location.href = cfg.editUrl.replace( '__ID__', feed.id ) + '&pxf_msg=created'; };
+				// Build the first file right away; the edit screen follows the run.
+				api( 'POST', '/feeds/' + feed.id + '/run' ).then( go, go );
 			} ).catch( function ( err ) { btn.disabled = false; fail( err ); } );
 		} );
 	}
@@ -339,7 +341,7 @@
 			e.preventDefault();
 			var btn = e.submitter || q( '.btn-primary', ef );
 			btn.disabled = true;
-			api( 'PUT', '/feeds/' + feedId, { config: toConfig( formData( ef, 'config' ).config ) } ).then( function () {
+			api( 'PUT', '/feeds/' + feedId, { config: toConfig( formData( ef, 'config' ) ) } ).then( function () {
 				btn.disabled = false;
 				toast( t.saved );
 				var st = q( '[data-pxf-savestate]' );
@@ -420,57 +422,90 @@
 		} );
 	}
 
-	// AI review.
+	// AI review: estimate and run on the ids the screen lists (data-ids), progress from GET /ai/run, approve and undo.
 	var run = document.getElementById( 'pxf-ai-run' );
+	var results = document.getElementById( 'pxf-ai-results' );
 	if ( run ) {
-		var jobSel = q( '[data-pxf-ai-job]', run ), feed = parseInt( run.dataset.feed, 10 ) || 0;
+		var jobSel = q( '[data-pxf-ai-job]', run ), feed = parseInt( run.dataset.feed, 10 ) || 0, start = q( '[data-pxf-ai-start]', run );
+		var ids = [];
+		try {
+			ids = JSON.parse( run.dataset.ids || '[]' ).map( Number ).filter( Boolean );
+		} catch ( err ) {
+			ids = [];
+		}
+		var line = q( '[data-pxf-estimate]', run ), meta = q( '[data-pxf-estimate-meta]', run );
+		var showBalance = function ( balance ) {
+			var pill = q( '[data-pxf-balance]' );
+			if ( pill && null !== balance && undefined !== balance ) {
+				pill.textContent = fmt( t.credits, balance );
+				pill.hidden = false;
+			}
+		};
 		var estimate = function () {
-			api( 'POST', '/ai/estimate', { job: jobSel.value, feed: feed } ).then( function ( r ) {
-				var b = q( '[data-pxf-estimate]', run ), m = q( '[data-pxf-estimate-meta]', run ), start = q( '[data-pxf-ai-start]', run );
-				if ( r && false === r.connected ) {
-					b.textContent = t.notConnected;
-					start.disabled = true;
+			if ( ! ids.length ) {
+				line.textContent = t.aiNothing;
+				start.disabled = true;
+				return;
+			}
+			api( 'POST', '/ai/estimate', { job: jobSel.value, ids: ids } ).then( function ( r ) {
+				r = r || {};
+				line.textContent = r.message || '';
+				showBalance( r.balance );
+				if ( ! r.ready ) {
+					meta.textContent = t.notConnected;
+				}
+				start.disabled = '1' === run.dataset.running || ! r.ready || ! r.items || false === r.enough;
+			} ).catch( fail );
+		};
+		var follow = function () {
+			api( 'GET', '/ai/run' ).then( function ( r ) {
+				var st = ( r && r.run ) || null;
+				if ( st && ( 'queued' === st.status || 'running' === st.status ) ) {
+					meta.textContent = st.status_text || t.aiStarted;
+					setTimeout( follow, 2500 );
 					return;
 				}
-				b.textContent = fmt( t.estimate, r.count || 0, r.credits || 0 );
-				m.textContent = fmt( t.balance, r.balance || 0 ) + ( r.balance < r.credits ? ' ' + t.short : '' );
-				start.disabled = ! r.count;
+				toast( ( st && st.status_text ) || t.aiDone );
+				setTimeout( function () { location.reload(); }, 800 );
 			} ).catch( fail );
 		};
 		jobSel.addEventListener( 'change', function () {
-			history.replaceState( null, '', cfg.aiUrl + '&job=' + jobSel.value + ( feed ? '&feed=' + feed : '' ) );
-			estimate();
+			location.href = cfg.aiUrl + '&job=' + encodeURIComponent( jobSel.value ) + ( feed ? '&feed=' + feed : '' );
 		} );
 		estimate();
-		q( '[data-pxf-ai-start]', run ).addEventListener( 'click', function ( e ) {
-			e.target.disabled = true;
-			api( 'POST', '/ai/run', { job: jobSel.value, feed: feed } ).then( function () {
+		if ( '1' === run.dataset.running ) {
+			follow();
+		}
+		start.addEventListener( 'click', function () {
+			start.disabled = true;
+			api( 'POST', '/ai/run', { job: jobSel.value, ids: ids } ).then( function () {
 				toast( t.aiStarted );
-				setTimeout( function () { location.reload(); }, 3000 );
-			} ).catch( function ( err ) { e.target.disabled = false; fail( err ); } );
+				run.dataset.running = '1';
+				follow();
+			} ).catch( function ( err ) { start.disabled = false; fail( err ); } );
 		} );
 	}
-	var results = document.getElementById( 'pxf-ai-results' );
 	if ( results ) {
-		var setApproved = function ( row, on ) {
-			q( '[data-pxf-ai-approve]', row ).hidden = on;
-			q( '[data-pxf-ai-edit]', row ).hidden = on;
-			q( '[data-pxf-ai-undo]', row ).hidden = ! on;
+		var job = results.dataset.job;
+		var setApproved = function ( row ) {
+			q( '[data-pxf-ai-approve]', row ).hidden = true;
+			var edit = q( '[data-pxf-ai-edit]', row );
+			if ( edit ) {
+				edit.hidden = true;
+			}
+			q( '[data-pxf-ai-undo]', row ).hidden = false;
 			var box = q( '[data-pxf-edit-box]', row ), after = q( '[data-pxf-after]', row );
-			if ( ! box.hidden ) {
+			if ( box && ! box.hidden ) {
 				after.textContent = box.value;
 				box.hidden = true;
 				after.hidden = false;
 			}
-			var chip = q( '[data-pxf-ai-chip]', row );
-			if ( on && ! chip ) {
-				chip = document.createElement( 'span' );
+			if ( ! q( '[data-pxf-ai-chip]', row ) ) {
+				var chip = document.createElement( 'span' );
 				chip.className = 'chip chip-ok';
 				chip.setAttribute( 'data-pxf-ai-chip', '' );
 				chip.textContent = t.approved;
 				after.parentNode.appendChild( chip );
-			} else if ( ! on && chip ) {
-				chip.remove();
 			}
 		};
 		results.addEventListener( 'click', function ( e ) {
@@ -478,26 +513,35 @@
 			if ( ! b ) {
 				return;
 			}
-			var row = b.closest( '[data-pxf-ai-item]' );
+			var row = b.closest( '[data-pxf-ai-item]' ), id = row ? parseInt( row.dataset.pxfAiItem, 10 ) : 0;
 			if ( b.hasAttribute( 'data-pxf-ai-approve-all' ) ) {
-				api( 'POST', '/ai/approve', { all: true } ).then( function () {
-					qa( '[data-pxf-ai-item]', results ).forEach( function ( r ) { setApproved( r, true ); } );
-					toast( t.approved );
-				} ).catch( fail );
+				b.disabled = true;
+				api( 'POST', '/ai/approve', { job: job, all: true } ).then( function ( r ) {
+					qa( '[data-pxf-ai-item]', results ).forEach( setApproved );
+					toast( ( r && r.message ) || t.approved );
+					b.disabled = false;
+				} ).catch( function ( err ) { b.disabled = false; fail( err ); } );
 			} else if ( b.hasAttribute( 'data-pxf-ai-edit' ) ) {
 				var box = q( '[data-pxf-edit-box]', row );
 				box.hidden = false;
 				q( '[data-pxf-after]', row ).hidden = true;
 				box.focus();
 			} else if ( b.hasAttribute( 'data-pxf-ai-approve' ) ) {
-				var data = { ids: [ row.dataset.pxfAiItem ] }, eb = q( '[data-pxf-edit-box]', row );
-				if ( ! eb.hidden ) {
+				var data = { job: job, ids: [ id ] }, eb = q( '[data-pxf-edit-box]', row );
+				if ( eb && ! eb.hidden ) {
 					data.values = {};
-					data.values[ row.dataset.pxfAiItem ] = eb.value;
+					data.values[ id ] = eb.value;
 				}
-				api( 'POST', '/ai/approve', data ).then( function () { setApproved( row, true ); toast( t.approved ); } ).catch( fail );
+				api( 'POST', '/ai/approve', data ).then( function ( r ) {
+					setApproved( row );
+					toast( ( r && r.message ) || t.approved );
+				} ).catch( fail );
 			} else if ( b.hasAttribute( 'data-pxf-ai-undo' ) ) {
-				api( 'POST', '/ai/undo', { ids: [ row.dataset.pxfAiItem ] } ).then( function () { setApproved( row, false ); toast( t.undone ); } ).catch( fail );
+				// Undo removes the AI value (product data never changes), so the row goes away.
+				api( 'POST', '/ai/undo', { job: job, ids: [ id ] } ).then( function ( r ) {
+					row.remove();
+					toast( ( r && r.message ) || t.undone );
+				} ).catch( fail );
 			}
 		} );
 	}

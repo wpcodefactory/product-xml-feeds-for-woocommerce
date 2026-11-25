@@ -92,13 +92,28 @@ class Alg_WC_PXF_Engine {
 			'started'    => time(),
 			'last_good'  => (int) $old['last_good'],
 			'source'     => sanitize_key( $source ),
-			'batch_size' => self::BATCH_START,
+			'batch_size' => self::start_size(),
 		) );
 		Alg_WC_PXF_Feeds::save_state( $feed_id, $state );
 		delete_transient( 'alg_pxf_issues_run_' . $feed_id );
 		self::enqueue( $feed_id, $run_id );
 		do_action( 'alg_wc_pxf_run_queued', $feed_id, $state );
 		return $state;
+	}
+
+	/**
+	 * start_size: first batch size of a run, from "Products per batch" on the Settings screen (option
+	 * alg_pxf_settings), else BATCH_START. The adaptive sizing works from there.
+	 *
+	 * @version 4.0.0
+	 * @since   4.0.0
+	 *
+	 * @return  int
+	 */
+	static function start_size() {
+		$settings = get_option( 'alg_pxf_settings', array() );
+		$size     = ( is_array( $settings ) && ! empty( $settings['batch_size'] ) ) ? absint( $settings['batch_size'] ) : self::BATCH_START;
+		return max( self::BATCH_MIN, min( self::BATCH_MAX, $size ) );
 	}
 
 	/**

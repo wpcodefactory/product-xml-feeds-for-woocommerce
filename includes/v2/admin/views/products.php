@@ -39,14 +39,55 @@ if ( ! $current ) {
 	Alg_WC_PXF_Admin_UI::banner( esc_html__( 'Add a feed first. Products are checked every time a feed updates.', 'product-xml-feeds-for-woocommerce' ) . ' <a href="' . esc_url( Alg_WC_PXF_Admin::url( 'new' ) ) . '">' . esc_html__( 'Add feed', 'product-xml-feeds-for-woocommerce' ) . '</a>' );
 	return;
 }
+if ( isset( $current['status'] ) && in_array( $current['status'], array( 'running', 'queued' ), true ) ) {
+	Alg_WC_PXF_Admin_UI::banner( esc_html__( 'This feed is updating now. The numbers below fill in as products are checked; reload when the update is done.', 'product-xml-feeds-for-woocommerce' ) );
+}
 $data    = Alg_WC_PXF_Admin::rest( 'GET', '/feeds/' . $feed_id . '/issues' );
 $data    = is_array( $data ) ? $data : array();
-$summary = isset( $data['summary'] ) ? (array) $data['summary'] : array();
-$totals  = isset( $data['totals'] ) ? (array) $data['totals'] : array();
-$tiles   = array(
-	'ready'    => array( 'ok', __( 'Ready', 'product-xml-feeds-for-woocommerce' ) ),
-	'warnings' => array( 'warn', __( 'With warnings', 'product-xml-feeds-for-woocommerce' ) ),
-	'errors'   => array( 'bad', __( 'With errors', 'product-xml-feeds-for-woocommerce' ) ),
+$counts  = isset( $data['counts'] ) ? array_map( 'intval', (array) $data['counts'] ) : array();
+$details = array();
+foreach ( isset( $data['top'] ) ? (array) $data['top'] : array() as $row ) {
+	if ( isset( $row['code'] ) ) {
+		$details[ $row['code'] ] = $row;
+	}
+}
+// One row per issue code: severity, field and fix from the run (top reasons), else the validator defaults; the
+// plain reason line ("12 products have no brand") from the validator.
+$has_validator = class_exists( 'Alg_WC_PXF_Validator' );
+$summary       = array();
+$totals        = array(
+	'written'  => isset( $data['written'] ) ? (int) $data['written'] : 0,
+	'errors'   => 0,
+	'warnings' => 0,
+	'left_out' => isset( $data['left_out'] ) ? (int) $data['left_out'] : 0,
+);
+foreach ( $counts as $code => $count ) {
+	$code = (string) $code;
+	$one  = isset( $details[ $code ] ) ? $details[ $code ] : array();
+	$sev  = ! empty( $one['severity'] ) ? $one['severity'] : ( $has_validator ? Alg_WC_PXF_Validator::severity_of( $code ) : 'warning' );
+	$fld  = ! empty( $one['field'] ) ? $one['field'] : ( $has_validator ? Alg_WC_PXF_Validator::field_of( $code ) : '' );
+	$fix  = ! empty( $one['fix'] ) ? $one['fix'] : ( $has_validator ? Alg_WC_PXF_Validator::fix_for( $fld, $code ) : 'product' );
+	$msg  = $has_validator ? Alg_WC_PXF_Validator::reason( $code, $count ) : ( ! empty( $one['message'] ) ? $one['message'] : $code );
+	$summary[] = array(
+		'code'     => $code,
+		'count'    => $count,
+		'severity' => $sev,
+		'field'    => $fld,
+		'fix'      => $fix,
+		'message'  => $msg,
+	);
+	$totals[ 'error' === $sev ? 'errors' : 'warnings' ] += $count;
+}
+usort( $summary, function ( $a, $b ) {
+	if ( $a['severity'] !== $b['severity'] ) {
+		return 'error' === $a['severity'] ? -1 : 1;
+	}
+	return $b['count'] - $a['count'];
+} );
+$tiles = array(
+	'written'  => array( 'ok', __( 'In the feed', 'product-xml-feeds-for-woocommerce' ) ),
+	'errors'   => array( 'bad', __( 'Errors', 'product-xml-feeds-for-woocommerce' ) ),
+	'warnings' => array( 'warn', __( 'Warnings', 'product-xml-feeds-for-woocommerce' ) ),
 	'left_out' => array( '', __( 'Left out', 'product-xml-feeds-for-woocommerce' ) ),
 );
 echo '<div class="tiles" style="margin-bottom:20px">';
@@ -75,7 +116,9 @@ $fix_links = array(
 		$cnt = isset( $row['count'] ) ? (int) $row['count'] : 0;
 		?>
 		<div class="row"><div><p class="row-title"><?php echo Alg_WC_PXF_Admin_UI::chip( $bad ? __( 'Error', 'product-xml-feeds-for-woocommerce' ) : __( 'Warning', 'product-xml-feeds-for-woocommerce' ), $bad ? 'bad' : 'warn' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> <?php echo esc_html( isset( $row['message'] ) ? $row['message'] : $row['code'] ); ?></p>
-			<div class="row-meta"><?php echo esc_html( sprintf( /* translators: %s: number of products. */ _n( '%s product', '%s products', $cnt, 'product-xml-feeds-for-woocommerce' ), number_format_i18n( $cnt ) ) ); ?></div></div>
+			<?php if ( ! empty( $row['field'] ) ) : ?>
+				<div class="row-meta"><?php echo esc_html( sprintf( /* translators: %s: feed field, for example "Brand". */ __( 'Field: %s', 'product-xml-feeds-for-woocommerce' ), $has_validator ? Alg_WC_PXF_Validator::label( $row['field'] ) : $row['field'] ) ); ?></div>
+			<?php endif; ?></div>
 			<div class="row-actions">
 			<?php
 			if ( isset( $fix_links[ $fix ] ) && 0 === strpos( $fix, 'ai_' ) ) {
@@ -89,15 +132,34 @@ $fix_links = array(
 </section>
 <?php
 if ( Alg_WC_PXF::is_pro() ) :
-	$list = isset( $data['products'] ) ? (array) $data['products'] : array();
+	// The route gives one row per issue (first 500 of the run): group them by product.
+	$list = array();
+	foreach ( isset( $data['products'] ) ? (array) $data['products'] : array() as $issue ) {
+		$pid = isset( $issue['product_id'] ) ? (int) $issue['product_id'] : 0;
+		if ( ! $pid ) {
+			continue;
+		}
+		if ( ! isset( $list[ $pid ] ) ) {
+			$list[ $pid ] = array(
+				'product_id' => $pid,
+				'edit_id'    => ! empty( $issue['parent_id'] ) ? (int) $issue['parent_id'] : $pid,
+				'name'       => isset( $issue['name'] ) ? $issue['name'] : '',
+				'issues'     => array(),
+			);
+		}
+		$list[ $pid ]['issues'][] = array( 'message' => isset( $issue['message'] ) ? $issue['message'] : '' );
+	}
 	?>
 	<section class="card">
 		<div class="card-head"><h2 class="card-title"><?php esc_html_e( 'Products with problems', 'product-xml-feeds-for-woocommerce' ); ?></h2></div>
 		<div class="table-wrap"><table class="table"><thead><tr><th><?php esc_html_e( 'Product', 'product-xml-feeds-for-woocommerce' ); ?></th><th><?php esc_html_e( 'Problem', 'product-xml-feeds-for-woocommerce' ); ?></th><th><span class="sr-only"><?php esc_html_e( 'Action', 'product-xml-feeds-for-woocommerce' ); ?></span></th></tr></thead><tbody>
+		<?php if ( ! $list ) : ?>
+			<tr><td colspan="3" class="muted"><?php esc_html_e( 'No products with problems on the last update.', 'product-xml-feeds-for-woocommerce' ); ?></td></tr>
+		<?php endif; ?>
 		<?php foreach ( $list as $p ) : ?>
-			<tr><td><?php echo esc_html( isset( $p['name'] ) ? $p['name'] : '#' . $p['product_id'] ); ?></td>
-				<td><?php echo esc_html( implode( ', ', wp_list_pluck( isset( $p['issues'] ) ? (array) $p['issues'] : array(), 'message' ) ) ); ?></td>
-				<td><a href="<?php echo esc_url( (string) get_edit_post_link( (int) $p['product_id'] ) ); ?>"><?php esc_html_e( 'Edit product', 'product-xml-feeds-for-woocommerce' ); ?></a></td></tr>
+			<tr><td><?php echo esc_html( '' !== $p['name'] ? $p['name'] : '#' . $p['product_id'] ); ?></td>
+				<td><?php echo esc_html( implode( ' ', array_unique( wp_list_pluck( $p['issues'], 'message' ) ) ) ); ?></td>
+				<td><a href="<?php echo esc_url( (string) get_edit_post_link( $p['edit_id'] ) ); ?>"><?php esc_html_e( 'Edit product', 'product-xml-feeds-for-woocommerce' ); ?><span class="sr-only"> <?php echo esc_html( $p['name'] ); ?></span></a></td></tr>
 		<?php endforeach; ?>
 		</tbody></table></div>
 	</section>

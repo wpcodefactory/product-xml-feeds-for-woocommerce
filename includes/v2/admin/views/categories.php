@@ -33,7 +33,7 @@ foreach ( $rows as $r ) {
 		<?php endif; ?>
 		<?php
 		foreach ( $rows as $r ) :
-			$tid = (int) $r['term_id'];
+			$tid = (int) $r['id'];
 			$cnt = isset( $r['count'] ) ? (int) $r['count'] : 0;
 			?>
 			<div class="cat">

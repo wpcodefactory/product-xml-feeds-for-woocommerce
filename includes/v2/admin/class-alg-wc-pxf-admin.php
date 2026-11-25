@@ -216,10 +216,10 @@ class Alg_WC_PXF_Admin {
 				'approved'    => __( 'Approved', 'product-xml-feeds-for-woocommerce' ),
 				'undone'      => __( 'Removed from the feed.', 'product-xml-feeds-for-woocommerce' ),
 				'aiStarted'   => __( 'AI job started. Results appear here as they come in.', 'product-xml-feeds-for-woocommerce' ),
-				/* translators: 1: number of products, 2: credits. */
-				'estimate'    => __( 'Improve %1$s products: about %2$s credits.', 'product-xml-feeds-for-woocommerce' ),
-				/* translators: %s: credits. */
-				'balance'     => __( 'You have %s credits.', 'product-xml-feeds-for-woocommerce' ),
+				/* translators: %s: credit balance. */
+				'credits'     => __( 'Credits: %s', 'product-xml-feeds-for-woocommerce' ),
+				'aiNothing'   => __( 'Nothing left to improve for this choice. Earlier results are below.', 'product-xml-feeds-for-woocommerce' ),
+				'aiDone'      => __( 'AI job finished. Review the results below.', 'product-xml-feeds-for-woocommerce' ),
 				'notConnected'=> __( 'Turn on AI on the AI Credits screen first.', 'product-xml-feeds-for-woocommerce' ),
 				'short'       => __( 'Not enough credits: buy credits or run fewer products.', 'product-xml-feeds-for-woocommerce' ),
 				'confirmDel'  => __( 'Delete this feed? The file stops working for the channel. Classic feeds are not touched.', 'product-xml-feeds-for-woocommerce' ),
@@ -309,6 +309,51 @@ class Alg_WC_PXF_Admin {
 	}
 
 	/**
+	 * ai_candidates: ids an AI job would work on. Categories: product categories without a Google category. Other
+	 * jobs: the products of the feed (or every published product) that have no AI value for the job yet.
+	 *
+	 * @version 4.0.0
+	 * @since   4.0.0
+	 *
+	 * @param   string $job     titles, descriptions, attributes, categories.
+	 * @param   int    $feed_id Feed id (0 = all products).
+	 * @return  int[]
+	 */
+	static function ai_candidates( $job, $feed_id = 0 ) {
+		if ( 'categories' === $job ) {
+			$terms = get_terms( array(
+				'taxonomy'   => 'product_cat',
+				'hide_empty' => false,
+				'fields'     => 'ids',
+				'meta_query' => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+					array(
+						'key'     => '_alg_pxf_google_category',
+						'compare' => 'NOT EXISTS',
+					),
+				),
+			) );
+			return is_wp_error( $terms ) ? array() : array_map( 'intval', $terms );
+		}
+		$args = array(
+			'post_type'      => 'product',
+			'post_status'    => 'publish',
+			'fields'         => 'ids',
+			'posts_per_page' => -1,
+			'orderby'        => 'ID',
+			'order'          => 'ASC',
+			'no_found_rows'  => true,
+		);
+		if ( $feed_id && class_exists( 'Alg_WC_PXF_Engine' ) && class_exists( 'Alg_WC_PXF_Feeds' ) && Alg_WC_PXF_Feeds::exists( $feed_id ) ) {
+			$args                   = Alg_WC_PXF_Engine::query_args( $feed_id, Alg_WC_PXF_Feeds::get_config( $feed_id ) );
+			$args['posts_per_page'] = -1;
+			$args['no_found_rows']  = true;
+		}
+		$ids  = array_map( 'intval', get_posts( $args ) );
+		$done = class_exists( 'Alg_WC_PXF_AI' ) ? Alg_WC_PXF_AI::ids_with( $job ) : array();
+		return array_values( array_diff( $ids, $done ) );
+	}
+
+	/**
 	 * render.
 	 *
 	 * @version 4.0.0
@@ -395,6 +440,8 @@ class Alg_WC_PXF_Admin {
 			'currency' => isset( $p['currency'] ) ? strtoupper( substr( sanitize_key( $p['currency'] ), 0, 3 ) ) : '',
 		) );
 		if ( ! is_wp_error( $result ) && ! empty( $result['id'] ) ) {
+			// Build the first file right away (the engine does not start a run on create).
+			self::rest( 'POST', '/feeds/' . (int) $result['id'] . '/run' );
 			self::back( 'edit', array( 'feed' => (int) $result['id'] ), $result, 'created' );
 		}
 		self::back( 'new', array(), is_wp_error( $result ) ? $result : new WP_Error( 'pxf' ) );
