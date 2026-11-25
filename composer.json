@@ -11,11 +11,16 @@
     {
       "type": "vcs",
       "url": "https://github.com/wpcodefactory/wpfactory-admin-menu"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/wpcodefactory/wpfactory-ai"
     }
   ],
   "require": {
     "wpfactory/wpfactory-cross-selling": "*",
-    "wpfactory/wpfactory-admin-menu": "*"
+    "wpfactory/wpfactory-admin-menu": "*",
+    "wpfactory/wpfactory-ai": "^1.7"
   },
   "config": {
     "preferred-install": "dist",

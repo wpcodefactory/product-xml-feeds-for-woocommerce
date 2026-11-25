@@ -1,0 +1,5 @@
+== External services ==
+
+This plugin can use WPFactory AI (https://ai.wpfactory.com), a service by WPFactory, for its AI features, paid with WPFactory credits. Nothing is sent until a site administrator connects the site on the AI Credits screen with an email address and a 6-digit code sent to it. When connecting, the site address and that email address are sent. After that, the text of each AI request the plugin makes is sent when a user starts it; WPFactory AI passes it to Anthropic, its AI provider, to produce the answer. WPFactory AI keeps only numbers about each request (tokens, credits, time), never its content. Terms: https://wpfactory.com/terms-conditions/#wpfactory-ai Privacy: https://wpfactory.com/privacy-policy/#wpfactory-ai
+
+What this plugin sends for its AI features (feed titles, feed descriptions, missing attributes, Google category suggestions), only when a shop manager starts a job: product names, descriptions, attributes, categories, brand, whether a GTIN exists, the store language, and, only when chosen, the main product photo (resized to at most 1,024 pixels). Never customer or order data.

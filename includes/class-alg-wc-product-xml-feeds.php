@@ -158,6 +158,10 @@ final class Alg_WC_Product_XML_Feeds {
 		// Core
 		$this->core = require_once plugin_dir_path( __FILE__ ) . 'class-alg-wc-product-xml-feeds-core.php';
 
+		// Channel feeds (v2): presets, background engine, new admin. Classic feeds above are not touched.
+		require_once plugin_dir_path( __FILE__ ) . 'v2/class-alg-wc-pxf.php';
+		Alg_WC_PXF::init();
+
 	}
 
 	/**

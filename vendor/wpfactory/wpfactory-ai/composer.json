@@ -1,0 +1,15 @@
+{
+    "name": "wpfactory/wpfactory-ai",
+    "description": "WPFactory AI for WordPress plugins: connect a site with an email code, call AI with WPFactory credits, balance, refunds and usage. The newest bundled copy loads.",
+    "type": "library",
+    "license": "GPL-2.0-or-later",
+    "homepage": "https://ai.wpfactory.com",
+    "require": {
+        "php": ">=7.4"
+    },
+    "autoload": {
+        "files": [
+            "wpfactory-ai.php"
+        ]
+    }
+}

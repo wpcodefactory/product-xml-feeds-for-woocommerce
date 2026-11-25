@@ -1,0 +1,248 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-11-22T12:52:31+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: wpfactory-ai\n"
+
+#: src/class-admin.php:83
+#: src/class-admin.php:84
+#: src/class-admin.php:295
+#: src/class-admin.php:344
+#: src/class-admin.php:437
+msgid "AI Credits"
+msgstr ""
+
+#. translators: %s: email address
+#: src/class-admin.php:134
+#, php-format
+msgid "We sent a 6-digit code to %s. It works for 10 minutes."
+msgstr ""
+
+#: src/class-admin.php:135
+msgid "Something went wrong. Please try again."
+msgstr ""
+
+#: src/class-admin.php:136
+msgid "Disconnect this site from WPFactory AI? AI features that use credits stop until you connect again."
+msgstr ""
+
+#: src/class-admin.php:285
+msgid "Sorry, you are not allowed to manage WPFactory AI."
+msgstr ""
+
+#: src/class-admin.php:297
+msgid "Your account"
+msgstr ""
+
+#: src/class-admin.php:304
+msgid "Thank you! Your credits are added within a few seconds. Reload this page if you do not see them yet."
+msgstr ""
+
+#: src/class-admin.php:306
+msgid "The payment was cancelled. Nothing was charged."
+msgstr ""
+
+#: src/class-admin.php:345
+msgid "Credits for AI in your WPFactory plugins."
+msgstr ""
+
+#. translators: %s: email address
+#: src/class-admin.php:347
+#, php-format
+msgid "This site is connected to WPFactory AI as %s. Paid credits work in every WPFactory plugin on every site you connect with this email."
+msgstr ""
+
+#: src/class-admin.php:352
+msgid "This site can spend"
+msgstr ""
+
+#: src/class-admin.php:355
+msgid "WPFactory AI cannot be reached right now. Reload the page in a minute."
+msgstr ""
+
+#. translators: %s: number of credits
+#: src/class-admin.php:358
+#, php-format
+msgid "%s paid credit, for every WPFactory plugin on every site of this account. Paid credits never expire."
+msgid_plural "%s paid credits, for every WPFactory plugin on every site of this account. Paid credits never expire."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: number of credits, 2: plugin name, 3: date
+#: src/class-admin.php:361
+#, php-format
+msgid "%1$s free credits for %2$s, until %3$s"
+msgstr ""
+
+#: src/class-admin.php:363
+msgid "1 credit = 1 US cent. Free credits are used first."
+msgstr ""
+
+#: src/class-admin.php:368
+msgid "Buy credits"
+msgstr ""
+
+#: src/class-admin.php:369
+msgid "Top up once, use them everywhere"
+msgstr ""
+
+#: src/class-admin.php:372
+msgid "Buying credits opens soon."
+msgstr ""
+
+#. translators: %s: number of credits
+#: src/class-admin.php:380
+#, php-format
+msgid "%s credits"
+msgstr ""
+
+#. translators: 1: number of credits, 2: price in US dollars
+#: src/class-admin.php:382
+#, php-format
+msgid "Buy %1$s credits for $%2$s"
+msgstr ""
+
+#. translators: 1: number of credits, 2: price in US dollars
+#: src/class-admin.php:382
+msgid "Buy"
+msgstr ""
+
+#: src/class-admin.php:385
+msgid "Secure payment by Stripe. Paid credits never expire. Purchases are final."
+msgstr ""
+
+#: src/class-admin.php:393
+msgid "This month"
+msgstr ""
+
+#: src/class-admin.php:394
+msgid "AI use"
+msgstr ""
+
+#: src/class-admin.php:396
+msgid "No AI use yet this month."
+msgstr ""
+
+#. translators: %s: number of AI requests
+#: src/class-admin.php:403
+#, php-format
+msgid "%s request"
+msgid_plural "%s requests"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: number of credits
+#: src/class-admin.php:405
+#: src/class-client.php:444
+#, php-format
+msgid "%s credit"
+msgid_plural "%s credits"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/class-admin.php:414
+msgid "Account"
+msgstr ""
+
+#: src/class-admin.php:415
+msgid "Sites and purchases"
+msgstr ""
+
+#. translators: %s: web address of the WPFactory AI account page, like ai.wpfactory.com
+#: src/class-admin.php:417
+#, php-format
+msgid "See every site of this account, usage by month and your purchases on %s. Sign in with the same email."
+msgstr ""
+
+#: src/class-admin.php:418
+msgid "Open your account"
+msgstr ""
+
+#: src/class-admin.php:419
+msgid "Disconnect this site"
+msgstr ""
+
+#: src/class-admin.php:433
+msgid "This site's address changed since it was connected. Connect it again to use AI credits here."
+msgstr ""
+
+#: src/class-admin.php:435
+msgid "The connection to WPFactory AI ended. Connect again to keep using AI credits."
+msgstr ""
+
+#: src/class-admin.php:438
+msgid "Connect this site to WPFactory AI"
+msgstr ""
+
+#: src/class-admin.php:439
+msgid "Use AI in your WPFactory plugins with credits, without an AI account or key of your own. Free and Pro plugins alike. 1 credit = 1 US cent, and every account gets free credits each month."
+msgstr ""
+
+#: src/class-admin.php:446
+msgid "Email"
+msgstr ""
+
+#: src/class-admin.php:448
+msgid "Email me a code"
+msgstr ""
+
+#: src/class-admin.php:452
+msgid "6-digit code"
+msgstr ""
+
+#: src/class-admin.php:454
+msgid "Connect"
+msgstr ""
+
+#: src/class-admin.php:456
+msgid "Nothing is sent to WPFactory until you connect. After that, only what a plugin asks the AI is sent, and WPFactory AI keeps numbers only (tokens, credits, time), never your content."
+msgstr ""
+
+#: src/class-admin.php:462
+msgid "Terms"
+msgstr ""
+
+#: src/class-admin.php:465
+msgid "Privacy"
+msgstr ""
+
+#: src/class-client.php:161
+#: src/class-client.php:238
+msgid "WPFactory AI sent an unexpected answer. Please try again."
+msgstr ""
+
+#: src/class-client.php:200
+msgid "Please enter a valid email address."
+msgstr ""
+
+#: src/class-client.php:440
+msgid "Connect AI"
+msgstr ""
+
+#: src/class-client.php:446
+msgid "AI credits"
+msgstr ""
+
+#: src/class-client.php:490
+msgid "Connect this site to WPFactory AI first."
+msgstr ""
+
+#. translators: %s: error message
+#: src/class-client.php:503
+#, php-format
+msgid "Could not reach WPFactory AI: %s. Nothing was charged."
+msgstr ""
+
+#. translators: %d: HTTP status
+#: src/class-client.php:519
+#, php-format
+msgid "WPFactory AI answered with an error (%d). Nothing was charged."
+msgstr ""

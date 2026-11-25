@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
+<channel>
+	<title>Northwind Outfitters (feeds QA)</title>
+	<link>http://127.0.0.1:8097/</link>
+	<description></description>
+	<item>
+		<g:id>14</g:id>
+		<g:title>Beanie</g:title>
+		<g:description>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</g:description>
+		<g:link>http://127.0.0.1:8097/product/beanie/</g:link>
+		<g:image_link>http://127.0.0.1:8097/wp-content/uploads/2026/11/beanie-2.jpg</g:image_link>
+		<g:availability>in stock</g:availability>
+		<g:price>20.00 EUR</g:price>
+		<g:sale_price>18.00 EUR</g:sale_price>
+		<g:condition>new</g:condition>
+		<g:brand>Northwind Test Brand</g:brand>
+		<g:gtin>4006381333979</g:gtin>
+		<g:color>Red</g:color>
+		<g:product_type>Uncategorized</g:product_type>
+		<g:shipping_weight>0.2 lb</g:shipping_weight>
+	</item>
+	<item>
+		<g:id>51</g:id>
+		<g:title>Salt &amp; Pepper Grinder &lt;Set of 2&gt; &quot;Chef&quot; edition</g:title>
+		<g:description>Uses &lt;ceramic&gt; burrs. 5 &gt; 3. Tom &amp; Jerry approved.</g:description>
+		<g:link>http://127.0.0.1:8097/product/salt-pepper-grinder-chef-edition/</g:link>
+		<g:availability>in stock</g:availability>
+		<g:price>19.90 EUR</g:price>
+		<g:condition>new</g:condition>
+		<g:gtin>4006381333931</g:gtin>
+		<g:product_type>Feed edge cases</g:product_type>
+	</item>
+	<item>
+		<g:id>58</g:id>
+		<g:title>Clearance Throw Blanket</g:title>
+		<g:description>Long description for the feed.</g:description>
+		<g:link>http://127.0.0.1:8097/product/clearance-throw-blanket/</g:link>
+		<g:availability>in stock</g:availability>
+		<g:price>59.00 EUR</g:price>
+		<g:sale_price>29.50 EUR</g:sale_price>
+		<g:condition>new</g:condition>
+		<g:gtin>4006381333948</g:gtin>
+		<g:product_type>Feed edge cases</g:product_type>
+	</item>
+	<item>
+		<g:id>55</g:id>
+		<g:title>מגבת חוף כחולה</g:title>
+		<g:description>Long description for the feed.</g:description>
+		<g:link>http://127.0.0.1:8097/product/%d7%9e%d7%92%d7%91%d7%aa-%d7%97%d7%95%d7%a3-%d7%9b%d7%97%d7%95%d7%9c%d7%94/</g:link>
+		<g:availability>in stock</g:availability>
+		<g:price>19.90 EUR</g:price>
+		<g:condition>new</g:condition>
+		<g:product_type>Feed edge cases</g:product_type>
+	</item>
+	<item>
+		<g:id>57</g:id>
+		<g:title>Out of Stock Lantern</g:title>
+		<g:description>Long description for the feed.</g:description>
+		<g:link>http://127.0.0.1:8097/product/out-of-stock-lantern/</g:link>
+		<g:availability>out of stock</g:availability>
+		<g:price>19.90 EUR</g:price>
+		<g:condition>new</g:condition>
+		<g:product_type>Feed edge cases</g:product_type>
+	</item>
+	<item>
+		<g:id>66</g:id>
+		<g:title>Merino Crew Sweater - S, Navy</g:title>
+		<g:link>http://127.0.0.1:8097/product/merino-crew-sweater/?attribute_size=S&amp;attribute_color=Navy</g:link>
+		<g:availability>in stock</g:availability>
+		<g:price>79.00 EUR</g:price>
+		<g:condition>new</g:condition>
+		<g:item_group_id>65</g:item_group_id>
+		<g:color>Navy</g:color>
+		<g:size>S</g:size>
+		<g:product_type>Feed edge cases</g:product_type>
+	</item>
+	<item>
+		<g:id>67</g:id>
+		<g:title>Merino Crew Sweater - S, Olive</g:title>
+		<g:link>http://127.0.0.1:8097/product/merino-crew-sweater/?attribute_size=S&amp;attribute_color=Olive</g:link>
+		<g:availability>in stock</g:availability>
+		<g:price>79.00 EUR</g:price>
+		<g:condition>new</g:condition>
+		<g:item_group_id>65</g:item_group_id>
+		<g:color>Olive</g:color>
+		<g:size>S</g:size>
+		<g:product_type>Feed edge cases</g:product_type>
+	</item>
+	<item>
+		<g:id>68</g:id>
+		<g:title>Merino Crew Sweater - S, Sand</g:title>
+		<g:link>http://127.0.0.1:8097/product/merino-crew-sweater/?attribute_size=S&amp;attribute_color=Sand</g:link>
+		<g:availability>in stock</g:availability>
+		<g:price>79.00 EUR</g:price>
+		<g:condition>new</g:condition>
+		<g:item_group_id>65</g:item_group_id>
+		<g:color>Sand</g:color>
+		<g:size>S</g:size>
+		<g:product_type>Feed edge cases</g:product_type>
+	</item>
+	<item>
+		<g:id>27</g:id>
+		<g:title>Hoodie - Red, No</g:title>
+		<g:description>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sagittis orci ac odio dictum tincidunt. Donec ut metus leo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed luctus, dui eu sagittis sodales, nulla nibh sagittis augue, vel porttitor diam enim non metus. Vestibulum aliquam augue neque. Phasellus tincidunt odio eget ullamcorper efficitur. Cras placerat ut turpis pellentesque vulputate. Nam sed consequat tortor. Curabitur finibus sapien dolor. Ut eleifend tellus nec erat pulvinar dignissim. Nam non arcu purus. Vivamus et massa massa.</g:description>
+		<g:link>http://127.0.0.1:8097/product/hoodie/?attribute_pa_color=red&amp;attribute_logo=No</g:link>
+		<g:image_link>http://127.0.0.1:8097/wp-content/uploads/2026/11/hoodie-2.jpg</g:image_link>
+		<g:additional_image_link>http://127.0.0.1:8097/wp-content/uploads/2026/11/hoodie-blue-1.jpg</g:additional_image_link>
+		<g:additional_image_link>http://127.0.0.1:8097/wp-content/uploads/2026/11/hoodie-green-1.jpg</g:additional_image_link>
+		<g:additional_image_link>http://127.0.0.1:8097/wp-content/uploads/2026/11/hoodie-with-logo-2.jpg</g:additional_image_link>
+		<g:availability>in stock</g:availability>
+		<g:price>45.00 EUR</g:price>
+		<g:sale_price>42.00 EUR</g:sale_price>
+		<g:condition>new</g:condition>
+		<g:item_group_id>11</g:item_group_id>
+		<g:color>Red</g:color>
+		<g:product_type>Uncategorized</g:product_type>
+		<g:shipping_weight>1.5 lb</g:shipping_weight>
+	</item>
+	<item>
+		<g:id>28</g:id>
+		<g:title>Hoodie - Green, No</g:title>
+		<g:description>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sagittis orci ac odio dictum tincidunt. Donec ut metus leo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed luctus, dui eu sagittis sodales, nulla nibh sagittis augue, vel porttitor diam enim non metus. Vestibulum aliquam augue neque. Phasellus tincidunt odio eget ullamcorper efficitur. Cras placerat ut turpis pellentesque vulputate. Nam sed consequat tortor. Curabitur finibus sapien dolor. Ut eleifend tellus nec erat pulvinar dignissim. Nam non arcu purus. Vivamus et massa massa.</g:description>
+		<g:link>http://127.0.0.1:8097/product/hoodie/?attribute_pa_color=green&amp;attribute_logo=No</g:link>
+		<g:image_link>http://127.0.0.1:8097/wp-content/uploads/2026/11/hoodie-green-1.jpg</g:image_link>
+		<g:additional_image_link>http://127.0.0.1:8097/wp-content/uploads/2026/11/hoodie-blue-1.jpg</g:additional_image_link>
+		<g:additional_image_link>http://127.0.0.1:8097/wp-content/uploads/2026/11/hoodie-with-logo-2.jpg</g:additional_image_link>
+		<g:availability>in stock</g:availability>
+		<g:price>45.00 EUR</g:price>
+		<g:condition>new</g:condition>
+		<g:item_group_id>11</g:item_group_id>
+		<g:color>Green</g:color>
+		<g:product_type>Uncategorized</g:product_type>
+		<g:shipping_weight>1.5 lb</g:shipping_weight>
+	</item>
+</channel>
+</rss>

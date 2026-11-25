@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mywebstore>
+	<created_at>2026-11-25 13:03</created_at>
+<products>
+	<product>
+		<id>14</id>
+		<name>Beanie</name>
+		<link>http://127.0.0.1:8097/product/beanie/</link>
+		<image>http://127.0.0.1:8097/wp-content/uploads/2026/11/beanie-2.jpg</image>
+		<category>Uncategorized</category>
+		<price>18.00</price>
+		<vat>0</vat>
+		<availability>In stock</availability>
+		<manufacturer>Northwind Test Brand</manufacturer>
+		<mpn>woo-beanie</mpn>
+		<ean>4006381333979</ean>
+		<description>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</description>
+		<quantity>5</quantity>
+		<color>Red</color>
+		<weight>91</weight>
+	</product>
+	<product>
+		<id>51</id>
+		<name>Salt &amp; Pepper Grinder &lt;Set of 2&gt; &quot;Chef&quot; edition</name>
+		<link>http://127.0.0.1:8097/product/salt-pepper-grinder-chef-edition/</link>
+		<category>Feed edge cases</category>
+		<price>19.90</price>
+		<vat>0</vat>
+		<availability>In stock</availability>
+		<mpn>EDGE-AMP</mpn>
+		<ean>4006381333931</ean>
+		<description>Uses &lt;ceramic&gt; burrs. 5 &gt; 3. Tom &amp; Jerry approved.</description>
+		<quantity>5</quantity>
+	</product>
+	<product>
+		<id>58</id>
+		<name>Clearance Throw Blanket</name>
+		<link>http://127.0.0.1:8097/product/clearance-throw-blanket/</link>
+		<category>Feed edge cases</category>
+		<price>29.50</price>
+		<vat>0</vat>
+		<availability>In stock</availability>
+		<mpn>EDGE-SALE</mpn>
+		<ean>4006381333948</ean>
+		<description>Long description for the feed.</description>
+		<quantity>5</quantity>
+	</product>
+	<product>
+		<id>55</id>
+		<name>מגבת חוף כחולה</name>
+		<link>http://127.0.0.1:8097/product/%d7%9e%d7%92%d7%91%d7%aa-%d7%97%d7%95%d7%a3-%d7%9b%d7%97%d7%95%d7%9c%d7%94/</link>
+		<category>Feed edge cases</category>
+		<price>19.90</price>
+		<vat>0</vat>
+		<availability>In stock</availability>
+		<mpn>EDGE-RTL</mpn>
+		<description>Long description for the feed.</description>
+		<quantity>5</quantity>
+	</product>
+	<product>
+		<id>57</id>
+		<name>Out of Stock Lantern</name>
+		<link>http://127.0.0.1:8097/product/out-of-stock-lantern/</link>
+		<category>Feed edge cases</category>
+		<price>19.90</price>
+		<vat>0</vat>
+		<mpn>EDGE-OOS</mpn>
+		<description>Long description for the feed.</description>
+		<quantity>5</quantity>
+	</product>
+	<product>
+		<id>65-navy</id>
+		<name>Merino Crew Sweater Navy</name>
+		<link>http://127.0.0.1:8097/product/merino-crew-sweater/?attribute_color=navy</link>
+		<category>Feed edge cases</category>
+		<price>79.00</price>
+		<vat>0</vat>
+		<availability>In stock</availability>
+		<mpn>EDGE-VAR</mpn>
+		<quantity>5</quantity>
+		<size>S, M, L, XL</size>
+		<color>Navy</color>
+		<variations>
+			<variation>
+				<variationid>66</variationid>
+				<availability>In stock</availability>
+				<size>S</size>
+				<price>79.00</price>
+				<link>http://127.0.0.1:8097/product/merino-crew-sweater/?attribute_size=S&amp;attribute_color=Navy</link>
+			</variation>
+			<variation>
+				<variationid>69</variationid>
+				<availability>In stock</availability>
+				<size>M</size>
+				<price>79.00</price>
+				<link>http://127.0.0.1:8097/product/merino-crew-sweater/?attribute_size=M&amp;attribute_color=Navy</link>
+			</variation>
+			<variation>
+				<variationid>72</variationid>
+				<availability>In stock</availability>
+				<size>L</size>
+				<price>79.00</price>
+				<link>http://127.0.0.1:8097/product/merino-crew-sweater/?attribute_size=L&amp;attribute_color=Navy</link>
+			</variation>
+			<variation>
+				<variationid>75</variationid>
+				<availability>In stock</availability>
+				<size>XL</size>
+				<price>89.00</price>
+				<link>http://127.0.0.1:8097/product/merino-crew-sweater/?attribute_size=XL&amp;attribute_color=Navy</link>
+			</variation>
+		</variations>
+	</product>
+	<product>
+		<id>65-olive</id>
+		<name>Merino Crew Sweater Olive</name>
+		<link>http://127.0.0.1:8097/product/merino-crew-sweater/?attribute_color=olive</link>
+		<category>Feed edge cases</category>
+		<price>79.00</price>
+		<vat>0</vat>
+		<availability>In stock</availability>
+		<mpn>EDGE-VAR</mpn>
+		<quantity>5</quantity>
+		<size>S, M, XL</size>
+		<color>Olive</color>
+		<variations>
+			<variation>
+				<variationid>67</variationid>
+				<availability>In stock</availability>
+				<size>S</size>
+				<price>79.00</price>
+				<link>http://127.0.0.1:8097/product/merino-crew-sweater/?attribute_size=S&amp;attribute_color=Olive</link>
+			</variation>
+			<variation>
+				<variationid>70</variationid>
+				<availability>In stock</availability>
+				<size>M</size>
+				<price>79.00</price>
+				<link>http://127.0.0.1:8097/product/merino-crew-sweater/?attribute_size=M&amp;attribute_color=Olive</link>
+			</variation>
+			<variation>
+				<variationid>73</variationid>
+				<size>L</size>
+				<quantity>0</quantity>
+				<price>79.00</price>
+				<link>http://127.0.0.1:8097/product/merino-crew-sweater/?attribute_size=L&amp;attribute_color=Olive</link>
+			</variation>
+			<variation>
+				<variationid>76</variationid>
+				<availability>In stock</availability>
+				<size>XL</size>
+				<price>89.00</price>
+				<link>http://127.0.0.1:8097/product/merino-crew-sweater/?attribute_size=XL&amp;attribute_color=Olive</link>
+			</variation>
+		</variations>
+	</product>
+	<product>
+		<id>65-sand</id>
+		<name>Merino Crew Sweater Sand</name>
+		<link>http://127.0.0.1:8097/product/merino-crew-sweater/?attribute_color=sand</link>
+		<category>Feed edge cases</category>
+		<price>79.00</price>
+		<vat>0</vat>
+		<availability>In stock</availability>
+		<mpn>EDGE-VAR</mpn>
+		<quantity>5</quantity>
+		<size>S, M, L, XL</size>
+		<color>Sand</color>
+		<variations>
+			<variation>
+				<variationid>68</variationid>
+				<availability>In stock</availability>
+				<size>S</size>
+				<price>79.00</price>
+				<link>http://127.0.0.1:8097/product/merino-crew-sweater/?attribute_size=S&amp;attribute_color=Sand</link>
+			</variation>
+			<variation>
+				<variationid>71</variationid>
+				<availability>In stock</availability>
+				<size>M</size>
+				<price>79.00</price>
+				<link>http://127.0.0.1:8097/product/merino-crew-sweater/?attribute_size=M&amp;attribute_color=Sand</link>
+			</variation>
+			<variation>
+				<variationid>74</variationid>
+				<availability>In stock</availability>
+				<size>L</size>
+				<price>79.00</price>
+				<link>http://127.0.0.1:8097/product/merino-crew-sweater/?attribute_size=L&amp;attribute_color=Sand</link>
+			</variation>
+			<variation>
+				<variationid>77</variationid>
+				<availability>In stock</availability>
+				<size>XL</size>
+				<link>http://127.0.0.1:8097/product/merino-crew-sweater/?attribute_size=XL&amp;attribute_color=Sand</link>
+			</variation>
+		</variations>
+	</product>
+	<product>
+		<id>11-18</id>
+		<name>Hoodie Red</name>
+		<link>http://127.0.0.1:8097/product/hoodie/?attribute_pa_color=red</link>
+		<image>http://127.0.0.1:8097/wp-content/uploads/2026/11/hoodie-2.jpg</image>
+		<additional_imageurl>http://127.0.0.1:8097/wp-content/uploads/2026/11/hoodie-blue-1.jpg</additional_imageurl>
+		<additional_imageurl>http://127.0.0.1:8097/wp-content/uploads/2026/11/hoodie-green-1.jpg</additional_imageurl>
+		<additional_imageurl>http://127.0.0.1:8097/wp-content/uploads/2026/11/hoodie-with-logo-2.jpg</additional_imageurl>
+		<category>Uncategorized</category>
+		<price>42.00</price>
+		<vat>0</vat>
+		<availability>In stock</availability>
+		<mpn>woo-hoodie</mpn>
+		<description>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</description>
+		<quantity>5</quantity>
+		<color>Red</color>
+		<weight>680</weight>
+	</product>
+	<product>
+		<id>11-17</id>
+		<name>Hoodie Green</name>
+		<link>http://127.0.0.1:8097/product/hoodie/?attribute_pa_color=green</link>
+		<image>http://127.0.0.1:8097/wp-content/uploads/2026/11/hoodie-green-1.jpg</image>
+		<additional_imageurl>http://127.0.0.1:8097/wp-content/uploads/2026/11/hoodie-blue-1.jpg</additional_imageurl>
+		<additional_imageurl>http://127.0.0.1:8097/wp-content/uploads/2026/11/hoodie-green-1.jpg</additional_imageurl>
+		<additional_imageurl>http://127.0.0.1:8097/wp-content/uploads/2026/11/hoodie-with-logo-2.jpg</additional_imageurl>
+		<category>Uncategorized</category>
+		<price>45.00</price>
+		<vat>0</vat>
+		<availability>In stock</availability>
+		<mpn>woo-hoodie</mpn>
+		<description>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</description>
+		<quantity>5</quantity>
+		<color>Green</color>
+		<weight>680</weight>
+	</product>
+</products>
+</mywebstore>

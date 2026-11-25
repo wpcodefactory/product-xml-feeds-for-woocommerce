@@ -1,0 +1,110 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+<root>
+<time>November 25, 2026 1:03 pm</time>
+<title><![CDATA[ Products Feed ]]></title>
+<item>
+	<name><![CDATA[Beanie]]></name>
+	<short_description><![CDATA[This is a simple product.]]></short_description>
+	<link>http://127.0.0.1:8097/product/beanie/</link>
+	<price>18</price>
+	<currency>EUR</currency>
+	<image_url>http://127.0.0.1:8097/wp-content/uploads/2026/11/beanie-2.jpg</image_url>
+	
+	<sku>woo-beanie</sku>
+	<status>Published</status>
+	<stock_quantity>0</stock_quantity>
+	<categories>Uncategorized</categories>
+	<tags></tags>
+	<total_sales>0</total_sales>
+</item>
+<item>
+	<name><![CDATA[Salt &amp; Pepper Grinder  "Chef" edition]]></name>
+	<short_description><![CDATA[Short text for the feed.]]></short_description>
+	<link>http://127.0.0.1:8097/product/salt-pepper-grinder-chef-edition/</link>
+	<price>19.90</price>
+	<currency>EUR</currency>
+	<image_url></image_url>
+	
+	<sku>EDGE-AMP</sku>
+	<status>Published</status>
+	<stock_quantity>0</stock_quantity>
+	<categories>Feed edge cases</categories>
+	<tags></tags>
+	<total_sales>0</total_sales>
+</item>
+<item>
+	<name><![CDATA[Clearance Throw Blanket]]></name>
+	<short_description><![CDATA[Short text for the feed.]]></short_description>
+	<link>http://127.0.0.1:8097/product/clearance-throw-blanket/</link>
+	<price>29.50</price>
+	<currency>EUR</currency>
+	<image_url></image_url>
+	
+	<sku>EDGE-SALE</sku>
+	<status>Published</status>
+	<stock_quantity>0</stock_quantity>
+	<categories>Feed edge cases</categories>
+	<tags></tags>
+	<total_sales>0</total_sales>
+</item>
+<item>
+	<name><![CDATA[מגבת חוף כחולה]]></name>
+	<short_description><![CDATA[Beach towel, Hebrew title (RTL).]]></short_description>
+	<link>http://127.0.0.1:8097/product/%d7%9e%d7%92%d7%91%d7%aa-%d7%97%d7%95%d7%a3-%d7%9b%d7%97%d7%95%d7%9c%d7%94/</link>
+	<price>19.90</price>
+	<currency>EUR</currency>
+	<image_url></image_url>
+	
+	<sku>EDGE-RTL</sku>
+	<status>Published</status>
+	<stock_quantity>0</stock_quantity>
+	<categories>Feed edge cases</categories>
+	<tags></tags>
+	<total_sales>0</total_sales>
+</item>
+<item>
+	<name><![CDATA[Out of Stock Lantern]]></name>
+	<short_description><![CDATA[Short text for the feed.]]></short_description>
+	<link>http://127.0.0.1:8097/product/out-of-stock-lantern/</link>
+	<price>19.90</price>
+	<currency>EUR</currency>
+	<image_url></image_url>
+	
+	<sku>EDGE-OOS</sku>
+	<status>Published</status>
+	<stock_quantity>0</stock_quantity>
+	<categories>Feed edge cases</categories>
+	<tags></tags>
+	<total_sales>0</total_sales>
+</item>
+<item>
+	<name><![CDATA[Merino Crew Sweater]]></name>
+	<short_description></short_description>
+	<link>http://127.0.0.1:8097/product/merino-crew-sweater/</link>
+	<price>79.00-89.00</price>
+	<currency>EUR</currency>
+	<image_url></image_url>
+	
+	<sku>EDGE-VAR</sku>
+	<status>Published</status>
+	<stock_quantity>0</stock_quantity>
+	<categories>Feed edge cases</categories>
+	<tags></tags>
+	<total_sales>0</total_sales>
+</item>
+<item>
+	<name><![CDATA[Hoodie]]></name>
+	<short_description><![CDATA[This is a variable product.]]></short_description>
+	<link>http://127.0.0.1:8097/product/hoodie/</link>
+	<price>42.00-45.00</price>
+	<currency>EUR</currency>
+	<image_url>http://127.0.0.1:8097/wp-content/uploads/2026/11/hoodie-2.jpg</image_url>
+	http://127.0.0.1:8097/wp-content/uploads/2026/11/hoodie-blue-1.jpg
+	<sku>woo-hoodie</sku>
+	<status>Published</status>
+	<stock_quantity>0</stock_quantity>
+	<categories>Uncategorized</categories>
+	<tags></tags>
+	<total_sales>0</total_sales>
+</item>
+</root>
