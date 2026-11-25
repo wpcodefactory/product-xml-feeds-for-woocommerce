@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - Products Shortcodes
  *
- * @version 3.1.2
+ * @version 3.1.4
  * @since   1.0.0
  *
  * @author  WPFactory
@@ -138,7 +138,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	/**
 	 * Inits shortcode atts and properties.
 	 *
-	 * @version 1.3.0
+	 * @version 3.1.4
 	 * @since   1.0.0
 	 *
 	 * @param   array $atts Shortcode atts.
@@ -333,7 +333,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	/**
 	 * alg_product_variation_meta.
 	 *
-	 * @version 1.5.1
+	 * @version 3.1.4
 	 * @since   1.5.1
 	 */
 	function alg_product_variation_meta( $atts ) {
@@ -394,7 +394,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	/**
 	 * alg_product_function.
 	 *
-	 * @version 3.1.1
+	 * @version 3.1.4
 	 * @since   1.4.0
 	 */
 	function alg_product_function( $atts ) {
@@ -1005,7 +1005,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	/**
 	 * alg_product_total_sales.
 	 *
-	 * @version 1.2.0
+	 * @version 3.1.4
 	 * @since   1.0.0
 	 */
 	function alg_product_total_sales( $atts ) {
@@ -1105,7 +1105,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	/**
 	 * Get product meta.
 	 *
-	 * @version 1.0.0
+	 * @version 3.1.4
 	 * @since   1.0.0
 	 * @return  string
 	 */
@@ -1136,7 +1136,7 @@ class Alg_Products_Shortcodes extends Alg_Shortcodes {
 	/**
 	 * Get product custom field.
 	 *
-	 * @version 2.9.6
+	 * @version 3.1.4
 	 * @since   1.0.0
 	 *
 	 * @return  string

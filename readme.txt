@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, kousikmukherjeeli, ae
 Tags: woocommerce, product xml feeds, xml, export
 Requires at least: 5.3
 Tested up to: 7.1
-Stable tag: 3.1.3
+Stable tag: 3.1.4
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -211,6 +211,18 @@ This connection is made only when the `convert_currency_from` and `convert_curre
 Once activated, access the plugin's settings by navigating to the “WPFactory” menu and look for the relevant tab.
 
 == Changelog ==
+
+= 3.1.4 - 25/11/2026 =
+* Security - Feed file names ending in .php, .htaccess or other server files are refused, with a clear notice.
+* Security - Shortcodes in posts written by users who cannot manage WooCommerce no longer show unpublished or password-protected products, protected product data or download links.
+* Security - The settings page product, category and tag search no longer answers logged-out visitors.
+* Fix - A feed update no longer stops other scheduled tasks in the same WP-Cron run.
+* Fix - `[alg_product_total_sales]` no longer causes a fatal error on PHP 8.
+* Fix - A "]]>" inside a CDATA value no longer makes the whole feed invalid XML.
+* Fix - A feed path with a new folder (for example feeds/google.xml) now creates the folder.
+* Tweak - The "Created By" comment is no longer added to feeds.
+* Tweak - New installs write the first feed after the feed settings are saved or "Create now" is used.
+* Dev - `.gitattributes` is no longer shipped in the plugin zip.
 
 = 3.1.3 - 23/11/2026 =
 * WC tested up to: 11.3.

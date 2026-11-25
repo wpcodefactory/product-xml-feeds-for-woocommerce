@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - Core Class
  *
- * @version 3.1.2
+ * @version 3.1.4
  * @since   1.0.0
  *
  * @author  WPFactory
@@ -90,7 +90,7 @@ class Alg_WC_Product_XML_Feeds_Core {
 	/**
 	 * On an early action hook, check if the hook is scheduled - if not, schedule it.
 	 *
-	 * @version 3.1.0
+	 * @version 3.1.4
 	 * @since   1.0.0
 	 */
 	function schedule_the_events() {
@@ -169,7 +169,7 @@ class Alg_WC_Product_XML_Feeds_Core {
 	/**
 	 * admin_notice__error.
 	 *
-	 * @version 3.1.0
+	 * @version 3.1.4
 	 * @since   1.0.0
 	 */
 	function admin_notice__error() {
@@ -266,7 +266,7 @@ class Alg_WC_Product_XML_Feeds_Core {
 	/**
 	 * alg_create_products_xml.
 	 *
-	 * @version 3.1.1
+	 * @version 3.1.4
 	 * @since   1.0.0
 	 */
 	function alg_create_products_xml() {
@@ -345,7 +345,7 @@ class Alg_WC_Product_XML_Feeds_Core {
 	/**
 	 * create_products_xml_cron.
 	 *
-	 * @version 1.0.0
+	 * @version 3.1.4
 	 * @since   1.0.0
 	 */
 	function create_products_xml_cron( $interval, $file_num ) {
@@ -431,7 +431,7 @@ class Alg_WC_Product_XML_Feeds_Core {
 	/**
 	 * create_products_xml.
 	 *
-	 * @version 3.1.2
+	 * @version 3.1.4
 	 * @since   1.0.0
 	 *
 	 * @todo    (fix) `$query_post_type`: fix filtering by product/category/tag/custom taxonomy when *including variations* for `products_and_variations`

@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - Shortcodes
  *
- * @version 3.1.1
+ * @version 3.1.4
  * @since   1.0.0
  *
  * @author  WPFactory
@@ -114,7 +114,7 @@ class Alg_Shortcodes {
 	/**
 	 * alg_shortcode.
 	 *
-	 * @version 3.1.1
+	 * @version 3.1.4
 	 * @since   1.0.0
 	 *
 	 * @todo    (v3.1.1) `on_empty_apply_shortcodes`: is using `wp_kses_post()` safe?

@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - Main Class
  *
- * @version 3.1.0
+ * @version 3.1.4
  * @since   1.0.0
  *
  * @author  WPFactory
@@ -163,7 +163,7 @@ final class Alg_WC_Product_XML_Feeds {
 	/**
 	 * admin.
 	 *
-	 * @version 3.0.0
+	 * @version 3.1.4
 	 * @since   1.4.0
 	 */
 	function admin() {

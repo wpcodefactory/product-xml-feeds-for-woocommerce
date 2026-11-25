@@ -2,7 +2,7 @@
 /**
  * Product XML Feeds for WooCommerce - Feed Section Settings
  *
- * @version 3.1.1
+ * @version 3.1.4
  * @since   1.1.0
  *
  * @author  WPFactory
@@ -33,7 +33,7 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.1.0
+	 * @version 3.1.4
 	 * @since   1.1.0
 	 */
 	function __construct( $feed_num ) {
@@ -1295,7 +1295,7 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 	/**
 	 * get_products_response.
 	 *
-	 * @version 3.1.0
+	 * @version 3.1.4
 	 * @since   2.7.10
 	 */
 	public function get_products_response() {
@@ -1311,7 +1311,7 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 	/**
 	 * get_cats_response.
 	 *
-	 * @version 3.1.0
+	 * @version 3.1.4
 	 * @since   2.7.10
 	 */
 	public function get_cats_response() {
@@ -1327,7 +1327,7 @@ class Alg_WC_Product_XML_Feeds_Settings_Feed extends Alg_WC_Product_XML_Feeds_Se
 	/**
 	 * get_tags_response.
 	 *
-	 * @version 3.1.0
+	 * @version 3.1.4
 	 * @since   2.7.10
 	 */
 	public function get_tags_response() {
