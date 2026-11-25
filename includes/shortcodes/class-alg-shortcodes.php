@@ -275,7 +275,12 @@ class Alg_Shortcodes {
 			// CDATA
 			if ( 'yes' === $atts['cdata'] ) {
 				// A "]]>" inside the value would end the CDATA block early and break the whole file: split it.
-				$result = '<![CDATA[' .  str_replace( ']]>', ']]]]><![CDATA[>', wp_kses_post( $result ) ) . ']]>';
+				// wp_kses_post() turns ">" into "&gt;", which the generator decodes again later, so split both forms.
+				$result = '<![CDATA[' . str_replace(
+					array( ']]>', ']]&gt;' ),
+					array( ']]]]><![CDATA[>', ']]]]><![CDATA[&gt;' ),
+					wp_kses_post( $result )
+				) . ']]>';
 			}
 
 			// Before/After
