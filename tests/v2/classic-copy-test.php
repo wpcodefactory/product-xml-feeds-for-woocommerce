@@ -90,6 +90,17 @@ sort( $skipped );
 $ok( array( 'offset', 'tags_if_empty' ) === $skipped, 'skipped settings reported: ' . implode( ',', $skipped ) );
 $ok( 1 === (int) get_post_meta( $id, Alg_WC_PXF_Classic_Copy::META_FROM, true ), 'copied-from note stored on the new feed' );
 
+// Product types: every type saved (the classic default) is no limit; one type is.
+if ( Alg_WC_PXF::is_pro() ) {
+	$types = get_terms( array( 'taxonomy' => 'product_type', 'hide_empty' => false, 'fields' => 'ids' ) );
+	$was   = get_option( 'alg_products_xml_product_type_include_1', '__none__' );
+	update_option( 'alg_products_xml_product_type_include_1', array_map( 'strval', $types ) );
+	$ok( ! in_array( 'product_types', Alg_WC_PXF_Classic_Copy::skipped( 1 ), true ), 'all product types saved: not reported as skipped' );
+	update_option( 'alg_products_xml_product_type_include_1', array( (string) $types[0] ) );
+	$ok( in_array( 'product_types', Alg_WC_PXF_Classic_Copy::skipped( 1 ), true ), 'one product type saved: reported as skipped' );
+	'__none__' === $was ? delete_option( 'alg_products_xml_product_type_include_1' ) : update_option( 'alg_products_xml_product_type_include_1', $was );
+}
+
 // Classic feed untouched.
 $ok( $snapshot() === $opts_before, 'classic options unchanged by the copy' );
 $ok( $cron() === $cron_before, 'classic schedules unchanged by the copy' );

@@ -133,7 +133,7 @@ class Alg_WC_PXF_Classic_Copy {
 		$out    = array();
 		$checks = array(
 			'products_incl'      => array() !== self::ids( get_option( 'alg_products_xml_products_incl_' . $n, '' ) ),
-			'product_types'      => array() !== array_filter( (array) self::value( 'product_type_include', $n, array() ) ),
+			'product_types'      => self::types_limited( $n ),
 			'featured'           => in_array( get_option( 'alg_products_xml_scope_' . $n, 'all' ), array( 'featured_only', 'not_featured_only' ), true ),
 			'offset'             => absint( get_option( 'alg_products_xml_offset_' . $n, 0 ) ) > 0,
 			'total_products'     => absint( get_option( 'alg_products_xml_total_products_' . $n, 0 ) ) > 0,
@@ -153,6 +153,25 @@ class Alg_WC_PXF_Classic_Copy {
 			}
 		}
 		return $out;
+	}
+
+	/**
+	 * types_limited: the classic feed sends only some product types. The classic settings save every type as the
+	 * default, which is no limit at all.
+	 *
+	 * @version 4.0.0
+	 * @since   4.0.0
+	 *
+	 * @param   int $n Classic feed number.
+	 * @return  bool
+	 */
+	static function types_limited( $n ) {
+		$chosen = array_filter( array_map( 'intval', (array) self::value( 'product_type_include', $n, array() ) ) );
+		if ( ! $chosen ) {
+			return false;
+		}
+		$all = get_terms( array( 'taxonomy' => 'product_type', 'hide_empty' => false, 'fields' => 'ids' ) );
+		return is_wp_error( $all ) || array() !== array_diff( array_map( 'intval', $all ), $chosen );
 	}
 
 	/**
