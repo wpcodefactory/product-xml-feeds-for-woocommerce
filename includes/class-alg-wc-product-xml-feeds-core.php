@@ -15,6 +15,16 @@ if ( ! class_exists( 'Alg_WC_Product_XML_Feeds_Core' ) ) :
 class Alg_WC_Product_XML_Feeds_Core {
 
 	/**
+	 * True while a feed is being generated (shortcodes run without the post-content guard).
+	 *
+	 * @version 3.1.4
+	 * @since   3.1.4
+	 *
+	 * @var bool
+	 */
+	public static $generating = false;
+
+	/**
 	 * Constructor.
 	 *
 	 * @version 3.1.1
@@ -84,6 +94,10 @@ class Alg_WC_Product_XML_Feeds_Core {
 	 * @since   1.0.0
 	 */
 	function schedule_the_events() {
+		// New installs: no feed is written before the merchant saves the feed settings or creates a feed.
+		if ( 'yes' === get_option( 'alg_products_xml_feeds_wait_for_setup', 'no' ) ) {
+			return;
+		}
 		$update_intervals  = array(
 			'minutely',
 			'hourly',
@@ -159,9 +173,61 @@ class Alg_WC_Product_XML_Feeds_Core {
 	 * @since   1.0.0
 	 */
 	function admin_notice__error() {
+		$reason = get_transient( 'alg_wc_product_xml_feeds_last_error' );
 		echo '<div class="notice notice-error"><p>' .
 			esc_html__( 'An error has occurred while creating products XML file.', 'product-xml-feeds-for-woocommerce' ) .
+			( $reason ? ' ' . esc_html( $reason ) : '' ) .
 		'</p></div>';
+	}
+
+	/**
+	 * is_blocked_feed_path.
+	 *
+	 * Feed files may not be written as executable or server configuration files.
+	 *
+	 * @version 3.1.4
+	 * @since   3.1.4
+	 *
+	 * @param   string $path Full path of the feed file.
+	 * @return  bool
+	 */
+	function is_blocked_feed_path( $path ) {
+		$name = strtolower( wp_basename( str_replace( '\\', '/', $path ) ) );
+		if ( in_array( $name, array( '.htaccess', '.user.ini', 'php.ini', 'wp-config.php', 'web.config' ), true ) ) {
+			return true;
+		}
+		return (bool) preg_match( '/\.(php[0-9]?|pht|phtml|phar|phps|ini|cgi|pl|py|sh|asp|aspx|jsp|shtml)$/', $name );
+	}
+
+	/**
+	 * prepare_feed_path.
+	 *
+	 * Refuses blocked file names and creates a missing folder for the feed file.
+	 *
+	 * @version 3.1.4
+	 * @since   3.1.4
+	 *
+	 * @param   string $path Full path of the feed file.
+	 * @return  bool True when the file may be written.
+	 */
+	function prepare_feed_path( $path ) {
+		if ( $this->is_blocked_feed_path( $path ) ) {
+			set_transient(
+				'alg_wc_product_xml_feeds_last_error',
+				sprintf(
+					/* Translators: %s: File name. */
+					__( 'The file name "%s" is not allowed for a feed. Use a name ending in .xml or .txt in "XML file path and name".', 'product-xml-feeds-for-woocommerce' ),
+					wp_basename( $path )
+				),
+				HOUR_IN_SECONDS
+			);
+			return false;
+		}
+		$dir = dirname( $path );
+		if ( ! is_dir( $dir ) ) {
+			wp_mkdir_p( $dir );
+		}
+		return true;
 	}
 
 	/**
@@ -259,6 +325,9 @@ class Alg_WC_Product_XML_Feeds_Core {
 		// Update creation time
 		update_option( 'alg_products_time_file_created_' . $file_num, current_time( 'timestamp' ) );
 
+		// The merchant created a feed: regular updates may start (new installs wait for this).
+		delete_option( 'alg_products_xml_feeds_wait_for_setup' );
+
 		// Handle response based on an access method
 		if ( $is_external ) {
 			wp_send_json_success( __( 'XML feed generated successfully.', 'product-xml-feeds-for-woocommerce' ) );
@@ -284,7 +353,7 @@ class Alg_WC_Product_XML_Feeds_Core {
 		if ( false !== $result ) {
 			update_option( 'alg_products_time_file_created_' . $file_num, current_time( 'timestamp' ) );
 		}
-		die();
+		// No exit here: other scheduled tasks in the same WP-Cron run must still run.
 	}
 
 	/**
@@ -377,6 +446,25 @@ class Alg_WC_Product_XML_Feeds_Core {
 	 * @todo    (feature) condition: stock <>= X
 	 */
 	function create_products_xml( $file_num, $is_ajax = false, $additional_params = array() ) {
+		delete_transient( 'alg_wc_product_xml_feeds_last_error' );
+		$was_generating   = self::$generating;
+		self::$generating = true;
+		try {
+			return $this->do_create_products_xml( $file_num, $is_ajax, $additional_params );
+		} finally {
+			self::$generating = $was_generating;
+		}
+	}
+
+	/**
+	 * do_create_products_xml.
+	 *
+	 * The 3.1.3 generator, unchanged except: no credit comment, blocked file names refused, missing folders created.
+	 *
+	 * @version 3.1.4
+	 * @since   3.1.4
+	 */
+	function do_create_products_xml( $file_num, $is_ajax = false, $additional_params = array() ) {
 		global $alg_wc_product_xml_feeds_global_file_name, $wp_filesystem;
 
 		if ( ! function_exists( 'WP_Filesystem' ) ) {
@@ -454,10 +542,6 @@ class Alg_WC_Product_XML_Feeds_Core {
 			$xml_header_template    = str_replace( array( '{', '}' ), array( '<', '>' ), $xml_header_template );
 			$xml_footer_template    = str_replace( array( '{', '}' ), array( '<', '>' ), $xml_footer_template );
 			$xml_item_template      = str_replace( array( '{', '}' ), array( '<', '>' ), $xml_item_template );
-		}
-
-		if ( 'no' === apply_filters( 'wpfactory_wc_product_xml_feeds_values', 'no', 'enabled_branding', $file_num ) ) {
-			$xml_footer_template .= $this->get_default_credit();
 		}
 
 		if ( 'yes' === $create_text_feed ) {
@@ -882,6 +966,9 @@ class Alg_WC_Product_XML_Feeds_Core {
 					}
 
 					$write_data = do_shortcode( $xml_header_template ) . $xml_items . do_shortcode( $xml_footer_template );
+					if ( ! $this->prepare_feed_path( $feed_file_path ) ) {
+						return false;
+					}
 					if ( ! empty( $write_data ) ) {
 						$content = '';
 
@@ -941,6 +1028,10 @@ class Alg_WC_Product_XML_Feeds_Core {
 				'alg_products_xml_file_path_' . $file_num,
 				1 == $file_num ? 'products.xml' : 'products_' . $file_num . '.xml'
 			);
+
+		if ( ! $this->prepare_feed_path( $new_path . $file_path ) ) {
+			return false;
+		}
 
 		return $wp_filesystem->put_contents(
 			$new_path . $file_path,

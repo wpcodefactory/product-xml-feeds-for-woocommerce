@@ -193,6 +193,15 @@ final class Alg_WC_Product_XML_Feeds {
 			array( $this, 'add_woocommerce_settings_tab' )
 		);
 
+		// New installs start updating feeds once the merchant saves the feed settings.
+		add_action(
+			'woocommerce_settings_save_alg_wc_product_xml_feeds',
+			function () {
+				delete_option( 'alg_products_xml_feeds_wait_for_setup' );
+			},
+			1
+		);
+
 		// Version updated
 		if ( get_option( 'alg_product_xml_feeds_version', '' ) !== $this->version ) {
 			add_action( 'admin_init', array( $this, 'version_updated' ) );

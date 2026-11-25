@@ -16,6 +16,25 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 defined( 'ABSPATH' ) || exit;
 
+if ( ! function_exists( 'alg_wc_product_xml_feeds_activate' ) ) {
+	/**
+	 * On a fresh install, wait until the merchant saves or creates a feed before writing any feed file.
+	 * Sites that already used the plugin (a version or a created feed is stored) are not touched.
+	 *
+	 * @version 3.1.4
+	 * @since   3.1.4
+	 */
+	function alg_wc_product_xml_feeds_activate() {
+		if (
+			'' === get_option( 'alg_product_xml_feeds_version', '' ) &&
+			'' === get_option( 'alg_products_time_file_created_1', '' )
+		) {
+			update_option( 'alg_products_xml_feeds_wait_for_setup', 'yes', false );
+		}
+	}
+}
+register_activation_hook( __FILE__, 'alg_wc_product_xml_feeds_activate' );
+
 if ( 'product-xml-feeds-for-woocommerce.php' === basename( __FILE__ ) ) {
 	/**
 	 * Check if Pro plugin version is activated.

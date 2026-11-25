@@ -52,6 +52,28 @@ class Alg_Shortcodes {
 	}
 
 	/**
+	 * is_restricted_context.
+	 *
+	 * True when a shortcode is rendered inside content written by a user who cannot manage WooCommerce (for example a
+	 * Contributor's post preview). Never true while a feed is generated or outside post content.
+	 *
+	 * @version 3.1.4
+	 * @since   3.1.4
+	 *
+	 * @return  bool
+	 */
+	static function is_restricted_context() {
+		if ( class_exists( 'Alg_WC_Product_XML_Feeds_Core' ) && Alg_WC_Product_XML_Feeds_Core::$generating ) {
+			return false;
+		}
+		$post = get_post();
+		if ( ! $post || empty( $post->post_author ) || in_array( $post->post_type, array( 'product', 'product_variation' ), true ) ) {
+			return false;
+		}
+		return ! user_can( (int) $post->post_author, 'manage_woocommerce' );
+	}
+
+	/**
 	 * add_extra_atts.
 	 *
 	 * @version 1.0.0
@@ -252,7 +274,8 @@ class Alg_Shortcodes {
 			$result = wp_kses_post( $result );
 			// CDATA
 			if ( 'yes' === $atts['cdata'] ) {
-				$result = '<![CDATA[' .  wp_kses_post( $result ) . ']]>';
+				// A "]]>" inside the value would end the CDATA block early and break the whole file: split it.
+				$result = '<![CDATA[' .  str_replace( ']]>', ']]]]><![CDATA[>', wp_kses_post( $result ) ) . ']]>';
 			}
 
 			// Before/After
