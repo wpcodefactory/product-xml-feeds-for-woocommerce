@@ -17,13 +17,15 @@ if ( is_wp_error( $feed ) || empty( $feed['id'] ) ) {
 	Alg_WC_PXF_Admin_UI::banner( esc_html__( 'This feed was not found. It may have been deleted.', 'product-xml-feeds-for-woocommerce' ) . ' <a href="' . esc_url( Alg_WC_PXF_Admin::url() ) . '">' . esc_html__( 'Back to feeds', 'product-xml-feeds-for-woocommerce' ) . '</a>', 'bad' );
 	return;
 }
-$tabs = array(
-	'fields'   => __( 'Fields', 'product-xml-feeds-for-woocommerce' ),
+$config   = isset( $feed['config'] ) ? (array) $feed['config'] : array();
+$spec     = ( class_exists( 'Alg_WC_PXF_Channels' ) && ! empty( $config['channel'] ) ) ? Alg_WC_PXF_Channels::get( $config['channel'] ) : null;
+$raw      = is_array( $spec ) && ! empty( $spec['raw'] ); // Custom template: the merchant writes the item, no field list.
+$tabs     = array(
+	'fields'   => $raw ? __( 'Template', 'product-xml-feeds-for-woocommerce' ) : __( 'Fields', 'product-xml-feeds-for-woocommerce' ),
 	'filters'  => __( 'Products and filters', 'product-xml-feeds-for-woocommerce' ),
 	'schedule' => __( 'Schedule and file', 'product-xml-feeds-for-woocommerce' ),
 );
 $tab      = isset( $tabs[ $tab ] ) ? $tab : 'fields';
-$config   = isset( $feed['config'] ) ? (array) $feed['config'] : array();
 $state    = isset( $feed['state'] ) ? (array) $feed['state'] : array();
 $filters  = isset( $config['filters'] ) ? (array) $config['filters'] : array();
 $mapping  = isset( $config['mapping'] ) ? (array) $config['mapping'] : array();
@@ -95,6 +97,46 @@ echo '<div class="progress" data-pxf-progress aria-hidden="true"' . ( $busy ? ''
 
 <div data-pxf-pane="fields"<?php echo 'fields' === $tab ? '' : ' hidden'; ?>>
 <?php
+if ( $raw ) :
+	$tpl   = isset( $config['custom_template'] ) ? (array) $config['custom_template'] : array();
+	$parts = array(
+		'header' => array( __( 'Start of the file', 'product-xml-feeds-for-woocommerce' ), __( 'Written once, before the products.', 'product-xml-feeds-for-woocommerce' ), 5 ),
+		'item'   => array( __( 'One product', 'product-xml-feeds-for-woocommerce' ), __( 'Written for every product.', 'product-xml-feeds-for-woocommerce' ), 12 ),
+		'footer' => array( __( 'End of the file', 'product-xml-feeds-for-woocommerce' ), __( 'Written once, after the products.', 'product-xml-feeds-for-woocommerce' ), 3 ),
+	);
+	$raw_v = isset( $item['_raw'] ) ? (string) $item['_raw'] : '';
+	?>
+	<div class="grid">
+		<section class="card"><div class="card-body">
+			<p class="hint" style="margin-bottom:16px"><?php esc_html_e( 'Write the file with the same shortcodes as the classic feeds, for example [alg_product_name cdata="yes"] or [alg_product_price].', 'product-xml-feeds-for-woocommerce' ); ?></p>
+			<?php
+			foreach ( $parts as $part => $p ) :
+				$tid = 'pxf-tpl-' . $part;
+				?>
+				<div class="field">
+					<label class="label" for="<?php echo esc_attr( $tid ); ?>"><?php echo esc_html( $p[0] ); ?></label>
+					<textarea id="<?php echo esc_attr( $tid ); ?>" class="input" style="height:auto;line-height:1.5;padding:10px 12px;font:13px/1.5 var(--mono)" rows="<?php echo esc_attr( $p[2] ); ?>" spellcheck="false" name="config[custom_template][<?php echo esc_attr( $part ); ?>]"><?php echo esc_textarea( isset( $tpl[ $part ] ) ? (string) $tpl[ $part ] : '' ); ?></textarea>
+					<p class="hint"><?php echo esc_html( $p[1] ); ?></p>
+				</div>
+			<?php endforeach; ?>
+		</div></section>
+		<section class="card" id="pxf-preview" aria-live="polite">
+			<div class="card-head"><h2 class="card-title"><?php esc_html_e( 'Preview', 'product-xml-feeds-for-woocommerce' ); ?></h2>
+				<label class="sr-only" for="pxf-pv"><?php esc_html_e( 'Preview product', 'product-xml-feeds-for-woocommerce' ); ?></label>
+				<select id="pxf-pv" class="select" style="width:auto;max-width:220px" data-pxf-preview>
+					<?php foreach ( $products as $p ) : ?>
+						<option value="<?php echo esc_attr( $p->get_id() ); ?>"<?php selected( $pv_id, $p->get_id() ); ?>><?php echo esc_html( wp_strip_all_tags( $p->get_name() ) ); ?></option>
+					<?php endforeach; ?>
+				</select></div>
+			<div class="card-body">
+				<pre class="xml" data-pxf-xml><?php echo esc_html( $raw_v ); ?></pre>
+				<p class="hint" style="margin-top:8px"><?php esc_html_e( 'Shows one product with the saved template. Press Save to see your changes here.', 'product-xml-feeds-for-woocommerce' ); ?></p>
+				<ul class="issues" data-pxf-issues hidden></ul>
+			</div>
+		</section>
+	</div>
+	<?php
+else :
 // Source choices for the field picker.
 $model_keys = array(
 	'id' => __( 'Product ID', 'product-xml-feeds-for-woocommerce' ), 'title' => __( 'Product name', 'product-xml-feeds-for-woocommerce' ),
@@ -227,6 +269,7 @@ $pct = $req_total ? round( 100 * $req_filled / $req_total ) : 100;
 			</div>
 		</section>
 	</div>
+<?php endif; ?>
 </div>
 
 <div data-pxf-pane="filters"<?php echo 'filters' === $tab ? '' : ' hidden'; ?>>

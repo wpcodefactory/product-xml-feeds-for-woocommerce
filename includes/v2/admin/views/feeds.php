@@ -122,7 +122,12 @@ if ( $v2 || $classic ) :
 				?></div>
 			</div>
 			<?php echo Alg_WC_PXF_Admin_UI::url_field( 'pxf-curl-' . $n, isset( $feed['url'] ) ? $feed['url'] : '', sprintf( /* translators: %s: feed name. */ __( 'Feed link for %s', 'product-xml-feeds-for-woocommerce' ), $title ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-			<div class="row-actions"><a class="btn btn-text btn-sm" href="<?php echo esc_url( Alg_WC_PXF_Admin::classic_url( $n ) ); ?>"><?php esc_html_e( 'Open in classic feeds', 'product-xml-feeds-for-woocommerce' ); ?><span class="sr-only"> <?php echo esc_html( $title ); ?></span></a></div>
+			<form class="row-actions" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+				<?php wp_nonce_field( 'alg_wc_pxf_copy_classic' ); ?>
+				<input type="hidden" name="action" value="alg_wc_pxf_copy_classic"><input type="hidden" name="classic" value="<?php echo esc_attr( $n ); ?>">
+				<a class="btn btn-secondary btn-sm" href="<?php echo esc_url( Alg_WC_PXF_Admin::classic_url( $n ) ); ?>"><?php esc_html_e( 'Open', 'product-xml-feeds-for-woocommerce' ); ?><span class="sr-only"> <?php echo esc_html( $title ); ?></span></a>
+				<button class="btn btn-text btn-sm" type="submit" title="<?php esc_attr_e( 'Makes a new feed with this template and its own link. This classic feed stays as it is.', 'product-xml-feeds-for-woocommerce' ); ?>"><?php esc_html_e( 'Copy to a new feed', 'product-xml-feeds-for-woocommerce' ); ?><span class="sr-only"> <?php echo esc_html( $title ); ?></span></button>
+			</form>
 		</div>
 		<?php
 	endforeach;

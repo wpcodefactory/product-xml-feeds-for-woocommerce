@@ -303,7 +303,8 @@
 					var v = item[ k ];
 					lines.push( '<' + k + '>' + ( 'object' === typeof v ? JSON.stringify( v ) : v ) + '</' + k + '>' );
 				} );
-				q( '[data-pxf-xml]' ).textContent = lines.join( '\n' );
+				// Custom template: the rendered item as it is written to the file.
+				q( '[data-pxf-xml]' ).textContent = 'string' === typeof item._raw ? item._raw : lines.join( '\n' );
 				qa( '.map', ef ).forEach( function ( row ) {
 					var v = item[ row.dataset.field ], cell = q( '[data-pxf-val]', row );
 					v = undefined === v || null === v ? '' : ( 'object' === typeof v ? JSON.stringify( v ) : String( v ) );
@@ -344,9 +345,12 @@
 			api( 'PUT', '/feeds/' + feedId, { config: toConfig( formData( ef, 'config' ) ) } ).then( function () {
 				btn.disabled = false;
 				toast( t.saved );
-				var st = q( '[data-pxf-savestate]' );
+				var st = q( '[data-pxf-savestate]' ), pv = q( '[data-pxf-preview]' );
 				if ( st ) {
 					st.textContent = t.saved;
+				}
+				if ( pv ) {
+					preview( pv.value ); // Shows the saved template or mapping right away.
 				}
 			} ).catch( function ( err ) { btn.disabled = false; fail( err ); } );
 		} );

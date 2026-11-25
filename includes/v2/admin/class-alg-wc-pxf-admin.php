@@ -50,10 +50,22 @@ class Alg_WC_PXF_Admin {
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue' ) );
 		add_filter( 'admin_body_class', array( __CLASS__, 'body_class' ) );
 		add_action( 'in_admin_header', array( __CLASS__, 'hide_notices' ), 1000 );
-		foreach ( array( 'create_feed', 'save_feed', 'run_feed', 'save_categories', 'save_settings' ) as $action ) {
+		foreach ( array( 'create_feed', 'save_feed', 'run_feed', 'save_categories', 'save_settings', 'copy_classic' ) as $action ) {
 			add_action( 'admin_post_alg_wc_pxf_' . $action, array( __CLASS__, 'post_' . $action ) );
 		}
+		// One menu item: the classic screen is opened from the feeds list (its address keeps working).
+		add_action( 'admin_menu', array( __CLASS__, 'hide_classic_item' ), 999 );
+		add_filter( 'parent_file', array( __CLASS__, 'classic_parent_file' ), 20 );
+		add_filter( 'submenu_file', array( __CLASS__, 'classic_submenu_file' ), 20 );
+		add_action( 'all_admin_notices', array( __CLASS__, 'classic_crumb' ), 11 );
 	}
+
+	/**
+	 * Parent menu slug of the Product Feeds item.
+	 *
+	 * @var string
+	 */
+	static $parent = '';
 
 	/**
 	 * menu: one item under the WPFactory menu (WooCommerce menu when the WPFactory menu is missing).
@@ -63,14 +75,101 @@ class Alg_WC_PXF_Admin {
 	 */
 	static function menu() {
 		global $admin_page_hooks;
-		$parent     = isset( $admin_page_hooks['wpfactory'] ) ? 'wpfactory' : 'woocommerce';
-		self::$hook = add_submenu_page(
-			$parent,
+		self::$parent = isset( $admin_page_hooks['wpfactory'] ) ? 'wpfactory' : 'woocommerce';
+		self::$hook   = add_submenu_page(
+			self::$parent,
 			__( 'Product Feeds', 'product-xml-feeds-for-woocommerce' ),
 			__( 'Product Feeds', 'product-xml-feeds-for-woocommerce' ),
 			'manage_woocommerce',
 			self::SLUG,
 			array( __CLASS__, 'render' )
+		);
+	}
+
+	/**
+	 * classic_slug: the menu slug the WPFactory menu gives the classic settings tab.
+	 *
+	 * @version 4.0.0
+	 * @since   4.0.0
+	 *
+	 * @return  string
+	 */
+	static function classic_slug() {
+		return 'admin.php?page=wc-settings&tab=alg_wc_product_xml_feeds';
+	}
+
+	/**
+	 * hide_classic_item: removes the "Product XML Feeds" menu item (the page itself stays reachable).
+	 *
+	 * @version 4.0.0
+	 * @since   4.0.0
+	 */
+	static function hide_classic_item() {
+		if ( self::$hook ) {
+			remove_submenu_page( 'wpfactory', self::classic_slug() );
+		}
+	}
+
+	/**
+	 * is_classic_screen: the classic WooCommerce settings tab of this plugin.
+	 *
+	 * @version 4.0.0
+	 * @since   4.0.0
+	 *
+	 * @return  bool
+	 */
+	static function is_classic_screen() {
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+		return isset( $_GET['page'], $_GET['tab'] ) && 'wc-settings' === sanitize_key( wp_unslash( $_GET['page'] ) ) && 'alg_wc_product_xml_feeds' === sanitize_key( wp_unslash( $_GET['tab'] ) );
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
+	}
+
+	/**
+	 * classic_parent_file: the classic screen highlights the Product Feeds item.
+	 *
+	 * @version 4.0.0
+	 * @since   4.0.0
+	 *
+	 * @param   string $file Parent file.
+	 * @return  string
+	 */
+	static function classic_parent_file( $file ) {
+		if ( self::$hook && self::is_classic_screen() ) {
+			global $plugin_page;
+			$plugin_page = self::SLUG; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- menu highlight only, the page has been routed already.
+			return self::$parent;
+		}
+		return $file;
+	}
+
+	/**
+	 * classic_submenu_file.
+	 *
+	 * @version 4.0.0
+	 * @since   4.0.0
+	 *
+	 * @param   string|null $file Submenu file.
+	 * @return  string|null
+	 */
+	static function classic_submenu_file( $file ) {
+		return ( self::$hook && self::is_classic_screen() ) ? self::SLUG : $file;
+	}
+
+	/**
+	 * classic_crumb: a way back to Product Feeds on the classic screen.
+	 *
+	 * @version 4.0.0
+	 * @since   4.0.0
+	 */
+	static function classic_crumb() {
+		if ( ! self::$hook || ! self::is_classic_screen() ) {
+			return;
+		}
+		printf(
+			'<p class="alg-pxf-classic-crumb" style="margin:12px 20px 0 30px;font-size:13px;color:#5E5A4C"><a href="%s" style="color:#0B4F86;font-weight:600;text-decoration:none">%s</a> &rsaquo; %s</p>',
+			esc_url( self::url() ),
+			esc_html__( 'Product Feeds', 'product-xml-feeds-for-woocommerce' ),
+			esc_html__( 'Classic feeds', 'product-xml-feeds-for-woocommerce' )
 		);
 	}
 
@@ -384,11 +483,27 @@ class Alg_WC_PXF_Admin {
 			'created' => array( 'ok', __( 'Feed created. The first file is being built now.', 'product-xml-feeds-for-woocommerce' ) ),
 			'started' => array( 'ok', __( 'Update started. You can leave this page.', 'product-xml-feeds-for-woocommerce' ) ),
 			'deleted' => array( 'ok', __( 'Feed deleted.', 'product-xml-feeds-for-woocommerce' ) ),
+			'copied'  => array( 'ok', __( 'Template copied into this new feed. Your classic feed is unchanged and keeps its link. This feed has its own link: use it when you are ready.', 'product-xml-feeds-for-woocommerce' ) ),
 			'error'   => array( 'bad', __( 'Something went wrong. Nothing was changed.', 'product-xml-feeds-for-woocommerce' ) ),
 		);
-		if ( isset( $map[ $msg ] ) ) {
-			Alg_WC_PXF_Admin_UI::banner( esc_html( $map[ $msg ][1] ), $map[ $msg ][0] );
+		if ( ! isset( $map[ $msg ] ) ) {
+			return;
 		}
+		$html = esc_html( $map[ $msg ][1] );
+		if ( 'copied' === $msg && ! empty( $_GET['pxf_skip'] ) && class_exists( 'Alg_WC_PXF_Classic_Copy' ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$labels  = Alg_WC_PXF_Classic_Copy::labels();
+			$skipped = array();
+			foreach ( explode( ',', sanitize_text_field( wp_unslash( $_GET['pxf_skip'] ) ) ) as $key ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				if ( isset( $labels[ $key ] ) ) {
+					$skipped[] = $labels[ $key ];
+				}
+			}
+			if ( $skipped ) {
+				/* translators: %s: list of classic settings. */
+				$html .= ' ' . esc_html( sprintf( __( 'Not copied (no match in new feeds): %s.', 'product-xml-feeds-for-woocommerce' ), implode( ', ', $skipped ) ) );
+			}
+		}
+		Alg_WC_PXF_Admin_UI::banner( $html, $map[ $msg ][0] );
 	}
 
 	/**
@@ -482,6 +597,27 @@ class Alg_WC_PXF_Admin {
 		$result = self::rest( 'POST', '/feeds/' . $id . '/run' );
 		$back   = isset( $_POST['back'] ) && 'edit' === $_POST['back'] ? 'edit' : 'feeds';
 		self::back( $back, 'edit' === $back ? array( 'feed' => $id ) : array(), $result, 'started' );
+	}
+
+	/**
+	 * post_copy_classic: a new "Custom template" feed from a classic feed, then its first file is built.
+	 *
+	 * @version 4.0.0
+	 * @since   4.0.0
+	 */
+	static function post_copy_classic() {
+		self::check_post( 'alg_wc_pxf_copy_classic' );
+		$n      = isset( $_POST['classic'] ) ? absint( $_POST['classic'] ) : 0;
+		$result = self::rest( 'POST', '/classic/' . $n . '/copy' );
+		if ( ! is_wp_error( $result ) && ! empty( $result['id'] ) ) {
+			self::rest( 'POST', '/feeds/' . (int) $result['id'] . '/run' );
+			$args = array( 'feed' => (int) $result['id'] );
+			if ( ! empty( $result['skipped'] ) ) {
+				$args['pxf_skip'] = implode( ',', array_map( 'sanitize_key', (array) $result['skipped'] ) );
+			}
+			self::back( 'edit', $args, $result, 'copied' );
+		}
+		self::back( 'feeds', array(), is_wp_error( $result ) ? $result : new WP_Error( 'pxf' ) );
 	}
 
 	/**
@@ -584,6 +720,15 @@ class Alg_WC_PXF_Admin {
 				$filters['on_sale'] = $f['on_sale'];
 			}
 			$out['filters'] = $filters;
+		}
+		if ( isset( $in['custom_template'] ) && is_array( $in['custom_template'] ) ) {
+			// Raw template text with shortcodes, as on the classic screens (checked again in Alg_WC_PXF_Feeds::sanitize_config()).
+			$out['custom_template'] = array();
+			foreach ( array( 'header', 'item', 'footer' ) as $part ) {
+				if ( isset( $in['custom_template'][ $part ] ) && is_scalar( $in['custom_template'][ $part ] ) ) {
+					$out['custom_template'][ $part ] = (string) $in['custom_template'][ $part ];
+				}
+			}
 		}
 		if ( isset( $in['mapping'] ) && is_array( $in['mapping'] ) ) {
 			$out['mapping'] = array();

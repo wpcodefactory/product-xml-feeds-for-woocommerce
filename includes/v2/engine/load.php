@@ -17,6 +17,7 @@ require_once __DIR__ . '/class-alg-wc-pxf-writer-csv.php';
 require_once __DIR__ . '/class-alg-wc-pxf-writer-jsonl.php';
 require_once __DIR__ . '/class-alg-wc-pxf-engine.php';
 require_once __DIR__ . '/class-alg-wc-pxf-scheduler.php';
+require_once __DIR__ . '/class-alg-wc-pxf-classic-copy.php';
 require_once __DIR__ . '/class-alg-wc-pxf-rest.php';
 
 Alg_WC_PXF_Feeds::init();

@@ -135,6 +135,18 @@ class Alg_WC_PXF_REST {
 			'permission_callback' => $can,
 			'args'                => $id,
 		) );
+		register_rest_route( self::NS, '/classic/(?P<n>\d+)/copy', array(
+			'methods'             => 'POST',
+			'callback'            => array( __CLASS__, 'copy_classic' ),
+			'permission_callback' => $can,
+			'args'                => array(
+				'n' => array(
+					'type'              => 'integer',
+					'required'          => true,
+					'sanitize_callback' => 'absint',
+				),
+			),
+		) );
 		register_rest_route( self::NS, '/taxonomy', array(
 			'methods'             => 'GET',
 			'callback'            => array( __CLASS__, 'taxonomy' ),
@@ -301,6 +313,25 @@ class Alg_WC_PXF_REST {
 			return self::error( 'alg_pxf_create_failed', $feed_id->get_error_message(), 500 );
 		}
 		return Alg_WC_PXF_Feeds::to_array( $feed_id, true );
+	}
+
+	/**
+	 * copy_classic: a new "Custom template" feed from a classic feed (the classic feed is not touched).
+	 *
+	 * @version 4.0.0
+	 * @since   4.0.0
+	 *
+	 * @param   WP_REST_Request $request Request.
+	 * @return  array|WP_Error
+	 */
+	static function copy_classic( $request ) {
+		$result = Alg_WC_PXF_Classic_Copy::copy( absint( $request['n'] ) );
+		if ( is_wp_error( $result ) ) {
+			return $result;
+		}
+		$out            = Alg_WC_PXF_Feeds::to_array( $result['id'], true );
+		$out['skipped'] = $result['skipped'];
+		return $out;
 	}
 
 	/**
