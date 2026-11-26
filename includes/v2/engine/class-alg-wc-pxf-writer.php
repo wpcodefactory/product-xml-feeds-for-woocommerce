@@ -223,7 +223,7 @@ abstract class Alg_WC_PXF_Writer {
 		$this->close();
 		$this->handle = @fopen( $this->tmp, 'wb' ); // phpcs:ignore
 		if ( ! $this->handle ) {
-			throw new RuntimeException( __( 'The feed file could not be created. Check that the uploads folder is writable.', 'product-xml-feeds-for-woocommerce' ) );
+			throw new RuntimeException( __( 'The feed file could not be created. Check that the uploads folder is writable.', 'product-xml-feeds-for-woocommerce' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- caught by the run, stored and shown with esc_html().
 		}
 		$this->write( isset( $this->parts['header'] ) ? $this->parts['header'] : $this->header() );
 	}
@@ -408,13 +408,13 @@ abstract class Alg_WC_PXF_Writer {
 			return;
 		}
 		if ( ! $this->handle ) {
-			throw new RuntimeException( __( 'The feed file is not open.', 'product-xml-feeds-for-woocommerce' ) );
+			throw new RuntimeException( __( 'The feed file is not open.', 'product-xml-feeds-for-woocommerce' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- caught by the run, stored and shown with esc_html().
 		}
 		$text   = $this->encode( $text );
 		$length = strlen( $text );
 		$done   = fwrite( $this->handle, $text ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fwrite
 		if ( false === $done || $done < $length ) {
-			throw new RuntimeException( __( 'The feed file could not be written. Check the free disk space.', 'product-xml-feeds-for-woocommerce' ) );
+			throw new RuntimeException( __( 'The feed file could not be written. Check the free disk space.', 'product-xml-feeds-for-woocommerce' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- caught by the run, stored and shown with esc_html().
 		}
 	}
 

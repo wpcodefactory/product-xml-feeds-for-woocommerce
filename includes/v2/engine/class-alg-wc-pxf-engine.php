@@ -221,18 +221,18 @@ class Alg_WC_PXF_Engine {
 		$config  = Alg_WC_PXF_Feeds::get_config( $feed_id );
 		$channel = Alg_WC_PXF_Feeds::channel( $config['channel'] );
 		if ( ! $channel ) {
-			throw new RuntimeException( __( 'The channel of this feed is not available.', 'product-xml-feeds-for-woocommerce' ) );
+			throw new RuntimeException( __( 'The channel of this feed is not available.', 'product-xml-feeds-for-woocommerce' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- caught by the run, stored and shown with esc_html().
 		}
 		if ( ! class_exists( 'Alg_WC_PXF_Product_Data' ) || ! class_exists( 'Alg_WC_PXF_Mapper' ) ) {
-			throw new RuntimeException( __( 'The product data part of the plugin is missing. Reinstall the plugin.', 'product-xml-feeds-for-woocommerce' ) );
+			throw new RuntimeException( __( 'The product data part of the plugin is missing. Reinstall the plugin.', 'product-xml-feeds-for-woocommerce' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- caught by the run, stored and shown with esc_html().
 		}
 		if ( ! Alg_WC_PXF_Feeds::ensure_dir() ) {
-			throw new RuntimeException( __( 'The folder uploads/product-feeds could not be created or is not writable.', 'product-xml-feeds-for-woocommerce' ) );
+			throw new RuntimeException( __( 'The folder uploads/product-feeds could not be created or is not writable.', 'product-xml-feeds-for-woocommerce' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- caught by the run, stored and shown with esc_html().
 		}
 		$path   = Alg_WC_PXF_Feeds::file_path( $feed_id );
 		$writer = Alg_WC_PXF_Writer::open( Alg_WC_PXF_Feeds::format( $config, $channel ), $channel, $path );
 		if ( is_wp_error( $writer ) ) {
-			throw new RuntimeException( $writer->get_error_message() );
+			throw new RuntimeException( $writer->get_error_message() ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- caught by the run, stored and shown with esc_html().
 		}
 		$raw = ! empty( $channel['raw'] );
 		if ( 0 === (int) $state['batches'] ) {
@@ -241,7 +241,7 @@ class Alg_WC_PXF_Engine {
 			}
 			$writer->begin();
 		} elseif ( ! $writer->resume( (int) $state['bytes'] ) ) {
-			throw new RuntimeException( __( 'The temporary feed file was lost during the run. Start the run again.', 'product-xml-feeds-for-woocommerce' ) );
+			throw new RuntimeException( __( 'The temporary feed file was lost during the run. Start the run again.', 'product-xml-feeds-for-woocommerce' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- caught by the run, stored and shown with esc_html().
 		}
 
 		do_action( 'alg_wc_pxf_batch_start', $feed_id, $config, $state );
@@ -321,7 +321,7 @@ class Alg_WC_PXF_Engine {
 		}
 
 		if ( 0 === (int) $state['written'] && file_exists( $path ) && ! apply_filters( 'alg_wc_pxf_publish_empty', false, $feed_id ) ) {
-			throw new RuntimeException( __( 'No products were written, so the last good file was kept. Check the feed filters.', 'product-xml-feeds-for-woocommerce' ) );
+			throw new RuntimeException( __( 'No products were written, so the last good file was kept. Check the feed filters.', 'product-xml-feeds-for-woocommerce' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- caught by the run, stored and shown with esc_html().
 		}
 		if ( $raw && is_callable( array( 'Alg_WC_PXF_Mapper', 'custom_part' ) ) ) {
 			$user = get_current_user_id();
@@ -330,7 +330,7 @@ class Alg_WC_PXF_Engine {
 			wp_set_current_user( $user );
 		}
 		if ( ! $writer->end() ) {
-			throw new RuntimeException( __( 'The new file could not replace the old one, so the last good file was kept. Check the folder permissions.', 'product-xml-feeds-for-woocommerce' ) );
+			throw new RuntimeException( __( 'The new file could not replace the old one, so the last good file was kept. Check the folder permissions.', 'product-xml-feeds-for-woocommerce' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- caught by the run, stored and shown with esc_html().
 		}
 		$state['status']    = 'done';
 		$state['finished']  = time();

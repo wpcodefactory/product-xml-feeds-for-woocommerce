@@ -232,7 +232,6 @@ class Alg_WC_PXF_Feeds {
 			'fields'           => 'ids',
 			'orderby'          => 'ID',
 			'order'            => 'ASC',
-			'suppress_filters' => true,
 		) ) );
 	}
 
@@ -532,10 +531,10 @@ class Alg_WC_PXF_Feeds {
 			foreach ( array( '', '.gz' ) as $gz ) {
 				$file = $folder . '/' . $config['file_slug'] . '.' . $format . $gz;
 				if ( file_exists( $file ) ) {
-					@rename( $file, $file . '.deleted' ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+					@rename( $file, $file . '.deleted' ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.rename_rename -- same-folder rename in uploads, no WP_Filesystem equivalent.
 				}
 				if ( file_exists( $file . '.tmp' ) ) {
-					@unlink( $file . '.tmp' ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+					wp_delete_file( $file . '.tmp' );
 				}
 			}
 		}
