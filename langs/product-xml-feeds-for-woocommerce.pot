@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Product XML Feed Manager for WooCommerce - Google Shopping, Social Sites, Skroutz & More 3.1.4\n"
+"Project-Id-Version: Product XML Feed Manager for WooCommerce - Google Shopping, Social Sites, Skroutz & More 4.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/product-xml-feeds-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-25T10:52:04+00:00\n"
+"POT-Creation-Date: 2026-11-26T07:34:16+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: product-xml-feeds-for-woocommerce\n"
@@ -26,7 +26,7 @@ msgstr ""
 
 #. Description of the plugin
 #: product-xml-feeds-for-woocommerce.php
-msgid "Create your own XML files using tens of preconfigured shortcodes for you on your WooCommerce store."
+msgid "Ready product feeds for Google Shopping, Meta, idealo, Skroutz and more, checked before they go out, with AI for titles and missing details. Your own XML templates keep working."
 msgstr ""
 
 #. Author of the plugin
@@ -86,6 +86,8 @@ msgid "XML feed generated successfully."
 msgstr ""
 
 #: includes/class-alg-wc-product-xml-feeds.php:133
+#: includes/v2/admin/class-alg-wc-pxf-admin-ui.php:55
+#: includes/v2/admin/views/settings.php:19
 msgid "Settings"
 msgstr ""
 
@@ -93,23 +95,21 @@ msgstr ""
 msgid "Go Pro"
 msgstr ""
 
-#: includes/class-alg-wc-product-xml-feeds.php:250
+#: includes/class-alg-wc-product-xml-feeds.php:254
 #: includes/settings/class-alg-wc-settings-product-xml-feeds.php:36
 msgid "Product XML Feeds"
 msgstr ""
 
-#: includes/class-alg-wc-product-xml-feeds.php:251
+#: includes/class-alg-wc-product-xml-feeds.php:255
 msgid "Product XML Feed Manager for WooCommerce"
 msgstr ""
 
-#: includes/pro/class-alg-wc-product-xml-feeds-pro.php:116
-#: includes/pro/class-alg-wc-product-xml-feeds-pro.php:117
-msgid "Save changes"
-msgstr ""
-
 #. Translators: %d: Feed number.
+#. translators: %d: Feed number.
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:45
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:546
+#: includes/v2/engine/class-alg-wc-pxf-classic-copy.php:219
+#: includes/v2/engine/class-alg-wc-pxf-rest.php:261
 #, php-format
 msgid "XML Feed #%d"
 msgstr ""
@@ -248,6 +248,7 @@ msgid "Use Site Address (HOME_URL)"
 msgstr ""
 
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:687
+#: includes/v2/classic/load.php:53
 msgid "Update period"
 msgstr ""
 
@@ -308,10 +309,25 @@ msgid "Sorting: Order by"
 msgstr ""
 
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:776
+#: includes/v2/admin/views/edit.php:142
+#: includes/v2/channels/specs/google.php:41
+#: includes/v2/channels/specs/idealo.php:35
+#: includes/v2/channels/specs/openai.php:35
+#: includes/v2/channels/specs/pricerunner.php:33
+#: includes/v2/channels/specs/skroutz.php:48
+#: includes/v2/channels/specs/tiktok.php:43
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:583
 msgid "Product ID"
 msgstr ""
 
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:777
+#: includes/v2/channels/specs/google.php:42
+#: includes/v2/channels/specs/idealo.php:36
+#: includes/v2/channels/specs/openai.php:36
+#: includes/v2/channels/specs/pricerunner.php:34
+#: includes/v2/channels/specs/skroutz.php:49
+#: includes/v2/channels/specs/tiktok.php:44
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:584
 msgid "Title"
 msgstr ""
 
@@ -364,6 +380,7 @@ msgid "Products Filtering Options"
 msgstr ""
 
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:818
+#: includes/v2/engine/class-alg-wc-pxf-classic-copy.php:187
 msgid "Products to include"
 msgstr ""
 
@@ -457,6 +474,7 @@ msgid "Products scope"
 msgstr ""
 
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:907
+#: includes/v2/admin/views/edit.php:302
 msgid "All products"
 msgstr ""
 
@@ -477,6 +495,7 @@ msgid "Only products that are not featured"
 msgstr ""
 
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:915
+#: includes/v2/engine/class-alg-wc-pxf-classic-copy.php:190
 msgid "Offset products"
 msgstr ""
 
@@ -485,6 +504,7 @@ msgid "Number of products to pass over."
 msgstr ""
 
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:923
+#: includes/v2/engine/class-alg-wc-pxf-classic-copy.php:191
 msgid "Total products"
 msgstr ""
 
@@ -497,6 +517,12 @@ msgid "Extra Products Filtering Options"
 msgstr ""
 
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:943
+#: includes/v2/admin/views/edit.php:147
+#: includes/v2/admin/views/edit.php:283
+#: includes/v2/channels/specs/google.php:59
+#: includes/v2/channels/specs/openai.php:42
+#: includes/v2/channels/specs/pricerunner.php:40
+#: includes/v2/channels/specs/tiktok.php:46
 msgid "Stock status"
 msgstr ""
 
@@ -505,14 +531,17 @@ msgid "Possible values (multiselect): In stock, Out of stock, On backorder."
 msgstr ""
 
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:951
+#: includes/v2/admin/views/edit.php:280
 msgid "In stock"
 msgstr ""
 
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:952
+#: includes/v2/admin/views/edit.php:280
 msgid "Out of stock"
 msgstr ""
 
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:953
+#: includes/v2/admin/views/edit.php:280
 msgid "On backorder"
 msgstr ""
 
@@ -530,6 +559,7 @@ msgid "Max price"
 msgstr ""
 
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:974
+#: includes/v2/engine/class-alg-wc-pxf-classic-copy.php:197
 msgid "Catalog visibility"
 msgstr ""
 
@@ -590,6 +620,7 @@ msgid "Attribute values (comma separated)"
 msgstr ""
 
 #: includes/settings/class-alg-wc-product-xml-feeds-settings-feed.php:1036
+#: includes/v2/engine/class-alg-wc-pxf-classic-copy.php:200
 msgid "Custom meta filter"
 msgstr ""
 
@@ -751,4 +782,2544 @@ msgstr ""
 
 #: includes/shortcodes/class-alg-products-shortcodes.php:639
 msgid "Any"
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin-ui.php:51
+#: includes/v2/admin/views/edit.php:76
+#: includes/v2/admin/views/feeds.php:70
+#: includes/v2/admin/views/new.php:53
+msgid "Feeds"
+msgstr ""
+
+#. translators: %s: feed name.
+#: includes/v2/admin/class-alg-wc-pxf-admin-ui.php:52
+#: includes/v2/admin/views/products.php:32
+#: includes/v2/admin/views/products.php:34
+msgid "Product check"
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin-ui.php:53
+#: includes/v2/admin/views/categories.php:16
+msgid "Categories"
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin-ui.php:54
+#: includes/v2/admin/views/ai.php:32
+msgid "AI review"
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin-ui.php:58
+#: includes/v2/admin/views/pro.php:14
+msgid "Pro features"
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin-ui.php:63
+#: includes/v2/admin/class-alg-wc-pxf-admin-ui.php:67
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:81
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:82
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:171
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:128
+msgid "Product Feeds"
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin-ui.php:65
+msgid "PRO"
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin-ui.php:78
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:172
+#: includes/v2/admin/views/settings.php:37
+msgid "Classic feeds"
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin-ui.php:141
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:297
+msgid "Updating"
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin-ui.php:143
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:298
+msgid "Waiting"
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin-ui.php:145
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:300
+msgid "Not updated"
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin-ui.php:148
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:299
+msgid "Up to date"
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin-ui.php:150
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:301
+msgid "Never updated"
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin-ui.php:168
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:291
+msgid "On"
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin-ui.php:168
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:292
+msgid "Off"
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin-ui.php:225
+msgid "Copy"
+msgstr ""
+
+#. translators: %s: time.
+#: includes/v2/admin/class-alg-wc-pxf-admin-ui.php:244
+#, php-format
+msgid "today %s"
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:293
+msgid "Link copied."
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:294
+msgid "Select the link and copy it by hand."
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:295
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:482
+msgid "Saved."
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:296
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:487
+msgid "Something went wrong. Nothing was changed."
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:302
+#: includes/v2/admin/views/edit.php:72
+#: includes/v2/admin/views/feeds.php:103
+msgid "Update now"
+msgstr ""
+
+#. translators: 1: products done, 2: products total.
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:304
+#, php-format
+msgid "%1$s of %2$s products done"
+msgstr ""
+
+#. translators: 1: products written, 2: products left out.
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:306
+#, php-format
+msgid "Feed updated: %1$s products, %2$s left out."
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:307
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:484
+msgid "Update started. You can leave this page."
+msgstr ""
+
+#. translators: 1: filled required fields, 2: required fields.
+#. translators: 1: filled, 2: total.
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:309
+#: includes/v2/admin/views/edit.php:181
+#, php-format
+msgid "%1$s of %2$s filled"
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:310
+#: includes/v2/admin/views/edit.php:235
+msgid "empty"
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:311
+#: includes/v2/admin/views/edit.php:265
+msgid "No problems for this product."
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:312
+#: includes/v2/admin/views/edit.php:262
+#: includes/v2/admin/views/products.php:118
+msgid "Error"
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:313
+#: includes/v2/admin/views/edit.php:262
+#: includes/v2/admin/views/products.php:118
+msgid "Warning"
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:314
+msgid "No Google category found. Try a shorter word."
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:315
+#: includes/v2/admin/views/ai.php:107
+msgid "Approved"
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:316
+msgid "Removed from the feed."
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:317
+msgid "AI job started. Results appear here as they come in."
+msgstr ""
+
+#. translators: %s: credit balance.
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:319
+#, php-format
+msgid "Credits: %s"
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:320
+msgid "Nothing left to improve for this choice. Earlier results are below."
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:321
+msgid "AI job finished. Review the results below."
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:322
+msgid "Turn on AI on the AI Credits screen first."
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:323
+msgid "Not enough credits: buy credits or run fewer products."
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:324
+msgid "Delete this feed? The file stops working for the channel. Classic feeds are not touched."
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:463
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:519
+msgid "Sorry, you are not allowed to manage feeds."
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:483
+msgid "Feed created. The first file is being built now."
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:485
+msgid "Feed deleted."
+msgstr ""
+
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:486
+msgid "Template copied into this new feed. Your classic feed is unchanged and keeps its link. This feed has its own link: use it when you are ready."
+msgstr ""
+
+#. translators: %s: list of classic settings.
+#: includes/v2/admin/class-alg-wc-pxf-admin.php:503
+#, php-format
+msgid "Not copied (no match in new feeds): %s."
+msgstr ""
+
+#: includes/v2/admin/views/ai.php:16
+msgid "Titles"
+msgstr ""
+
+#: includes/v2/admin/views/ai.php:17
+msgid "Descriptions"
+msgstr ""
+
+#: includes/v2/admin/views/ai.php:18
+msgid "Color, size, gender, age group"
+msgstr ""
+
+#: includes/v2/admin/views/ai.php:19
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:203
+msgid "Google categories"
+msgstr ""
+
+#: includes/v2/admin/views/ai.php:33
+msgid "Better product data for your feeds"
+msgstr ""
+
+#: includes/v2/admin/views/ai.php:34
+msgid "Nothing goes into a feed until you approve it. Your product pages never change; Undo removes the feed value."
+msgstr ""
+
+#: includes/v2/admin/views/ai.php:38
+msgid "AI tools are not available right now."
+msgstr ""
+
+#: includes/v2/admin/views/ai.php:60
+msgid "No Google category"
+msgstr ""
+
+#: includes/v2/admin/views/ai.php:69
+msgid "Nothing set"
+msgstr ""
+
+#: includes/v2/admin/views/ai.php:75
+msgid "Choose what to improve to see the cost."
+msgstr ""
+
+#: includes/v2/admin/views/ai.php:75
+msgid "Runs in the background; you can leave this page."
+msgstr ""
+
+#: includes/v2/admin/views/ai.php:77
+msgid "What to improve"
+msgstr ""
+
+#: includes/v2/admin/views/ai.php:83
+msgid "Run"
+msgstr ""
+
+#. translators: 1: results, 2: approved.
+#: includes/v2/admin/views/ai.php:87
+#, php-format
+msgid "Results: %1$s, %2$s approved"
+msgstr ""
+
+#. translators: 1: results, 2: approved.
+#: includes/v2/admin/views/ai.php:88
+msgid "Approve all"
+msgstr ""
+
+#: includes/v2/admin/views/ai.php:90
+msgid "No suggestions yet. Run a job above; results show here for you to approve."
+msgstr ""
+
+#: includes/v2/admin/views/ai.php:92
+msgid "Now"
+msgstr ""
+
+#: includes/v2/admin/views/ai.php:92
+msgid "Suggested"
+msgstr ""
+
+#: includes/v2/admin/views/ai.php:104
+msgid "Edit the suggestion"
+msgstr ""
+
+#: includes/v2/admin/views/ai.php:109
+msgid "Approve"
+msgstr ""
+
+#: includes/v2/admin/views/ai.php:111
+#: includes/v2/admin/views/feeds.php:104
+msgid "Edit"
+msgstr ""
+
+#: includes/v2/admin/views/ai.php:113
+msgid "Undo"
+msgstr ""
+
+#: includes/v2/admin/views/ai.php:117
+msgid "Failed products are refunded and can be run again."
+msgstr ""
+
+#: includes/v2/admin/views/ai.php:120
+msgid "AI review needs JavaScript."
+msgstr ""
+
+#: includes/v2/admin/views/categories.php:17
+msgid "Match your categories to Google's"
+msgstr ""
+
+#: includes/v2/admin/views/categories.php:18
+msgid "Google, Meta and Pinterest use Google's category list. Set it once per category; every feed uses it."
+msgstr ""
+
+#: includes/v2/admin/views/categories.php:19
+msgid "Suggest with AI"
+msgstr ""
+
+#: includes/v2/admin/views/categories.php:30
+msgid "Your category"
+msgstr ""
+
+#: includes/v2/admin/views/categories.php:30
+msgid "Products"
+msgstr ""
+
+#: includes/v2/admin/views/categories.php:30
+#: includes/v2/channels/specs/google.php:77
+#: includes/v2/channels/specs/tiktok.php:55
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:602
+msgid "Google category"
+msgstr ""
+
+#: includes/v2/admin/views/categories.php:32
+msgid "No product categories yet."
+msgstr ""
+
+#. translators: %s: number of products.
+#: includes/v2/admin/views/categories.php:41
+#: includes/v2/admin/views/feeds.php:83
+#, php-format
+msgid "%s product"
+msgid_plural "%s products"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: category name.
+#: includes/v2/admin/views/categories.php:43
+#, php-format
+msgid "Google category for %s"
+msgstr ""
+
+#. translators: %s: category name.
+#: includes/v2/admin/views/categories.php:44
+msgid "Type to search Google categories"
+msgstr ""
+
+#. translators: 1: matched, 2: total.
+#: includes/v2/admin/views/categories.php:50
+#, php-format
+msgid "%1$s of %2$s categories matched"
+msgstr ""
+
+#. translators: 1: matched, 2: total.
+#: includes/v2/admin/views/categories.php:50
+#: includes/v2/admin/views/edit.php:354
+msgid "Save"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:17
+msgid "This feed was not found. It may have been deleted."
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:17
+msgid "Back to feeds"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:24
+msgid "Template"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:24
+#: includes/v2/admin/views/edit.php:187
+msgid "Fields"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:25
+msgid "Products and filters"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:26
+msgid "Schedule and file"
+msgstr ""
+
+#. translators: 1: date, 2: number of products, 3: number left out.
+#: includes/v2/admin/views/edit.php:56
+#, php-format
+msgid "Updated %1$s: %2$s products, %3$s left out."
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:60
+msgid "See why"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:64
+msgid "The first file is being built now. You can leave this page."
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:66
+msgid "Not built yet. Press Update now to build the first file."
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:84
+msgid "Feed link"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:85
+msgid "Give this link to the channel once. It stays the same after every update."
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:88
+msgid "Feed settings"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:103
+msgid "Start of the file"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:103
+msgid "Written once, before the products."
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:104
+msgid "One product"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:104
+msgid "Written for every product."
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:105
+msgid "End of the file"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:105
+msgid "Written once, after the products."
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:111
+msgid "Write the file with the same shortcodes as the classic feeds, for example [alg_product_name cdata=\"yes\"] or [alg_product_price]."
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:124
+#: includes/v2/admin/views/edit.php:244
+msgid "Preview"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:125
+#: includes/v2/admin/views/edit.php:245
+msgid "Preview product"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:133
+msgid "Shows one product with the saved template. Press Save to see your changes here."
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:142
+msgid "Product name"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:143
+msgid "AI title (approved)"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:143
+#: includes/v2/channels/specs/google.php:49
+#: includes/v2/channels/specs/idealo.php:51
+#: includes/v2/channels/specs/openai.php:37
+#: includes/v2/channels/specs/pricerunner.php:48
+#: includes/v2/channels/specs/skroutz.php:60
+#: includes/v2/channels/specs/tiktok.php:45
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:585
+msgid "Description"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:144
+msgid "Short description"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:144
+msgid "AI description (approved)"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:145
+#: includes/v2/channels/specs/google.php:56
+#: includes/v2/channels/specs/idealo.php:37
+#: includes/v2/channels/specs/openai.php:38
+#: includes/v2/channels/specs/pricerunner.php:45
+#: includes/v2/channels/specs/skroutz.php:50
+#: includes/v2/channels/specs/tiktok.php:49
+msgid "Product page link"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:145
+#: includes/v2/channels/specs/google.php:57
+#: includes/v2/channels/specs/openai.php:41
+#: includes/v2/channels/specs/pricerunner.php:46
+#: includes/v2/channels/specs/skroutz.php:51
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:587
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:588
+msgid "Main image"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:146
+msgid "Gallery images"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:146
+msgid "Regular price"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:147
+#: includes/v2/channels/specs/google.php:62
+#: includes/v2/channels/specs/openai.php:46
+#: includes/v2/channels/specs/tiktok.php:58
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:590
+msgid "Sale price"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:148
+msgid "Stock quantity"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:148
+#: includes/v2/channels/specs/google.php:64
+#: includes/v2/channels/specs/idealo.php:57
+#: includes/v2/channels/specs/openai.php:52
+#: includes/v2/channels/specs/pricerunner.php:49
+#: includes/v2/channels/specs/tiktok.php:47
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:601
+msgid "Condition"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:149
+msgid "GTIN, UPC, EAN or ISBN (WooCommerce)"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:149
+#: includes/v2/channels/specs/skroutz.php:76
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:594
+msgid "MPN"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:150
+msgid "Brand (WooCommerce Brands)"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:150
+msgid "Google category (category map)"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:151
+#: includes/v2/channels/specs/idealo.php:50
+#: includes/v2/channels/specs/openai.php:53
+#: includes/v2/channels/specs/pricerunner.php:47
+#: includes/v2/channels/specs/skroutz.php:53
+msgid "Category path"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:151
+msgid "Parent ID (variations)"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:152
+#: includes/v2/channels/specs/google.php:71
+#: includes/v2/channels/specs/idealo.php:54
+#: includes/v2/channels/specs/openai.php:54
+#: includes/v2/channels/specs/skroutz.php:63
+#: includes/v2/channels/specs/tiktok.php:62
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:595
+msgid "Color"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:152
+#: includes/v2/channels/specs/google.php:72
+#: includes/v2/channels/specs/idealo.php:53
+#: includes/v2/channels/specs/openai.php:55
+#: includes/v2/channels/specs/skroutz.php:72
+#: includes/v2/channels/specs/tiktok.php:63
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:596
+msgid "Size"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:153
+#: includes/v2/channels/specs/google.php:75
+#: includes/v2/channels/specs/openai.php:56
+#: includes/v2/channels/specs/tiktok.php:64
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:597
+msgid "Material"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:153
+#: includes/v2/channels/specs/google.php:73
+#: includes/v2/channels/specs/openai.php:57
+#: includes/v2/channels/specs/tiktok.php:61
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:599
+msgid "Gender"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:154
+#: includes/v2/channels/specs/google.php:74
+#: includes/v2/channels/specs/openai.php:58
+#: includes/v2/channels/specs/tiktok.php:60
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:600
+msgid "Age group"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:154
+#: includes/v2/channels/specs/openai.php:59
+msgid "Weight"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:158
+msgid "Basic"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:158
+msgid "Price and stock"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:159
+msgid "Category"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:159
+msgid "Identifiers"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:160
+msgid "Details"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:160
+#: includes/v2/channels/specs/google.php:79
+#: includes/v2/channels/specs/tiktok.php:66
+msgid "Shipping"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:181
+msgid "Required fields"
+msgstr ""
+
+#. translators: 1: filled, 2: total.
+#: includes/v2/admin/views/edit.php:182
+#, php-format
+msgid "%1$s of %2$s required fields filled"
+msgstr ""
+
+#. translators: 1: filled, 2: total.
+#: includes/v2/admin/views/edit.php:183
+msgid "Show fields"
+msgstr ""
+
+#. translators: 1: filled, 2: total.
+#: includes/v2/admin/views/edit.php:183
+#: includes/v2/admin/views/edit.php:203
+msgid "Required"
+msgstr ""
+
+#. translators: 1: filled, 2: total.
+#: includes/v2/admin/views/edit.php:183
+msgid "All"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:185
+msgid "Filled from your products automatically. Change a source only when your data lives somewhere else."
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:197
+msgid "none"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:205
+msgid "Recommended"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:205
+msgid "Sometimes required"
+msgstr ""
+
+#. translators: %s: field name.
+#: includes/v2/admin/views/edit.php:210
+#, php-format
+msgid "Source for %s"
+msgstr ""
+
+#. translators: %s: default source.
+#: includes/v2/admin/views/edit.php:212
+#, php-format
+msgid "Automatic: %s"
+msgstr ""
+
+#. translators: %s: default source.
+#: includes/v2/admin/views/edit.php:213
+msgid "Product data"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:219
+msgid "Attributes"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:225
+#: includes/v2/admin/views/new.php:36
+#: includes/v2/channels/specs/custom.php:19
+msgid "Other"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:226
+msgid "Custom field"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:227
+#: includes/v2/admin/views/edit.php:232
+msgid "Fixed value"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:230
+msgid "Custom field name"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:231
+msgid "Custom field name, for example _ean"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:233
+msgid "Same value for every product"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:283
+msgid "Leave all empty to send every product."
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:285
+msgid "Only these categories"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:285
+msgid "Leave out categories"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:292
+msgid "Leave empty for all categories."
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:295
+msgid "Price between"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:297
+msgid "Lowest price"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:297
+msgid "and"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:298
+msgid "Highest price"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:298
+msgid "any"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:302
+msgid "Only products on sale"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:302
+msgid "Only products not on sale"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:305
+msgid "Sale"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:306
+msgid "Leave out products"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:306
+msgid "Product IDs, separated by commas."
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:309
+msgid "What the channel wants (recommended)"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:309
+msgid "Every variation"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:309
+msgid "Main product only"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:309
+msgid "Default variation only"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:309
+msgid "Cheapest variation only"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:312
+msgid "Variations"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:312
+msgid "Google wants every variation with its own color and size."
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:320
+msgid "Every day"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:320
+msgid "Only when I press Update now"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:322
+#: includes/v2/engine/class-alg-wc-pxf-scheduler.php:79
+msgid "Twice a day"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:322
+#: includes/v2/engine/class-alg-wc-pxf-scheduler.php:80
+msgid "Every hour"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:322
+#: includes/v2/engine/class-alg-wc-pxf-scheduler.php:81
+#: includes/v2/engine/class-alg-wc-pxf-scheduler.php:126
+msgid "Every 15 minutes"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:329
+msgid "Update the feed"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:329
+msgid "Runs in the background in small batches."
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:331
+#: includes/v2/admin/views/pro.php:20
+msgid "Update when a product changes"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:331
+msgid "At most every 10 minutes."
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:332
+#: includes/v2/admin/views/pro.php:21
+msgid "Leave out products with errors"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:332
+msgid "Keeps the channel from rejecting the whole feed."
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:334
+msgid "Use approved AI titles"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:334
+msgid "Only titles you approved on AI review. Your product pages do not change."
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:335
+msgid "Use approved AI descriptions"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:338
+msgid "File name"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:344
+msgid "File type"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:346
+msgid "Compress the file (gzip)"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:346
+msgid "Only when the channel asks for it."
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:350
+msgid "Faster updates and more: Pro features"
+msgstr ""
+
+#: includes/v2/admin/views/edit.php:354
+msgid "Delete feed"
+msgstr ""
+
+#: includes/v2/admin/views/feeds.php:21
+#: includes/v2/engine/class-alg-wc-pxf-feeds.php:91
+msgid "Product feeds"
+msgstr ""
+
+#: includes/v2/admin/views/feeds.php:22
+msgid "Each feed is one file a sales channel reads. It updates on its own; the link stays the same."
+msgstr ""
+
+#: includes/v2/admin/views/feeds.php:23
+#: includes/v2/admin/views/products.php:39
+msgid "Add feed"
+msgstr ""
+
+#: includes/v2/admin/views/feeds.php:33
+msgid "The last update stopped."
+msgstr ""
+
+#. translators: 1: feed name, 2: reason.
+#: includes/v2/admin/views/feeds.php:36
+#, php-format
+msgid "<b>%1$s was not updated.</b> %2$s The last good file is still online."
+msgstr ""
+
+#: includes/v2/admin/views/feeds.php:42
+msgid "The feed engine is not loaded, so feeds cannot be listed right now."
+msgstr ""
+
+#: includes/v2/admin/views/feeds.php:49
+#: includes/v2/admin/views/new.php:54
+msgid "Where do you sell?"
+msgstr ""
+
+#: includes/v2/admin/views/feeds.php:50
+msgid "Pick a channel and get a feed it accepts. Required fields are filled from your products, and you see what is missing before you send it."
+msgstr ""
+
+#: includes/v2/admin/views/feeds.php:61
+msgid "All channels"
+msgstr ""
+
+#. translators: %s: number of problems.
+#: includes/v2/admin/views/feeds.php:86
+#, php-format
+msgid "%s problem to fix"
+msgid_plural "%s problems to fix"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: date.
+#: includes/v2/admin/views/feeds.php:90
+#, php-format
+msgid "Updated %s"
+msgstr ""
+
+#. translators: %s: feed name.
+#: includes/v2/admin/views/feeds.php:99
+#: includes/v2/admin/views/feeds.php:124
+#, php-format
+msgid "Feed link for %s"
+msgstr ""
+
+#. translators: %d: feed number.
+#: includes/v2/admin/views/feeds.php:111
+#, php-format
+msgid "XML feed #%d"
+msgstr ""
+
+#: includes/v2/admin/views/feeds.php:115
+msgid "Classic feed"
+msgstr ""
+
+#: includes/v2/admin/views/feeds.php:117
+msgid "Your own template"
+msgstr ""
+
+#. translators: %s: date.
+#: includes/v2/admin/views/feeds.php:120
+#, php-format
+msgid "created %s"
+msgstr ""
+
+#: includes/v2/admin/views/feeds.php:128
+msgid "Open"
+msgstr ""
+
+#: includes/v2/admin/views/feeds.php:129
+msgid "Makes a new feed with this template and its own link. This classic feed stays as it is."
+msgstr ""
+
+#: includes/v2/admin/views/feeds.php:129
+msgid "Copy to a new feed"
+msgstr ""
+
+#: includes/v2/admin/views/new.php:47
+msgid "US only, application required"
+msgstr ""
+
+#: includes/v2/admin/views/new.php:53
+msgid "New feed"
+msgstr ""
+
+#: includes/v2/admin/views/new.php:55
+msgid "Pick one channel. You can add more feeds later, one per channel or country."
+msgstr ""
+
+#: includes/v2/admin/views/new.php:59
+msgid "The channel list is not available right now."
+msgstr ""
+
+#: includes/v2/admin/views/new.php:67
+#: includes/v2/admin/views/new.php:69
+msgid "Channel"
+msgstr ""
+
+#: includes/v2/admin/views/new.php:67
+#: includes/v2/admin/views/new.php:84
+msgid "Name and country"
+msgstr ""
+
+#. translators: %s: country name.
+#: includes/v2/admin/views/new.php:73
+#, php-format
+msgid "Suggested for %s"
+msgstr ""
+
+#: includes/v2/admin/views/new.php:86
+msgid "Feed name"
+msgstr ""
+
+#: includes/v2/admin/views/new.php:86
+msgid "Only you see this name."
+msgstr ""
+
+#: includes/v2/admin/views/new.php:87
+msgid "Country you sell to"
+msgstr ""
+
+#: includes/v2/admin/views/new.php:94
+msgid "Language"
+msgstr ""
+
+#. translators: %s: locale.
+#: includes/v2/admin/views/new.php:96
+#, php-format
+msgid "Site language (%s)"
+msgstr ""
+
+#: includes/v2/admin/views/new.php:101
+#: includes/v2/channels/specs/pricerunner.php:38
+msgid "Currency"
+msgstr ""
+
+#. translators: %s: currency code.
+#: includes/v2/admin/views/new.php:103
+#, php-format
+msgid "%s (shop currency)"
+msgstr ""
+
+#: includes/v2/admin/views/new.php:107
+msgid "Cancel"
+msgstr ""
+
+#: includes/v2/admin/views/new.php:107
+msgid "Create feed"
+msgstr ""
+
+#: includes/v2/admin/views/pro.php:15
+msgid "More from your feeds with Pro"
+msgstr ""
+
+#: includes/v2/admin/views/pro.php:16
+msgid "Every channel, feed and field is free. Pro adds speed and control for busy stores."
+msgstr ""
+
+#: includes/v2/admin/views/pro.php:19
+msgid "Updates every hour or every 15 minutes"
+msgstr ""
+
+#: includes/v2/admin/views/pro.php:19
+msgid "Prices and stock reach the channel faster."
+msgstr ""
+
+#: includes/v2/admin/views/pro.php:20
+msgid "A sale or a sold-out product shows in the feed within minutes."
+msgstr ""
+
+#: includes/v2/admin/views/pro.php:21
+msgid "The channel never rejects the whole feed for one bad product."
+msgstr ""
+
+#: includes/v2/admin/views/pro.php:22
+msgid "List of products with problems"
+msgstr ""
+
+#: includes/v2/admin/views/pro.php:22
+msgid "See every product and the exact fix, not only the counts."
+msgstr ""
+
+#: includes/v2/admin/views/pro.php:31
+msgid "Everything you set up now keeps working with or without Pro."
+msgstr ""
+
+#: includes/v2/admin/views/pro.php:31
+msgid "See Pro features"
+msgstr ""
+
+#: includes/v2/admin/views/products.php:25
+msgid "Feed"
+msgstr ""
+
+#: includes/v2/admin/views/products.php:29
+msgid "Show"
+msgstr ""
+
+#. translators: %s: feed name.
+#: includes/v2/admin/views/products.php:34
+#, php-format
+msgid "What %s will say"
+msgstr ""
+
+#: includes/v2/admin/views/products.php:35
+msgid "Checked on the last update. Fix errors first: the channel rejects those products."
+msgstr ""
+
+#: includes/v2/admin/views/products.php:39
+msgid "Add a feed first. Products are checked every time a feed updates."
+msgstr ""
+
+#: includes/v2/admin/views/products.php:43
+msgid "This feed is updating now. The numbers below fill in as products are checked; reload when the update is done."
+msgstr ""
+
+#: includes/v2/admin/views/products.php:88
+msgid "In the feed"
+msgstr ""
+
+#: includes/v2/admin/views/products.php:89
+msgid "Errors"
+msgstr ""
+
+#: includes/v2/admin/views/products.php:90
+msgid "Warnings"
+msgstr ""
+
+#: includes/v2/admin/views/products.php:91
+msgid "Left out"
+msgstr ""
+
+#: includes/v2/admin/views/products.php:107
+msgid "Problems by reason"
+msgstr ""
+
+#: includes/v2/admin/views/products.php:109
+msgid "No problems found on the last update."
+msgstr ""
+
+#. translators: %s: feed field, for example "Brand".
+#: includes/v2/admin/views/products.php:120
+#, php-format
+msgid "Field: %s"
+msgstr ""
+
+#: includes/v2/admin/views/products.php:125
+msgid "Fix with AI"
+msgstr ""
+
+#: includes/v2/admin/views/products.php:127
+msgid "Choose a source"
+msgstr ""
+
+#: includes/v2/admin/views/products.php:154
+msgid "Products with problems"
+msgstr ""
+
+#: includes/v2/admin/views/products.php:155
+msgid "Product"
+msgstr ""
+
+#: includes/v2/admin/views/products.php:155
+msgid "Problem"
+msgstr ""
+
+#: includes/v2/admin/views/products.php:155
+msgid "Action"
+msgstr ""
+
+#: includes/v2/admin/views/products.php:157
+msgid "No products with problems on the last update."
+msgstr ""
+
+#: includes/v2/admin/views/products.php:162
+msgid "Edit product"
+msgstr ""
+
+#: includes/v2/admin/views/products.php:167
+msgid "See every product and its exact fix: Pro features"
+msgstr ""
+
+#: includes/v2/admin/views/settings.php:20
+msgid "Settings for all feeds"
+msgstr ""
+
+#: includes/v2/admin/views/settings.php:21
+msgid "Most stores never change these."
+msgstr ""
+
+#: includes/v2/admin/views/settings.php:28
+msgid "Updates"
+msgstr ""
+
+#: includes/v2/admin/views/settings.php:30
+msgid "Products per batch"
+msgstr ""
+
+#: includes/v2/admin/views/settings.php:30
+msgid "Lower it if feeds stop on a slow server."
+msgstr ""
+
+#: includes/v2/admin/views/settings.php:31
+msgid "Update with a server cron job instead (advanced)"
+msgstr ""
+
+#: includes/v2/admin/views/settings.php:31
+msgid "For sites with WordPress cron turned off. Ask your host to run wp-cron.php every 5 minutes."
+msgstr ""
+
+#: includes/v2/admin/views/settings.php:31
+msgid "Update with a server cron job instead"
+msgstr ""
+
+#: includes/v2/admin/views/settings.php:32
+msgid "Feed files folder"
+msgstr ""
+
+#: includes/v2/admin/views/settings.php:32
+msgid "Writable"
+msgstr ""
+
+#: includes/v2/admin/views/settings.php:32
+msgid "Not writable"
+msgstr ""
+
+#: includes/v2/admin/views/settings.php:36
+msgid "Other screens"
+msgstr ""
+
+#: includes/v2/admin/views/settings.php:37
+msgid "Feeds made with your own XML template before 4.0. They keep working as they are."
+msgstr ""
+
+#: includes/v2/admin/views/settings.php:37
+msgid "Open classic feeds"
+msgstr ""
+
+#: includes/v2/admin/views/settings.php:40
+msgid "Careful here"
+msgstr ""
+
+#: includes/v2/admin/views/settings.php:41
+msgid "Remove feeds and files when the plugin is deleted"
+msgstr ""
+
+#: includes/v2/admin/views/settings.php:41
+msgid "Feed settings and files in product-feeds are deleted. Classic feeds are not touched."
+msgstr ""
+
+#: includes/v2/admin/views/settings.php:43
+msgid "Save changes"
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:79
+msgid "Show my product feeds"
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:80
+msgid "which product feeds do I have?"
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:88
+msgid "How a product feed is doing"
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:89
+msgid "how is the Google Shopping feed doing?"
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:100
+msgid "Why a product is not in a feed"
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:101
+msgid "why is the Wool Beanie missing from the Google feed?"
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:130
+msgid "You are not allowed to see the product feeds."
+msgstr ""
+
+#. translators: %s: time ago, for example "2 hours".
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:267
+#, php-format
+msgid "built %s ago"
+msgstr ""
+
+#. translators: %s: time ago, for example "2 hours".
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:267
+msgid "not built yet"
+msgstr ""
+
+#. translators: 1: feed name, 2: channel, 3: number of products, 4: when built.
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:269
+#, php-format
+msgid "%1$s (%2$s): %3$s products, %4$s"
+msgstr ""
+
+#. translators: 1: classic feed number, 2: file name.
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:278
+#, php-format
+msgid "Classic feed #%1$d: %2$s"
+msgstr ""
+
+#. translators: %s: number of feeds.
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:282
+#, php-format
+msgid "You have %s product feed."
+msgid_plural "You have %s product feeds."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: feed name.
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:298
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:347
+#, php-format
+msgid "I could not find a feed called \"%s\"."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:303
+msgid "waiting for its next build"
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:304
+msgid "about to build"
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:305
+msgid "building now"
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:306
+msgid "up to date"
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:307
+msgid "the last build failed"
+msgstr ""
+
+#. translators: %s: number of products.
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:311
+#, php-format
+msgid "Products in the file: %s"
+msgstr ""
+
+#. translators: %s: number of products.
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:314
+#, php-format
+msgid "Left out because of errors: %s"
+msgstr ""
+
+#. translators: %s: time ago.
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:316
+#, php-format
+msgid "Last complete file: %s ago"
+msgstr ""
+
+#. translators: %s: time ago.
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:316
+msgid "No complete file yet."
+msgstr ""
+
+#. translators: 1: feed name, 2: status.
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:326
+#, php-format
+msgid "%1$s: %2$s."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:342
+msgid "Which product?"
+msgstr ""
+
+#. translators: 1: product name, 2: feed name.
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:353
+#, php-format
+msgid "Nothing in the settings of %2$s leaves out \"%1$s\"."
+msgstr ""
+
+#. translators: 1: product name, 2: feed name.
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:353
+msgid "It will be in the file after the next build."
+msgstr ""
+
+#. translators: 1: product name, 2: feed name.
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:356
+#, php-format
+msgid "Why \"%1$s\" is not in %2$s:"
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:375
+msgid "The product is not published."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:378
+msgid "The product is password protected."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:381
+msgid "The product is hidden from the shop (catalog visibility)."
+msgstr ""
+
+#. translators: %s: stock status.
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:385
+#, php-format
+msgid "The feed only takes some stock statuses, and this product is \"%s\"."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:389
+msgid "The feed only takes some categories, and this product is in none of them."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:392
+msgid "The product is in a category the feed leaves out."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:396
+msgid "The feed only takes some tags, and this product has none of them."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:399
+msgid "The product has a tag the feed leaves out."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:402
+msgid "The product is on the feed's list of left out products."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:406
+msgid "The price is below the feed's lowest price."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:409
+msgid "The price is above the feed's highest price."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:412
+msgid "The feed only takes products on sale."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:414
+msgid "The feed leaves out products on sale."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:430
+msgid "The feed leaves out products with errors, and this one has some:"
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai-abilities.php:431
+msgid "The product is in the file, but the channel will reject it because of these errors:"
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai-rest.php:215
+msgid "Nothing to retry."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai-rest.php:221
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:244
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:315
+msgid "Unknown AI job."
+msgstr ""
+
+#. translators: %s: number of items.
+#: includes/v2/ai/class-alg-wc-pxf-ai-rest.php:271
+#, php-format
+msgid "%s suggestion approved. It goes into feeds that use AI values from their next build."
+msgid_plural "%s suggestions approved. They go into feeds that use AI values from their next build."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: number of items.
+#: includes/v2/ai/class-alg-wc-pxf-ai-rest.php:289
+#, php-format
+msgid "%s AI value removed. Your product data was not changed."
+msgid_plural "%s AI values removed. Your product data was not changed."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:178
+msgid "Feed titles"
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:186
+msgid "Feed descriptions"
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:195
+msgid "Missing attributes"
+msgstr ""
+
+#. translators: %s: number of products.
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:264
+#, php-format
+msgid "Improve %s feed title"
+msgid_plural "Improve %s feed titles"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: number of products.
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:266
+#, php-format
+msgid "Write %s feed description"
+msgid_plural "Write %s feed descriptions"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: number of products.
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:268
+#, php-format
+msgid "Fill missing attributes for %s product"
+msgid_plural "Fill missing attributes for %s products"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: number of categories.
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:270
+#, php-format
+msgid "Suggest a Google category for %s category"
+msgid_plural "Suggest Google categories for %s categories"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: number of credits.
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:274
+#, php-format
+msgid "about %s credit."
+msgid_plural "about %s credits."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:276
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:322
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:664
+msgid "Turn on AI first: connect this site on the AI Credits screen."
+msgstr ""
+
+#. translators: %s: number of credits.
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:279
+#, php-format
+msgid "You have %s credit."
+msgid_plural "You have %s credits."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:281
+msgid "That is not enough: buy credits or run fewer."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:319
+msgid "Choose at least one product first."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:325
+msgid "The Google category list is missing from this copy of the plugin, so AI cannot suggest categories."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:329
+msgid "An AI run is already going. Wait for it to finish, or stop it first."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:481
+msgid "Waiting to start"
+msgstr ""
+
+#. translators: 1: done, 2: total.
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:483
+#, php-format
+msgid "Working: %1$s of %2$s done"
+msgstr ""
+
+#. translators: %s: number of suggestions.
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:485
+#, php-format
+msgid "Finished: %s suggestion to review"
+msgid_plural "Finished: %s suggestions to review"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:486
+msgid "Stopped"
+msgstr ""
+
+#. translators: %s: error message.
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:488
+#, php-format
+msgid "Stopped: %s"
+msgstr ""
+
+#. translators: %s: error message.
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:488
+msgid "Stopped because of an error"
+msgstr ""
+
+#. translators: %s: number of products.
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:494
+#, php-format
+msgid "%s item could not be done."
+msgid_plural "%s items could not be done."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:571
+msgid "None of these items could be read."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:584
+msgid "The AI sent an answer that could not be read. These products were not charged."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:605
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:1146
+msgid "AI could not improve this one."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:609
+msgid "This item could not be read."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:661
+msgid "WPFactory AI is not available in this copy of the plugin."
+msgstr ""
+
+#. translators: 1: number of products, 2: credits left.
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:673
+#, php-format
+msgid "Not enough credits for the next %1$s product (%2$s left): buy credits or run fewer."
+msgid_plural "Not enough credits for the next %1$s products (%2$s left): buy credits or run fewer."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:697
+msgid "WPFactory AI does not run Product Feeds tasks yet. Nothing was charged. Please try again later."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:1149
+msgid "The AI answer had HTML or code in it."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:1155
+msgid "The AI title was too long or too short."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:1155
+msgid "The AI description was too long or too short."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:1158
+msgid "The AI text had a price in it."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:1161
+msgid "The AI text had emoji in it."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:1164
+msgid "The AI text had a link in it."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:1168
+msgid "The AI title had promotional words in it."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:1171
+msgid "The AI title was all capital letters."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:1175
+msgid "The AI title had the store name in it."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:1178
+msgid "The AI title changed how the brand is written."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:1183
+msgid "The AI description had promotional words in it."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:1188
+msgid "The AI answer was not in the language of the product."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:1213
+msgid "AI found no attributes in the product data."
+msgstr ""
+
+#: includes/v2/ai/class-alg-wc-pxf-ai.php:1219
+msgid "AI found no Google category that fits."
+msgstr ""
+
+#: includes/v2/channels/specs/custom.php:18
+msgid "Custom template"
+msgstr ""
+
+#: includes/v2/channels/specs/custom.php:27
+msgid "Write your own header, item and footer with the same shortcodes as the classic feeds, for any site that is not in the list."
+msgstr ""
+
+#: includes/v2/channels/specs/google.php:17
+msgid "Google Shopping"
+msgstr ""
+
+#: includes/v2/channels/specs/google.php:18
+msgid "Search and shopping"
+msgstr ""
+
+#: includes/v2/channels/specs/google.php:34
+msgid "Google Merchant Center feed for Shopping ads and free listings. Microsoft, Pinterest and Meta also read this file."
+msgstr ""
+
+#: includes/v2/channels/specs/google.php:43
+msgid "AI title"
+msgstr ""
+
+#: includes/v2/channels/specs/google.php:45
+#: includes/v2/channels/specs/google.php:52
+msgid "Source type"
+msgstr ""
+
+#: includes/v2/channels/specs/google.php:46
+#: includes/v2/channels/specs/google.php:53
+msgid "Text"
+msgstr ""
+
+#: includes/v2/channels/specs/google.php:50
+msgid "AI description"
+msgstr ""
+
+#: includes/v2/channels/specs/google.php:58
+#: includes/v2/channels/specs/openai.php:61
+#: includes/v2/channels/specs/skroutz.php:52
+#: includes/v2/channels/specs/tiktok.php:56
+msgid "More images"
+msgstr ""
+
+#: includes/v2/channels/specs/google.php:60
+msgid "Available from"
+msgstr ""
+
+#: includes/v2/channels/specs/google.php:61
+#: includes/v2/channels/specs/google.php:84
+#: includes/v2/channels/specs/openai.php:43
+#: includes/v2/channels/specs/tiktok.php:48
+#: includes/v2/channels/specs/tiktok.php:70
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:589
+msgid "Price"
+msgstr ""
+
+#: includes/v2/channels/specs/google.php:63
+#: includes/v2/channels/specs/pricerunner.php:37
+#: includes/v2/channels/specs/tiktok.php:59
+msgid "Sale dates"
+msgstr ""
+
+#: includes/v2/channels/specs/google.php:65
+#: includes/v2/channels/specs/idealo.php:47
+#: includes/v2/channels/specs/openai.php:39
+#: includes/v2/channels/specs/pricerunner.php:42
+#: includes/v2/channels/specs/skroutz.php:57
+#: includes/v2/channels/specs/tiktok.php:51
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:592
+msgid "Brand"
+msgstr ""
+
+#: includes/v2/channels/specs/google.php:66
+msgid "GTIN (EAN, UPC, ISBN)"
+msgstr ""
+
+#: includes/v2/channels/specs/google.php:67
+#: includes/v2/channels/specs/openai.php:51
+#: includes/v2/channels/specs/skroutz.php:58
+#: includes/v2/channels/specs/tiktok.php:54
+msgid "Manufacturer part number (MPN)"
+msgstr ""
+
+#: includes/v2/channels/specs/google.php:68
+msgid "Has a product code"
+msgstr ""
+
+#: includes/v2/channels/specs/google.php:69
+#: includes/v2/channels/specs/openai.php:47
+#: includes/v2/channels/specs/tiktok.php:52
+msgid "Variation group ID"
+msgstr ""
+
+#: includes/v2/channels/specs/google.php:70
+msgid "Variation group title"
+msgstr ""
+
+#: includes/v2/channels/specs/google.php:76
+#: includes/v2/channels/specs/tiktok.php:65
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:598
+msgid "Pattern"
+msgstr ""
+
+#: includes/v2/channels/specs/google.php:78
+msgid "Shop category path"
+msgstr ""
+
+#: includes/v2/channels/specs/google.php:82
+#: includes/v2/channels/specs/tiktok.php:68
+msgid "Country"
+msgstr ""
+
+#: includes/v2/channels/specs/google.php:83
+#: includes/v2/channels/specs/tiktok.php:69
+msgid "Service"
+msgstr ""
+
+#: includes/v2/channels/specs/google.php:87
+msgid "Shipping weight"
+msgstr ""
+
+#: includes/v2/channels/specs/google.php:88
+msgid "Unit price measure"
+msgstr ""
+
+#: includes/v2/channels/specs/google.php:89
+msgid "Unit price base"
+msgstr ""
+
+#: includes/v2/channels/specs/google.php:90
+msgid "Energy label (EPREL)"
+msgstr ""
+
+#: includes/v2/channels/specs/google.php:93
+msgid "Authority"
+msgstr ""
+
+#: includes/v2/channels/specs/google.php:94
+msgid "Name"
+msgstr ""
+
+#: includes/v2/channels/specs/google.php:95
+msgid "Code"
+msgstr ""
+
+#: includes/v2/channels/specs/google.php:98
+#: includes/v2/channels/specs/tiktok.php:73
+msgid "Custom label 0"
+msgstr ""
+
+#: includes/v2/channels/specs/google.php:99
+#: includes/v2/channels/specs/tiktok.php:74
+msgid "Custom label 1"
+msgstr ""
+
+#: includes/v2/channels/specs/google.php:100
+#: includes/v2/channels/specs/tiktok.php:75
+msgid "Custom label 2"
+msgstr ""
+
+#: includes/v2/channels/specs/google.php:101
+#: includes/v2/channels/specs/tiktok.php:76
+msgid "Custom label 3"
+msgstr ""
+
+#: includes/v2/channels/specs/google.php:102
+#: includes/v2/channels/specs/tiktok.php:77
+msgid "Custom label 4"
+msgstr ""
+
+#: includes/v2/channels/specs/idealo.php:17
+msgid "idealo"
+msgstr ""
+
+#: includes/v2/channels/specs/idealo.php:18
+#: includes/v2/channels/specs/pricerunner.php:18
+#: includes/v2/channels/specs/skroutz.php:21
+msgid "Price comparison"
+msgstr ""
+
+#: includes/v2/channels/specs/idealo.php:26
+msgid "CSV file for idealo. Prices include VAT; set at least one delivery cost column in the field mapping."
+msgstr ""
+
+#: includes/v2/channels/specs/idealo.php:38
+#: includes/v2/channels/specs/pricerunner.php:35
+#: includes/v2/channels/specs/skroutz.php:54
+#: includes/v2/channels/specs/skroutz.php:74
+msgid "Price with VAT"
+msgstr ""
+
+#: includes/v2/channels/specs/idealo.php:39
+#: includes/v2/channels/specs/pricerunner.php:41
+#: includes/v2/channels/specs/skroutz.php:56
+#: includes/v2/channels/specs/skroutz.php:71
+msgid "Delivery time"
+msgstr ""
+
+#: includes/v2/channels/specs/idealo.php:40
+msgid "Pack size"
+msgstr ""
+
+#: includes/v2/channels/specs/idealo.php:41
+msgid "Delivery cost DHL"
+msgstr ""
+
+#: includes/v2/channels/specs/idealo.php:42
+msgid "Delivery cost DPD"
+msgstr ""
+
+#: includes/v2/channels/specs/idealo.php:43
+msgid "Delivery cost GLS"
+msgstr ""
+
+#: includes/v2/channels/specs/idealo.php:44
+msgid "Delivery cost Hermes"
+msgstr ""
+
+#: includes/v2/channels/specs/idealo.php:45
+msgid "Delivery cost UPS"
+msgstr ""
+
+#: includes/v2/channels/specs/idealo.php:46
+msgid "Payment cost PayPal"
+msgstr ""
+
+#: includes/v2/channels/specs/idealo.php:48
+#: includes/v2/channels/specs/skroutz.php:59
+#: includes/v2/channels/specs/skroutz.php:77
+msgid "EAN"
+msgstr ""
+
+#: includes/v2/channels/specs/idealo.php:49
+#: includes/v2/channels/specs/pricerunner.php:44
+msgid "Manufacturer part number"
+msgstr ""
+
+#: includes/v2/channels/specs/idealo.php:52
+msgid "Images"
+msgstr ""
+
+#: includes/v2/channels/specs/idealo.php:55
+msgid "Base price (per kg, l or m)"
+msgstr ""
+
+#: includes/v2/channels/specs/idealo.php:56
+msgid "Former price"
+msgstr ""
+
+#: includes/v2/channels/specs/idealo.php:58
+msgid "Energy class"
+msgstr ""
+
+#: includes/v2/channels/specs/idealo.php:59
+msgid "Energy label link"
+msgstr ""
+
+#: includes/v2/channels/specs/idealo.php:60
+msgid "Product data sheet link"
+msgstr ""
+
+#: includes/v2/channels/specs/idealo.php:61
+msgid "Delivery note"
+msgstr ""
+
+#: includes/v2/channels/specs/meta.php:19
+msgid "Facebook and Instagram (Meta)"
+msgstr ""
+
+#: includes/v2/channels/specs/meta.php:20
+#: includes/v2/channels/specs/pinterest.php:17
+#: includes/v2/channels/specs/tiktok.php:20
+msgid "Social"
+msgstr ""
+
+#: includes/v2/channels/specs/meta.php:24
+msgid "Catalog for Facebook and Instagram shops and Advantage+ catalog ads. Meta can fetch it every hour."
+msgstr ""
+
+#: includes/v2/channels/specs/meta.php:60
+msgid "Quantity for Facebook checkout"
+msgstr ""
+
+#: includes/v2/channels/specs/meta.php:61
+msgid "Facebook category"
+msgstr ""
+
+#: includes/v2/channels/specs/meta.php:62
+msgid "Status"
+msgstr ""
+
+#: includes/v2/channels/specs/microsoft.php:17
+msgid "Microsoft Shopping (Bing)"
+msgstr ""
+
+#: includes/v2/channels/specs/microsoft.php:18
+msgid "Microsoft Merchant Center feed. Tip: Microsoft can also import your Google Merchant Center products on a schedule."
+msgstr ""
+
+#: includes/v2/channels/specs/microsoft.php:25
+#: includes/v2/channels/specs/openai.php:40
+msgid "Shop name"
+msgstr ""
+
+#: includes/v2/channels/specs/openai.php:19
+msgid "ChatGPT shopping (OpenAI)"
+msgstr ""
+
+#: includes/v2/channels/specs/openai.php:20
+msgid "AI shopping"
+msgstr ""
+
+#: includes/v2/channels/specs/openai.php:28
+msgid "US only, application required: OpenAI must approve your business first, and a listing is not guaranteed."
+msgstr ""
+
+#: includes/v2/channels/specs/openai.php:44
+msgid "Target countries"
+msgstr ""
+
+#: includes/v2/channels/specs/openai.php:45
+msgid "Shop country"
+msgstr ""
+
+#: includes/v2/channels/specs/openai.php:48
+msgid "Has variations"
+msgstr ""
+
+#: includes/v2/channels/specs/openai.php:49
+msgid "Variation options"
+msgstr ""
+
+#: includes/v2/channels/specs/openai.php:50
+#: includes/v2/channels/specs/tiktok.php:53
+msgid "GTIN (EAN, UPC)"
+msgstr ""
+
+#: includes/v2/channels/specs/openai.php:60
+msgid "Weight unit"
+msgstr ""
+
+#: includes/v2/channels/specs/openai.php:62
+msgid "Shipping price"
+msgstr ""
+
+#: includes/v2/channels/specs/openai.php:63
+msgid "Show in ChatGPT search"
+msgstr ""
+
+#: includes/v2/channels/specs/openai.php:64
+msgid "Checkout in ChatGPT"
+msgstr ""
+
+#: includes/v2/channels/specs/pinterest.php:16
+msgid "Pinterest"
+msgstr ""
+
+#: includes/v2/channels/specs/pinterest.php:19
+msgid "Pinterest catalog. Pinterest reads the file once a day; images of at least 1000 x 1500 px work best."
+msgstr ""
+
+#: includes/v2/channels/specs/pricerunner.php:17
+msgid "PriceRunner"
+msgstr ""
+
+#: includes/v2/channels/specs/pricerunner.php:26
+msgid "CSV file for PriceRunner. Prices include VAT; keep the file link the same so products stay listed."
+msgstr ""
+
+#: includes/v2/channels/specs/pricerunner.php:36
+msgid "Sale price with VAT"
+msgstr ""
+
+#: includes/v2/channels/specs/pricerunner.php:39
+#: includes/v2/channels/specs/skroutz.php:65
+msgid "Shipping cost"
+msgstr ""
+
+#: includes/v2/channels/specs/pricerunner.php:43
+msgid "EAN or GTIN"
+msgstr ""
+
+#: includes/v2/channels/specs/skroutz.php:20
+msgid "Skroutz"
+msgstr ""
+
+#: includes/v2/channels/specs/skroutz.php:39
+msgid "XML file for Skroutz. Each color is its own product with its sizes inside; prices include VAT."
+msgstr ""
+
+#: includes/v2/channels/specs/skroutz.php:55
+msgid "VAT rate"
+msgstr ""
+
+#: includes/v2/channels/specs/skroutz.php:61
+#: includes/v2/channels/specs/skroutz.php:73
+msgid "Quantity"
+msgstr ""
+
+#: includes/v2/channels/specs/skroutz.php:62
+msgid "Sizes"
+msgstr ""
+
+#: includes/v2/channels/specs/skroutz.php:64
+msgid "Weight (grams)"
+msgstr ""
+
+#: includes/v2/channels/specs/skroutz.php:66
+msgid "Sizes in stock"
+msgstr ""
+
+#: includes/v2/channels/specs/skroutz.php:70
+msgid "Variation ID"
+msgstr ""
+
+#: includes/v2/channels/specs/skroutz.php:75
+msgid "Link"
+msgstr ""
+
+#: includes/v2/channels/specs/tiktok.php:19
+msgid "TikTok catalog"
+msgstr ""
+
+#: includes/v2/channels/specs/tiktok.php:36
+msgid "Catalog file for TikTok video shopping ads. For TikTok Shop use the official TikTok for WooCommerce app."
+msgstr ""
+
+#: includes/v2/channels/specs/tiktok.php:50
+msgid "Main image (JPG or PNG)"
+msgstr ""
+
+#: includes/v2/channels/specs/tiktok.php:57
+msgid "Video link"
+msgstr ""
+
+#: includes/v2/classic/load.php:54
+msgid "once a week."
+msgstr ""
+
+#: includes/v2/engine/class-alg-wc-pxf-classic-copy.php:188
+msgid "Product types"
+msgstr ""
+
+#: includes/v2/engine/class-alg-wc-pxf-classic-copy.php:189
+msgid "Featured products only"
+msgstr ""
+
+#: includes/v2/engine/class-alg-wc-pxf-classic-copy.php:192
+msgid "Sorting"
+msgstr ""
+
+#: includes/v2/engine/class-alg-wc-pxf-classic-copy.php:193
+msgid "Product status"
+msgstr ""
+
+#: includes/v2/engine/class-alg-wc-pxf-classic-copy.php:194
+msgid "Variable products with their variations"
+msgstr ""
+
+#: includes/v2/engine/class-alg-wc-pxf-classic-copy.php:195
+msgid "Remove empty tags"
+msgstr ""
+
+#: includes/v2/engine/class-alg-wc-pxf-classic-copy.php:196
+msgid "Text feed"
+msgstr ""
+
+#: includes/v2/engine/class-alg-wc-pxf-classic-copy.php:198
+msgid "Custom taxonomy"
+msgstr ""
+
+#: includes/v2/engine/class-alg-wc-pxf-classic-copy.php:199
+msgid "Attribute filter"
+msgstr ""
+
+#: includes/v2/engine/class-alg-wc-pxf-classic-copy.php:216
+msgid "This classic feed does not exist."
+msgstr ""
+
+#. translators: %s: classic feed name.
+#: includes/v2/engine/class-alg-wc-pxf-classic-copy.php:223
+#, php-format
+msgid "%s (copy)"
+msgstr ""
+
+#: includes/v2/engine/class-alg-wc-pxf-engine.php:72
+#: includes/v2/engine/class-alg-wc-pxf-rest.php:197
+msgid "This feed does not exist."
+msgstr ""
+
+#: includes/v2/engine/class-alg-wc-pxf-engine.php:82
+#: includes/v2/engine/class-alg-wc-pxf-engine.php:224
+msgid "The channel of this feed is not available."
+msgstr ""
+
+#: includes/v2/engine/class-alg-wc-pxf-engine.php:188
+msgid "The run stopped three times at the same place, so it was ended. The last good file was kept. Check the debug log for the product that causes it."
+msgstr ""
+
+#: includes/v2/engine/class-alg-wc-pxf-engine.php:227
+msgid "The product data part of the plugin is missing. Reinstall the plugin."
+msgstr ""
+
+#: includes/v2/engine/class-alg-wc-pxf-engine.php:230
+msgid "The folder uploads/product-feeds could not be created or is not writable."
+msgstr ""
+
+#: includes/v2/engine/class-alg-wc-pxf-engine.php:244
+msgid "The temporary feed file was lost during the run. Start the run again."
+msgstr ""
+
+#: includes/v2/engine/class-alg-wc-pxf-engine.php:324
+msgid "No products were written, so the last good file was kept. Check the feed filters."
+msgstr ""
+
+#: includes/v2/engine/class-alg-wc-pxf-engine.php:333
+msgid "The new file could not replace the old one, so the last good file was kept. Check the folder permissions."
+msgstr ""
+
+#. translators: %s: Error message.
+#: includes/v2/engine/class-alg-wc-pxf-engine.php:413
+#: includes/v2/engine/class-alg-wc-pxf-rest.php:509
+#, php-format
+msgid "This product could not be read: %s"
+msgstr ""
+
+#: includes/v2/engine/class-alg-wc-pxf-engine.php:745
+msgid "A batch stopped before it finished."
+msgstr ""
+
+#: includes/v2/engine/class-alg-wc-pxf-feeds.php:92
+#: includes/v2/engine/class-alg-wc-pxf-feeds.php:491
+msgid "Product feed"
+msgstr ""
+
+#: includes/v2/engine/class-alg-wc-pxf-rest.php:303
+#: includes/v2/engine/class-alg-wc-pxf-rest.php:377
+msgid "This channel is not available."
+msgstr ""
+
+#: includes/v2/engine/class-alg-wc-pxf-rest.php:484
+msgid "This product does not exist."
+msgstr ""
+
+#: includes/v2/engine/class-alg-wc-pxf-rest.php:489
+msgid "The preview is not available: a part of the plugin is missing."
+msgstr ""
+
+#: includes/v2/engine/class-alg-wc-pxf-rest.php:641
+msgid "The category map must be a list of category and Google category ids."
+msgstr ""
+
+#: includes/v2/engine/class-alg-wc-pxf-scheduler.php:75
+msgid "Once a day"
+msgstr ""
+
+#: includes/v2/engine/class-alg-wc-pxf-scheduler.php:76
+msgid "Only when I click Update"
+msgstr ""
+
+#. translators: %s: File format.
+#: includes/v2/engine/class-alg-wc-pxf-writer.php:100
+#, php-format
+msgid "The file format \"%s\" is not supported."
+msgstr ""
+
+#: includes/v2/engine/class-alg-wc-pxf-writer.php:226
+msgid "The feed file could not be created. Check that the uploads folder is writable."
+msgstr ""
+
+#: includes/v2/engine/class-alg-wc-pxf-writer.php:411
+msgid "The feed file is not open."
+msgstr ""
+
+#: includes/v2/engine/class-alg-wc-pxf-writer.php:417
+msgid "The feed file could not be written. Check the free disk space."
+msgstr ""
+
+#. translators: %s: field name, for example "Brand".
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:109
+#, php-format
+msgid "%s is missing. This channel needs it."
+msgstr ""
+
+#. translators: %s: field name, for example "MPN".
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:116
+#, php-format
+msgid "%s is missing. This channel needs it for this product."
+msgstr ""
+
+#. translators: %s: field name, for example "Color".
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:118
+#, php-format
+msgid "%s is missing. Adding it helps the product show up in more searches."
+msgstr ""
+
+#. translators: 1: field name, 2: number of characters, 3: most characters allowed.
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:129
+#, php-format
+msgid "%1$s has %2$s characters. This channel allows %3$s."
+msgstr ""
+
+#. translators: 1: field name, 2: the value, 3: list of accepted values.
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:139
+#, php-format
+msgid "%1$s \"%2$s\" is not accepted. Use one of: %3$s."
+msgstr ""
+
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:149
+msgid "The product has no price, or the price is 0. Channels do not accept free or unpriced products."
+msgstr ""
+
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:154
+msgid "The sale price is not lower than the regular price. Lower the sale price or remove it."
+msgstr ""
+
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:166
+msgid "The product has no main image. Add a product image."
+msgstr ""
+
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:169
+msgid "The main image is the WooCommerce placeholder. Channels reject placeholder images: add a real product photo."
+msgstr ""
+
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:182
+msgid "The GTIN must have 8, 12, 13 or 14 digits and nothing else (UPC, EAN, JAN, ISBN-13 or ITF-14)."
+msgstr ""
+
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:184
+msgid "The GTIN has a wrong last digit (check digit). Copy it again from the barcode on the package."
+msgstr ""
+
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:186
+msgid "The GTIN starts with a number reserved for in-store or coupon codes (02, 04, 2, 98 or 99). Google does not accept it: use the manufacturer's GTIN, or leave it empty."
+msgstr ""
+
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:202
+msgid "The product has no GTIN, and no brand with an MPN. Add the GTIN from the barcode; for handmade or own-brand products the feed says it has none."
+msgstr ""
+
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:204
+msgid "The product has a GTIN, but the feed says it has no identifiers. Remove the \"no identifiers\" setting for this product."
+msgstr ""
+
+#. translators: %s: the promotional words found, for example "sale, free shipping".
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:222
+#, php-format
+msgid "The title has promotional words (%s). Channels ask for the product name and its details only: no sale words, prices or shipping offers."
+msgstr ""
+
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:226
+msgid "The title is written in capital letters only. Channels ask for normal capitalization."
+msgstr ""
+
+#. translators: %s: number of products.
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:339
+#, php-format
+msgid "%s product has no price or a price of 0"
+msgid_plural "%s products have no price or a price of 0"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: number of products.
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:342
+#, php-format
+msgid "%s product has a sale price that is not lower than the price"
+msgid_plural "%s products have a sale price that is not lower than the price"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: number of products.
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:345
+#, php-format
+msgid "%s product has no main image"
+msgid_plural "%s products have no main image"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: number of products.
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:348
+#, php-format
+msgid "%s product shows the placeholder image"
+msgid_plural "%s products show the placeholder image"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: number of products.
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:351
+#, php-format
+msgid "%s product has a GTIN in the wrong format"
+msgid_plural "%s products have a GTIN in the wrong format"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: number of products.
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:354
+#, php-format
+msgid "%s product has a GTIN with a wrong check digit"
+msgid_plural "%s products have a GTIN with a wrong check digit"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: number of products.
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:357
+#, php-format
+msgid "%s product has a GTIN Google does not accept"
+msgid_plural "%s products have a GTIN Google does not accept"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: number of products.
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:360
+#, php-format
+msgid "%s product has no GTIN and no brand with MPN"
+msgid_plural "%s products have no GTIN and no brand with MPN"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: number of products.
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:363
+#, php-format
+msgid "%s product has a GTIN but is marked as having none"
+msgid_plural "%s products have a GTIN but are marked as having none"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: number of products.
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:366
+#, php-format
+msgid "%s title has promotional words"
+msgid_plural "%s titles have promotional words"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: number of products.
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:369
+#, php-format
+msgid "%s title is in capital letters only"
+msgid_plural "%s titles are in capital letters only"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: number of products, 2: field name, for example "Brand".
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:375
+#, php-format
+msgid "%1$s product has no %2$s"
+msgid_plural "%1$s products have no %2$s"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: number of products, 2: field name, for example "Title".
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:379
+#, php-format
+msgid "%1$s product has a %2$s that is too long"
+msgid_plural "%1$s products have a %2$s that is too long"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: number of products, 2: field name, for example "Availability".
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:383
+#, php-format
+msgid "%1$s product has a %2$s value the channel does not accept"
+msgid_plural "%1$s products have a %2$s value the channel does not accept"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: number of products, 2: issue code.
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:386
+#, php-format
+msgid "%1$s product: %2$s"
+msgid_plural "%1$s products: %2$s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:586
+msgid "Product link"
+msgstr ""
+
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:591
+msgid "Availability"
+msgstr ""
+
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:593
+msgid "GTIN"
+msgstr ""
+
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:603
+msgid "Product type"
+msgstr ""
+
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:604
+msgid "Identifier exists"
+msgstr ""
+
+#: includes/v2/validator/class-alg-wc-pxf-validator.php:605
+msgid "Variant group"
 msgstr ""

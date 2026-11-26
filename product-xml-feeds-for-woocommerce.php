@@ -2,8 +2,8 @@
 /*
 Plugin Name: Product XML Feed Manager for WooCommerce - Google Shopping, Social Sites, Skroutz & More
 Plugin URI: https://wpfactory.com/item/product-xml-feeds-woocommerce/
-Description: Create your own XML files using tens of preconfigured shortcodes for you on your WooCommerce store.
-Version: 3.1.4
+Description: Ready product feeds for Google Shopping, Meta, idealo, Skroutz and more, checked before they go out, with AI for titles and missing details. Your own XML templates keep working.
+Version: 4.0.0
 Author: WPFactory
 Author URI: https://wpfactory.com
 Text Domain: product-xml-feeds-for-woocommerce
@@ -55,7 +55,7 @@ if ( 'product-xml-feeds-for-woocommerce.php' === basename( __FILE__ ) ) {
 	}
 }
 
-defined( 'ALG_WC_PRODUCT_XML_FEEDS_VERSION' ) || define( 'ALG_WC_PRODUCT_XML_FEEDS_VERSION', '3.1.4' );
+defined( 'ALG_WC_PRODUCT_XML_FEEDS_VERSION' ) || define( 'ALG_WC_PRODUCT_XML_FEEDS_VERSION', '4.0.0' );
 
 defined( 'ALG_WC_PRODUCT_XML_FEEDS_FILE' ) || define( 'ALG_WC_PRODUCT_XML_FEEDS_FILE', __FILE__ );
 

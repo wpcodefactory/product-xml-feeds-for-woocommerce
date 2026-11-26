@@ -3,95 +3,57 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, kousikmukherjeeli, ae
 Tags: woocommerce, product xml feeds, xml, export
 Requires at least: 5.3
 Tested up to: 7.1
-Stable tag: 3.1.4
+Stable tag: 4.0.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Create your own XML feeds to export them, utilize tens of preconfigured shortcodes for you on your WooCommerce store as per marketplace needs
+Ready product feeds for Google Shopping, Meta, idealo and Skroutz, checked before they go out, with AI to fix titles and missing details.
 
 == Description ==
 
-> “Very good!: Very helpful support! I recomand this plugin, simple to use and very good documented.” – ⭐⭐⭐⭐⭐  [price4you](https://wordpress.org/support/topic/very-good-5904/)
+> “Very good!: Very helpful support! I recomand this plugin, simple to use and very good documented.” - ⭐⭐⭐⭐⭐  [price4you](https://wordpress.org/support/topic/very-good-5904/)
 
 [Main Page](https://wpfactory.com/item/product-xml-feeds-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "Main Page") | [Support Forum](https://wpfactory.com/support/item/product-xml-feeds-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "Support Forum") | [Documentation & How to](https://wpfactory.com/docs/product-xml-feeds-manager/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "Documentation & How to")
 
-Selling on marketplaces like Google & Amazon requires you to have custom XML feeds where you can export your products from WooCommerce to the marketplace.
+Pick where you sell, and the plugin builds a feed in that channel's format from your WooCommerce products: the right fields, the right values, variations as separate items, your WooCommerce GTIN and brands filled in. Before the feed goes out, every product is checked against the channel's rules, and you see in plain words what to fix.
 
-With our all-in-one toolkit designed to bridge the gap between your WooCommerce store and major marketplaces like Google Shopping, Amazon, and beyond, you can tailor and customize your product catalog in the exact language these global platforms understand: meticulously crafted XML feeds.
+= Ready feeds for =
 
-Here's a glimpse of what this plugin offers:
+* Google Shopping (Merchant Center), also used by Microsoft, Pinterest and TikTok catalogs
+* Meta (Facebook and Instagram catalog)
+* ChatGPT shopping (OpenAI product feed, US only, application required by OpenAI)
+* idealo, PriceRunner and Skroutz
+* Any other marketplace: your own XML or text template with the plugin's shortcodes
 
-1. XML Feed Creation: Create your XML feed to showcase your entire product range to any vendor.
+= What you get for free =
 
-2. Marketplace-specific Customization: Fine-tune your feeds to align with the unique specifications of each marketplace, whether it's Google, Social sites, Amazon, or any other marketplace.
+* Unlimited feeds and products
+* Fields mapped for you, with a meter that shows which required fields are still missing and a preview of one product
+* WooCommerce's own GTIN field and Brands used automatically (and the WPFactory EAN plugin when installed)
+* Google product categories mapped once per WooCommerce category
+* Checks before every update: missing brand or GTIN, wrong GTIN check digit, titles too long, prices, images
+* Feeds built in the background in small batches, so big stores do not time out; the last good feed stays online if an update fails
+* Stable feed URLs in your uploads folder; XML, CSV, TSV, JSONL and gzip
+* Daily updates, or update on demand
+* WPML: one feed per language
+* AI with free monthly credits: better feed titles, feed descriptions, Google category suggestions and missing colors, sizes and materials, always shown for your approval first
 
-3. Dynamic Product Selection: Include or exclude products based on categories, tags, and product.
+= Pro =
 
-4. Scheduled Updates (Pro): Set your XML feeds to refresh automatically, keeping your listings as current as your inventory.
+Our **[Pro version](https://wpfactory.com/item/product-xml-feeds-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "Pro version")** adds:
 
-5. Advanced Filtering Options (Partially Pro): Full customization with advanced filtering, allowing you to curate feeds that resonate with specific marketplace audiences.
+* Hourly and every-15-minutes updates, and an update soon after a product changes
+* Rules: if a field is empty use another, change values, price and date math
+* The full list of products with problems, and leave them out of the feed until they are fixed
+* EU pack: lowest price of the last 30 days for sale prices, unit prices, energy labels
 
-Let's explore in more details what you can do with this plugin.
+= Your existing feeds keep working =
 
-## 🤝 Recommended By##
-* [Galusso Themes: Top 7 Best Woocommerce Product Feed plugin](https://galussothemes.com/woocommerce-product-feed-plugins/ "Galusso Themes: Top 7 Best Woocommerce Product Feed plugin")
-* [Engine Templates: Amazing Woocommerce Product Feed Plugins](https://enginetemplates.com/woocommerce-product-feed-plugins/ "Engine Templates: Amazing Woocommerce Product Feed Plugins")
-* [L Theme: Top Best Woocommerce Product Feed plugins](https://ltheme.com/woocommerce-product-feed-plugins/ "L Theme: Top Best Woocommerce Product Feed plugins")
-* [Woo Sell Services: Best WooCommerce Product Import & Export Plugins For WordPress](https://woosellservices.com/woocommerce-product-import-plugins/ "Woo Sell Services: Best WooCommerce Product Import & Export Plugins For WordPress")
-* [SD Studio: 5 Best WooCommerce Product Feed Plugins](https://techblog.sdstudio.top/de/die-5-besten-woocommerce-produkt-feed-plugins-2022-kostenlos-und-kostenpflichtig/ "SD Studio: 5 Best WooCommerce Product Feed Plugins")
+Feeds made with earlier versions keep their settings, their file and their URL, and are built exactly as before. They are listed under Product Feeds next to your new feeds. To use the new engine with your own template, press "Copy to a new feed": you get a new feed with the same template and its own link, and the old feed stays as it is.
 
-## 🚀 Main Features: FREE Version ##
+> “Extra Star: Super fast and friendly support by Omar. Transferred a request immediately into a feature. Perfect. Thank you very much!” - ⭐⭐⭐⭐⭐ [charismeki](https://wordpress.org/support/topic/extra-star/)
 
-### 🚀 Create Customized XML Feeds ###
-Easily create XML feeds that fit what online stores like Amazon or Google Shopping need. This lets you show your products correctly on these platforms, helping customers find and buy your stuff with all details they need.
-Include images, prices, sizes, inventory, and much more info from your products to the marketplace.
-
-### 🚀 Edit XML Header, Body, and Footer ###
-
-Full customization of the header, body, and footer sections, ensuring that your feeds adhere to the unique XML format and standards required by different online marketplaces.
-
-### 🚀 Use Over 70 Shortcodes & Attributes ###
-
-With more than 50 shortcodes, you can show lots of details about your products. These shortcodes let you add info automatically, making your product listings full and accurate.
-
-Further more, you can utilize our global attributes and include them in your shortcodes, like text before or after them, finding & replacing values, and more.
-
-This lets you tweak how product info looks, making it clearer or fitting what certain platforms require.
-
-### 🚀 Change XML File Name & Location ###
-
-You can rename your XML file and decide where to keep it. This helps with organizing your feeds, especially if you have many or need to find them easily for updates.
-
-### 🚀 Update Feed Using Built-in Weekly Schedule or Manual Cron Job Command ###
-
-Update your feeds without doing it yourself by setting a weekly schedule or using a Cron Job Command. This keeps your product info up-to-date, showing your current items and prices.
-
-### 🚀 Filter Products for Your Feeds ###
-
-Choose which products to show in your feeds by filtering them by category, tag, product itself, or even if they're on sale. This lets you focus on showing the right products for different situations or sales.
-
-> “Extra Star: Super fast and friendly support by Omar. Transferred a request immediately into a feature. Perfect. Thank you very much!” – ⭐⭐⭐⭐⭐ [charismeki](https://wordpress.org/support/topic/extra-star/)
-
-> “Perfect: Great little plugin – very simple to setup and works flawlessly.” – ⭐⭐⭐⭐⭐ [southmartin](https://wordpress.org/support/topic/perfect-7931/)
-
-## 🏆 Pro Version ##
-Our **[Plugin Pro version](https://wpfactory.com/item/product-xml-feeds-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "Plugin Pro version")** features further expands the capabilities of our plugin so you can have more control on your feeds, like:
-
-### 🏆 Create Unlimited Feeds ###
-
-Make as many XML feeds as you need. This is perfect if you have lots of products or want to target different online stores, giving you the freedom to reach more customers.
-
-### 🏆 Flexible Update Schedule ###
-
-Choose how often to update your feeds, from every minute to once a week. This helps keep your product listings always up-to-date, whether you have fast-changing stock or regular updates.
-
-### 🏆 Select Product Types ###
-
-Decide which types of products to include in your feeds, such as simple, grouped, variable, or external. This lets you be more specific about what products you want to show on each marketplace.
-
-### 🏆 Advanced Filtering Options ###
-
-Use more detailed filters for your feeds, like whether products are in stock, their price range, custom categories, or specific attributes. This makes your feeds more targeted, only showing products that match exactly what you're looking for.
+> “Perfect: Great little plugin - very simple to setup and works flawlessly.” - ⭐⭐⭐⭐⭐ [southmartin](https://wordpress.org/support/topic/perfect-7931/)
 
 ## 💯 Why WPFactory? ##
 
@@ -122,13 +84,13 @@ WPFactory has a diverse range of plugins tailored to enhance your experience, so
 
 ###❤️ USER TESTIMONIALS: SEE WHAT OTHERS ARE SAYING! ###
 
-> “Great plugin with even greater support! They tend to update with every feature we could ask in a matter of days! Thank you!” – ⭐⭐⭐⭐⭐ [Gencho Tanev](https://wpfactory.com/item/product-xml-feeds-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme)
+> “Great plugin with even greater support! They tend to update with every feature we could ask in a matter of days! Thank you!” - ⭐⭐⭐⭐⭐ [Gencho Tanev](https://wpfactory.com/item/product-xml-feeds-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme)
 
-> “Great tool & one of the best support teams I've ever come across.” – ⭐⭐⭐⭐⭐ [Roger](https://wpfactory.com/item/product-xml-feeds-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme)
+> “Great tool & one of the best support teams I've ever come across.” - ⭐⭐⭐⭐⭐ [Roger](https://wpfactory.com/item/product-xml-feeds-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme)
 
-> “This Product XML Feeds for WooCommerce works really well. It takes up very little system resources, is extremly reliable and efficient, and is of high quality of coding. Support for this plug-in is very good. Omar is very responsive to support request, and has in-depth knowledge about the ins and outs of this plug-in. Highly recommanded.” – ⭐⭐⭐⭐⭐ [Xing Gao](https://wpfactory.com/item/product-xml-feeds-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme)
+> “This Product XML Feeds for WooCommerce works really well. It takes up very little system resources, is extremly reliable and efficient, and is of high quality of coding. Support for this plug-in is very good. Omar is very responsive to support request, and has in-depth knowledge about the ins and outs of this plug-in. Highly recommanded.” - ⭐⭐⭐⭐⭐ [Xing Gao](https://wpfactory.com/item/product-xml-feeds-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme)
 
-> “Simple and efficient, and the support is great: This plugin provides all the functionality I need even in free version. Inserting product information in XML is super easy with well documented shortcodes. I had a problem with shortcodes inside tag and Support responded quickly and found a solution instantly.” – ⭐⭐⭐⭐⭐ [Krzysztof Busłowicz](https://wordpress.org/support/topic/simple-and-efficient-and-the-support-is-great/)
+> “Simple and efficient, and the support is great: This plugin provides all the functionality I need even in free version. Inserting product information in XML is super easy with well documented shortcodes. I had a problem with shortcodes inside tag and Support responded quickly and found a solution instantly.” - ⭐⭐⭐⭐⭐ [Krzysztof Busłowicz](https://wordpress.org/support/topic/simple-and-efficient-and-the-support-is-great/)
 
 = Feedback =
 
@@ -136,6 +98,21 @@ WPFactory has a diverse range of plugins tailored to enhance your experience, so
 * [Visit plugin site](https://wpfactory.com/item/product-xml-feeds-woocommerce/).
 
 == Frequently Asked Questions ==
+
+= Do I need a Google Merchant Center account? =
+Yes, to show products on Google. The plugin gives you a feed URL; in Merchant Center add it as a scheduled fetch.
+
+= Does the plugin change my products? =
+No. Feed titles, descriptions and AI suggestions are saved for the feed only, and only after you approve them.
+
+= What does the AI cost? =
+Each connected site gets free monthly credits. You see the cost in credits before each run, and nothing goes into a feed until you approve it.
+
+= My store is big. Will it time out? =
+Feeds are built in small batches in the background. On a store with WP-Cron turned off, add a server cron job (Product Feeds > Settings).
+
+= Will my existing feeds change? =
+No. Feeds made with earlier versions keep their settings, file, URL and schedule, and are built exactly as before.
 
 = Source Code =
 
@@ -178,6 +155,8 @@ The JavaScript and CSS files in the `assets/build/` directory are generated from
 
 = External Services =
 
+This plugin can use WPFactory AI (https://ai.wpfactory.com), a service by WPFactory, for its AI features, paid with WPFactory credits. Nothing is sent until a site administrator connects the site on the AI Credits screen with an email address and a 6-digit code sent to it. When connecting, the site address and that email address are sent. After that, the text of each AI request the plugin makes (product names, descriptions, attributes and categories, never customer or order data) is sent when a user starts it; WPFactory AI passes it to Anthropic, its AI provider, to produce the answer. WPFactory AI keeps only numbers about each request (tokens, credits, time), never its content. [Terms](https://wpfactory.com/terms-conditions/#wpfactory-ai), [Privacy](https://wpfactory.com/privacy-policy/#wpfactory-ai).
+
 The plugin may connect to the European Central Bank (ECB) to retrieve current currency exchange rates required to convert prices from one currency to another.
 
 This connection is made only when the `convert_currency_from` and `convert_currency_to` shortcode attributes are used. No user or website data is sent to the ECB. The plugin only retrieves the current currency exchange rates from:
@@ -208,9 +187,22 @@ This connection is made only when the `convert_currency_from` and `convert_curre
 4. After the installation is complete, click “Activate”.
 
 **Post-Activation:**
-Once activated, access the plugin's settings by navigating to the “WPFactory” menu and look for the relevant tab.
+Once activated, go to WPFactory > Product Feeds and pick where you sell. Feeds made with earlier versions are listed there too.
 
 == Changelog ==
+
+= 4.0.0 - 26/11/2026 =
+* New - Product Feeds screen with ready feeds for Google Shopping, Meta, Pinterest, Microsoft, TikTok catalog, ChatGPT shopping, idealo, PriceRunner and Skroutz.
+* New - Fields mapped for you, with a required-fields meter and a one-product preview.
+* New - Product checks before every update, in plain words.
+* New - Google category mapping per WooCommerce category.
+* New - Background engine: small batches, stable feed URLs, the last good feed kept, XML, CSV, TSV, JSONL and gzip.
+* New - AI on WPFactory credits: feed titles and descriptions, Google category suggestions, missing colors, sizes and materials, approved by you first.
+* New - "Copy to a new feed" for feeds made with earlier versions: a new feed with the same template and its own link; the old feed stays as it is.
+* New - Pro: hourly and 15-minute updates, an update after a product change, rules, leave out products with errors, EU pack.
+* Improved - One "Product Feeds" menu item; feeds made with earlier versions open from the feeds list, and their settings page address still works.
+* Improved - The free version shows no locked Pro controls. The "Remove XML plugin branding" switch is gone (feeds have no credit comment since 3.1.4).
+* Dev - Feeds made with earlier versions keep their settings, file, URL and schedule and are built exactly as before.
 
 = 3.1.4 - 25/11/2026 =
 * Security - Feed file names ending in .php, .htaccess or other server files are refused, with a clear notice.
